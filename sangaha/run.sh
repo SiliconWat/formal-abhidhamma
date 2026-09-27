@@ -7,7 +7,7 @@ LEAN="${LEAN:-lean}"; export LEAN_PATH="../control:."
 build() { for f in Citta Rules AnswerKey; do $LEAN -o $f.olean $f.lean || return 1; done; }
 ( cd ../control && $LEAN -o Cetasika.olean Cetasika.lean ) || exit 1
 build || { echo "build failed"; exit 1; }
-if $LEAN Check.lean; then echo "PASS  9 theorems: 89 · 121 · distinct · both profiles · per-factor counts and absences (both reckonings)"
+if $LEAN Check.lean; then echo "PASS  12 theorems: 89 · 121 · distinct · both profiles · per-factor counts and absences · ch. 3 feelings and roots · the keci reading"
 else echo "FAIL  the checks"; exit 1; fi
 
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
@@ -26,4 +26,6 @@ try "R16 abstinences in functionals too"   Rules.lean     's/(c.bhumi == .kama \
 try "key: smile-producing 12 → 13"         AnswerKey.lean 's/\[10, 11, 12\]/[10, 11, 13]/'
 try "key: adhimokkha 78 → 77"              AnswerKey.lean 's/(adhimokkha, 78)/(adhimokkha, 77)/'
 try "generator: fine-material jhānas 1–4"  Citta.lean     's/\[1, 2, 3, 4, 5\].map fun n =>$/[1, 2, 3, 4].map fun n =>/'
-echo "$breaks of 6 deliberate breaks fail, as required"
+try "generator: smile with equanimity"     Citta.lean     's/{ jati := .kiriya, bhumi := .kama, vedana := .somanassa, root := .none }/{ jati := .kiriya, bhumi := .kama, vedana := .upekkha, root := .none }/'
+try "roots: knowledge adds no root"        Rules.lean     's/if c.knowing then 3 else 2/if c.knowing then 2 else 2/'
+echo "$breaks of 8 deliberate breaks fail, as required"

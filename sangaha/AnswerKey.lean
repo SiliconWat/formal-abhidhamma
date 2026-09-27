@@ -1,17 +1,19 @@
 /-
   THE ANSWER KEY — the Saṅgaha's own figures, entered SEPARATELY from the rules so the rules
   cannot restate it. Order follows the generator (tradition order within each group).
-  PROVENANCE (collated 2026-09-27): every figure below is checked against the Abhidhammattha-saṅgaha
-  ch. 2 as printed, Pāli with Nārada's English, at ballwarapol.github.io/sangaha/chapter_2.htm
-  (mirror of palikanon.com). The per-factor figures are the Pāli of §4–§5 verbatim:
-    "Chasaṭṭhi pañcapaññāsa ekādasa ca soḷasa / Sattati vīsati c'eva pakiṇṇakavivajjitā /
-     Pañcapaññāsa chasaṭṭhi-aṭṭhasattati tisattati / Ekapaññāsa c'ekūnasattati sapakiṇṇakā."
-  ⚠️ NOT YET COLLATED against the Chaṭṭha Saṅgāyana (CST) edition itself — the printed edition's
-  recension is not stated on the page. Until it is, a pass here is PROVISIONAL for P-FA1 (edition C).
-  ⚠️ THE TEXT MIXES RECKONINGS, and the key follows it: the jhāna-dependent factors (vitakka,
-  vicāra, pīti) are counted over 121, the rest over 89. Figures the text does not state are NOT keyed.
+  PROVENANCE — COLLATED 2026-09-27 AGAINST THE CHAṬṬHA SAṄGĀYANA (edition C): VRI tipitaka-xml,
+  `romn/abh07t.nrf.xml` (Abhidhammatthasaṅgaho), chapter 2 paragraph numbers cited per figure:
+    per-factor, §13–§19 ("Chasaṭṭhi pañcapaññāsa, ekādasa ca soḷasa; Sattati vīsati ceva … Pañcapaññāsa
+      chasaṭṭhiṭṭhasattati tisattati; Ekapaññāsa cekūnasattati sapakiṇṇakā") · unwholesome §20–§27 ·
+      beautiful §28–§32 · supramundane §36–§37 · sublime §38–§39 · sense-sphere beautiful §40–§41 ·
+      unwholesome groupings §43–§51 ("Ekūnavīsāṭṭhārasa, vīsekavīsa vīsati. Dvāvīsa pannarasa") ·
+      rootless §53–§58 · chapter 3 §3–§17 (feeling and root counts, `FeelingKey`/`RootKey` below).
+  Cross-checked against a second printing (Pāli + Nārada, ballwarapol.github.io/sangaha/chapter_2.htm).
+  ⚠️ THE TEXT MIXES RECKONINGS, and the key follows it: the jhāna-dependent factors (vitakka, vicāra,
+  pīti) and the feelings are counted over 121; the other factors and the roots over 89.
+  Figures the text does not state are NOT keyed.
 -/
-import Cetasika
+import Citta
 namespace FormalAbhidhamma
 
 def keyMundane : List Nat :=
@@ -47,5 +49,14 @@ def occurrenceKey89 : List (Cetasika × Nat) :=
    (dosa, 2), (issa, 2), (macchariya, 2), (kukkucca, 2), (thina, 5), (middha, 5), (vicikiccha, 1)] ++
   (beautifulUniversals.map (·, 59)) ++ (abstinences.map (·, 16)) ++ (illimitables.map (·, 28)) ++ [(panna, 47)]
 def absenceKey89 : List (Cetasika × Nat) := [(adhimokkha, 11), (viriya, 16), (chanda, 20)]
+
+/-- Chapter 3 §3–§9 (feelings, counted over 121): "Sukhamekattha dukkhañca, domanassaṃ dvaye ṭhitaṃ.
+    Dvāsaṭṭhīsu somanassaṃ, pañcapaññāsaketarā." — pleasure 1 · pain 1 · displeasure 2 · joy 62 · equanimity 55. -/
+def feelingKey121 : List (Vedana × Nat) :=
+  [(.sukha, 1), (.dukkha, 1), (.domanassa, 2), (.somanassa, 62), (.upekkha, 55)]
+
+/-- Chapter 3 §10–§17 (roots, counted over 89): "Ahetukāṭṭhārasekahetukā dve dvāvīsati. Dvihetukā matā
+    sattacattālīsatihetukā." — rootless 18 · one-rooted 2 · two-rooted 22 · three-rooted 47. -/
+def rootKey89 : List (Nat × Nat) := [(0, 18), (1, 2), (2, 22), (3, 47)]
 
 end FormalAbhidhamma

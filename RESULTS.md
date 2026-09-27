@@ -42,3 +42,39 @@ Results are appended below; an earlier result is never edited. Predictions are s
 - **The rules were written by someone who knew the tables.** The guard against circularity is that no rule names a citta, and that the per-factor statements are an independent second key. A knowledgeable author can still fit general rules to a known answer. **The stronger tests are still ahead:** the canon alone (P-FA2) and a second edition (P-FA3).
 - **The generator restates chapter 1's axes; it does not discover them.** What it shows is that the 89/121 is exactly a product structure over those axes with nine clauses.
 - This checks internal consistency: conclusions follow from definitions. It says nothing about whether the Abhidhamma is true.
+
+---
+
+## 2026-09-27 (later) — Rung 2b: collated against the Chaṭṭha Saṅgāyana; chapter 3 as a second key
+
+**Source:** the VRI's own text, [`VipassanaTech/tipitaka-xml` `romn/abh07t.nrf.xml`](https://github.com/VipassanaTech/tipitaka-xml) (*Abhidhammatthasaṅgaho*). `AnswerKey.lean` now cites a CST paragraph for every figure. **Every figure in the key matches the CST:**
+
+- per-factor §13–§19, including the verse at §19, word for word as in the earlier printing;
+- unwholesome §20–§27;
+- beautiful §28–§32;
+- supramundane §36–§37, *"Chattiṃsa pañcatiṃsa ca, catuttiṃsa … Tettiṃsadvayam"*: 36 · 35 · 34 · 33 · 33;
+- sublime §38–§39;
+- sense-sphere beautiful §40–§41;
+- the unwholesome groupings §43–§51, *"Ekūnavīsāṭṭhārasa, vīsekavīsa vīsati. Dvāvīsa pannarasa"*;
+- rootless §53–§58.
+
+`sangaha/run.sh` → **PASS, 12 theorems; 8 of 8 deliberate breaks fail.**
+
+### Three new theorems
+
+| Theorem | Statement | What it tests |
+|---|---|---|
+| `feelings121` | ch. 3 §3–§9, *"Sukhamekattha dukkhañca, domanassaṃ dvaye ṭhitaṃ. Dvāsaṭṭhīsu somanassaṃ, pañcapaññāsaketarā"*: pleasure 1 · pain 1 · displeasure 2 · joy 62 · equanimity 55 | the generator's **feeling** axis against a chapter it was not built from |
+| `roots89` | ch. 3 §10–§17: rootless 18 · one-rooted 2 · two-rooted 22 · three-rooted 47 | the generator's **root and knowledge** axes, likewise |
+| `keci_reading` | ch. 2 §30 records a dissent: *"upekkhāsahagatesu panettha karuṇāmuditā na santīti keci vadanti"* (some say compassion and appreciative joy are absent with equanimity). Under that reading the illimitables occur in **20** cittas; under the main reading, **28** | **The text's own count decides between the two readings it reports.** §30 states 28, so the main reading is the one the counts presuppose |
+
+### Scoring (final for these two)
+
+- **P-FA1: CONFIRMED.** At L2, edition C, general rules generate exactly 89 citta-types and 121 with the five-jhāna expansion. Every per-citta and per-factor count the CST states is reproduced.
+- **P-FA4: CONFIRMED.** Compression 27 ÷ 121 = 0.22 (0.24 counting §G5's members singly).
+- **P-FA1b: still NOT SCORED** (registration not operational). An operational version will be registered as a new entry before it is tested.
+- **P-FA2, P-FA3: not yet run.**
+
+### ⚠️ A finding about P-FA3 as registered
+
+P-FA3 compares the Khmer edition (K) with the CST (C) **at layer L2, which includes the *Saṅgaha***. The *Saṅgaha* is a post-canonical manual, **not part of the Khmer Tipiṭaka**; the Buddhist Institute canon ends with the Abhidhamma Piṭaka. The one Khmer-script *Saṅgaha* we hold (a 2022 PDF) is set with the CST's own paragraph numbering, so it is **probably the CST transliterated, not an independent Khmer recension** (under test). If so, P-FA3 **cannot be run as registered.** A Khmer-vs-CST comparison **of the canon (L1, the Dhammasaṅgaṇī)** is possible, but that is a *different* prediction. It must be registered, as a new entry, before any Khmer text is read.

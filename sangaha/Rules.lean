@@ -31,6 +31,20 @@ def arises (c : Citta) (x : Cetasika) : Bool :=
     ((c.bhumi == .kama && c.jati != .vipaka) || (c.bhumi == .rupa && c.jhana ≤ 4))
   else c.root == .beautiful && c.knowing                                                -- §R18 wisdom: knowledge-associated
 
+/-- The number of roots (hetu) a citta has: greed or hate brings delusion with it; delusion alone is one;
+    the beautiful have non-greed and non-hate, and non-delusion when knowledge-associated. -/
+def hetus (c : Citta) : Nat :=
+  match c.root with
+  | .lobha | .dosa => 2 | .mohaDoubt | .mohaRestless => 1 | .none => 0
+  | .beautiful => if c.knowing then 3 else 2
+
+/-- The MINORITY reading the text records at ch. 2 §30 — "upekkhāsahagatesu panettha karuṇāmuditā na
+    santīti keci vadanti" (some say compassion and appreciative joy are absent with equanimity).
+    Not used by `arises`; kept to show the text's own count decides between the readings. -/
+def illimitablesKeci (c : Citta) : Bool :=
+  c.root == .beautiful && c.vedana != .upekkha &&
+    ((c.bhumi == .kama && c.jati != .vipaka) || (c.bhumi == .rupa && c.jhana ≤ 4))
+
 def count (c : Citta) : Nat := (FormalAbhidhamma.all.filter (arises c)).length
 def occurrences (cs : List Citta) (x : Cetasika) : Nat := (cs.filter fun c => arises c x).length
 
