@@ -2,3 +2,4 @@
 *.ilean
 *.c
 .lake/
+__pycache__/
