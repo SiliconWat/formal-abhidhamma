@@ -57,7 +57,7 @@ PASS  9 theorems: 89 · 121 · distinct · both profiles · per-factor counts an
 **Rung 2b — done.** The key is collated paragraph by paragraph against the Chaṭṭha Saṅgāyana (VRI `abh07t`), and chapter 3's feeling and root counts are added as a second key. **P-FA1 and P-FA4 are CONFIRMED.**
 
 **Rung 3 — done 2026-09-27** (`canon/`, `sangaha/Canon.lean`):
-- **The canon alone names 29 of the 38 cetasikas of the first wholesome citta.** The *Saṅgaha* adds exactly the nine the canon leaves under *"ye vā pana"*, and contradicts none (P-FA2a ✓, P-FA2b ✓).
+- **The canon alone names 29 of the 38 cetasikas of the first wholesome citta**, which is the Aṭṭhasālinī's own *samatiṃsa*, reproduced. The rest of the *Saṅgaha*'s 38 is exactly the commentary's nine *yevāpanaka*: inherited, and contradicting none (P-FA2a ✓, P-FA2b ✓; see the corrections in `RESULTS.md`).
 - **The Khmer edition and the CST name the same 56 terms in the same order** (P-FA5 ✓). Every spelling difference was checked against the printed page.
 
 ```
