@@ -1,27 +1,3 @@
-SCOPE — READ THIS FIRST
-=======================
-
-Most of this corpus is CC0 1.0 Universal, and the full legal text follows below.
-
-⚠️ IT IS NOT ALL OF IT. Each document's own `license:` field, in its front matter,
-is the AUTHORITY for that document. Where a file declares something other than
-CC0-1.0, that declaration governs and this file does not.
-
-As of 2026-09-01: 96 files are CC0-1.0, and 7 author-voice essays are CC-BY —
-attribution is the point of a personal essay in a way it is not for a mechanism
-paper written to be borrowed.
-
-Why it is stated this way rather than by splitting the repo, which is what was
-done for the rights-reserved film work: CC0 and CC-BY are both open, and both
-permit redistribution and derivatives. The film split exists because
-rights-reserved text cannot sit under an open LICENSE without the LICENSE being
-false. CC-BY beside CC0 needs a scope line, not a second repository.
-
-`scripts/check-frontmatter.mjs` asserts every document declares a licence and
-that it is one of the two. A document with no declaration is a build failure,
-because anything serving this corpus gates on that field.
-
---------------------------------------------------------------------------------
 
 Creative Commons Legal Code
 
