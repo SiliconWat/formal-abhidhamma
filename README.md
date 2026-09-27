@@ -1,0 +1,37 @@
+# Formal Abhidhamma
+
+*A research program to express the Theravāda Abhidhamma in the language of mathematics — machine-checked, pre-registered, open.*
+Thon Ly · Miss Aquarius℠ (AI collaboration, disclosed) · Silicon Wat℠ · CC0-1.0
+
+## What this is
+
+The Abhidhamma analyses experience into typed elements: 89 (by fuller reckoning 121) types of consciousness (*citta*), 52 mental factors (*cetasika*), 28 kinds of matter (*rūpa*), and 24 kinds of conditioning relation (*paccaya*). The tradition states that the citta-types arise *by composition* from the cetasikas.
+
+This program tests that statement. If the combination rules are written as **general constraints** (never as a per-citta table), do they generate exactly the traditional counts?
+
+- **If they do**, the system is internally consistent, and the rules are a compression of the table. The ratio is reported.
+- **If they do not**, the gap is the finding: either a rule was lost in transmission, or a rule was never stated.
+
+## Method (fixed before any code ran)
+
+1. **Two editions.** The Khmer edition and the Chaṭṭha Saṅgāyana (CST) are formalized separately.
+2. **Textual layers as a variable.** canon (Dhammasaṅgaṇī, Paṭṭhāna) → + *Abhidhammattha-saṅgaha* → + commentaries. The question is which layer the counts first become derivable in.
+3. **Machine-checked.** Rules in Lean 4; each count is a theorem anyone can re-run.
+4. **The instrument is tested on a known answer and a known failure** before it is trusted (`control/`).
+5. **Pre-registered.** `PREREGISTRATION.md` was pushed before the first line of formalization. GitHub's push record, not a commit date, is the timestamp.
+6. **Three arms kept apart.** A: formal (this repo, the core). B: perception science (calibrate-then-predict, needs an EEG partner). C: a comparison with discrete quantum-gravity programs, a **lens only**, never a claim.
+7. **Kill criteria written in advance** (`PREREGISTRATION.md` §4).
+8. **Open by default.** CC0.
+
+## What this is not
+
+It is not a proof that the Abhidhamma is true, and not a claim that it predicts physics. A proof assistant verifies that conclusions follow from the stated definitions. Nothing more. Tier labels distinguish canon, the *Saṅgaha*, the commentaries, and our own reconstruction.
+
+## Neighbours (cited, not competed with)
+
+- [takuya50/buddhist-comparative-logic](https://github.com/takuya50/buddhist-comparative-logic): Lean 4 + Isabelle formalization of the Heart Sutra, Madhyamaka, pramāṇa and Yogācāra (2026-09-20).
+- [PJ-Oliveira/abhidhamma](https://github.com/PJ-Oliveira/abhidhamma): an interactive citta-vīthi simulator, cetasika analyzer and Paṭṭhāna matrix.
+
+## Status
+
+Rung 1: pre-registration (this push), then the control in `control/`.
