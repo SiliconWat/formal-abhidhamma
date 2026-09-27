@@ -46,4 +46,12 @@ C2 ✓ deleting 'pīti only with joy' breaks the count, as required
 - `control/Rules.lean` defines the eight wholesome sense-sphere cittas as three binary axes. **Six general rules, none naming a citta**, reproduce the *Saṅgaha*'s counts. Compression on the control: 6 rules ÷ 8 rows = 0.75.
 - `control/Broken.lean` is the same file with rule R2 deleted on purpose. Lean refuses it: *"`decide` proved that the proposition … is false."*
 
-**Next rung:** the remaining 81 of the 89 at layer L2, edition C, then the Khmer edition.
+**Rung 2 — done 2026-09-27** (`sangaha/`, `RESULTS.md`). 9 general generator clauses and 18 general cetasika rules, none naming a citta, give **all 89 and all 121 citta-types and every per-citta and per-factor count chapter 2 states**, checked by `decide` against a key collated from the printed Pāli. Six deliberate breaks each fail. P-FA1 and P-FA4 are **provisionally confirmed**, pending collation with the Chaṭṭha Saṅgāyana. P-FA1b is **not scored**: its registration was not operational.
+
+```
+$ sangaha/run.sh
+PASS  9 theorems: 89 · 121 · distinct · both profiles · per-factor counts and absences (both reckonings)
+6 of 6 deliberate breaks fail, as required
+```
+
+**Next:** collate the key with the Chaṭṭha Saṅgāyana · register an operational P-FA1b · the canon alone (P-FA2) · the Khmer edition (P-FA3).
