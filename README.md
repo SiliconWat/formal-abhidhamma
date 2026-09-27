@@ -34,4 +34,16 @@ It is not a proof that the Abhidhamma is true, and not a claim that it predicts 
 
 ## Status
 
-Rung 1: pre-registration (this push), then the control in `control/`.
+**Rung 1 — done 2026-09-27.** The pre-registration was pushed first (commit `259e5e8`, GitHub push record 2026-09-27T22:07:02Z). The control was written afterwards and passes:
+
+```
+$ control/run.sh          # Lean 4.34.1, no dependencies
+C1 ✓ the eight wholesome cittas: 8 types, 38·38·37·37·37·37·36·36
+C2 ✓ deleting 'pīti only with joy' breaks the count, as required
+```
+
+- `control/Cetasika.lean` defines the 52 cetasikas in four classes (theorems: 52 in total; 7 · 6 · 14 · 25).
+- `control/Rules.lean` defines the eight wholesome sense-sphere cittas as three binary axes. **Six general rules, none naming a citta**, reproduce the *Saṅgaha*'s counts. Compression on the control: 6 rules ÷ 8 rows = 0.75.
+- `control/Broken.lean` is the same file with rule R2 deleted on purpose. Lean refuses it: *"`decide` proved that the proposition … is false."*
+
+**Next rung:** the remaining 81 of the 89 at layer L2, edition C, then the Khmer edition.
