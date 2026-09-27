@@ -78,3 +78,53 @@ Results are appended below; an earlier result is never edited. Predictions are s
 ### ⚠️ A finding about P-FA3 as registered
 
 P-FA3 compares the Khmer edition (K) with the CST (C) **at layer L2, which includes the *Saṅgaha***. The *Saṅgaha* is a post-canonical manual, **not part of the Khmer Tipiṭaka**; the Buddhist Institute canon ends with the Abhidhamma Piṭaka. The one Khmer-script *Saṅgaha* we hold (a 2022 PDF) is set with the CST's own paragraph numbering, so it is **probably the CST transliterated, not an independent Khmer recension** (under test). If so, P-FA3 **cannot be run as registered.** A Khmer-vs-CST comparison **of the canon (L1, the Dhammasaṅgaṇī)** is possible, but that is a *different* prediction. It must be registered, as a new entry, before any Khmer text is read.
+
+---
+
+## 2026-09-27 (night) — Rung 3: the canon alone (L1), and the Khmer edition against the CST
+
+Pre-registered in `PREREGISTRATION-2026-09-27b.md` (commit `f4a26e5`, GitHub push 2026-09-27T23:04:29Z), with the synonym map fixed there before either text was read. Entered in the public prediction register before this run.
+
+### P-FA2a — CONFIRMED (the canon alone does not give the 38)
+
+**Edition C** is VRI `romn/abh01m.mul.xml`, §1, the *pada-bhājanīya* of the first wholesome sense-sphere citta. `canon/pada.py` finds **56 terms**, mapping to **exactly 29 distinct cetasikas**. **None** of *chanda, adhimokkha, manasikāra, tatramajjhattatā, karuṇā, muditā* or the three abstinences is named. The list closes with the open clause *"ye vā pana tasmiṃ samaye aññepi atthi paṭiccasamuppannā arūpino dhammā"*. The nine-factor detector was first tested on a control list naming four of them; it caught all four, inflected forms included.
+
+**In Lean** (`sangaha/Canon.lean`, 4 theorems):
+- the canon's 29 are distinct;
+- **every one is also given by the *Saṅgaha*'s rules for this citta (L2 adds to L1, never contradicts it);**
+- what L2 adds is **exactly the nine *ye vā pana* factors**, so 29 + 9 = 38.
+
+A deliberate break (counting *chanda* as named) fails.
+
+### P-FA2b — CONFIRMED, with one disclosure
+
+The **first run reported 2 UNMAPPED terms, *kāyujukatā* and *cittujukatā***. Both are **sandhi** forms (kāya + ujukatā, citta + ujukatā), and §3 of the pre-registration requires sandhi to be normalized before mapping; the script had not implemented that case. With the vowel-elision rule added (it is in `pada.py`, commented as added after the first run), **0 terms are unmapped**. Both runs are reported here. Neither the map nor the prediction was changed.
+
+### P-FA5 — CONFIRMED (same terms, same order)
+
+**Edition K** is the Buddhist Institute edition, volume 78 (Dhammasaṅgaṇī part 1), pp. 16–17, as transcribed. It was transliterated by `canon/khmer_pali.py` (10/10 on a control of known words) and aligned by `canon/compare.py`: **C 56 terms · K 56 terms · 48 identical · 8 spelled differently · 0 added, dropped or reordered.**
+
+Each of the 8 was checked against the **printed page image** (the scan of volume 78, pp. 16–17), as §4 requires:
+
+| Pos. | CST | Transcription | Printed page | Verdict |
+|---|---|---|---|---|
+| 37 | *hirī* | *hiri* | *hiri* | **edition orthography** |
+| 39 | *kāyapassaddhi* | *kāyappassaddhi* | *kāyappassaddhi*, with the edition's own note: Burmese reads *kāyapassaddhi* | **edition orthography, recorded in its apparatus** |
+| 40 | *cittapassaddhi* | *cittappasaddhi* | *cittappassaddhi* | edition orthography (*pp*); the single *s* is a transcription slip |
+| 10 | *cittassekaggatā* | *cittaspekaggatā* | *cittassekaggatā* | transcription slip |
+| 17 | *somanassindriyaṃ* | *somanassidṭhiyaṃ* | *somanassindriyaṃ* | transcription slip |
+| 47 | *kāyapāguññatā* | *kāyapātuññatā* | *kāyapāguññatā* | transcription slip |
+| 12, 25 | *vīriya-* | *viriya-* | *vīriya-* (long ī; read at moderate confidence from the scan) | transcription slip, to confirm |
+
+**No variant of the term list exists between the two editions for this passage.** Three differences are the Khmer edition's own orthography, which it documents against the Burmese in its apparatus. Five are slips in the working transcription; they have been reported to the transcriber as corrections, never as variants.
+
+### Also found
+
+- **The transcription's subscript order.** Some words carry the subscript RO typed before another subscript (ន្រ្ទ for ន្ទ្រ), which reads as *-inrdiyaṃ*. The transliterator normalizes the order. This is an encoding matter, not a textual one.
+- **Page furniture.** A running header between a term and its *hoti* at a page break first produced a false DIFFERENT (*paññābalaṃ* against the header). Page furniture is now stripped before alignment.
+
+### Scope and limits
+
+- This is **one passage**: the first citta's list, the densest in the book. It is not the whole Dhammasaṅgaṇī.
+- K is a working transcription. Its text is read privately and **not reproduced here**; only counts and single romanized terms are.
+- **Lineage** of the Khmer scans: Kang Huychan and family · Lok Kru Aggapaṇḍita But Savong · Srong Chanda · 5000-years.org. The transcription is by Thon Ly's father.

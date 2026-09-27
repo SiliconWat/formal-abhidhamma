@@ -54,4 +54,15 @@ PASS  9 theorems: 89 · 121 · distinct · both profiles · per-factor counts an
 6 of 6 deliberate breaks fail, as required
 ```
 
-**Next:** collate the key with the Chaṭṭha Saṅgāyana · register an operational P-FA1b · the canon alone (P-FA2) · the Khmer edition (P-FA3).
+**Rung 2b — done.** The key is collated paragraph by paragraph against the Chaṭṭha Saṅgāyana (VRI `abh07t`), and chapter 3's feeling and root counts are added as a second key. **P-FA1 and P-FA4 are CONFIRMED.**
+
+**Rung 3 — done 2026-09-27** (`canon/`, `sangaha/Canon.lean`):
+- **The canon alone names 29 of the 38 cetasikas of the first wholesome citta.** The *Saṅgaha* adds exactly the nine the canon leaves under *"ye vā pana"*, and contradicts none (P-FA2a ✓, P-FA2b ✓).
+- **The Khmer edition and the CST name the same 56 terms in the same order** (P-FA5 ✓). Every spelling difference was checked against the printed page.
+
+```
+$ sangaha/run.sh
+PASS  12 theorems …   PASS  4 theorems (rung 3) …   9 of 9 deliberate breaks fail, as required
+```
+
+**Next:** extend both comparisons beyond the first citta · arm B (perception) needs a partner.
