@@ -17,8 +17,9 @@ theorem absences89  : absenceKey89.all (fun (x, n) => cittas89.length - occurren
 theorem feelings121 : feelingKey121.all (fun (v, n) => (cittas121.filter (·.vedana == v)).length == n) = true := by decide
 /-- Chapter 3's root counts, from the generator's root and knowledge axes. -/
 theorem roots89 : rootKey89.all (fun (h, n) => (cittas89.filter (hetus · == h)).length == n) = true := by decide
-/-- §30: the main reading gives the text's 28; the reading of "some" (keci) gives 20. The text's own figure
-    decides between them. -/
+/-- §30: the main reading gives the text's 28; the reading of "some" (keci) gives 20. The author's stated
+    figures ENCODE the main reading; the Saṅgaha itself does not decide the dissent (its ṭīkā, the Vibhāvinī,
+    argues for the main reading at §30). Corrected 2026-09-28; see RESULTS.md, correction 4. -/
 theorem keci_reading : (cittas89.filter illimitablesKeci).length = 20 := by decide
 
 end FormalAbhidhamma

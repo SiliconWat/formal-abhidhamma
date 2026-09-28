@@ -143,3 +143,8 @@ The earlier entries stand as written. This entry corrects them. Each citation be
 6. **"General" needs its extension.** Some rules transcribe the *Saṅgaha*'s own locus sentences (R16 the abstinences, §29; R17 the illimitables, §30), and R5's extension among the rootless is two cittas. **What the Lean check establishes is that the chapter's two methods, factor by factor (*sampayoga-naya*, §13–§34) and citta by citta (*saṅgaha-naya*, §35–§58), are mutually consistent, together with chapter 3.** That is a consistency result, not a derivation independent of the text.
 
 No prediction's registered wording is affected. P-FA2a's claim, that the 38 is not derivable from the canon alone, stands.
+
+## Corrections, 2026-09-28 (the paper's first cold-review round)
+
+5. **Paragraph numbers.** The key's docstrings cited Nārada's printing (§4–§9) while its header cites the CST (§12–§32). The docstrings now give both. The §4(c)/§4(d) references above are to Nārada's printing.
+6. **"Decides", in the code.** Correction 4 above retracted *"the text's own count decides"*, but the comments on `keci_reading` (Check.lean) and `illimitablesKeci` (Rules.lean) still carried it. Both now read: the figures encode the main reading; the Saṅgaha does not decide the dissent; its ṭīkā, the Vibhāvinī, argues for the main reading at §30 (same CST file, `abh07t.nrf.xml`, from line 3505).

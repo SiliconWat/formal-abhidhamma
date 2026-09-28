@@ -33,12 +33,12 @@ def key89  : List Nat := keyMundane ++ List.replicate 8 36
 def key121 : List Nat := keyMundane ++ (List.replicate 8 [36, 35, 34, 33, 33]).flatten
 
 open Cetasika
-/-- Saṅgaha ch. 2 §4–§5, counted over 121 (the text's reckoning for the jhāna-dependent factors):
+/-- Saṅgaha ch. 2, CST §12–§19 (Nārada's printing §4–§5), counted over 121 (the text's reckoning for the jhāna-dependent factors):
     "with" 55 · 66 · 51 and "without" 66 · 55 · 70. -/
 def occurrenceKey121 : List (Cetasika × Nat) := [(vitakka, 55), (vicara, 66), (piti, 51)]
 def absenceKey121    : List (Cetasika × Nat) := [(vitakka, 66), (vicara, 55), (piti, 70)]
 
-/-- Saṅgaha ch. 2 §4–§5 and §6–§9, counted over 89: universals in all 89 · adhimokkha 78 · viriya 73 ·
+/-- Saṅgaha ch. 2, CST §12–§32 (Nārada's printing §4–§9), counted over 89: universals in all 89 · adhimokkha 78 · viriya 73 ·
     chanda 69 (without: 11 · 16 · 20) · the four unwholesome universals 12 · lobha 8 · diṭṭhi 4 · māna 4 ·
     the hate quartet 2 · thīna-middha 5 · vicikicchā 1 · beautiful universals 59 · abstinences 16 ·
     illimitables 28 · paññā 47. -/

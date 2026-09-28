@@ -40,7 +40,8 @@ def hetus (c : Citta) : Nat :=
 
 /-- The MINORITY reading the text records at ch. 2 §30 — "upekkhāsahagatesu panettha karuṇāmuditā na
     santīti keci vadanti" (some say compassion and appreciative joy are absent with equanimity).
-    Not used by `arises`; kept to show the text's own count decides between the readings. -/
+    Not used by `arises`; kept to count what the dissent would cost in the text's own figures (20 against the
+    stated 28). The figures encode the main reading; they do not decide the dissent (corrected 2026-09-28). -/
 def illimitablesKeci (c : Citta) : Bool :=
   c.root == .beautiful && c.vedana != .upekkha &&
     ((c.bhumi == .kama && c.jati != .vipaka) || (c.bhumi == .rupa && c.jhana ≤ 4))
