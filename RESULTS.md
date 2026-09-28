@@ -148,3 +148,4 @@ No prediction's registered wording is affected. P-FA2a's claim, that the 38 is n
 
 5. **Paragraph numbers.** The key's docstrings cited Nārada's printing (§4–§9) while its header cites the CST (§12–§32). The docstrings now give both. The §4(c)/§4(d) references above are to Nārada's printing.
 6. **"Decides", in the code.** Correction 4 above retracted *"the text's own count decides"*, but the comments on `keci_reading` (Check.lean) and `illimitablesKeci` (Rules.lean) still carried it. Both now read: the figures encode the main reading; the Saṅgaha does not decide the dissent; its ṭīkā, the Vibhāvinī, argues for the main reading at §30 (same CST file, `abh07t.nrf.xml`, from line 3505).
+7. **The sampayoga range.** CST numbering puts the chapter-2 method at §12–§34, not §13–§34 as written above. The ten collation control words are now committed (`canon/CONTROL-WORDS.md`).
