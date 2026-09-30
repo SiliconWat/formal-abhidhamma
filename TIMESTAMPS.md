@@ -16,7 +16,7 @@ derivation that tests them. Three independent dates back that up:
 | Stamped (frozen once written) | Not stamped (living; history is in git) |
 |---|---|
 | `runs/*/PREREG.md` — stamped AT registration by `prereg.py`, before the agent runs | `kala/` — `AXIOMS.md`, `Axioms.lean`, `Time.lean` change as axioms are verified; each PREREG copies the rows it used verbatim, so the stamped PREREG carries them |
-| `runs/*/DERIVATION.md`, `runs/*/RUN.md`, `runs/*/*.lean` | `RESULTS.md` — revised as rungs complete |
+| `runs/*/DERIVATION.md`, `runs/*/RUN.md`, `runs/*/*.lean` | `RESULTS.md` — revised as rungs complete · `runs/INDEX.md` — regenerated on every run (one proof was taken by mistake on 2026-09-30 and is KEPT; the verifier classes the file exempt) |
 | `PREREGISTRATION*.md` | `README.md`, this file |
 
 `ots stamp` overwrites an existing proof, so a stamped file is never edited. A correction is a new file

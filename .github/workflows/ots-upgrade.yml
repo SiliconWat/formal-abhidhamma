@@ -59,7 +59,7 @@ jobs:
           # kala/ (AXIOMS.md changes as citations are verified) and RESULTS.md. A run's Lean files are stamped too.
           mapfile -t unstamped < <( { find . -name '*.md' \
             ! -name 'README.md' ! -name 'TIMESTAMPS.md' \
-            ! -path './.github/*' ! -path './kala/*' ! -path './timestamps/*' ! -name 'RESULTS.md' -print
+            ! -path './.github/*' ! -path './kala/*' ! -path './timestamps/*' ! -name 'RESULTS.md' ! -path './runs/INDEX.md' -print
             find ./runs -name '*.lean' -print; } | sort | while read -r f; do
               [ -f "$f.ots" ] || echo "$f"; done)
           if [ ${#unstamped[@]} -eq 0 ]; then
