@@ -19,6 +19,9 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.23067242"
     description: "v0.1.0"
+  - type: swh
+    value: "swh:1:snp:1c9b8223ad236d5dd5f34a322d484b41b648bcdf"
+    description: "Software Heritage snapshot, 2026-09-30"
 repository-code: "https://github.com/SiliconWat/formal-abhidhamma"
 license: CC0-1.0
 keywords:
