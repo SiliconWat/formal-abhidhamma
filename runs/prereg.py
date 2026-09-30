@@ -43,7 +43,10 @@ def main():
     table, ids = rows(), [x.strip() for x in a.axioms.split(",") if x.strip()]
     missing = [i for i in ids if i not in table]
     if missing: sys.exit(f"refused: not in AXIOMS.md: {', '.join(missing)}")
-    recalled = [i for i in ids if "RECALLED" in table[i]]
+    def status(row):                      # the Status column only (6-cell rows); a citation may mention RECALLED for a sub-locus
+        cells = [c.strip() for c in row.strip().strip("|").split("|")]
+        return cells[4] if len(cells) >= 6 else ""
+    recalled = [i for i in ids if "RECALLED" in status(table[i])]
     if recalled and not a.allow_recalled:
         sys.exit(f"refused: RECALLED (unverified) axioms {', '.join(recalled)} — verify them with cst.py and update AXIOMS.md, or pass --allow-recalled and carry the word into the report")
     head = sh("git", "rev-parse", "--short", "HEAD")
