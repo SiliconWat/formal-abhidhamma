@@ -33,9 +33,13 @@ def main():
     p.add_argument("--axioms", required=True)
     p.add_argument("--predict", action="append", default=[]); p.add_argument("--pass", dest="passc", action="append", default=[])
     p.add_argument("--allow-recalled", action="store_true"); p.add_argument("--control", action="store_true")
+    # A control the texts should WIN (founder 2026-09-30): without it every control is one-sided, and an instrument
+    # biased AGAINST the texts would pass them all (the "Letting the Texts Lose" refuter, finding 1).
+    p.add_argument("--control-agree", action="store_true")
     p.add_argument("--dry-run", action="store_true")
     a = p.parse_args()
     if not re.fullmatch(r"[a-z0-9-]+", a.slug): sys.exit("slug: lowercase letters, digits, hyphens")
+    if a.control and a.control_agree: sys.exit("refused: --control (texts should LOSE) and --control-agree (texts should WIN) are exclusive")
     if not a.predict: sys.exit("refused: at least one --predict is required — a run with no prediction cannot fail")
     date = datetime.datetime.now().strftime("%Y-%m-%d")          # the founder's machine date
     d = os.path.join(REPO, "runs", f"{date}-{a.slug}")
@@ -54,7 +58,7 @@ def main():
     tip = open(stamp).readline().strip() if os.path.exists(stamp) else "UNKNOWN — run cst-sync.py --apply first"
     win = [table["A0"]] if a.window == "A0" else [table["A0′"]] if a.window == "A0′" else [table["A0"], table["A0′"]]
     hdr = "| ID | Statement | Tier | Citation | Status | Lean |\n|---|---|---|---|---|---|"
-    body = f"""# PRE-REGISTRATION — {a.slug}{' (CONTROL: a case chosen because the texts should LOSE)' if a.control else ''}
+    body = f"""# PRE-REGISTRATION — {a.slug}{' (CONTROL: a case chosen because the texts should LOSE)' if a.control else ' (CONTROL — AGREE: a case chosen because the texts should WIN)' if a.control_agree else ''}
 
 *Pushed BEFORE the `abhidhamma` agent ran. Never edited after its push; a correction is a new run.*
 
