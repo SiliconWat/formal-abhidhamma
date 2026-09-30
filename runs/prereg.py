@@ -50,6 +50,8 @@ def main():
     if recalled and not a.allow_recalled:
         sys.exit(f"refused: RECALLED (unverified) axioms {', '.join(recalled)} — verify them with cst.py and update AXIOMS.md, or pass --allow-recalled and carry the word into the report")
     head = sh("git", "rev-parse", "--short", "HEAD")
+    stamp = "/Users/siliconwat/Desktop/MA/SW/siliconwat.dev/bedok.siliconwat.dev/tipitaka/india/roman/UPSTREAM.txt"
+    tip = open(stamp).readline().strip() if os.path.exists(stamp) else "UNKNOWN — run cst-sync.py --apply first"
     win = [table["A0"]] if a.window == "A0" else [table["A0′"]] if a.window == "A0′" else [table["A0"], table["A0′"]]
     hdr = "| ID | Statement | Tier | Citation | Status | Lean |\n|---|---|---|---|---|---|"
     body = f"""# PRE-REGISTRATION — {a.slug}{' (CONTROL: a case chosen because the texts should LOSE)' if a.control else ''}
@@ -59,7 +61,7 @@ def main():
 - **Date (machine):** {date}
 - **Question:** {a.question}
 - **Window:** {a.window}
-- **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, Axioms.lean as of that commit)
+- **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, Axioms.lean as of that commit)\n- **Tipiṭaka text:** {tip} (CST line numbers are as of this version)
 {('- ⚠️ **RECALLED axioms used (unverified):** ' + ', '.join(recalled)) if recalled else ''}
 
 ## Window rows

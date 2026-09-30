@@ -14,6 +14,8 @@ that used the old wording keeps its own copy in its `PREREG.md`.
 ours. `[X]` marks a cross-tradition import. CST file layers: `*.mul` mūla (Piṭaka) · `*.att` aṭṭhakathā ·
 `*.tik` ṭīkā · `*.nrf` other (includes the Saṅgaha and its commentaries). Line numbers are in the
 UTF-16 CST files as decoded by `cst.py`; ⚠️ a plain `grep` over them returns nothing.
+**Text version:** line numbers are as of `VipassanaTech/tipitaka-xml` `romn/` @ `05d5d3c` (2026-09-16); the local copy is
+kept byte-identical by `cst-sync.py`, which names any axiom whose cited file later changes.
 
 ## Axiom zero — the window, declared per run
 
