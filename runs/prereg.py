@@ -86,6 +86,12 @@ def main():
     if a.dry_run: print(body); return
     os.makedirs(d); open(os.path.join(d, "PREREG.md"), "w", encoding="utf-8").write(body)
     rel = os.path.relpath(os.path.join(d, "PREREG.md"), REPO)
+    ots = os.path.expanduser("~/.cache/ots-venv/bin/ots")           # Bitcoin, independent of GitHub (TIMESTAMPS.md)
+    if os.path.exists(ots):
+        subprocess.run([ots, "stamp", os.path.join(d, "PREREG.md")], cwd=REPO, check=True, capture_output=True)
+        sh("git", "add", rel + ".ots"); print(f"stamped {rel}.ots (OpenTimestamps; pending until Bitcoin confirms — /ots upgrades it)")
+    else:
+        print("⚠️ OTS client absent (~/.cache/ots-venv) — PREREG NOT stamped; run /ots later")
     sh("git", "add", rel); sh("git", "commit", "-q", "-m", f"prereg: {a.slug} (window {a.window}; axioms {','.join(ids)})")
     sha = sh("git", "rev-parse", "HEAD"); sh("git", "push", "-q")
     print(f"pushed {rel} at {sha[:7]}")
