@@ -1,10 +1,13 @@
 # Cryptographic timestamps
 
 This repository makes claims whose ORDER matters: a run's axioms and predictions are fixed before the
-derivation that tests them. Two independent dates back that up:
+derivation that tests them. Three independent dates back that up:
 
 1. **The push.** GitHub's repository activity records when each commit arrived (`runs/prereg.py` prints it).
-2. **OpenTimestamps.** Frozen files carry a `<name>.ots` proof beside them, committing the file's SHA-256
+2. **RFC 3161.** A weekly manifest of every tracked file and its SHA-256, signed by three independent trust
+   authorities (one eIDAS-qualified) and stamped to Bitcoin — `timestamps/`, `./tsa-verify.sh`. Legal standing
+   that Bitcoin lacks; Bitcoin has the permanence the authorities lack (see `timestamps/README.md`).
+3. **OpenTimestamps.** Frozen files carry a `<name>.ots` proof beside them, committing the file's SHA-256
    to the Bitcoin blockchain — checkable without trusting this repository, GitHub or the authors:
    `ots verify runs/<run>/PREREG.md.ots`.
 
