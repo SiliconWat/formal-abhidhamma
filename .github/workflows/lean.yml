@@ -1,0 +1,44 @@
+name: Lean — every theorem, every break
+
+# Re-verifies the program's machine-checked claims on every push: each suite's theorems must CHECK and each
+# deliberate break must FAIL (a suite whose breaks pass is blind, and fails here). Also fails if runs/INDEX.md —
+# the generated track record — is stale against the run directories. Public repo: no Actions cost.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean (the version pinned in lean-toolchain)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Resolve the pinned lean binary
+        run: |
+          elan toolchain install "$(cat lean-toolchain)"
+          echo "LEAN=$(elan which lean)" >> "$GITHUB_ENV"
+          "$(elan which lean)" --version
+
+      - name: Run every suite
+        run: |
+          fail=0
+          for s in control/run.sh sangaha/run.sh kala/run.sh runs/*/run.sh; do
+            [ -f "$s" ] || continue
+            echo "::group::$s"
+            if sh "$s"; then echo "✓ $s" >> "$GITHUB_STEP_SUMMARY"
+            else echo "✗ $s" >> "$GITHUB_STEP_SUMMARY"; fail=1; fi
+            echo "::endgroup::"
+          done
+          exit $fail
+
+      - name: The track record is current
+        run: python3 scripts/runs-index.py --check

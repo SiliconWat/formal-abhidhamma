@@ -2,6 +2,8 @@
 
 *A research program to express the Theravāda Abhidhamma in the language of mathematics — machine-checked, pre-registered, open.*
 
+[![Lean — every theorem, every break](https://github.com/SiliconWat/formal-abhidhamma/actions/workflows/lean.yml/badge.svg)](https://github.com/SiliconWat/formal-abhidhamma/actions/workflows/lean.yml) · **Track record:** [`runs/INDEX.md`](runs/INDEX.md) (every pre-registered run and control, failures included)
+
 **Cite:** [doi:10.5281/zenodo.23067241](https://doi.org/10.5281/zenodo.23067241) (concept DOI — the latest version; v0.1.0 is
 [10.5281/zenodo.23067242](https://doi.org/10.5281/zenodo.23067242)) · see `CITATION.cff` · archived by
 [Software Heritage](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/SiliconWat/formal-abhidhamma) ·
