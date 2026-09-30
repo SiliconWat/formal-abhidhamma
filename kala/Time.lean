@@ -11,21 +11,11 @@
         moment before death, counting death, and ceases
         with it ...................................... commentarial
     C   conditionality: every moment has a predecessor ... Paṭṭhāna (anantara) + Vism XVII §584
-    The model (Stream, Kalapa, Object) is ours. A proof assistant checks that conclusions follow from
+    The definitions live in Axioms.lean (IDs as in AXIOMS.md); the model is ours. A proof assistant checks that conclusions follow from
     these definitions; it says nothing about whether nature agrees.
 -/
+import Axioms
 namespace FormalAbhidhamma.Kala
-
-/-- A stream (*santāna*): its mind-moments, the immediate-successor map σ (partial: the arahant's
-    final moment conditions nothing), and a clock τ. τ is the designation (*kāla-paññatti*): a function
-    ON the moments, never itself a moment — so time and mind share a shape and are not one thing. -/
-structure Stream where
-  Moment : Type
-  succ : Moment → Option Moment
-  tick : Moment → Int
-  tick_succ : ∀ m n, succ m = some n → tick n = tick m + 1
-  one_at_a_time : ∀ a b, tick a = tick b → a = b                    -- A1
-  continues : ∀ m m', tick m < tick m' → ∃ n, succ m = some n        -- A3: a later moment means m conditions a next
 
 /-- I. Succession is gapless: nothing lies between a moment and its successor. -/
 theorem gapless (s : Stream) (m n : s.Moment) (h : s.succ m = some n) :
@@ -40,18 +30,6 @@ theorem mind_has_no_between (s : Stream) (t : Int) :
     ¬ ∃ a b : s.Moment, a ≠ b ∧ s.tick a = t ∧ s.tick b = t := by
   intro ⟨a, b, hne, ha, hb⟩
   exact hne (s.one_at_a_time a b (by rw [ha, hb]))
-
-/-- A cluster of concretely produced matter (*nipphanna kalāpa*), dated on the mind clock. -/
-structure Kalapa where
-  birth : Int
-
-def lifespan : Int := 17                                                   -- A4
-
-def Kalapa.present (k : Kalapa) (t : Int) : Prop := k.birth ≤ t ∧ t < k.birth + lifespan
-
-/-- Delimiting space (*paricchedarūpa*) between two clusters. It is *anipphanna*: it has no birth
-    of its own, and is present exactly when both neighbours are. -/
-def between (k₁ k₂ : Kalapa) (t : Int) : Prop := k₁.present t ∧ k₂.present t
 
 /-- II. Matter can have a between: two distinct clusters co-present. (The asymmetry's other half —
     without this witness, `mind_has_no_between` would contrast with nothing.) -/
@@ -78,9 +56,6 @@ theorem space_ends_with_the_stream (N : Int) (k₁ k₂ : Kalapa) (h₁ : k₁.b
   simp only [lifespan] at a
   omega
 
-/-- Conditionality (C): every mind-moment has an immediate predecessor that conditions it. -/
-def Conditioned (s : Stream) : Prop := ∀ m, ∃ p, s.succ p = some m
-
 /-- Run 2's derivation: a conditioned stream has no first moment. A first moment would be a dhamma
     with no condition. (SN 15's own wording is epistemic — "not discerned"; this is what the
     conditionality axiom adds.) -/
@@ -91,11 +66,6 @@ theorem beginningless (s : Stream) (hc : Conditioned s) :
   have h1 := s.tick_succ p f hp
   have h2 := hf p
   omega
-
-/-- What a mind-moment takes as its object: a conditioned dhamma, or nibbāna. -/
-inductive Object (M : Type) where
-  | dhamma : M → Object M
-  | nibbana : Object M
 
 /-- III. Nibbāna is never a moment: it can be the OBJECT of a moment (the path-moment), and it is
     not in the domain of any clock. ⚠️ This holds BY CONSTRUCTION — the type does the work. That is
