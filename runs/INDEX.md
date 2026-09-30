@@ -13,6 +13,7 @@ independently). `OTS` = an OpenTimestamps proof sits beside the PREREG.
 
 | Run | Kind | Verdict | Window | PREREG commit | OTS | Lean | Question |
 |---|---|---|---|---|---|---|---|
+| [`2026-09-30-four-continents-agree`](2026-09-30-four-continents-agree/) | control (agree) | **pending** | A0 | 6b6adb2 2026-09-30T14:03:26-07:00 | ✓ | — | The Dīgha commentary (s0103a.att.xml:833) says the sun lights three continents at one stroke: when it rises… |
 | [`2026-09-30-longest-chain`](2026-09-30-longest-chain/) | retrospective | **—** | both | not pre-registered | — | — | Is time the length of the longest chain? |
 | [`2026-09-30-meru-control`](2026-09-30-meru-control/) | control | **PASS** | A0 | b054285 2026-09-30T09:28:51-07:00 | ✓ | Meru.lean | Sineru (Meru) is 84,000 yojanas long, wide and high above an ocean 84,000 yojanas deep. Presuming the texts… |
 | [`2026-09-30-rate-of-mind-control`](2026-09-30-rate-of-mind-control/) | control | **FAIL** | A0′ | ffdf8cd 2026-09-30T13:13:40-07:00 | ✓ | RateOfMind.lean | The commentaries say that in a single finger-snap many hundreds of thousands of koṭis of cittas arise and c… |
