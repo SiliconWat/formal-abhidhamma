@@ -93,8 +93,15 @@ def main():
     else:
         print("⚠️ OTS client absent (~/.cache/ots-venv) — PREREG NOT stamped; run /ots later")
     sh("git", "add", rel); sh("git", "commit", "-q", "-m", f"prereg: {a.slug} (window {a.window}; axioms {','.join(ids)})")
+    prereg_sha = sh("git", "rev-parse", "HEAD")
+    # The track record lists every PREREG, so it goes stale the moment one is committed; CI (runs-index.py --check)
+    # failed on every registration push until the run landed (2026-09-30). Regenerate it in a second commit and push
+    # both at once, so no push leaves the index stale. The PREREG commit stays the one the index cites.
+    subprocess.run([sys.executable, os.path.join(REPO, "scripts", "runs-index.py")], cwd=REPO, check=True, capture_output=True)
+    if sh("git", "status", "--porcelain", "runs/INDEX.md"):
+        sh("git", "add", "runs/INDEX.md"); sh("git", "commit", "-q", "-m", f"runs/INDEX.md: {a.slug} registered")
     sha = sh("git", "rev-parse", "HEAD"); sh("git", "push", "-q")
-    print(f"pushed {rel} at {sha[:7]}")
+    print(f"pushed {rel} at {prereg_sha[:7]}" + (f" (index {sha[:7]})" if sha != prereg_sha else ""))
     remote = sh("git", "remote", "get-url", "origin")
     slug = re.sub(r"(\.git)?$", "", remote.split("github.com")[-1].lstrip(":/"))
     # The repository ACTIVITY API records each push immediately; the events feed can lag for minutes (2026-09-30).
