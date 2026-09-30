@@ -28,8 +28,9 @@ theorem gapless (s : Stream) (m n : s.Moment) (h : s.succ m = some n) :
     things present at once, and no two distinct moments of a stream are ever present at once. Follows from A1 alone.
     ⚠️ What this checks is the PRECONDITION (no co-presence), stated for moments; it does not mention `between`, which is
     defined on kalāpas. Adjacency (*touching*, the texts' *paricchedarūpa*) is not modelled here, and the texts' own
-    reason across streams — mind's shapelessness (Paṭṭhāna Mūlaṭīkā `abh03t.tik.xml:4305`) — is not formalised
-    (a refuter's finding, 2026-09-30). -/
+    reason — mind's shapelessness, first in the Paṭṭhāna commentary (`abh03a.att.xml:7697`), then its Mūlaṭīkā
+    (`abh03t.tik.xml:4305`) — is not formalised; Ledi states the asymmetry outright (`e0501n.nrf.xml:229`), so this is
+    a KNOWN ANSWER re-derived, not a finding of the mode (refuters' findings, 2026-09-30). -/
 theorem mind_has_no_between (s : Stream) (t : Int) :
     ¬ ∃ a b : s.Moment, a ≠ b ∧ s.tick a = t ∧ s.tick b = t := by
   intro ⟨a, b, hne, ha, hb⟩
