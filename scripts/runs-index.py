@@ -38,7 +38,8 @@ def row(d):
         m = re.search(r"VERDICT:?\**\s*\**\s*(PASS|FAIL)", r)
         verdict = m.group(1) if m else ("pending" if not r else "unscored")
         # A verdict whose own line says "confounded" is shown as such, so the tally cannot read as cleaner than the
-        # runs (2026-09-30: four of eight were confounded by the main session's own case choice or premise).
+        # runs (2026-09-30: four of the seven pre-registered runs were confounded — three by the main session's own case choice
+        # or premise, one because a guard's worked example was the run's own passage).
         vline = r[m.start():r.find("\n", m.start())] if m else ""
         if m and re.search(r"confounded", vline, re.I):
             verdict += " (confounded)"
