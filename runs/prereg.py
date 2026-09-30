@@ -91,16 +91,16 @@ def main():
     print(f"pushed {rel} at {sha[:7]}")
     remote = sh("git", "remote", "get-url", "origin")
     slug = re.sub(r"(\.git)?$", "", remote.split("github.com")[-1].lstrip(":/"))
+    # The repository ACTIVITY API records each push immediately; the events feed can lag for minutes (2026-09-30).
     for _ in range(6):
         try:
-            ev = json.loads(sh("gh", "api", f"repos/{slug}/events?per_page=30"))
-            for e in ev:
-                if e.get("type") == "PushEvent" and e["payload"].get("head") == sha:
-                    print(f"GitHub push record: {e['created_at']}  ← the timestamp"); return
+            for e in json.loads(sh("gh", "api", f"repos/{slug}/activity?per_page=10")):
+                if e.get("activity_type") == "push" and e.get("after") == sha:
+                    print(f"GitHub push record: {e['timestamp']}  ← the timestamp"); return
         except Exception: pass
-        time.sleep(10)
-    print("GitHub push record: not yet in the events feed (it lags); the commit is pushed — re-read later with:\n"
-          f"  gh api repos/{slug}/events --jq '.[] | select(.payload.head==\"{sha}\") | .created_at'")
+        time.sleep(5)
+    print("GitHub push record: not found yet; the commit is pushed — re-read with:\n"
+          f"  gh api repos/{slug}/activity --jq '.[] | select(.after==\"{sha}\") | .timestamp'")
 
 if __name__ == "__main__":
     main()
