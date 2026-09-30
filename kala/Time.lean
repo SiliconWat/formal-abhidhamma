@@ -24,8 +24,12 @@ theorem gapless (s : Stream) (m n : s.Moment) (h : s.succ m = some n) :
   have := s.tick_succ m n h
   omega
 
-/-- II. Mind has no between: a between needs two things present at once, and a stream is never two
-    at once. Follows from A1 alone. -/
+/-- II. Mind has no between — in the sense `between` models it (co-presence, `Axioms.lean`): a between needs two
+    things present at once, and no two distinct moments of a stream are ever present at once. Follows from A1 alone.
+    ⚠️ What this checks is the PRECONDITION (no co-presence), stated for moments; it does not mention `between`, which is
+    defined on kalāpas. Adjacency (*touching*, the texts' *paricchedarūpa*) is not modelled here, and the texts' own
+    reason across streams — mind's shapelessness (Paṭṭhāna Mūlaṭīkā `abh03t.tik.xml:4305`) — is not formalised
+    (a refuter's finding, 2026-09-30). -/
 theorem mind_has_no_between (s : Stream) (t : Int) :
     ¬ ∃ a b : s.Moment, a ≠ b ∧ s.tick a = t ∧ s.tick b = t := by
   intro ⟨a, b, hne, ha, hb⟩

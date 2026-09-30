@@ -14,7 +14,9 @@ structure Stream where
   one_at_a_time : ∀ a b, tick a = tick b → a = b                    -- A1
   continues : ∀ m m', tick m < tick m' → ∃ n, succ m = some n        -- A3: a later moment means m conditions a next
 
-/-- A cluster of concretely produced matter (*nipphanna kalāpa*), dated on the mind clock. -/
+/-- A cluster of concretely produced matter (*nipphanna kalāpa*), dated in mind-moment UNITS. Where a stream carries the
+    matter, the texts date it on that stream's own moments (Sammohavinodanī `abh02a.att.xml:429–433`); where none does
+    (the mindless beings), no text counts it in mind-moments — the unit reading (Vibhāvinī `abh07t.nrf.xml:4849`). -/
 structure Kalapa where
   birth : Int
 
