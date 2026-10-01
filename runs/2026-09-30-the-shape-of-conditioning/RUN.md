@@ -1,0 +1,28 @@
+# RUN — The shape of conditioning  ·  PREREG pushed 2026-10-01T05:13:47Z (GitHub activity) + OTS
+
+- **Window:** both · **Axioms:** A3, A78, A80, A82, A83, A84, A87, A88, A90, A99, A100, A112 · ADDED rows A1, A6, A61, A102, A103, A111, A24 and new
+  loci (VERIFIED) · agent BLIND (read only the permitted retrospective run).
+
+| Derivation | Refuter | Survivor | Lean |
+|---|---|---|---|
+| D1 physics' causal order is not among the 24; matter-to-matter production is *upanissayakoṭi* | NARROWS: Ledi confirms external matter conditions external matter only co-nascently (`e0501n.nrf.xml:977` — the agent's zero was a spelling miss, *utujarūpakalāpānaṃ*); but production of matter by matter IS inside the 24 — nutriment as "producer and sustainer" (Paṭṭhāna-aṭṭhakathā `abh03a.att.xml:8173`; the Saṅgaha's *ṭhānappattova*); the *upanissayakoṭi* home is OURS (all 45 hits concern mental or dependent-origination links); the negative method rules out only proximity and contiguity for matter | inside the 24, external matter conditions external matter only co-nascently; the manual asserts temperature's forward production with no condition named | NOT A DERIVATION (a reading) |
+| D2 the pre/post "two-cycle" unrolls into a chain in exercise time | CHECKS (+ Vism-ṭīkā `e0104n.att.xml:7193`, reported *vadanti*: without post-nascence support in cessation the body lasts about seven days); *na ca taṃ icchitaṃ* is the Vism-ṭīkā's wording (`:3581`) | on the Vibhāvinī's forward reading the heart-base/aggregates loop is a chain; on the presence reading a synchronic 2-cycle — not forced | ✅ `d2_prenascence_rises` · `d2_postnascence_rises` |
+| D3 every synchronic edge joins relata at one place | NARROWS — its premise FAILS: co-nascence includes citta → mind-born matter (`abh03m7.mul.xml:137`), and joy pervades the whole body by matter from the citta it is joined with, "since nothing moves even a hair's breadth" (`abh08t.nrf.xml:5265`; `abh02t.tik.xml:657`, where *pabandhena* qualifies base and object, not the spread); GW170817 bounds the speed of gravity, not simultaneity; the 30 μm figure rests on our snap | co-nascence spans a body; a collision (with conduction latency) arises only through bridges of ours | UNCHECKED (bridges ours) |
+| D4 contiguity is a link within a sort | CHECKS (the Vibhāvinī has both counts, `abh07t.nrf.xml:6653`); 10⁴⁹ checks but Planck-density sprinkling is a free parameter (ours); *mayampi etadeva vadāma* is Buddhaghosa's, not Revata's | the neither-perception → fruition step is a link among mental events, not among all events — EXTENDS causal-set theory (no sorts there); philosophy | ✅ `d4_link_within_a_sort` |
+| D5 the randomized call | NARROWS, close to killing the collision: the ṭīkā times emergence to the messenger's APPROACH, "like a time-limit" (`e0104n.att.xml:7201`), a local event; case (iii) is DISPUTED in the texts (*keci* / *apare*, "investigate before accepting", `:7221`); a fourth option (the obstruction lifts, `abh03t.tik.xml:4301`); "works by meaning" is ours; no-signalling is not engaged (the draw is timelike to emergence) | a test design | NOT A DERIVATION |
+| D6 the object condition is the only one with a non-present source | **KILLS as stated**: predominance (`abh03m8.mul.xml:14101`) and decisive support, natural included (`:14141`), also take FUTURE sources; the Vibhāvinī classes object, predominance and decisive support as three-time (`abh07t.nrf.xml:6793`); the estate's own paper already prints it (`abhidhamma-and-discrete-quantum-gravity.md:229–231`); Kekecs et al. 2023 checks (49.89% vs Bem's 53.07%) | remove object, predominance and decisive-support edges and no edge has a future source; avoiding a backward edge for natural decisive support needs a present-wish reading (ours) | NOT A DERIVATION |
+| D7 kamma across time | NARROWS: the texts DO deny a stored trace — KV 15.11 rejects *kammūpacaya* (`abh03m3.mul.xml:11265–11321`; commentary `abh03a.att.xml:5509–5521`), exactly the shape a physical trace would take under A0 | under A0, kamma's conditioning across time is a dependence that skips the present with no stored trace — against screening-off; philosophy | NOT A DERIVATION |
+
+## Predictions, scored by the main session (a partial hit does not meet the rule)
+1. **Not a partial order: a strict order plus a symmetric co-arising relation and a cycle; physics must add a frame-independent "arising together"; EXTENDS,
+   or COLLIDES only if co-arising relata are spatially separated, citing where the texts place them — ◐ PARTIAL.** The structure was derived (quotient by
+   rise and locus; symmetry inside each element; the two-cycle kept). But the clause that decides EXTENDS vs COLLIDES failed: the agent said no text
+   places co-arising relata apart, and `abh08t.nrf.xml:5265` does.
+2. **Post-nascence and future-object arrows not offered as retrocausation — ✅ HIT** in form (support of a still-present body; the object "not
+   production"), though D6's "only the object" basis is false.
+3. **A measurement or "philosophy"; no claim that the Paṭṭhāna predicts causal sets — ✅ HIT.**
+
+## VERDICT: **FAIL** (pre-registered rule: 1 AND 3 — prediction 1 only partly hit). The miss is the agent's: it looked for the spatial spread of
+co-nascence and did not find a text that states it. **What survives:** inside the 24 external matter conditions external matter only co-nascently; the
+heart-base loop unrolls into a chain on one reading; contiguity is a link within a sort; with object, predominance and decisive support removed, nothing
+conditions from the future; and the texts deny the stored kamma-trace a physical reading would need.

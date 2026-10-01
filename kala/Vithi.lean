@@ -69,12 +69,19 @@ theorem javanas_occupy_moments_9_to_15 :
     grade 1 = .veryGreat ∧ 1 + vibrations + toDetermining + 1 = 9 ∧
       1 + vibrations + toDetermining + javanas = 15 := by decide
 
-/-- IV. Under the Mūlaṭīkā's reading (A4 = 16), the Saṅgaha's very-great process cannot occur for any object that
-    has already lived at least one moment when it enters: 1 + 2 + 14 = 17 > 16. A consistency result between two
-    readings, conditional on A41's stage lengths; not a verdict on which reading is right. -/
+/-- IV. A 16-moment life paired with the SAṄGAHA'S entry convention (the object enters after ≥ 1 past moment) admits no
+    very-great process: 1 + 2 + 14 = 17 > 16. ⚠️ RE-SCOPED 2026-09-30 (object-life-budget run, refuter): this MIXES two
+    conventions and does not test the 16-holders, who put entry at the ARISING phase, p = 0 (Vibhāvinī `abh07t.nrf.xml:4845`,
+    *uppajjamānameva hi rūpaṃ bhavaṅgacalanassa paccayo*; Ledi `e0301n.nrf.xml:2761`) — see IV′. -/
 theorem sixteen_admits_no_very_great (p : Nat) (h : 1 ≤ p) :
     ¬ (p + vibrations + toDetermining + javanas + registrations ≤ 16) := by
   simp only [vibrations, toDetermining, javanas, registrations]; omega
+
+/-- IV′. On the 16-holders' own convention — entry at the arising phase, p = 0, a *keci* view the Vibhāvinī reports and
+    calls *asāra* (`:4845`) — the very-great process fills a 16-moment life exactly, as the Saṅgaha's fills 17 with p = 1. Both leave 16 moments for the process (the Vibhāvinī defines the grades
+    by life LEFT, `:4821`), so the 16 / 17 dispute moves the past-moment ranges, not the grades. -/
+theorem sixteen_with_arising_entry_fills_the_life :
+    0 + vibrations + toDetermining + javanas + registrations = 16 := by decide
 
 /-- V. Every grade's process ends within the object's life. ⚠️ BY CONSTRUCTION: this is FIT restated, a modelling
     choice, not a derivation (the Vibhāvinī states it for javana and registration, `:4885`, `:4893`). -/
