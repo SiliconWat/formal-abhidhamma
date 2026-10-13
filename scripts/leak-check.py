@@ -39,6 +39,10 @@ def check_run(d, lean):
     run_md = open(os.path.join(d, "RUN.md"), encoding="utf-8").read() if os.path.exists(os.path.join(d, "RUN.md")) else ""
     for f in sorted(glob.glob(os.path.join(d, "*.lean"))):
         src = open(f, encoding="utf-8").read()
+        def binders(name):
+            """the binder NAMES of `def <name> (k : Int) (w : World) : Prop` → ["k", "w"]"""
+            m = re.search(rf"(?m)^def {name}((?:\s*\([^)]*\))*)\s*:\s*Prop", src)
+            return [n for g in re.findall(r"\(([^):]*):", m.group(1)) for n in g.split()] if m else None
         prem = re.findall(r"(?m)^def (premises_\w+)", src)
         ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[^\n]*)?-/\s*\ndef (answer_\w+)", src)
         if not ans: continue
@@ -49,12 +53,16 @@ def check_run(d, lean):
         for p in prem:
             for key, a in ans:
                 key = key.strip()
+                bp, ba = binders(p), binders(a)
+                if not bp or bp != ba:
+                    out.append(("ERROR", f"{p} {bp} and {a} {ba} must take the same binders")); continue
+                vs = " ".join(bp)
                 # REVERSE definition order, so a composite (premises_…, answer_…) opens before the parts it is built
                 # from — in file order the parts were "unfolded" before they appeared and grind saw opaque names
                 unfold = "; ".join(f"(try unfold {x} at *)" for x in reversed(defs))   # `;`, never a space: a space-joined
                 # sequence stops parsing after the first step and every pair reads "no" (caught by the planted test)
                 ex = (f"\nset_option maxHeartbeats {HEARTBEATS} in\n"
-                      f"example : ∀ w, {p} w → {a} w := by\n  intro w h; {unfold}; grind\n")
+                      f"example : ∀ {vs}, {p} {vs} → {a} {vs} := by\n  intro {vs} h; {unfold}; grind\n")
                 body = src[:end[-1].start()] + ex + src[end[-1].start():] if end else src + ex
                 tmp = tempfile.mkdtemp(prefix="leak-")
                 try:
