@@ -44,8 +44,14 @@ def check_run(d, lean):
             m = re.search(rf"(?m)^def {name}((?:\s*\([^)]*\))*)\s*:\s*Prop", src)
             return [n for g in re.findall(r"\(([^):]*):", m.group(1)) for n in g.split()] if m else None
         prem = re.findall(r"(?m)^def (premises_\w+)", src)
-        ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[^\n]*)?-/\s*\ndef (answer_\w+)", src)
-        if not ans: continue
+        # the docstring may run over several lines (`(?:—[\s\S]*?)?`): a one-line pattern saw NO answer in the second
+        # proof run and the check exited 0 having checked nothing (caught 2026-10-13, before the run was graded)
+        ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (answer_\w+)", src)
+        if not ans:
+            # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean
+            if "## Type freedoms" in pre:
+                out.append(("ERROR", f"{os.path.relpath(f, REPO)}: a proof run under A388 declares no `def answer_…`"))
+            continue
         if not prem:
             out.append(("ERROR", f"{os.path.relpath(f, REPO)} declares answers but no `def premises_<thm>`")); continue
         defs = re.findall(r"(?m)^def (\w+)", src)
@@ -88,11 +94,16 @@ def main():
     lean = lean_bin()
     dirs = [os.path.abspath(x) for x in sys.argv[1:]] or sorted(
         os.path.dirname(f) for f in glob.glob(os.path.join(REPO, "runs", "2*", "*.lean"))
-        if re.search(r"(?m)^def answer_", open(f, encoding="utf-8").read()))
+        if re.search(r"(?m)^def answer_", open(f, encoding="utf-8").read())
+        or "## Type freedoms" in (open(os.path.join(os.path.dirname(f), "PREREG.md"), encoding="utf-8").read()
+                                  if os.path.exists(os.path.join(os.path.dirname(f), "PREREG.md")) else ""))
     dirs = sorted(set(dirs))
     bad = 0
     for d in dirs:
-        for verdict, msg in check_run(d, lean):
+        results = check_run(d, lean)
+        if not results:   # a run selected for checking that yields no pair has checked nothing — never silent
+            results = [("ERROR", "no premise/answer pair was checked")]
+        for verdict, msg in results:
             print(f"{verdict:<20} {os.path.basename(d)}: {msg}")
             bad += verdict in ("LEAK", "ERROR")
     if not dirs: print("leak-check: no run declares a held-out answer in Lean")
