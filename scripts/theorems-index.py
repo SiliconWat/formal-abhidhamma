@@ -232,7 +232,7 @@ def build(results):
         "- **Unused** — hypotheses the proof never touches. ⭐ A finding about the derivation, not a tidiness warning: the",
         "  conclusion follows from less than was assumed.",
         "- **Logic** — *classical* if the proof rests on `Classical.choice` (excluded middle); *constructive* otherwise.",
-        "- **⚠️ BY CONSTRUCTION** — the TYPE does the work: the theorem records a modelling choice, not a derivation.",
+        "- **⚠️ BY CONSTRUCTION** — the TYPE does the work: the theorem records a modeling choice, not a derivation.",
         "- **model** — a non-vacuity witness (the hypotheses can all hold), not a claim about the texts.",
         "",
         "Lean proves that a conclusion follows from these definitions — never that the definitions are faithful to the",
