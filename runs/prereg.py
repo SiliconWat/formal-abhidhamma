@@ -143,6 +143,8 @@ def main():
 - **Date (machine):** {date}
 - **Question:** {a.thesis}
 - **Thesis approved by:** {a.approved_by}
+- **Conventions: A389** (founder 2026-10-13): one claim per theorem; each premise its own binder, an ID-named definition;
+  an instance stated as a hypothesis on a bound parameter (`(hk : k = 2)`), never as a literal
 - **Window:** {a.window}
 - **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, ANSWERS.md, Axioms.lean as of that commit)
 - **Tipiṭaka text:** {tip} (CST line numbers are as of this version)

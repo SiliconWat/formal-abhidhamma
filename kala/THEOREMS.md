@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**118 theorems in 26 files** · 114 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models.
+**118 theorems in 26 files** · 114 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)

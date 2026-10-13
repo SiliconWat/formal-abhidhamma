@@ -41,18 +41,22 @@ attempt is recorded, whichever outcome it reaches** — a list of successes only
 1. **Every axiom used is VERIFIED** at its cited line (no RECALLED row; no ADDED reading left unverified).
 2. **Nothing load-bearing holds BY CONSTRUCTION** — the type must not do the work the axiom is supposed to do, **in either
    direction** (A388 OQ4, 2026-10-13): a result that depends on what the type CANNOT express (no citta stream, presence not
-   tied to birth) is by construction too. Every PREREG declares its **type freedoms** before the attempt.
+   tied to birth) is by construction too. Every PREREG declares its **type freedoms** before the attempt — and
+   **declaring a freedom does not rescue a witness that depends on it** (A389 OQ-D): the item still fails, or that half is
+   reported as trivial.
 3. **A model** satisfies all the registered hypotheses together (the theorem is not vacuous).
 4. **Every relied-on axiom has a break that must fail**: drop or weaken it, and the proof no longer checks.
 5. **The axioms used are READ FROM LEAN** (`kala/THEOREMS.md`, via `tools/Uses.lean`), never declared; an UNUSED
    hypothesis is reported as a finding. A countermodel's premises sit inside an `∃`, so they are written as DEFINITIONS
-   named by their axiom ID (A388 OQ5) — then they are read like any other.
+   named by their axiom ID (A388 OQ5) — then they are read like any other. ⭐ **PER CONJUNCT** (A389 OQ-C): each premise
+   is its OWN hypothesis, never a bundle, so an unused premise shows as Unused.
 6. **The logic is reported**: constructive, or classical (`Classical.choice`). Constructive grades higher.
 7. **No held-out answer is a premise — alone or as a SET** (A388 OQ3, 2026-10-13). The texts' own conclusions
    (`kala/ANSWERS.md`) are what a run is TESTED against, never what it reasons from. `scripts/leak-check.py` asks Lean
    whether each premise set (`def premises_<thm>`) yields each held-out answer (`def answer_<key>`) in ONE bounded
    automated step (`grind`): on the run's own known answer that is **TRIVIAL** (reported; not STRONG), on any other it is
-   a **LEAK** (CI fails). ⚠️ The threshold is declared, not discovered: a deeper restatement passes unseen.
+   a **LEAK** (CI fails). ⭐ **PER INSTANCE** (A389 OQ-C): the check reads each theorem's OWN premises at the instance it
+   states, never only a universal closure. ⚠️ The threshold is declared, not discovered: a deeper restatement passes unseen.
 8. **The refuter found no defect in the encoding** that the run did not repair or narrow.
 9. **The layer is named**: the latest tier among the axioms used (Piṭaka · commentarial · sub-commentarial · manual ·
    manual's commentary · ours). A theorem that holds in the Piṭaka layer is stronger than one that needs the manual.
@@ -74,7 +78,9 @@ is REFUTED or INDEPENDENT. A proof of what the texts already say is a check, not
 
 - **Each premise is a DEFINITION named by its axiom ID**, lowercase: `def a87_purejata (w : World) : Prop := …`, used as a
   hypothesis (`(h87 : a87_purejata w)`) and inside any `∃`. `kala/THEOREMS.md` maps it to its ID wherever it is reached.
-- **Each theorem's premise set** is `def premises_<thm> (w) : Prop := a87_purejata w ∧ …`.
+- ⭐ **Since A389:** ONE CLAIM PER THEOREM, each premise its OWN binder (`(h87 : a87_purejata w)`), an instance stated as a
+  hypothesis on a bound parameter (`(hk : k = 2)`), never a literal. The leak check reads the theorem's binders.
+- (A388, superseded for new runs) each theorem's premise set as `def premises_<thm> (w) : Prop := a87_purejata w ∧ …`.
 - **Each held-out answer the run is near** is `def answer_<key> (w) : Prop`, its docstring starting `ANSWER: <the
   ANSWERS.md key>`.
 - Older runs name hypotheses (`a3_tick`) instead; `THEOREMS.md` reads those too.

@@ -171,7 +171,10 @@ def citation_overlaps():
             cells = [c.strip() for c in line.strip().strip("|").split("|")]
             if len(cells) > col: rows.append((m.group(1), line, cites(cells[col])))
         return rows
-    ans = table(os.path.join(REPO, "kala", "ANSWERS.md"), r"\|\s*((?:Kv|Paṭṭh|Yam|Dhk|Pp|Dhs|Vibh)[^|]*?)\s*\|", 2)
+    # EVERY data row of the answers table, whatever its key: a debate-shaped key pattern (Kv|Dhs|…) skipped the
+    # "Mūlaṭīkā matter rule" row (caught 2026-10-13, A389)
+    ans = [r for r in table(os.path.join(REPO, "kala", "ANSWERS.md"), r"\|\s*([^|]+?)\s*\|", 2)
+           if r[0] not in ("Key", "Run") and not r[0].startswith("---") and "`" in r[1]]
     axs = table(os.path.join(REPO, "kala", "AXIOMS.md"), r"\|\s*(A\d+[b′]?|A0′?|C|K)\s*\|", 3)
     bad = []
     for k, _, ac in ans:
@@ -192,9 +195,19 @@ def logic(axioms):
     if "sorryAx" in axioms: return "⛔ SORRY"
     return "classical" if "Classical.choice" in axioms else "constructive"
 
+def registered(rel):
+    """The axiom IDs a run's PREREG REGISTERED as premises (its §Axioms table) — a premise registered before a hold-out
+    ruling stays legitimate for THAT run (A389 OQ-A held out A119 after the second run had registered it)."""
+    m = re.match(r"(runs/[^/]+)/", rel)
+    pre = os.path.join(REPO, m.group(1), "PREREG.md") if m else None
+    if not pre or not os.path.exists(pre): return set()
+    body = open(pre, encoding="utf-8").read().split("## Axioms", 1)[-1].split("\n## ", 1)[0]
+    return set(re.findall(r"(?m)^\|\s*(A\d+[b′]?|A0′?|C|K)\s*\|", body))
+
 def build(results):
     table = lean_map()
     held = held_out()
+    grandfathered = []
     premises = []      # (theorem, held-out ID it reaches) — CI fails on any
     rows, n_cls, n_sorry, n_unused, n_byc, n_model = [], 0, 0, 0, 0, 0
     for rel, items in results:
@@ -210,7 +223,10 @@ def build(results):
             link = f"[`{rel}:{t['line']}`](../{rel}#L{t['line']})"
             reached = axiom_ids(t.get("defs", []), table)
             binder_ids = [m.group(1).upper() for n in t["used"] if (m := AXIOM_BINDER.match(n))]
-            premises += [(short, i) for i in sorted(set(reached + binder_ids) & held)]
+            hits = set(reached + binder_ids) & held
+            ok = hits & registered(rel)
+            grandfathered += [(short, i) for i in sorted(ok)]
+            premises += [(short, i) for i in sorted(hits - ok)]
             ax = " ".join(f"**{i}**" for i in reached)
             uses = " · ".join(x for x in (ax, ids(t["used"]) if t["used"] else "") if x) or "—"
             rows.append(f"| `{short}` | {link} | {first_sentence(doc) or '—'} | {uses} | "
@@ -226,7 +242,9 @@ def build(results):
         "[`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.",
         "",
         f"**{len(rows)} theorems in {files} files** · {len(rows) - n_cls - n_sorry} constructive · {n_cls} classical · "
-        f"{n_sorry} sorry · {n_unused} with an UNUSED hypothesis · {n_byc} BY CONSTRUCTION · {n_model} models.",
+        f"{n_sorry} sorry · {n_unused} with an UNUSED hypothesis · {n_byc} BY CONSTRUCTION · {n_model} models."
+        + (f" Grandfathered (a premise its run REGISTERED before that row was held out): "
+           + ", ".join(f"`{t}` → {i}" for t, i in grandfathered) + "." if grandfathered else ""),
         "",
         "How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:",
         "- **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)",
