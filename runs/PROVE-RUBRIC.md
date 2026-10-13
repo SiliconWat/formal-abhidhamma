@@ -57,6 +57,10 @@ attempt is recorded, whichever outcome it reaches** — a list of successes only
    automated step (`grind`): on the run's own known answer that is **TRIVIAL** (reported; not STRONG), on any other it is
    a **LEAK** (CI fails). ⭐ **PER INSTANCE** (A389 OQ-C): the check reads each theorem's OWN premises at the instance it
    states, never only a universal closure. ⚠️ The threshold is declared, not discovered: a deeper restatement passes unseen.
+   ⭐ **CAPTURE CODE TOO** (A390 OQ-1, founder 2026-10-13: *"approve your recommendations"*): a script that BUILDS a
+   test bank may not read a held-out answer into its data — the first relata table took decisive support's conditioned side
+   from the Saṅgaha's own grouping, the answer it was then checked against. Enforced for `matika/` by `relata.py`'s
+   `answer_free()` in CI; every new generator carries its own form of that check.
 8. **The refuter found no defect in the encoding** that the run did not repair or narrow.
 9. **The layer is named**: the latest tier among the axioms used (Piṭaka · commentarial · sub-commentarial · manual ·
    manual's commentary · ours). A theorem that holds in the Piṭaka layer is stronger than one that needs the manual.
