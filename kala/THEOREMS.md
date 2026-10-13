@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**123 theorems in 27 files** · 119 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**129 theorems in 27 files** · 125 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -83,11 +83,17 @@ texts, and never that nature agrees.
 | `twentyfour_conditions` | [`matika/Matika.lean:205`](../matika/Matika.lean#L205) | The Paṭṭhāna's uddesa names twenty-four conditions. | — | — | constructive | — |
 | `twentyfour_samantapatthana` | [`matika/Matika.lean:224`](../matika/Matika.lean#L224) | The commentary's count, reproduced from the generator: *catuvīsati samantapaṭṭhānāni*. | — | — | constructive | — |
 | `cross_pairings` | [`matika/Matika.lean:238`](../matika/Matika.lean#L238) | Derived, NOT stated in the texts: putting the 22 triads into the 100 dyads gives 2,200 pairings each way. | — | — | constructive | — |
-| `every_condition_defined` | [`matika/Relata.lean:134`](../matika/Relata.lean#L134) | Every condition has at least one clause in the niddesa. | — | — | constructive | — |
-| `sangaha_counts` | [`matika/Relata.lean:137`](../matika/Relata.lean#L137) | The Saṅgaha's counts: 6 · 5 · 1 · 1 · 2 · 9. | — | — | constructive | — |
-| `niddesa_gives_23` | [`matika/Relata.lean:142`](../matika/Relata.lean#L142) | FROM THE NIDDESA ALONE, 23 of the Saṅgaha's 24 placements follow — and the one that does not is vipāka. | — | — | constructive | — |
-| `niddesa_vipaka_is_mind_to_mind` | [`matika/Relata.lean:147`](../matika/Relata.lean#L147) | The niddesa's vipāka is mind → mind; the Saṅgaha places it mind → mind-and-matter. | — | — | constructive | — |
-| `with_the_detailed_section_all_24` | [`matika/Relata.lean:150`](../matika/Relata.lean#L150) | With the Paṭṭhāna's detailed section (§428) for vipāka, all 24 follow. | — | — | constructive | — |
+| `every_condition_defined` | [`matika/Relata.lean:188`](../matika/Relata.lean#L188) | Every condition has at least one clause in the niddesa. | — | — | constructive | — |
+| `consulted_where_open` | [`matika/Relata.lean:191`](../matika/Relata.lean#L191) | THE RULE, as a property: the detailed section is consulted for exactly the conditions whose niddesa has an open side. | — | — | constructive | — |
+| `sangaha_counts` | [`matika/Relata.lean:196`](../matika/Relata.lean#L196) | The Saṅgaha's counts: 6 · 5 · 1 · 1 · 2 · 9. | — | — | constructive | — |
+| `niddesa_19` | [`matika/Relata.lean:203`](../matika/Relata.lean#L203) | The niddesa's words alone: 19 of 24. | — | — | constructive | — |
+| `detail_22` | [`matika/Relata.lean:206`](../matika/Relata.lean#L206) | With the detailed section by the open-side rule: 22 — the object lacks a concept, and result is untouched by the rule. | — | — | constructive | — |
+| `with_result_23` | [`matika/Relata.lean:209`](../matika/Relata.lean#L209) | With §428 for result (outcome-selected): 23 — only the object, which needs a concept. | — | — | constructive | — |
+| `with_the_commentary_24` | [`matika/Relata.lean:212`](../matika/Relata.lean#L212) | With the commentary's concept on the object (`abh03a.att.xml:7889`): all 24. | — | — | constructive | — |
+| `niddesa_19_inclusive` | [`matika/Relata.lean:217`](../matika/Relata.lean#L217) | The niddesa's words alone: 19 of 24 — predominance now fails (its open 'whatever dhamma' takes in a concept). | — | — | constructive | — |
+| `detail_23_inclusive` | [`matika/Relata.lean:220`](../matika/Relata.lean#L220) | With the detailed section by the open-side rule: 23 — only result. | — | — | constructive | — |
+| `pitaka_24_inclusive` | [`matika/Relata.lean:223`](../matika/Relata.lean#L223) | With §428 for result: all 24, from the Piṭaka alone. | — | — | constructive | — |
+| `niddesa_vipaka_is_mind_to_mind` | [`matika/Relata.lean:226`](../matika/Relata.lean#L226) | The niddesa's result is mind → mind; the Saṅgaha places it mind → mind-and-matter. | — | — | constructive | — |
 | `d1_swoon_breathless_sleep_breathes` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:19`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L19) | D1. A114 with its closure (ADDED: the seven cases are exhaustive — Vism-ṭīkā `:4829`, Sāratthadīpanī `vin01t2.tik.xml:3281`) ⇒ the swooned do not breathe and sleepers do. | `a114`, `closure` | — | constructive | — |
 | `d1_model` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:24`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L24) | Non-vacuity for D1: a model satisfying both hypotheses. | — | — | constructive | model |
 | `d2_broad_reading_contradicts` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:30`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L30) | D2. Dhammapāla's grouping read broadly (M1b: in a swoon no matter-producing citta occurs) against the texts' own report that javanas run in a swoon (Vism-ṭīkā `e0104n.att.xml:1665`, *suttamucchitād… | `javana_runs`, `m1b` | — | constructive | — |

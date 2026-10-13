@@ -45,6 +45,11 @@ jobs:
       - name: The track record is current
         run: python3 scripts/runs-index.py --check
 
+      # matika/RELATA is generated from scripts/relata.py's clause table (no CST needed to build it). --check also refuses a
+      # reading that cites the held-out answer it is tested against (the first version did; its refuter caught it, 2026-10-13)
+      - name: The relata are current and answer-free
+        run: python3 scripts/relata.py --check
+
       # kala/THEOREMS.md is generated from the Lean (tools/Uses.lean reads which axioms each proof reaches). It also
       # fails if any proof uses `sorry`, reaches a HELD OUT axiom, or if a live axiom cites the lines an answer cites.
       - name: The theorems list is current, and no proof reasons from a held-out answer
