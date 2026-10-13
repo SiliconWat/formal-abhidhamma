@@ -45,7 +45,7 @@ def row(d):
         verdict = (" · ".join(x for x in (outcome, g.group(1) if g else None, vtxt) if x)
                    or ("pending" if not r else "unscored"))
         extra = {"outcome": outcome, "session": field(p, "The session predicts"),
-                 "founder": field(p, "The founder predicts"), "control_verdict": v.group(1) if v else None}
+                 "founder": field(p, "The founder predicts"), "control_verdict": vtxt}
     elif not p:
         kind, verdict = "retrospective", "—"
     else:
@@ -84,6 +84,8 @@ def build():
     cal_f = [x for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(")]
     hit = lambda xs, who: sum(norm(x[8][who]) == norm(x[8]["outcome"]) for x in xs)
     known = [x for x in proofs if x[1] == "proof control (known answer)" and x[8]["control_verdict"]]
+    kpass = [x for x in known if x[8]["control_verdict"].startswith("PASS")]
+    kconf = sum("confounded" in x[8]["control_verdict"] for x in kpass)
     ctrl = [x for x in scored if x[1] == "control"]
     agr = [x for x in scored if x[1] == "control (agree)"]
     lines = [
@@ -99,7 +101,7 @@ def build():
         f"**Proof runs (`/prove`) scored: {len(proofs)}** — "
         + (" · ".join(f"{n} {o}" for o in ("PROVED", "REFUTED", "INDEPENDENT", "NOT FORMALIZABLE")
                       if (n := sum(x[8]['outcome'] == o for x in proofs))) or "none yet")
-        + f" · known-answer controls {sum(x[8]['control_verdict'] == 'PASS' for x in known)} PASS of {len(known)}"
+        + f" · known-answer controls {len(kpass)} PASS" + (f" ({kconf} confounded)" if kconf else "") + f" of {len(known)}"
         + f" · **calibration**: the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes, the founder "
         + f"{hit(cal_f, 'founder')} of {len(cal_f)}. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in "
         + "[`kala/THEOREMS.md`](../kala/THEOREMS.md).",

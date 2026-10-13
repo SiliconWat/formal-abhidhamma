@@ -4,7 +4,7 @@
 
 **Controls scored: 7 — 3 PASS (1 confounded) · 4 FAIL (2 confounded).** **Agree-controls scored: 1 — 1 PASS (1 confounded) · 0 FAIL.** Pre-registered runs scored: 12. Retrospective (not pre-registered, never counted): 2.
 
-**Proof runs (`/prove`) scored: 0** — none yet · known-answer controls 0 PASS of 0 · **calibration**: the session predicted 0 of 0 outcomes, the founder 0 of 0. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
+**Proof runs (`/prove`) scored: 1** — 1 REFUTED · known-answer controls 1 PASS (1 confounded) of 1 · **calibration**: the session predicted 1 of 1 outcomes, the founder 0 of 0. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
 
 A **control** is a case chosen because the texts should LOSE under the declared window; the mode passes only by
 reporting the collision plainly. An **agree-control** is a case chosen because the texts should WIN; the mode passes
@@ -29,4 +29,4 @@ independently). `OTS` = an OpenTimestamps proof sits beside the PREREG.
 | [`2026-09-30-the-beginning`](2026-09-30-the-beginning/) | retrospective | **—** | A0 | not pre-registered | — | — | What does SN 15's undiscerned beginning commit us to, against causal-set growth? |
 | [`2026-09-30-the-outside-world`](2026-09-30-the-outside-world/) | run | **FAIL** | A0 | 198d806 2026-09-30T22:13:37-07:00 | ✓ | OutsideWorld.lean | Outside beings only two kinds of kalāpa occur, the pure octad and the sound nonad, both temperature-born (A… |
 | [`2026-09-30-the-shape-of-conditioning`](2026-09-30-the-shape-of-conditioning/) | run | **FAIL** | both | eff0f60 2026-09-30T22:13:46-07:00 | ✓ | Shape.lean | The Paṭṭhāna's 24 conditions (A78) do not form one order. Proximity, contiguity, absence and disappearance … |
-| [`2026-10-13-kv-22-10-khanika-control`](2026-10-13-kv-22-10-khanika-control/) | proof control (known answer) | **pending** | none | c1e0b27 2026-10-13T13:04:00-07:00 | ✓ | — | Kathāvatthu 22.10 (Khaṇikakathā): 'all dhammas last one mind-moment' (ekacittakkhaṇikā sabbe dhammā), teste… |
+| [`2026-10-13-kv-22-10-khanika-control`](2026-10-13-kv-22-10-khanika-control/) | proof control (known answer) | **REFUTED · NOT STRONG · PASS (confounded)** | none | c1e0b27 2026-10-13T13:04:00-07:00 | ✓ | Khanika.lean | Kathāvatthu 22.10 (Khaṇikakathā): 'all dhammas last one mind-moment' (ekacittakkhaṇikā sabbe dhammā), teste… |

@@ -31,11 +31,11 @@ Keys are the texts' own references (Kv 22.10 §906, a Paṭṭhāna section, a Y
 
 | Key | The texts' answer | Citation (layer) | Status | Tests | Result | Run |
 |---|---|---|---|---|---|---|
-| Kv 22.10 §906 | **REFUTED: "all dhammas last one mind-moment"** (*ekacittakkhaṇikā sabbe dhammā*, the Pubbaseliyas' and Aparaseliyas' view). Two arguments: the great earth, ocean and Sineru do not stand within one citta; and the eye-base is not co-nascent with eye-consciousness, by Sāriputta's word (MN 28, M i 190) that the eye is intact before consciousness manifests. §907 records the opponent's counter (not momentary, therefore permanent), which the Theravādin rejects | `abh03m3.mul.xml:13641–13653` (Piṭaka); opponents KV-a `abh03a.att.xml:6353` (commentarial) | VERIFIED | the Piṭaka layer (the 17 moments of A4 assert it at the commentarial layer) | *not run* | — |
+| Kv 22.10 §906 | **REFUTED: "all dhammas last one mind-moment"** (*ekacittakkhaṇikā sabbe dhammā*, the Pubbaseliyas' and Aparaseliyas' view). Two arguments: the great earth, ocean and Sineru do not stand within one citta; and the eye-base is not co-nascent with eye-consciousness, by Sāriputta's word (MN 28, M i 190) that the eye is intact before consciousness manifests. §907 records the opponent's counter (not momentary, therefore permanent): the Theravādin rejects only "all permanent", the mūla ends on the opponent's line, and the verdict that the counter fails is the COMMENTARY's (KV-a: *taṃ avuttasadisamevāti*) | `abh03m3.mul.xml:13641–13653` (Piṭaka); opponents KV-a `abh03a.att.xml:6353` (commentarial) | VERIFIED | the Piṭaka layer (the 17 moments of A4 assert it at the commentarial layer) | **REPRODUCED on the ALIGNED reading** (a plumbing check, declared confounded; A87 + A98 already state A69 for bases — the run's F3); on the DURATION reading, open on the commentarial line, refuted on the Mūlaṭīkā's | [`2026-10-13-kv-22-10-khanika-control`](../runs/2026-10-13-kv-22-10-khanika-control/) |
 
 ## Owed — the reclassification audit (founder-approved 2026-10-13)
 
-Three `AXIOMS.md` rows record Kathāvatthu REFUTATIONS: **A59** (no intermediate existence, Kv 8.2), **A69** (matter
+✅ **A69 done** (HELD OUT, 2026-10-13). Open: **A59**, **A103**. Three `AXIOMS.md` rows record Kathāvatthu REFUTATIONS: **A59** (no intermediate existence, Kv 8.2), **A69** (matter
 outlasts a mind-moment, Kv 22.10) and **A103** (past ceased, future unarisen; it also rests on the Dhammasaṅgaṇī's
 definitions). Each gets the asserted-elsewhere test and, where the answer is the debate's conclusion, the HELD OUT mark.
 A1 is a premise both sides of Kv 2.5 hold and stays an axiom.

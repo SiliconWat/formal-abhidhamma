@@ -101,6 +101,7 @@ def collect(tmp, lean):
         if r.returncode:
             errors.append(f"{rel} does not compile under the report:\n{(r.stdout + r.stderr)[-1500:]}"); continue
         rows = [json.loads(m.group(1)) for m in re.finditer(r"THEOREM_JSON (\{.*\})", r.stdout)]
+        for t in rows: t["line"] -= 1        # the report copy starts with an injected `import Uses` line (F9, 2026-10-13)
         out.append((rel, rows))
     return out, errors
 
@@ -229,6 +230,8 @@ def build(results):
         "  premise of the statement, up to its conclusion) the elaborated proof term contains. A hypothesis named with an axiom ID (`a112_link`, the",
         "  `/prove` convention) is shown with that ID; older runs name hypotheses for their role, and their IDs are in the",
         "  docstring and the run's `RUN.md`.",
+        "- ⚠️ **Blind spot:** premises written INSIDE an `∃` (a countermodel: *some world satisfies P and Q*) are not binders, so",
+        "  a countermodel theorem shows none — read its statement (the first /prove run's refuter, F9, 2026-10-13).",
         "- **Unused** — hypotheses the proof never touches. ⭐ A finding about the derivation, not a tidiness warning: the",
         "  conclusion follows from less than was assumed.",
         "- **Logic** — *classical* if the proof rests on `Classical.choice` (excluded middle); *constructive* otherwise.",

@@ -60,7 +60,7 @@ def reportOne (n : Name) (v : Expr) : MetaM Json := do
   let ax ← collectAxioms n
   let doc ← findDocString? env n
   let line := match ← findDeclarationRanges? n with
-    | some r => r.range.pos.line
+    | some r => r.selectionRange.pos.line
     | none => 0
   -- Only the binders of the theorem's own STATEMENT count: the proof's internal lambdas (an `intro` for a `¬ P`
   -- conclusion, say) are not hypotheses. `Not` is not unfolded, so a negated conclusion keeps its premise inside.
