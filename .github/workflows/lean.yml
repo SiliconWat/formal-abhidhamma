@@ -44,3 +44,8 @@ jobs:
 
       - name: The track record is current
         run: python3 scripts/runs-index.py --check
+
+      # kala/THEOREMS.md is generated from the Lean (tools/Uses.lean reads which axioms each proof reaches). It also
+      # fails if any proof uses `sorry`, reaches a HELD OUT axiom, or if a live axiom cites the lines an answer cites.
+      - name: The theorems list is current, and no proof reasons from a held-out answer
+        run: python3 scripts/theorems-index.py --check

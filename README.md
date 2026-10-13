@@ -73,3 +73,9 @@ PASS  12 theorems …   PASS  4 theorems (rung 3) …   9 of 9 deliberate breaks
 ```
 
 **Next:** extend both comparisons beyond the first citta · arm B (perception) needs a partner.
+
+**Proof runs — built 2026-10-13.** Abhidhamma mode asks what physics would have to be if the texts are right; a proof run
+asks whether the texts COMMIT you to a thesis. Three files keep the roles apart: [`kala/AXIOMS.md`](kala/AXIOMS.md) (what
+the texts assert) · [`kala/THEOREMS.md`](kala/THEOREMS.md) (what we derive — every theorem in the repo, GENERATED from
+the Lean, each with the axioms its proof actually reaches) · [`kala/ANSWERS.md`](kala/ANSWERS.md) (what the texts
+themselves derive — the test bank, never a premise). The rubric is [`runs/PROVE-RUBRIC.md`](runs/PROVE-RUBRIC.md).

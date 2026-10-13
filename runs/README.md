@@ -20,3 +20,11 @@ faithful to the texts, and never that nature agrees.
 passes such a run only by reporting COLLIDES plainly; a rescue by reinterpretation is a FAIL.
 
 Runs dated 2026-09-30 before `prereg.py` existed are marked **RETROSPECTIVE** — not pre-registered.
+
+**Proof runs** (`/prove`, founder 2026-10-13). A run that asks whether the texts COMMIT you to a thesis — no physics,
+usually no window. Its `PREREG.md` (written by `prereg.py --proof`) fixes the thesis, the exact Lean statement, the
+axioms, the held-out answers and two predicted outcomes (the founder's and the session's) before the attempt; its
+`RUN.md` records one OUTCOME — PROVED · REFUTED · INDEPENDENT · NOT FORMALIZABLE — and a GRADE, STRONG or NOT STRONG,
+against [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md). Every attempt is recorded, whatever its outcome. A known-answer control
+must reproduce a row of [`kala/ANSWERS.md`](../kala/ANSWERS.md), the texts' own conclusions, which no run may use as a
+premise. Every theorem lands in [`kala/THEOREMS.md`](../kala/THEOREMS.md), generated from the Lean.

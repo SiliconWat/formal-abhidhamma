@@ -31,7 +31,19 @@ def row(d):
     head = p.split("\n", 1)[0] if p else ""
     control = "CONTROL" in head
     agree = "CONTROL — AGREE" in head
-    if not p:
+    extra = {}
+    if p and "(PROOF" in head:
+        # A /prove run (runs/PROVE-RUBRIC.md): an OUTCOME, a GRADE, and — for a known-answer control — a VERDICT.
+        kind = "proof control (known answer)" if "KNOWN ANSWER" in head else "proof"
+        o = re.search(r"OUTCOME:?\**\s*\**\s*(PROVED|REFUTED|INDEPENDENT|NOT FORMALIZABLE)", r)
+        g = re.search(r"GRADE:?\**\s*\**\s*(NOT STRONG|STRONG)", r)
+        v = re.search(r"VERDICT:?\**\s*\**\s*(PASS|FAIL)", r)
+        outcome = o.group(1) if o else None
+        verdict = (" · ".join(x for x in (outcome, g.group(1) if g else None, v.group(1) if v else None) if x)
+                   or ("pending" if not r else "unscored"))
+        extra = {"outcome": outcome, "session": field(p, "The session predicts"),
+                 "founder": field(p, "The founder predicts"), "control_verdict": v.group(1) if v else None}
+    elif not p:
         kind, verdict = "retrospective", "—"
     else:
         kind = "control (agree)" if agree else "control" if control else "run"
@@ -49,7 +61,7 @@ def row(d):
     ots = "✓" if os.path.exists(pre + ".ots") else ("—" if not p else "✗")
     lean = sorted(os.path.basename(x) for x in glob.glob(os.path.join(d, "*.lean")))
     q = q if len(q) <= 110 else q[:107] + "…"
-    return name, kind, verdict, window, prereg, ots, ", ".join(lean) or "—", q
+    return name, kind, verdict, window, prereg, ots, ", ".join(lean) or "—", q, extra
 
 def tally(xs):
     """PASS · FAIL counts, each with how many of them were confounded — never a count cleaner than the runs."""
@@ -63,6 +75,12 @@ def tally(xs):
 def build():
     rows = [row(d) for d in sorted(glob.glob(os.path.join(RUNS, "2*"))) if os.path.isdir(d)]
     scored = [x for x in rows if x[1] in ("run", "control", "control (agree)") and x[2].split()[0] in ("PASS", "FAIL")]
+    proofs = [x for x in rows if x[1].startswith("proof") and x[8].get("outcome")]
+    norm = lambda o: (o or "").replace("-", " ").upper()
+    cal_s = [x for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(")]
+    cal_f = [x for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(")]
+    hit = lambda xs, who: sum(norm(x[8][who]) == norm(x[8]["outcome"]) for x in xs)
+    known = [x for x in proofs if x[1] == "proof control (known answer)" and x[8]["control_verdict"]]
     ctrl = [x for x in scored if x[1] == "control"]
     agr = [x for x in scored if x[1] == "control (agree)"]
     lines = [
@@ -75,6 +93,14 @@ def build():
         f"Pre-registered runs scored: {len(scored)}. Retrospective (not pre-registered, never counted): "
         f"{sum(x[1]=='retrospective' for x in rows)}.",
         "",
+        f"**Proof runs (`/prove`) scored: {len(proofs)}** — "
+        + (" · ".join(f"{n} {o}" for o in ("PROVED", "REFUTED", "INDEPENDENT", "NOT FORMALIZABLE")
+                      if (n := sum(x[8]['outcome'] == o for x in proofs))) or "none yet")
+        + f" · known-answer controls {sum(x[8]['control_verdict'] == 'PASS' for x in known)} PASS of {len(known)}"
+        + f" · **calibration**: the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes, the founder "
+        + f"{hit(cal_f, 'founder')} of {len(cal_f)}. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in "
+        + "[`kala/THEOREMS.md`](../kala/THEOREMS.md).",
+        "",
         "A **control** is a case chosen because the texts should LOSE under the declared window; the mode passes only by",
         "reporting the collision plainly. An **agree-control** is a case chosen because the texts should WIN; the mode passes",
         "only by reporting the agreement plainly — an invented collision there is the same failure as a rescue in a control.",
@@ -85,7 +111,7 @@ def build():
         "| Run | Kind | Verdict | Window | PREREG commit | OTS | Lean | Question |",
         "|---|---|---|---|---|---|---|---|",
     ]
-    for n, k, v, w, pr, o, l, q in rows:
+    for n, k, v, w, pr, o, l, q, _ in rows:
         lines.append(f"| [`{n}`]({n}/) | {k} | **{v}** | {w} | {pr} | {o} | {l} | {q.replace('|', '/')} |")
     return "\n".join(lines) + "\n"
 

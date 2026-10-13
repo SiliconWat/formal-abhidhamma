@@ -8,8 +8,18 @@ record of the push — the push time, not the commit date, is the timestamp nobo
   runs/prereg.py <slug> --question "…" --window A0|A0′|both --axioms A1,A3,C
                  [--predict "…"]… [--pass "…"]… [--allow-recalled] [--control] [--dry-run]
 
+A PROOF run (/prove, founder 2026-10-13; rubric runs/PROVE-RUBRIC.md, cited by commit):
+
+  runs/prereg.py <slug> --proof --thesis "…" --approved-by "…" --lean <file with the exact Lean statement>
+                 --axioms A87,A98 --held-out "Kv 22.10 §906,A69" --predict-outcome REFUTED
+                 [--founder-predicts PROVED|REFUTED|INDEPENDENT|NOT-FORMALIZABLE] [--control-known "<ANSWERS key>"]
+                 [--window none|A0|A0′|both] --predict "…" [--pass "…"]… [--dry-run]
+
 Refuses: a run directory that already exists (a pre-registration is never edited; a correction is a
-new run) · an axiom ID not in AXIOMS.md · a RECALLED axiom without --allow-recalled · no prediction.
+new run) · an axiom ID not in AXIOMS.md · a RECALLED axiom without --allow-recalled · no prediction ·
+(proof) a premise marked HELD OUT, or one also listed as held out · a thesis that turns on an undeclared
+question (avyākata) unless --avyakata-reviewed says why it does not · a Lean statement that is empty or
+already proved (`sorry` is required: the statement is registered, the proof comes after).
 """
 import argparse, datetime, json, os, re, subprocess, sys, time
 
@@ -28,8 +38,8 @@ def rows():
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("slug"); p.add_argument("--question", required=True)
-    p.add_argument("--window", required=True, choices=["A0", "A0′", "both"])
+    p.add_argument("slug"); p.add_argument("--question")
+    p.add_argument("--window", choices=["A0", "A0′", "both", "none"])
     p.add_argument("--axioms", required=True)
     p.add_argument("--predict", action="append", default=[]); p.add_argument("--pass", dest="passc", action="append", default=[])
     p.add_argument("--allow-recalled", action="store_true"); p.add_argument("--control", action="store_true")
@@ -37,7 +47,28 @@ def main():
     # biased AGAINST the texts would pass them all (the "Letting the Texts Lose" refuter, finding 1).
     p.add_argument("--control-agree", action="store_true")
     p.add_argument("--dry-run", action="store_true")
+    # ── a PROOF run (/prove) ──
+    p.add_argument("--proof", action="store_true")
+    p.add_argument("--thesis"); p.add_argument("--approved-by"); p.add_argument("--lean")
+    p.add_argument("--held-out", default="")
+    OUTCOMES = ["PROVED", "REFUTED", "INDEPENDENT", "NOT-FORMALIZABLE"]
+    p.add_argument("--predict-outcome", choices=OUTCOMES); p.add_argument("--founder-predicts", choices=OUTCOMES)
+    p.add_argument("--control-known", help="an ANSWERS.md key the run must reproduce (a known-answer control)")
+    p.add_argument("--avyakata-reviewed", help="why a thesis that mentions an undeclared question does not turn on one")
     a = p.parse_args()
+    if a.proof:
+        need = [f for f in ("thesis", "approved_by", "lean", "predict_outcome") if not getattr(a, f)]
+        if need: sys.exit(f"refused: a proof run needs --{', --'.join(n.replace('_', '-') for n in need)}")
+        a.window = a.window or "none"
+        a.question = a.thesis
+        # The undeclared questions (avyākata): the texts set them aside, and classical logic would "settle" one by
+        # excluded middle. Refused at intake (runs/PROVE-RUBRIC.md); a mention that is not a dependence must say why.
+        AVY = r"tath[aā]gat\w*.{0,40}(after death|param mara)|world.{0,20}(eternal|finite|infinite)|(soul|jīva|jiva|life-principle).{0,30}body|sassato loko|antavā loko|taṃ jīvaṃ"
+        if re.search(AVY, a.thesis, re.I) and not a.avyakata_reviewed:
+            sys.exit("refused: the thesis touches an undeclared question (avyākata) — the rubric refuses it at intake; "
+                     "if it does not TURN on one, pass --avyakata-reviewed \"<why>\"")
+    elif not a.question or not a.window:
+        sys.exit("refused: --question and --window are required (or --proof with --thesis)")
     if not re.fullmatch(r"[a-z0-9-]+", a.slug): sys.exit("slug: lowercase letters, digits, hyphens")
     if a.control and a.control_agree: sys.exit("refused: --control (texts should LOSE) and --control-agree (texts should WIN) are exclusive")
     if not a.predict: sys.exit("refused: at least one --predict is required — a run with no prediction cannot fail")
@@ -47,6 +78,17 @@ def main():
     table, ids = rows(), [x.strip() for x in a.axioms.split(",") if x.strip()]
     missing = [i for i in ids if i not in table]
     if missing: sys.exit(f"refused: not in AXIOMS.md: {', '.join(missing)}")
+    held = [x.strip() for x in a.held_out.split(",") if x.strip()]
+    if a.proof:
+        # The texts' own answers are the TEST, never a premise (kala/ANSWERS.md, ruled 2026-10-13).
+        marked = [i for i in ids if "HELD OUT" in table[i]]
+        if marked: sys.exit(f"refused: {', '.join(marked)} is HELD OUT (a text's own conclusion, kala/ANSWERS.md) — never a premise")
+        both = [i for i in ids if i in held]
+        if both: sys.exit(f"refused: {', '.join(both)} is both a premise and held out")
+        stmt = open(a.lean, encoding="utf-8").read().strip() if os.path.exists(a.lean) else ""
+        if not stmt: sys.exit(f"refused: {a.lean} is empty or missing — register the exact Lean statement")
+        if "sorry" not in stmt:
+            sys.exit("refused: the Lean statement must end in `sorry` — the STATEMENT is registered, the proof comes after")
     def status(row):                      # the Status column only (6-cell rows); a citation may mention RECALLED for a sub-locus
         cells = [c.strip() for c in row.strip().strip("|").split("|")]
         return cells[4] if len(cells) >= 6 else ""
@@ -56,7 +98,7 @@ def main():
     head = sh("git", "rev-parse", "--short", "HEAD")
     stamp = "/Users/siliconwat/Desktop/MA/SW/siliconwat.dev/bedok.siliconwat.dev/tipitaka/india/roman/UPSTREAM.txt"
     tip = open(stamp).readline().strip() if os.path.exists(stamp) else "UNKNOWN — run cst-sync.py --apply first"
-    win = [table["A0"]] if a.window == "A0" else [table["A0′"]] if a.window == "A0′" else [table["A0"], table["A0′"]]
+    win = [] if a.window == "none" else [table["A0"]] if a.window == "A0" else [table["A0′"]] if a.window == "A0′" else [table["A0"], table["A0′"]]
     hdr = "| ID | Statement | Tier | Citation | Status | Lean |\n|---|---|---|---|---|---|"
     body = f"""# PRE-REGISTRATION — {a.slug}{' (CONTROL: a case chosen because the texts should LOSE)' if a.control else ' (CONTROL — AGREE: a case chosen because the texts should WIN)' if a.control_agree else ''}
 
@@ -87,6 +129,51 @@ def main():
 
 {chr(10).join(f'- {x}' for x in a.passc) or '- (none beyond the predictions)'}
 """
+    if a.proof:
+        rub = sh("git", "log", "-1", "--format=%h", "--", "runs/PROVE-RUBRIC.md") or "UNCOMMITTED"
+        kind = (f" (PROOF — CONTROL, KNOWN ANSWER: {a.control_known})" if a.control_known else " (PROOF)")
+        body = f"""# PRE-REGISTRATION — {a.slug}{kind}
+
+*Pushed BEFORE the proof was attempted. Never edited after its push; a correction is a new run. Graded by
+[`runs/PROVE-RUBRIC.md`](../PROVE-RUBRIC.md) at `{rub}`.*
+
+- **Date (machine):** {date}
+- **Question:** {a.thesis}
+- **Thesis approved by:** {a.approved_by}
+- **Window:** {a.window}
+- **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, ANSWERS.md, Axioms.lean as of that commit)
+- **Tipiṭaka text:** {tip} (CST line numbers are as of this version)
+{('- ⚠️ **RECALLED axioms used (unverified):** ' + ', '.join(recalled)) if recalled else ''}
+{('- **Avyākata review:** ' + a.avyakata_reviewed) if a.avyakata_reviewed else ''}
+
+## The exact Lean statement (the proof comes after; the statement may not move)
+
+```lean
+{stmt}
+```
+
+## Axioms — the only premises (rows copied verbatim from `kala/AXIOMS.md`)
+
+{hdr}
+{chr(10).join(table[i] for i in ids)}
+
+## Held out — the texts' own answers this run may NOT reason from
+
+{chr(10).join(f'- {x}' for x in held) or '- (none)'}
+
+## Predicted outcome
+
+- **The session predicts:** {a.predict_outcome}
+- **The founder predicts:** {a.founder_predicts or '(no prediction given)'}
+
+## Predictions
+
+{chr(10).join(f'{n}. {x}' for n, x in enumerate(a.predict, 1))}
+
+## Pass criteria for the instrument
+
+{chr(10).join(f'- {x}' for x in a.passc) or '- (none beyond the predictions)'}
+"""
     if a.dry_run: print(body); return
     os.makedirs(d); open(os.path.join(d, "PREREG.md"), "w", encoding="utf-8").write(body)
     rel = os.path.relpath(os.path.join(d, "PREREG.md"), REPO)
@@ -96,7 +183,7 @@ def main():
         sh("git", "add", rel + ".ots"); print(f"stamped {rel}.ots (OpenTimestamps; pending until Bitcoin confirms — /ots upgrades it)")
     else:
         print("⚠️ OTS client absent (~/.cache/ots-venv) — PREREG NOT stamped; run /ots later")
-    sh("git", "add", rel); sh("git", "commit", "-q", "-m", f"prereg: {a.slug} (window {a.window}; axioms {','.join(ids)})")
+    sh("git", "add", rel); sh("git", "commit", "-q", "-m", f"prereg: {a.slug} ({'proof; ' if a.proof else ''}window {a.window}; axioms {','.join(ids)})")
     prereg_sha = sh("git", "rev-parse", "HEAD")
     # The track record lists every PREREG, so it goes stale the moment one is committed; CI (runs-index.py --check)
     # failed on every registration push until the run landed (2026-09-30). Regenerate it in a second commit and push
