@@ -66,7 +66,7 @@ is REFUTED or INDEPENDENT. A proof of what the texts already say is a check, not
 
 ## Naming convention
 
-A hypothesis that encodes an axiom is named with its ID, lowercase: `a87_purejata`, `a98_atthi`, `c_conditioned`.
+A hypothesis that encodes an axiom is named with its ID, lowercase: `a3_tick`, `a41_javanas`, `c_conditioned`.
 `kala/THEOREMS.md` shows such a hypothesis with its ID; it also maps definitions to IDs through `AXIOMS.md`'s Lean column.
 
 Lean proves that a conclusion follows from these definitions — never that the definitions are faithful to the texts,

@@ -39,7 +39,10 @@ def row(d):
         g = re.search(r"GRADE:?\**\s*\**\s*(NOT STRONG|STRONG)", r)
         v = re.search(r"VERDICT:?\**\s*\**\s*(PASS|FAIL)", r)
         outcome = o.group(1) if o else None
-        verdict = (" · ".join(x for x in (outcome, g.group(1) if g else None, v.group(1) if v else None) if x)
+        vtxt = v.group(1) if v else None
+        # a control declared confounded says so on its VERDICT line, and the index carries it (never a cleaner tally)
+        if v and re.search(r"confounded", r[v.start():r.find("\n", v.start())], re.I): vtxt += " (confounded)"
+        verdict = (" · ".join(x for x in (outcome, g.group(1) if g else None, vtxt) if x)
                    or ("pending" if not r else "unscored"))
         extra = {"outcome": outcome, "session": field(p, "The session predicts"),
                  "founder": field(p, "The founder predicts"), "control_verdict": v.group(1) if v else None}

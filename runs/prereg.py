@@ -11,7 +11,7 @@ record of the push — the push time, not the commit date, is the timestamp nobo
 A PROOF run (/prove, founder 2026-10-13; rubric runs/PROVE-RUBRIC.md, cited by commit):
 
   runs/prereg.py <slug> --proof --thesis "…" --approved-by "…" --lean <file with the exact Lean statement>
-                 --axioms A87,A98 --held-out "Kv 22.10 §906,A69" --predict-outcome REFUTED
+                 --axioms A3,A41 --held-out "<ANSWERS key>,<HELD OUT ID>" --predict-outcome PROVED
                  [--founder-predicts PROVED|REFUTED|INDEPENDENT|NOT-FORMALIZABLE] [--control-known "<ANSWERS key>"]
                  [--window none|A0|A0′|both] --predict "…" [--pass "…"]… [--dry-run]
 
