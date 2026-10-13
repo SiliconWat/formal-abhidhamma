@@ -133,6 +133,10 @@ def axiom_ids(defs, table):
         parts = d.split(".")
         for tok, i in table:
             if parts[-len(tok):] == tok and i not in found: found.append(i)
+        # OQ5 (founder 2026-10-13): a premise DEFINITION named by its axiom ID — `a87_purejata` → A87 — counts wherever it
+        # is reached, so a countermodel's premises (inside an ∃) are no longer invisible
+        m = AXIOM_BINDER.match(parts[-1])
+        if m and (i := m.group(1).upper()) not in found: found.append(i)
     order = lambda i: (0, 0) if i.startswith("A0") else (1, int(re.sub(r"\D", "", i) or 0)) if i.startswith("A") else (2, i)
     return sorted(found, key=order)
 
@@ -230,8 +234,9 @@ def build(results):
         "  premise of the statement, up to its conclusion) the elaborated proof term contains. A hypothesis named with an axiom ID (`a112_link`, the",
         "  `/prove` convention) is shown with that ID; older runs name hypotheses for their role, and their IDs are in the",
         "  docstring and the run's `RUN.md`.",
-        "- ⚠️ **Blind spot:** premises written INSIDE an `∃` (a countermodel: *some world satisfies P and Q*) are not binders, so",
-        "  a countermodel theorem shows none — read its statement (the first /prove run's refuter, F9, 2026-10-13).",
+        "- ⚠️ **Countermodels:** premises written INSIDE an `∃` are not binders. Written as DEFINITIONS named by their axiom ID",
+        "  (`def a87_purejata (w) : Prop`, the convention since A388 OQ5, 2026-10-13) they are reached and shown; written",
+        "  inline (the first /prove run's T2 and T3) they are invisible — read the statement.",
         "- **Unused** — hypotheses the proof never touches. ⭐ A finding about the derivation, not a tidiness warning: the",
         "  conclusion follows from less than was assumed.",
         "- **Logic** — *classical* if the proof rests on `Classical.choice` (excluded middle); *constructive* otherwise.",

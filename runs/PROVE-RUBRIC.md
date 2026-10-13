@@ -39,14 +39,20 @@ attempt is recorded, whichever outcome it reaches** — a list of successes only
 ## STRONG — every item, or the run is not strong
 
 1. **Every axiom used is VERIFIED** at its cited line (no RECALLED row; no ADDED reading left unverified).
-2. **Nothing load-bearing holds BY CONSTRUCTION** — the type must not do the work the axiom is supposed to do.
+2. **Nothing load-bearing holds BY CONSTRUCTION** — the type must not do the work the axiom is supposed to do, **in either
+   direction** (A388 OQ4, 2026-10-13): a result that depends on what the type CANNOT express (no citta stream, presence not
+   tied to birth) is by construction too. Every PREREG declares its **type freedoms** before the attempt.
 3. **A model** satisfies all the registered hypotheses together (the theorem is not vacuous).
 4. **Every relied-on axiom has a break that must fail**: drop or weaken it, and the proof no longer checks.
 5. **The axioms used are READ FROM LEAN** (`kala/THEOREMS.md`, via `tools/Uses.lean`), never declared; an UNUSED
-   hypothesis is reported as a finding.
+   hypothesis is reported as a finding. A countermodel's premises sit inside an `∃`, so they are written as DEFINITIONS
+   named by their axiom ID (A388 OQ5) — then they are read like any other.
 6. **The logic is reported**: constructive, or classical (`Classical.choice`). Constructive grades higher.
-7. **No held-out answer is a premise** — the texts' own conclusions (`kala/ANSWERS.md`) are what a run is TESTED
-   against, never what it reasons from.
+7. **No held-out answer is a premise — alone or as a SET** (A388 OQ3, 2026-10-13). The texts' own conclusions
+   (`kala/ANSWERS.md`) are what a run is TESTED against, never what it reasons from. `scripts/leak-check.py` asks Lean
+   whether each premise set (`def premises_<thm>`) yields each held-out answer (`def answer_<key>`) in ONE bounded
+   automated step (`grind`): on the run's own known answer that is **TRIVIAL** (reported; not STRONG), on any other it is
+   a **LEAK** (CI fails). ⚠️ The threshold is declared, not discovered: a deeper restatement passes unseen.
 8. **The refuter found no defect in the encoding** that the run did not repair or narrow.
 9. **The layer is named**: the latest tier among the axioms used (Piṭaka · commentarial · sub-commentarial · manual ·
    manual's commentary · ours). A theorem that holds in the Piṭaka layer is stronger than one that needs the manual.
@@ -64,10 +70,14 @@ attempt is recorded, whichever outcome it reaches** — a list of successes only
 A run may become a paper only if it is STRONG and either the thesis is not already stated in the texts, or the outcome
 is REFUTED or INDEPENDENT. A proof of what the texts already say is a check, not a paper.
 
-## Naming convention
+## Naming convention (since A388, 2026-10-13)
 
-A hypothesis that encodes an axiom is named with its ID, lowercase: `a3_tick`, `a41_javanas`, `c_conditioned`.
-`kala/THEOREMS.md` shows such a hypothesis with its ID; it also maps definitions to IDs through `AXIOMS.md`'s Lean column.
+- **Each premise is a DEFINITION named by its axiom ID**, lowercase: `def a87_purejata (w : World) : Prop := …`, used as a
+  hypothesis (`(h87 : a87_purejata w)`) and inside any `∃`. `kala/THEOREMS.md` maps it to its ID wherever it is reached.
+- **Each theorem's premise set** is `def premises_<thm> (w) : Prop := a87_purejata w ∧ …`.
+- **Each held-out answer the run is near** is `def answer_<key> (w) : Prop`, its docstring starting `ANSWER: <the
+  ANSWERS.md key>`.
+- Older runs name hypotheses (`a3_tick`) instead; `THEOREMS.md` reads those too.
 
 Lean proves that a conclusion follows from these definitions — never that the definitions are faithful to the texts,
 and never that nature agrees.

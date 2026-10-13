@@ -49,3 +49,8 @@ jobs:
       # fails if any proof uses `sorry`, reaches a HELD OUT axiom, or if a live axiom cites the lines an answer cites.
       - name: The theorems list is current, and no proof reasons from a held-out answer
         run: python3 scripts/theorems-index.py --check
+
+      # A388 OQ3: a premise SET that yields a held-out answer in one bounded `grind` step is a LEAK (fails) — or, on the
+      # run's own known answer, a TRIVIAL reproduction (reported).
+      - name: No premise set restates a held-out answer
+        run: python3 scripts/leak-check.py

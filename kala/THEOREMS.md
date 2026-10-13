@@ -14,8 +14,9 @@ How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never writ
   premise of the statement, up to its conclusion) the elaborated proof term contains. A hypothesis named with an axiom ID (`a112_link`, the
   `/prove` convention) is shown with that ID; older runs name hypotheses for their role, and their IDs are in the
   docstring and the run's `RUN.md`.
-- ⚠️ **Blind spot:** premises written INSIDE an `∃` (a countermodel: *some world satisfies P and Q*) are not binders, so
-  a countermodel theorem shows none — read its statement (the first /prove run's refuter, F9, 2026-10-13).
+- ⚠️ **Countermodels:** premises written INSIDE an `∃` are not binders. Written as DEFINITIONS named by their axiom ID
+  (`def a87_purejata (w) : Prop`, the convention since A388 OQ5, 2026-10-13) they are reached and shown; written
+  inline (the first /prove run's T2 and T3) they are invisible — read the statement.
 - **Unused** — hypotheses the proof never touches. ⭐ A finding about the derivation, not a tidiness warning: the
   conclusion follows from less than was assumed.
 - **Logic** — *classical* if the proof rests on `Classical.choice` (excluded middle); *constructive* otherwise.

@@ -13,7 +13,7 @@ A PROOF run (/prove, founder 2026-10-13; rubric runs/PROVE-RUBRIC.md, cited by c
   runs/prereg.py <slug> --proof --thesis "…" --approved-by "…" --lean <file with the exact Lean statement>
                  --axioms A3,A41 --held-out "<ANSWERS key>,<HELD OUT ID>" --predict-outcome PROVED
                  [--founder-predicts PROVED|REFUTED|INDEPENDENT|NOT-FORMALIZABLE] [--control-known "<ANSWERS key>"]
-                 [--window none|A0|A0′|both] --predict "…" [--pass "…"]… [--dry-run]
+                 [--window none|A0|A0′|both] --type-freedom "…" [--type-freedom "…"]… --predict "…" [--pass "…"]… [--dry-run]
 
 Refuses: a run directory that already exists (a pre-registration is never edited; a correction is a
 new run) · an axiom ID not in AXIOMS.md · a RECALLED axiom without --allow-recalled · no prediction ·
@@ -55,9 +55,12 @@ def main():
     p.add_argument("--predict-outcome", choices=OUTCOMES); p.add_argument("--founder-predicts", choices=OUTCOMES)
     p.add_argument("--control-known", help="an ANSWERS.md key the run must reproduce (a known-answer control)")
     p.add_argument("--avyakata-reviewed", help="why a thesis that mentions an undeclared question does not turn on one")
+    # A388 OQ4 (founder 2026-10-13): what the TYPE leaves free (no citta stream, presence not tied to birth …) is declared
+    # BEFORE the attempt — a result that depends on what the type cannot express is BY CONSTRUCTION too
+    p.add_argument("--type-freedom", action="append", default=[])
     a = p.parse_args()
     if a.proof:
-        need = [f for f in ("thesis", "approved_by", "lean", "predict_outcome") if not getattr(a, f)]
+        need = [f for f in ("thesis", "approved_by", "lean", "predict_outcome", "type_freedom") if not getattr(a, f)]
         if need: sys.exit(f"refused: a proof run needs --{', --'.join(n.replace('_', '-') for n in need)}")
         a.window = a.window or "none"
         a.question = a.thesis
@@ -156,6 +159,10 @@ def main():
 
 {hdr}
 {chr(10).join(table[i] for i in ids)}
+
+## Type freedoms — what the Lean type leaves free, declared before the attempt (A388 OQ4)
+
+{chr(10).join(f'- {x}' for x in a.type_freedom)}
 
 ## Held out — the texts' own answers this run may NOT reason from
 
