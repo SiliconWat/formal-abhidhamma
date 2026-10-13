@@ -33,7 +33,7 @@ jobs:
       - name: Run every suite
         run: |
           fail=0
-          for s in control/run.sh sangaha/run.sh kala/run.sh runs/*/run.sh; do
+          for s in control/run.sh sangaha/run.sh kala/run.sh matika/run.sh runs/*/run.sh; do
             [ -f "$s" ] || continue
             echo "::group::$s"
             if sh "$s"; then echo "✓ $s" >> "$GITHUB_STEP_SUMMARY"

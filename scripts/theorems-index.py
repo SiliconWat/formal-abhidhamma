@@ -18,7 +18,7 @@ import glob, json, os, re, shutil, subprocess, sys, tempfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "kala", "THEOREMS.md")
-LIBS = ["control", "sangaha", "kala"]          # directories whose modules other files import
+LIBS = ["control", "sangaha", "kala", "matika"]   # suite directories (their modules may import each other)
 # A file that exists to FAIL (its run.sh requires it not to compile) is never reported. One today.
 MUST_FAIL = {"control/Broken.lean"}
 AXIOM_BINDER = re.compile(r"^(a0′?|a\d+b?|c|k)_", re.I)   # the /prove convention: `a112_link` → A112

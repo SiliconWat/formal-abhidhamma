@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**101 theorems in 24 files** · 97 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models.
+**110 theorems in 25 files** · 106 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -74,6 +74,15 @@ texts, and never that nature agrees.
 | `sixteen_admits_no_very_great` | [`kala/Vithi.lean:76`](../kala/Vithi.lean#L76) | IV. A 16-moment life paired with the SAṄGAHA'S entry convention (the object enters after ≥ 1 past moment) admits no very-great process: 1 + 2 + 14 = 17 > 16. | `h` | — | constructive | — |
 | `sixteen_with_arising_entry_fills_the_life` | [`kala/Vithi.lean:83`](../kala/Vithi.lean#L83) | IV′. On the 16-holders' own convention — entry at the arising phase, p = 0, a *keci* view the Vibhāvinī reports and calls *asāra* (`:4845`) — the very-great process fills a 16-moment life exactly, … | — | — | constructive | — |
 | `process_never_outlives_its_object` | [`kala/Vithi.lean:88`](../kala/Vithi.lean#L88) | V. Every grade's process ends within the object's life. | **A4** · `h` | — | constructive | ⚠️ BY CONSTRUCTION |
+| `twentytwo_triads` | [`matika/Matika.lean:193`](../matika/Matika.lean#L193) | The Atthasālinī (`abh01a.att.xml:305`): *dvāvīsati tikā*. | — | — | constructive | — |
+| `every_triad_has_three` | [`matika/Matika.lean:194`](../matika/Matika.lean#L194) | — | — | — | constructive | — |
+| `hundred_dyads` | [`matika/Matika.lean:196`](../matika/Matika.lean#L196) | *ime sataṃ dukā*. | — | — | constructive | — |
+| `every_dyad_has_two` | [`matika/Matika.lean:197`](../matika/Matika.lean#L197) | — | — | — | constructive | — |
+| `fortytwo_suttanta_dyads` | [`matika/Matika.lean:199`](../matika/Matika.lean#L199) | *dvācattālīsa suttantikadukā*. | — | — | constructive | — |
+| `numbered_in_order` | [`matika/Matika.lean:201`](../matika/Matika.lean#L201) | The numbering runs unbroken: triads 1–22, Abhidhamma dyads 1–100, Suttanta dyads 101–142. | — | — | constructive | — |
+| `twentyfour_conditions` | [`matika/Matika.lean:205`](../matika/Matika.lean#L205) | The Paṭṭhāna's uddesa names twenty-four conditions. | — | — | constructive | — |
+| `twentyfour_samantapatthana` | [`matika/Matika.lean:224`](../matika/Matika.lean#L224) | The commentary's count, reproduced from the generator: *catuvīsati samantapaṭṭhānāni*. | — | — | constructive | — |
+| `cross_pairings` | [`matika/Matika.lean:238`](../matika/Matika.lean#L238) | Derived, NOT stated in the texts: putting the 22 triads into the 100 dyads gives 2,200 pairings each way. | — | — | constructive | — |
 | `d1_swoon_breathless_sleep_breathes` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:19`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L19) | D1. A114 with its closure (ADDED: the seven cases are exhaustive — Vism-ṭīkā `:4829`, Sāratthadīpanī `vin01t2.tik.xml:3281`) ⇒ the swooned do not breathe and sleepers do. | `a114`, `closure` | — | constructive | — |
 | `d1_model` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:24`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L24) | Non-vacuity for D1: a model satisfying both hypotheses. | — | — | constructive | model |
 | `d2_broad_reading_contradicts` | [`runs/2026-09-30-breath-in-the-unconscious/Breath.lean:30`](../runs/2026-09-30-breath-in-the-unconscious/Breath.lean#L30) | D2. Dhammapāla's grouping read broadly (M1b: in a swoon no matter-producing citta occurs) against the texts' own report that javanas run in a swoon (Vism-ṭīkā `e0104n.att.xml:1665`, *suttamucchitād… | `javana_runs`, `m1b` | — | constructive | — |
