@@ -1,6 +1,6 @@
 /-
   A KNOWN-ANSWER CONTROL after the A393/A395 changes to the rubric, prereg.py, leak-check.py and runs-index.py (and today's
-  AXIOMS rows): the Vajirabuddhi-ṭīkā's derivation that in beginningless saṃsāra there is no first citta
+  AXIOMS rows): the Vajirabuddhi-ṭīkā's derivation that in saṃsāra whose beginning is unknown there is no first citta
   (kala/ANSWERS.md "Vajirabuddhi first citta", HELD OUT), reproduced from premises that exclude it. A plumbing check by
   construction: the answer is one step from C's predecessor clause as the Visuddhimagga (XVII) states it in its own voice. One
   claim per theorem; each premise a definition named by its axiom ID. T0, which uses A3 alone, is the leak check's case that
@@ -25,10 +25,10 @@ def a3_successor (w : World) : Prop := ∀ p q, w.prox p q → p < q
 
 /-! ## The held-out answer, and the row that states the thesis -/
 
-/-- ANSWER: Vajirabuddhi first citta — in beginningless saṃsāra there is no first citta: every citta has an earlier one. -/
+/-- ANSWER: Vajirabuddhi first citta — in saṃsāra whose beginning is unknown there is no first citta: every citta has an earlier one. -/
 def answer_vajirabuddhi_first_citta (w : World) : Prop := ∀ q, w.citta q → ∃ p, p < q ∧ w.citta p
 
-/-- STATES: A77 — the manual's "the round is beginningless" (*anādikaṃ*), read for one stream: no citta is the first. -/
+/-- STATES: A77 — "the round is beginningless" (*anādikaṃ*; derived at the manual's place, asserted in the Visuddhimagga ṭīkā), read for one stream: no citta is the first. -/
 def states_a77 (w : World) : Prop := ¬ ∃ f, w.citta f ∧ ∀ t, w.citta t → f ≤ t
 
 /-! ## The theorem (statement only) -/
