@@ -83,7 +83,10 @@ INSTRUMENT, not the reasoning: declare it in the PREREG, and `RUN.md` writes `PA
 
 - ⛔ **The undeclared questions** (*avyākata*: the world eternal or not, finite or not, the life-principle the body or
   not, the Tathāgata after death in the four ways). The texts set them aside; classical logic would happily "settle"
-  one by excluded middle. A thesis that turns on one is refused.
+  one by excluded middle. A thesis that turns on one is refused. ⭐ **Including the same question in other words**
+  (A398, founder 2026-10-13: *"reconcile A398"*): asked whether the whole world, half or a third will be led out, the
+  Buddha is silent and Ānanda calls it the undeclared question asked another way (AN 10.95, `s0404m3.mul.xml:3564–3576`) —
+  so "every being WILL awaken" is refused too; "every being CAN" is not (Kv 19.7 defends it).
 - ⛔ A thesis about nibbāna as produced, left over, or a moment — those are ratified guards, not open questions.
 - A thesis about nature (physics, consciousness science) goes to `/abhidhamma`, not here.
 
@@ -101,7 +104,11 @@ verdict (`--thesis-vs-answer "<key>: entails | does not entail | not decided —
 makes PROVED unreachable — `prereg.py` refuses `--predict-outcome PROVED`, the PREREG lists it under **Unreachable
 outcomes**, and a PROVED prediction is scored UNREACHABLE, never a miss (`runs/INDEX.md`'s calibration). ⭐ **A known-answer
 control's OWN answer is exempt** (founder 2026-10-13: *"do all per your recommendation"*): its thesis IS its answer by design;
-reaching it is TRIVIAL (item 7), and the control is graded by its VERDICT. ⚠️ The leak check's
+reaching it is TRIVIAL (item 7), and the control is graded by its VERDICT. ⭐ **A399** (founder 2026-10-13: *"approve"*):
+a known-answer control's predicted outcome stays OUT of the outcome calibration (it is fixed by design; the index reports
+controls by VERDICT); `--control-known` must name an ANSWERS key the run also holds out; and the instrument's REFUSAL and
+DETECTION side is a property — `scripts/selftest.py` plants every refusal and detection once, must see each fire and one
+valid control accepted, and CI runs it on every push. ⚠️ The leak check's
 one bounded step said "no" to that very entailment: settle the verdict by attempting the proof, never by the leak check.
 
 ## Naming convention (since A388, 2026-10-13)

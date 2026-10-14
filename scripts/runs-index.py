@@ -84,10 +84,13 @@ def build():
     proofs = [x for x in rows if x[1].startswith("proof") and x[8].get("outcome")]
     norm = lambda o: (o or "").replace("-", " ").upper()
     reach = lambda x, who: norm(x[8][who]) not in {norm(u) for u in x[8].get("unreachable", ())}
-    cal_s = [x for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(") and reach(x, "session")]
-    cal_f = [x for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(") and reach(x, "founder")]
-    un_s = sum(1 for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(") and not reach(x, "session"))
-    un_f = sum(1 for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(") and not reach(x, "founder"))
+    # A399 OQ-1 (founder 2026-10-13, "approve"): a known-answer control is graded by its VERDICT; its outcome is fixed by design,
+    # so it never enters the outcome calibration
+    thes = [x for x in proofs if x[1] == "proof"]
+    cal_s = [x for x in thes if x[8]["session"] and not x[8]["session"].startswith("(") and reach(x, "session")]
+    cal_f = [x for x in thes if x[8]["founder"] and not x[8]["founder"].startswith("(") and reach(x, "founder")]
+    un_s = sum(1 for x in thes if x[8]["session"] and not x[8]["session"].startswith("(") and not reach(x, "session"))
+    un_f = sum(1 for x in thes if x[8]["founder"] and not x[8]["founder"].startswith("(") and not reach(x, "founder"))
     hit = lambda xs, who: sum(norm(x[8][who]) == norm(x[8]["outcome"]) for x in xs)
     known = [x for x in proofs if x[1] == "proof control (known answer)" and x[8]["control_verdict"]]
     kpass = [x for x in known if x[8]["control_verdict"].startswith("PASS")]
@@ -108,7 +111,7 @@ def build():
         + (" · ".join(f"{n} {o}" for o in ("PROVED", "REFUTED", "INDEPENDENT", "NOT FORMALIZABLE")
                       if (n := sum(x[8]['outcome'] == o for x in proofs))) or "none yet")
         + f" · known-answer controls {len(kpass)} PASS" + (f" ({kconf} confounded)" if kconf else "") + f" of {len(known)}"
-        + f" · **calibration**: the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes"
+        + f" · **calibration** (theses only — controls are scored by VERDICT, A399): the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes"
         + (f" ({un_s} unreachable)" if un_s else "") + f", the founder {hit(cal_f, 'founder')} of {len(cal_f)}"
         + (f" ({un_f} unreachable — A395)" if un_f else "") + ". Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in "
         + "[`kala/THEOREMS.md`](../kala/THEOREMS.md).",

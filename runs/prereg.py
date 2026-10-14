@@ -74,7 +74,10 @@ def main():
         a.question = a.thesis
         # The undeclared questions (avyākata): the texts set them aside, and classical logic would "settle" one by
         # excluded middle. Refused at intake (runs/PROVE-RUBRIC.md); a mention that is not a dependence must say why.
-        AVY = r"tath[aā]gat\w*.{0,40}(after death|param mara)|world.{0,20}(eternal|finite|infinite)|(soul|jīva|jiva|life-principle).{0,30}body|sassato loko|antavā loko|taṃ jīvaṃ"
+        AVY = r"tath[aā]gat\w*.{0,40}(after death|param mara)|world.{0,20}(eternal|finite|infinite)|(soul|jīva|jiva|life-principle).{0,30}body|sassato loko|antavā loko|taṃ jīvaṃ|(whole world|all beings|every being|all sentient beings|everyone).{0,60}\b(will|shall)\b.{0,40}(led out|awaken|attain|liberat|reach nibb|become (a )?(buddha|arahant))|loko n[iī]y"
+        # ⭐ A398 (founder 2026-10-13, "reconcile A398"): AN 10.95 — asked whether the whole world, half or a third will be led
+        # out, the Buddha is silent and Ānanda calls it the undeclared question asked another way; its wording matches none of
+        # the ten, so the check missed it until this pattern
         if re.search(AVY, a.thesis, re.I) and not a.avyakata_reviewed:
             sys.exit("refused: the thesis touches an undeclared question (avyākata) — the rubric refuses it at intake; "
                      "if it does not TURN on one, pass --avyakata-reviewed \"<why>\"")
@@ -94,6 +97,13 @@ def main():
         # The texts' own answers are the TEST, never a premise (kala/ANSWERS.md, ruled 2026-10-13).
         marked = [i for i in ids if "HELD OUT" in table[i]]
         if marked: sys.exit(f"refused: {', '.join(marked)} is HELD OUT (a text's own conclusion, kala/ANSWERS.md) — never a premise")
+        # A399 OQ-2 (founder 2026-10-13, "approve"): the control exemption keys on --control-known, so the key must be a real
+        # ANSWERS key that the run also holds out — a self-declared flag would otherwise turn a LEAK into TRIVIAL
+        if a.control_known:
+            _keys = {c.split("|")[1].strip() for c in open(os.path.join(REPO, "kala", "ANSWERS.md"), encoding="utf-8")
+                     if c.startswith("| ") and not c.startswith("| Key") and not c.startswith("|---")}
+            if a.control_known.strip() not in _keys or a.control_known.strip() not in held:
+                sys.exit(f"refused: --control-known '{a.control_known}' must be an ANSWERS key also listed in --held-out (A399)")
         both = [i for i in ids if i in held]
         if both: sys.exit(f"refused: {', '.join(both)} is both a premise and held out")
         # A393: held out means an ANSWERS key or a HELD OUT row — the first thesis listed two rows that merely STATE its

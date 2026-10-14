@@ -59,3 +59,9 @@ jobs:
       # run's own known answer, a TRIVIAL reproduction (reported).
       - name: No premise set restates a held-out answer
         run: python3 scripts/leak-check.py
+
+      # A399 OQ-3 (founder 2026-10-13, "approve"): the REFUSAL and DETECTION side as a property — every prereg.py refusal,
+      # LEAK, STATED NEGATION, NONE NEAR, ERROR, the anchored harness, a BLIND break and the drift guard are planted once and
+      # must each be seen to fire; one valid control must be ACCEPTED (a tool that refused everything would pass the rest)
+      - name: The instrument's refusals and detections fire (planted)
+        run: python3 scripts/selftest.py
