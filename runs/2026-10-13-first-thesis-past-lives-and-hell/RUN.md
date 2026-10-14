@@ -13,6 +13,7 @@
   each on T3 alone) with planted tests — a moved claim caught, an unused break BLIND, a commented-out copy caught;
   `kala/THEOREMS.md`; `leak-check.py` (a LEAK, acknowledged below); the run refuter; CI.
 
+- ⚠️ **Declared after grading (the post-A395 control's vetting refuter, F2, 2026-10-13):** the blind back-translations here were given the WHOLE statement file and told to ignore its comments and docstrings, which carried the thesis — blind by instruction, not by construction. Their findings came from unfolding the code (an unneeded premise, a loophole, a vacuous case), but the rubric's "only the Lean statement" was not met; the skill now hands the reader a stripped copy.
 ## OUTCOME: INDEPENDENT
 ## GRADE: NOT STRONG
 
