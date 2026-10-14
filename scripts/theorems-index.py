@@ -184,6 +184,22 @@ def citation_overlaps():
                 if ac[f] & xc[f]: bad.append(f"ANSWERS {k} and AXIOMS {i} both cite {f}:{min(ac[f] & xc[f])}")
     return bad
 
+def axiom_def_drift():
+    """The same ID-named premise definition (`def a3_successor …`, `def c_predecessor …`) must have the SAME body in every
+    file that defines it — the cheap guard against encoding drift that roadmap A391's shared package would make a
+    property. Added 2026-10-13 when the founder's first thesis became the first run to reuse an axiom definition (A3, from
+    the Kv 8.2 control); founder 2026-10-13 on the trigger: build A391 when two runs first share an axiom."""
+    seen, bad = {}, []
+    for f in sorted(glob.glob(os.path.join(REPO, "runs", "*", "*.lean")) + glob.glob(os.path.join(REPO, "kala", "*.lean"))):
+        src = open(f, encoding="utf-8").read()
+        for m in re.finditer(r"(?m)^def ((?:a\d+[b′]?|c|k)_\w+)((?:[^\n]|\n(?!\n|/-|def |theorem ))*)", src):
+            body = " ".join(m.group(2).split())
+            rel = os.path.relpath(f, REPO)
+            if m.group(1) in seen and seen[m.group(1)][1] != body:
+                bad.append(f"{m.group(1)} is defined differently in {seen[m.group(1)][0]} and {rel}")
+            seen.setdefault(m.group(1), (rel, body))
+    return bad
+
 def ids(names):
     out = []
     for n in names:
@@ -282,7 +298,7 @@ def main():
     text, n_sorry, premises = build(results)
     # The hold-out as a PROPERTY (founder 2026-10-13): no theorem may reach a HELD OUT axiom, and no live axiom may cite
     # the lines an answer cites. Both are read from the files, never from anyone's promise.
-    leaks = [f"{t} reaches {i}, which is HELD OUT (kala/ANSWERS.md)" for t, i in premises] + citation_overlaps()
+    leaks = [f"{t} reaches {i}, which is HELD OUT (kala/ANSWERS.md)" for t, i in premises] + citation_overlaps() + axiom_def_drift()
     if leaks:
         for x in leaks: print("✗", x, file=sys.stderr)
         sys.exit(1)

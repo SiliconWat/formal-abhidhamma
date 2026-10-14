@@ -6,10 +6,13 @@ set -u; cd "$(dirname "$0")"; LEAN="${LEAN:-lean}"
 python3 - <<'PY' || exit 1
 import re
 reg = open("PREREG.md", encoding="utf-8").read().split("```lean", 1)[1].split("```", 1)[0]
-src = open("Samsara.lean", encoding="utf-8").read()
+# comments stripped first, so a commented-out copy cannot stand in for a moved definition (the run refuter's F9)
+src = re.sub(r"(?s)/-.*?-/", "", open("Samsara.lean", encoding="utf-8").read())
+src = re.sub(r"(?m)--.*$", "", src)
 flat = lambda s: " ".join(s.split())
 CLAIMS = {"t4_a_past_life_in_hell": "t4_registered", "t5_hell_before_arahantship": "t5_registered"}
 chunks = re.findall(r"(?m)^(def [\s\S]*?)(?=\n\n|\n/-)", reg) + re.findall(r"(?m)^(structure World where[\s\S]*?)(?=\n\n)", reg)
+chunks += re.findall(r"(?m)^(inductive [\s\S]*?)(?=\n\n)", reg)                # the Destiny type too (F9)
 thms = re.findall(r"(?m)^(theorem [\s\S]*?:= by)", reg)
 chunks += [t for t in thms if t.split()[1] not in CLAIMS]
 moved = [c.split("\n")[0] for c in chunks if c not in src]

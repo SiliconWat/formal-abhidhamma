@@ -40,6 +40,12 @@ def a58_lives_begin (w : World) : Prop := ∀ t, w.citta t → ∃ r, w.patisand
 /-- A109 (the path process): the arahant path is a citta. -/
 def a109_path_is_citta (w : World) : Prop := ∀ a, w.arahatta a → w.citta a
 
+/-! ## The held-out answer the run refuter found NEAR (F1, after registration): the run registered none -/
+
+/-- ANSWER: Vajirabuddhi first citta — in beginningless saṃsāra there is no first citta: every citta has an earlier one
+    (`vin06t.nrf.xml:2177`). Added after registration on the run refuter's finding; T3's premises reach it (RUN.md). -/
+def answer_vajirabuddhi_first_citta (w : World) : Prop := ∀ q, w.citta q → ∃ p, p < q ∧ w.citta p
+
 /-! ## A constructive `omega` (copied from `runs/2026-10-13-kv-22-10-duration-reading/Khanika2.lean`): split a
     conjunction, then decide each half by contradiction, so a decidable goal does not pull in `Classical.choice`. -/
 
