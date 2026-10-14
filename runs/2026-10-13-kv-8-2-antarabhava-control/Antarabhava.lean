@@ -92,4 +92,39 @@ theorem model_t1_hypotheses :
   · intro p q ⟨hp, hq⟩; subst hp hq; decide
   · intro p q ⟨hp, hq⟩ t h1 h2 hc; subst hp hq; rcases hc with hc | hc <;> omega
 
+/-! ## Each of T1's hypotheses is NEEDED — a model of the other three in which the view holds (added after the run
+    refuter's F4: the breaks alone could not show it, since a broken definition also broke the other theorems) -/
+
+/-- Without A3's successor clause: the death may condition a citta at its own tick, and the being is in the interval after. -/
+theorem needs_a3_successor :
+    ∃ w, a3_immediate w ∧ a122_death_to_rebirth w ∧ a123_vinnana_is_citta w ∧ intermediate w ∧ with_mind w := by
+  refine ⟨⟨fun t => t = 0 ∨ t = 1, fun t => t = 0 ∨ t = 1, fun t => t = 0, fun p q => p = 0 ∧ q = 0, 0, 0, fun t => t = 1⟩,
+    ?_, ⟨⟨rfl, rfl⟩, rfl⟩, fun _ h => h, ⟨1, by decide, rfl, ?_⟩, ?_⟩
+  · intro p q ⟨hp, hq⟩ t h1 h2 _; subst hp hq; omega
+  · intro s h1 _ hs; subst hs; exact absurd h1 (by decide)
+  · intro t ht; subst ht; exact Or.inr rfl
+
+/-- Without A3's immediacy: a minded interval between the death and the rebirth it conditions. -/
+theorem needs_a3_immediate :
+    ∃ w, a3_successor w ∧ a122_death_to_rebirth w ∧ a123_vinnana_is_citta w ∧ intermediate w ∧ with_mind w := by
+  refine ⟨⟨fun t => t = 0 ∨ t = 1 ∨ t = 2, fun t => t = 0 ∨ t = 1 ∨ t = 2, fun t => t = 2, fun p q => p = 0 ∧ q = 2, 0, 2,
+    fun t => t = 1⟩, ?_, ⟨⟨rfl, rfl⟩, rfl⟩, fun _ h => h, ⟨1, by decide, rfl, ?_⟩, ?_⟩
+  · intro p q ⟨hp, hq⟩; subst hp hq; decide
+  · intro s _ h2 hs; subst hs; exact absurd h2 (by decide)
+  · intro t ht; subst ht; exact Or.inr (Or.inl rfl)
+
+/-- Without A122: the death conditions nothing by proximity. -/
+theorem needs_a122 :
+    ∃ w, a3_successor w ∧ a3_immediate w ∧ a123_vinnana_is_citta w ∧ intermediate w ∧ with_mind w :=
+  ⟨⟨fun t => t = 1, fun t => t = 1, fun _ => False, fun _ _ => False, 0, 0, fun t => t = 1⟩,
+    fun _ _ h => h.elim, fun _ _ h => h.elim, fun _ h => h, ⟨1, by decide, rfl, fun _ _ _ h => h⟩, fun _ h => h⟩
+
+/-- Without A123: consciousness in the interval with no citta there. -/
+theorem needs_a123 :
+    ∃ w, a3_successor w ∧ a3_immediate w ∧ a122_death_to_rebirth w ∧ intermediate w ∧ with_mind w := by
+  refine ⟨⟨fun _ => False, fun t => t = 1, fun t => t = 2, fun p q => p = 0 ∧ q = 2, 0, 2, fun t => t = 1⟩,
+    ?_, fun _ _ _ _ _ _ hc => hc, ⟨⟨rfl, rfl⟩, rfl⟩, ⟨1, by decide, rfl, ?_⟩, fun _ h => h⟩
+  · intro p q ⟨hp, hq⟩; subst hp hq; decide
+  · intro s _ h2 hs; subst hs; exact absurd h2 (by decide)
+
 end FormalAbhidhamma.Antarabhava

@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**135 theorems in 28 files** · 131 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**139 theorems in 28 files** · 135 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -163,3 +163,7 @@ texts, and never that nature agrees.
 | `t2a_mindless_interval_admitted` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:71`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L71) | T2a — the same premises admit a MINDLESS intermediate interval: a model of them all with one. | **A3** **A122** **A123** | — | constructive | — |
 | `t2b_mindless_interval_not_forced` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:80`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L80) | T2b — and a model of them all without one (with T2a: a mindless interval is INDEPENDENT of these premises). | **A3** **A122** **A123** | — | constructive | — |
 | `model_t1_hypotheses` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:88`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L88) | — | **A3** **A122** **A123** | — | constructive | — |
+| `needs_a3_successor` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:99`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L99) | Without A3's successor clause: the death may condition a citta at its own tick, and the being is in the interval after. | **A3** **A122** **A123** | — | constructive | — |
+| `needs_a3_immediate` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:108`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L108) | Without A3's immediacy: a minded interval between the death and the rebirth it conditions. | **A3** **A122** **A123** | — | constructive | — |
+| `needs_a122` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:117`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L117) | Without A122: the death conditions nothing by proximity. | **A3** **A123** | — | constructive | — |
+| `needs_a123` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:123`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L123) | Without A123: consciousness in the interval with no citta there. | **A3** **A122** | — | constructive | — |

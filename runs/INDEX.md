@@ -4,7 +4,7 @@
 
 **Controls scored: 7 — 3 PASS (1 confounded) · 4 FAIL (2 confounded).** **Agree-controls scored: 1 — 1 PASS (1 confounded) · 0 FAIL.** Pre-registered runs scored: 12. Retrospective (not pre-registered, never counted): 2.
 
-**Proof runs (`/prove`) scored: 2** — 1 REFUTED · 1 INDEPENDENT · known-answer controls 1 PASS (1 confounded) of 1 · **calibration**: the session predicted 2 of 2 outcomes, the founder 0 of 0. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
+**Proof runs (`/prove`) scored: 3** — 2 REFUTED · 1 INDEPENDENT · known-answer controls 2 PASS (2 confounded) of 2 · **calibration**: the session predicted 3 of 3 outcomes, the founder 0 of 0. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
 
 A **control** is a case chosen because the texts should LOSE under the declared window; the mode passes only by
 reporting the collision plainly. An **agree-control** is a case chosen because the texts should WIN; the mode passes
@@ -31,4 +31,4 @@ independently). `OTS` = an OpenTimestamps proof sits beside the PREREG.
 | [`2026-09-30-the-shape-of-conditioning`](2026-09-30-the-shape-of-conditioning/) | run | **FAIL** | both | eff0f60 2026-09-30T22:13:46-07:00 | ✓ | Shape.lean | The Paṭṭhāna's 24 conditions (A78) do not form one order. Proximity, contiguity, absence and disappearance … |
 | [`2026-10-13-kv-22-10-duration-reading`](2026-10-13-kv-22-10-duration-reading/) | proof | **INDEPENDENT · NOT STRONG** | none | 9e82b78 2026-10-13T14:51:11-07:00 | ✓ | Khanika2.lean | On the DURATION reading of 'all dhammas last one mind-moment' (every dhamma lasts one mind-moment's length … |
 | [`2026-10-13-kv-22-10-khanika-control`](2026-10-13-kv-22-10-khanika-control/) | proof control (known answer) | **REFUTED · NOT STRONG · PASS (confounded)** | none | c1e0b27 2026-10-13T13:04:00-07:00 | ✓ | Khanika.lean | Kathāvatthu 22.10 (Khaṇikakathā): 'all dhammas last one mind-moment' (ekacittakkhaṇikā sabbe dhammā), teste… |
-| [`2026-10-13-kv-8-2-antarabhava-control`](2026-10-13-kv-8-2-antarabhava-control/) | proof control (known answer) | **pending** | none | 9f0cd68 2026-10-13T17:22:18-07:00 | ✓ | Antarabhava.lean | From A3 (proximity: no citta lies between; it conditions its successor), A122 (the death citta conditions a… |
+| [`2026-10-13-kv-8-2-antarabhava-control`](2026-10-13-kv-8-2-antarabhava-control/) | proof control (known answer) | **REFUTED · NOT STRONG · PASS (confounded)** | none | 9f0cd68 2026-10-13T17:22:18-07:00 | ✓ | Antarabhava.lean | From A3 (proximity: no citta lies between; it conditions its successor), A122 (the death citta conditions a… |
