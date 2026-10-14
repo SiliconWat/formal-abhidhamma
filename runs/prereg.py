@@ -200,7 +200,14 @@ def main():
     subprocess.run([sys.executable, os.path.join(REPO, "scripts", "runs-index.py")], cwd=REPO, check=True, capture_output=True)
     if sh("git", "status", "--porcelain", "runs/INDEX.md"):
         sh("git", "add", "runs/INDEX.md"); sh("git", "commit", "-q", "-m", f"runs/INDEX.md: {a.slug} registered")
-    sha = sh("git", "rev-parse", "HEAD"); sh("git", "push", "-q")
+    # The RFC 3161 workflow commits a manifest after every push to kala/, matika/ or runs/ (TIMESTAMPS.md), so a
+    # registration pushed within a minute of an earlier push was refused as non-fast-forward and this script crashed with
+    # the PREREG committed but unpushed (the founder's first thesis, 2026-10-13). Rebase onto the bot's commit and push
+    # again: the PREREG text and its .ots are unchanged; only the commit ids move, so the PREREG commit is found again.
+    if subprocess.run(["git", "push", "-q"], cwd=REPO, capture_output=True).returncode != 0:
+        sh("git", "pull", "-q", "--rebase"); sh("git", "push", "-q")
+        prereg_sha = sh("git", "log", "-1", "--format=%H", f"--grep=^prereg: {a.slug} ")
+    sha = sh("git", "rev-parse", "HEAD")
     print(f"pushed {rel} at {prereg_sha[:7]}" + (f" (index {sha[:7]})" if sha != prereg_sha else ""))
     remote = sh("git", "remote", "get-url", "origin")
     slug = re.sub(r"(\.git)?$", "", remote.split("github.com")[-1].lstrip(":/"))
