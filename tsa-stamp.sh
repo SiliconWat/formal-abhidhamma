@@ -32,7 +32,11 @@ cd "$(dirname "$0")"
 DAY="$(date -u +%Y-%m-%d)"
 MDIR="timestamps/manifests"
 CADIR="timestamps/ca"
-MANIFEST="$MDIR/$DAY.sha256"
+# A run triggered by a PUSH names its manifest by the second (TSA_RUN_ID, set by the workflow), so a day with several
+# pushes keeps every version's attestation in the tree. The weekly run keeps the plain day name. Lexical order is
+# chronological either way: "2026-10-13.sha256" < "2026-10-13T175001.sha256" < "2026-10-14.sha256".
+ID="${TSA_RUN_ID:-$DAY}"
+MANIFEST="$MDIR/$ID.sha256"
 
 mkdir -p "$MDIR"
 
@@ -65,11 +69,11 @@ sha256_of() {
 # ── 1. Build the manifest ─────────────────────────────────────────────────────
 # Everything git tracks, except the files this run is about to write. Sorted, so
 # the manifest is reproducible: same tree in, same bytes out.
-printf '# repository manifest — %s (UTC)\n' "$DAY"        >  "$MANIFEST.tmp"
+printf '# repository manifest — %s (UTC)\n' "$ID"        >  "$MANIFEST.tmp"
 printf '# sha256  path\n'                                  >> "$MANIFEST.tmp"
 git ls-files -z \
   | tr '\0' '\n' \
-  | grep -v "^$MDIR/$DAY\." \
+  | grep -v "^$MDIR/$ID\." \
   | sort \
   | while IFS= read -r f; do
         [ -f "$f" ] || continue
@@ -160,5 +164,5 @@ fi
 
 printf '\nVerify any time with:  ./tsa-verify.sh\n'
 printf 'Commit them:\n\n'
-printf "    git add -A && git commit -m 'timestamps: RFC 3161 manifest for %s' && git push\n\n" "$DAY"
+printf "    git add -A && git commit -m 'timestamps: RFC 3161 manifest for %s' && git push\n\n" "$ID"
 printf 'No Co-Authored-By trailer — this repo forbids AI attribution in commits.\n'
