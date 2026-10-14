@@ -35,7 +35,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CST = "/Users/siliconwat/Desktop/MA/SW/siliconwat.dev/bedok.siliconwat.dev/tipitaka/india/roman"
 OUT_MD = os.path.join(REPO, "matika", "RELATA.md")
 OUT_LEAN = os.path.join(REPO, "matika", "Relata.lean")
-FILES = {"commentary": "abh03a.att.xml"}   # every other source is the Paṭṭhāna mūla, abh03m7.mul.xml
+FILES = {"commentary": "abh03a.att.xml", "commentaryCollective": "abh03a.att.xml"}   # every other source is the Paṭṭhāna mūla, abh03m7.mul.xml
 
 # Kinds: N = mind (citta and cetasikas; nibbāna counted under mind — a declared reading) · R = matter · P = a concept.
 # Timing, ONLY where the clause's own words say it: co (sahajāta · aññamaññaṃ · sampayuttakā · taṃsamuṭṭhāna ·
@@ -71,7 +71,8 @@ C = [
  ("nissaya", 149, "cakkhāyatana … kāyāyatana · yaṃ rūpaṃ nissāya", "R", "pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā", "N", "unstated", "niddesa", ["Cakkhāyatanaṃ cakkhuviññāṇadhātuyā taṃsampayuttakānañca dhammānaṃ nissayapaccayena", "Yaṃ rūpaṃ nissāya"], ""),
  ("upanissaya", 153, "purimā purimā kusalā · akusalā · abyākatā dhammā", "NR*", "pacchimā pacchimā dhammā", "NR*", "earlier", "niddesa", ["Upanissayapaccayoti – purimā purimā kusalā dhammā"], OPEN_ABY + ", on both sides (`:153–161`)"),
  ("upanissaya", 165, "utu · bhojana · senāsana", "R", "(no relatum named)", "*", "unstated", "niddesa", ["Utubhojanampi upanissayapaccayena", "Senāsanampi upanissayapaccayena"], "climate, food, lodging: matter; the clause names nothing conditioned — OPEN"),
- ("upanissaya", 165, "puggala", "P", "(no relatum named)", "*", "unstated", "niddesa", ["Puggalopi upanissayapaccayena"], "a person is a designation (the Puggalapaññatti's own title); nothing conditioned named — OPEN"),
+ ("upanissaya", 165, "puggala", "P", "(no relatum named)", "*", "unstated", "personDesignation", ["Puggalopi upanissayapaccayena"], "READING A: the person as a designation (the Puggalapaññatti's own title) — nothing conditioned named, OPEN"),
+ ("upanissaya", 165, "puggala", "NR", "(no relatum named)", "*", "unstated", "personContinuum", ["Puggalopi upanissayapaccayena"], "READING B: the person as the aggregate-continuum taken under the perception 'person' (the Dhammasaṅgaṇī sub-commentary, `abh01t.tik.xml:2557`); the Paṭṭhāna commentary calls the person's conditionality figurative (`abh03a.att.xml:8053`)"),
  ("purejata", 169, "cakkhāyatana … kāyāyatana", "R", "pañca viññāṇadhātuyo · taṃsampayuttakā", "N", "pre", "niddesa", ["Purejātapaccayoti – cakkhāyatanaṃ cakkhuviññāṇadhātuyā"], ""),
  ("purejata", 173, "rūpāyatana … phoṭṭhabbāyatana", "R", "pañca viññāṇadhātuyo · manodhātu · taṃsampayuttakā", "N", "pre", "niddesa", ["Rūpāyatanaṃ cakkhuviññāṇadhātuyā taṃsampayuttakānañca dhammānaṃ purejātapaccayena"], ""),
  ("purejata", 177, "yaṃ rūpaṃ nissāya", "R", "manodhātu · manoviññāṇadhātu · taṃsampayuttakā", "N", "pre", "niddesa", ["Yaṃ rūpaṃ nissāya manodhātu ca manoviññāṇadhātu ca vattanti"], "to mind-consciousness 'at one time, and at another not'"),
@@ -209,7 +210,11 @@ _WORD = {"hetu": "hetu", "sahajata": "sahajāta", "annamanna": "aññamañña", 
 for _c, _rows in _FULL.items():
     C += [(_c, n, x, xk, y, yk, "unstated", "detailFull", [_H(x, y, _WORD[_c])], note) for (n, x, xk, y, yk, note) in _rows]
 C += [
- ("arammana", 7889, "paññatti", "P", "(the mind that takes it)", "N", "unstated", "commentary", ["kusalākusalavipākakiriyarūpanibbānapaññattibhedato sattavidhaṃ"], "the Paṭṭhāna-aṭṭhakathā: the object is sevenfold, concepts included"),
+ ("arammana", 7889, "paññatti", "P", "(the mind that takes it)", "N", "unstated", "commentary", ["kusalākusalavipākakiriyarūpanibbānapaññattibhedato sattavidhaṃ"], "DISTRIBUTIVE: the Paṭṭhāna-aṭṭhakathā — the object is sevenfold, concepts included"),
+ ("upanissaya", 8057, "ekaccā paññatti", "P", "(what it supports)", "N", "unstated", "commentary", ["upanissayapaccayo nāma saddhiṃ ekaccāya paññattiyā sabbepi catubhūmakadhammā"], "DISTRIBUTIVE: decisive support is all the dhammas of the four planes 'together with SOME concept'"),
+ ("arammana", 7817, "paññatti", "P", "(the mind)", "N", "unstated", "commentaryCollective", ["paññattiyā saddhiṃ nibbānassa saṅgahitattā kālavimuttāpīti"], "COLLECTIVE: object, predominance and decisive support are time-free 'because concepts, with nibbāna, are included'"),
+ ("adhipati", 7817, "paññatti", "P", "(the mind)", "N", "unstated", "commentaryCollective", ["Sesā ārammaṇapaccayo adhipatipaccayo upanissayapaccayoti ime tayo paccayā tekālikāpi honti"], "COLLECTIVE: read of all three, predominance takes a concept too — and leaves the Saṅgaha's group (refuter, 2026-10-13)"),
+ ("upanissaya", 7817, "paññatti", "P", "(the mind)", "N", "unstated", "commentaryCollective", ["paññattiyā saddhiṃ nibbānassa saṅgahitattā kālavimuttāpīti"], "COLLECTIVE: as above"),
 ]
 ORDER = ["hetu", "arammana", "adhipati", "anantara", "samanantara", "sahajata", "annamanna", "nissaya", "upanissaya",
          "purejata", "pacchajata", "asevana", "kamma", "vipaka", "ahara", "indriya", "jhana", "magga", "sampayutta",
@@ -259,16 +264,22 @@ def build():
           "read selectively — it ADDS to their definitions and moves only result (§428 gives it matter), which was first consulted",
           "because it failed.", "",
           "## What the check finds (`Relata.lean`, against the Saṅgaha's grouping — kala/ANSWERS.md)", "",
-          "| Layer | Exclusive reading (concepts are not among *all dhammas*) | Inclusive reading (`abh01m.mul.xml:8453`) |",
-          "|---|---|---|",
-          "| the niddesa's words alone | **19 / 24** — object, proximity, contiguity, decisive support, result fail | **19 / 24** — predominance, proximity, contiguity, decisive support, result fail |",
-          "| + the detailed section, by the open-side rule | **22 / 24** — object (no concept), result | **23 / 24** — result |",
-          "| + the full read (the other 19 conditions; it moves only result) | **23 / 24** — object | **24 / 24 — the Piṭaka alone** |",
-          "| + the commentary on the object (`abh03a.att.xml:7889`) | **24 / 24** | 24 / 24 |", "",
-          "⚠️ The first version (`bf3cad6`) claimed 23 of 24 *from the niddesa alone*. Its refuter showed the readings were not",
-          "uniform, one leaned on the Saṅgaha's own answer, and the classifier never looked at concepts. The detailed section was",
-          "then read for every condition the rule names: its proximity, contiguity and decisive-support clauses name only mental",
-          "relata where the niddesa's words are open — a Piṭaka-layer source for what the first version took from the answer.", "",
+          "⭐ **The robust core: 22 of the 24 placements follow from the Paṭṭhāna's definitions and its detailed section (kusala",
+          "triad), under BOTH readings of *all dhammas*, with no commentary** (`the_22_without_concepts`). The detailed section, not",
+          "the definitions, closes proximity, contiguity and decisive support's mental side, and supplies result's matter (§428).",
+          "**The two placements that involve a CONCEPT — object and decisive support — turn on readings the sources leave open:**", "",
+          "| Reading | the choice | what it places |", "|---|---|---|",
+          "| *All dhammas* (`:49`) | inclusive: the Dhammasaṅgaṇī calls designations dhammas (`abh01m.mul.xml:8453`) · exclusive: the commentaries set concepts apart | the object (inclusive) |",
+          "| The *person* of `:165` | a designation (the Puggalapaññatti's title) · the aggregate-continuum under the perception 'person' (`abh01t.tik.xml:2557`; its conditionality figurative, `abh03a.att.xml:8053`) | decisive support (designation) |",
+          "| The commentary | DISTRIBUTIVE: the object's concept (`abh03a.att.xml:7889`), decisive support's 'some concept' (`:8057`) · COLLECTIVE: all three time-free conditions include concepts (`:7817`) | both (distributive) · and it UNSEATS predominance (collective) |", "",
+          "Counts (`counts_by_reading`): exclusive + continuum **22** · exclusive + designation **23** · inclusive + continuum **23** ·",
+          "inclusive + designation **24** · exclusive + continuum + commentary (distributive) **24** · (collective) **23**.", "",
+          "⚠️ **History.** The first version (`bf3cad6`) claimed 23 of 24 *from the niddesa alone*; its refuter showed non-uniform readings,",
+          "an answer-leaning reading and a concept-blind classifier. The second (`9d1dff0`, `0dcae15`) claimed *24 from the Piṭaka alone* on",
+          "the inclusive reading; the full-read refuter showed that rested on reading the person as a designation and on the commentary",
+          "admitted at `:7889` but not `:7817`. The detailed section has no slot for a designation at all (the kusala triad's indeterminate",
+          "class is result, functional, matter and the unconditioned element, `abh01m.mul.xml:4669`), so its silence on concepts is itself",
+          "a reading. Nibbāna counts under mind by the Dhammasaṅgaṇī's own definition of *nāma* (`abh01m.mul.xml:8457`).", "",
           "| # | Condition | From | → To | Kinds | Timing | Line | Source | Reading |", "|---|---|---|---|---|---|---|---|---|"]
     for i, (c, n, ft, fk, tt, tk, tm, src, _, note) in enumerate(C, 1):
         f = FILES.get(src, "")
@@ -281,7 +292,7 @@ def build():
             "inductive Condition | " + " | ".join(ORDER), "  deriving DecidableEq, Repr", "",
             "inductive Kind | nama | rupa | pannatti", "  deriving DecidableEq, Repr", "",
             "inductive Timing | co | pre | post | ceased | earlier | done | unstated", "  deriving DecidableEq, Repr", "",
-            "inductive Source | niddesa | detail | detailFull | commentary", "  deriving DecidableEq, Repr", "",
+            "inductive Source | niddesa | personDesignation | personContinuum | detail | detailFull | commentary | commentaryCollective", "  deriving DecidableEq, Repr", "",
             "/-- One clause. `srcOpen`/`dstOpen`: the side is OPEN (a whatever-phrase, an unnamed relatum, the class term abyākata).",
             "    `srcAll`: the side takes designations under the inclusive reading of 'all dhammas'. -/",
             "structure Clause where", "  cond : Condition", "  src : List Kind", "  dst : List Kind", "  srcOpen : Bool",
@@ -320,8 +331,15 @@ def build():
     L = lambda *s: "[" + ", ".join(f".{x}" for x in s) + "]"
     def misses(incl, srcs, expect):
         return f"all.filter (fun c => classify (sides {incl} {srcs} c) != some (sangaha c)) = {expect}"
-    N, D, O, K = "[.niddesa]", "[.niddesa, .detail]", "[.niddesa, .detail, .detailFull]", "[.niddesa, .detail, .detailFull, .commentary]"
+    N, D, O = "[.niddesa]", "[.niddesa, .detail]", "[.niddesa, .detail, .detailFull]"
+    OK = "[.niddesa, .detail, .detailFull, .commentary]"
+    OPD, OPC = "[.niddesa, .personDesignation, .detail, .detailFull]", "[.niddesa, .personContinuum, .detail, .detailFull]"
+    OPCK, OPCX = "[.niddesa, .personContinuum, .detail, .detailFull, .commentary]", "[.niddesa, .personContinuum, .detail, .detailFull, .commentaryCollective]"
+    def core(incl):
+        return f"all.filter (fun c => c != .arammana && c != .upanissaya && classify (sides {incl} {O} c) != some (sangaha c)) = []"
     lean += ["", "def all : List Condition := [" + ", ".join(f".{c}" for c in ORDER) + "]", "",
+             "/-- How many of the Saṅgaha's placements the given sources reproduce. -/",
+             "def placed (incl : Bool) (srcs : List Source) : Nat := (all.filter (fun c => classify (sides incl srcs c) == some (sangaha c))).length", "",
              "/-- Every condition has at least one clause in the niddesa. -/",
              "theorem every_condition_defined : all.all (fun c => clauses.any (fun x => x.cond == c && x.source == .niddesa)) = true := by decide", "",
              "/-- THE RULE, as a property: the detailed section is consulted for exactly the conditions whose niddesa has an open side. -/",
@@ -337,22 +355,28 @@ def build():
              "theorem sangaha_counts : (all.filter (sangaha · == .namaToNama)).length = 6 ∧ (all.filter (sangaha · == .namaToNamarupa)).length = 5 ∧",
              "    (all.filter (sangaha · == .namaToRupa)).length = 1 ∧ (all.filter (sangaha · == .rupaToNama)).length = 1 ∧",
              "    (all.filter (sangaha · == .allToNama)).length = 2 ∧ (all.filter (sangaha · == .namarupaToNamarupa)).length = 9 := by decide", "",
-             "/-! ## The EXCLUSIVE reading (designations are not among 'all dhammas') -/", "",
-             "/-- The niddesa's words alone: 19 of 24. -/",
-             "theorem niddesa_19 : " + misses("false", N, L("arammana", "anantara", "samanantara", "upanissaya", "vipaka")) + " := by decide", "",
-             "/-- With the detailed section by the open-side rule: 22 — the object lacks a concept, and result is untouched by the rule. -/",
-             "theorem detail_22 : " + misses("false", D, L("arammana", "vipaka")) + " := by decide", "",
-             "/-- With the full read (the other 19 conditions, result among them): 23 — only the object, which needs a concept. -/",
-             "theorem full_read_23 : " + misses("false", O, L("arammana")) + " := by decide", "",
-             "/-- With the commentary's concept on the object (`abh03a.att.xml:7889`): all 24. -/",
-             "theorem with_the_commentary_24 : " + misses("false", K, "[]") + " := by decide", "",
-             "/-! ## The INCLUSIVE reading (the Dhammasaṅgaṇī calls designations dhammas, `abh01m.mul.xml:8453`) -/", "",
-             "/-- The niddesa's words alone: 19 of 24 — predominance now fails (its open 'whatever dhamma' takes in a concept). -/",
-             "theorem niddesa_19_inclusive : " + misses("true", N, L("adhipati", "anantara", "samanantara", "upanissaya", "vipaka")) + " := by decide", "",
-             "/-- With the detailed section by the open-side rule: 23 — only result. -/",
-             "theorem detail_23_inclusive : " + misses("true", D, L("vipaka")) + " := by decide", "",
-             "/-- With the full read: all 24, from the Piṭaka alone. -/",
-             "theorem pitaka_24_inclusive : " + misses("true", O, "[]") + " := by decide", "",
+             "/-! ## What the texts settle, and where a reading decides (corrected 2026-10-13 after the full-read refuter) -/", "",
+             "/-- The definitions ALONE: 19 of 24 (no reading of the person, no commentary). -/",
+             "theorem niddesa_alone_19 : " + misses("false", N, L("arammana", "anantara", "samanantara", "upanissaya", "vipaka")) + " := by decide", "",
+             "/-- ⭐ THE ROBUST CORE: with the detailed section (kusala triad), every placement other than the two that involve a",
+             "    concept follows — under BOTH readings of 'all dhammas', with no reading of the person and no commentary. -/",
+             "theorem the_22_without_concepts : " + core("false") + " ∧ " + core("true") + " := by decide", "",
+             "/-- Without a reading that supplies a concept, the two concept placements fail (exclusive reading). -/",
+             "theorem the_two_need_a_concept : " + misses("false", O, L("arammana", "upanissaya")) + " := by decide", "",
+             "/-- The OBJECT is placed by the inclusive reading of 'all dhammas' (`abh01m.mul.xml:8453`) or by the commentary's",
+             "    concept (`abh03a.att.xml:7889`), and by nothing else here. -/",
+             "theorem object_by_reading : classify (sides true " + O + " .arammana) = some .allToNama ∧",
+             "    classify (sides false " + OK + " .arammana) = some .allToNama ∧ classify (sides false " + O + " .arammana) ≠ some .allToNama := by decide", "",
+             "/-- DECISIVE SUPPORT is placed if the person is a designation; read as the aggregate-continuum it is not, until the",
+             "    commentary's 'some concept' (`abh03a.att.xml:8057`). -/",
+             "theorem decisive_support_by_reading : classify (sides false " + OPD + " .upanissaya) = some .allToNama ∧",
+             "    classify (sides false " + OPC + " .upanissaya) ≠ some .allToNama ∧ classify (sides false " + OPCK + " .upanissaya) = some .allToNama := by decide", "",
+             "/-- Read COLLECTIVELY (`abh03a.att.xml:7817`), the commentary gives predominance a concept too, and unseats it. -/",
+             "theorem collective_commentary_unseats_predominance : classify (sides false " + OPCX + " .adhipati) ≠ some .namarupaToNamarupa := by decide", "",
+             "set_option maxRecDepth 20000 in",
+             "/-- The counts, reading by reading (exclusive · inclusive; person as continuum · as designation; commentary). -/",
+             "theorem counts_by_reading : placed false " + OPC + " = 22 ∧ placed false " + OPD + " = 23 ∧ placed true " + OPC + " = 23 ∧",
+             "    placed true " + OPD + " = 24 ∧ placed false " + OPCK + " = 24 ∧ placed false " + OPCX + " = 23 := by decide", "",
              "/-- The niddesa's result is mind → mind; the Saṅgaha places it mind → mind-and-matter. -/",
              "theorem niddesa_vipaka_is_mind_to_mind : classify (sides false [.niddesa] .vipaka) = some .namaToNama := by decide", "",
              "end FormalAbhidhamma.Relata", ""]

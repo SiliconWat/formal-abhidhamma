@@ -15,7 +15,7 @@ inductive Kind | nama | rupa | pannatti
 inductive Timing | co | pre | post | ceased | earlier | done | unstated
   deriving DecidableEq, Repr
 
-inductive Source | niddesa | detail | detailFull | commentary
+inductive Source | niddesa | personDesignation | personContinuum | detail | detailFull | commentary | commentaryCollective
   deriving DecidableEq, Repr
 
 /-- One clause. `srcOpen`/`dstOpen`: the side is OPEN (a whatever-phrase, an unnamed relatum, the class term abyākata).
@@ -57,7 +57,8 @@ def clauses : List Clause := [
   ⟨.nissaya, [.rupa], [.nama], false, false, false, .unstated, 149, .niddesa⟩,
   ⟨.upanissaya, [.nama, .rupa], [.nama, .rupa], true, true, false, .earlier, 153, .niddesa⟩,
   ⟨.upanissaya, [.rupa], [], false, true, false, .unstated, 165, .niddesa⟩,
-  ⟨.upanissaya, [.pannatti], [], false, true, false, .unstated, 165, .niddesa⟩,
+  ⟨.upanissaya, [.pannatti], [], false, true, false, .unstated, 165, .personDesignation⟩,
+  ⟨.upanissaya, [.nama, .rupa], [], false, true, false, .unstated, 165, .personContinuum⟩,
   ⟨.purejata, [.rupa], [.nama], false, false, false, .pre, 169, .niddesa⟩,
   ⟨.purejata, [.rupa], [.nama], false, false, false, .pre, 173, .niddesa⟩,
   ⟨.purejata, [.rupa], [.nama], false, false, false, .pre, 177, .niddesa⟩,
@@ -225,7 +226,11 @@ def clauses : List Clause := [
   ⟨.natthi, [.nama], [.nama], false, false, false, .unstated, 6329, .detailFull⟩,
   ⟨.vigata, [.nama], [.nama], false, false, false, .unstated, 6341, .detailFull⟩,
   ⟨.avigata, [.nama], [.nama], false, false, false, .unstated, 6353, .detailFull⟩,
-  ⟨.arammana, [.pannatti], [.nama], false, false, false, .unstated, 7889, .commentary⟩
+  ⟨.arammana, [.pannatti], [.nama], false, false, false, .unstated, 7889, .commentary⟩,
+  ⟨.upanissaya, [.pannatti], [.nama], false, false, false, .unstated, 8057, .commentary⟩,
+  ⟨.arammana, [.pannatti], [.nama], false, false, false, .unstated, 7817, .commentaryCollective⟩,
+  ⟨.adhipati, [.pannatti], [.nama], false, false, false, .unstated, 7817, .commentaryCollective⟩,
+  ⟨.upanissaya, [.pannatti], [.nama], false, false, false, .unstated, 7817, .commentaryCollective⟩
 ]
 
 /-- The Saṅgaha's six groups (§15–20, §26, `abh07t.nrf.xml:2845–2877`, `:2901`). -/
@@ -284,6 +289,9 @@ def sangaha : Condition → Group
 
 def all : List Condition := [.hetu, .arammana, .adhipati, .anantara, .samanantara, .sahajata, .annamanna, .nissaya, .upanissaya, .purejata, .pacchajata, .asevana, .kamma, .vipaka, .ahara, .indriya, .jhana, .magga, .sampayutta, .vippayutta, .atthi, .natthi, .vigata, .avigata]
 
+/-- How many of the Saṅgaha's placements the given sources reproduce. -/
+def placed (incl : Bool) (srcs : List Source) : Nat := (all.filter (fun c => classify (sides incl srcs c) == some (sangaha c))).length
+
 /-- Every condition has at least one clause in the niddesa. -/
 theorem every_condition_defined : all.all (fun c => clauses.any (fun x => x.cond == c && x.source == .niddesa)) = true := by decide
 
@@ -304,30 +312,35 @@ theorem sangaha_counts : (all.filter (sangaha · == .namaToNama)).length = 6 ∧
     (all.filter (sangaha · == .namaToRupa)).length = 1 ∧ (all.filter (sangaha · == .rupaToNama)).length = 1 ∧
     (all.filter (sangaha · == .allToNama)).length = 2 ∧ (all.filter (sangaha · == .namarupaToNamarupa)).length = 9 := by decide
 
-/-! ## The EXCLUSIVE reading (designations are not among 'all dhammas') -/
+/-! ## What the texts settle, and where a reading decides (corrected 2026-10-13 after the full-read refuter) -/
 
-/-- The niddesa's words alone: 19 of 24. -/
-theorem niddesa_19 : all.filter (fun c => classify (sides false [.niddesa] c) != some (sangaha c)) = [.arammana, .anantara, .samanantara, .upanissaya, .vipaka] := by decide
+/-- The definitions ALONE: 19 of 24 (no reading of the person, no commentary). -/
+theorem niddesa_alone_19 : all.filter (fun c => classify (sides false [.niddesa] c) != some (sangaha c)) = [.arammana, .anantara, .samanantara, .upanissaya, .vipaka] := by decide
 
-/-- With the detailed section by the open-side rule: 22 — the object lacks a concept, and result is untouched by the rule. -/
-theorem detail_22 : all.filter (fun c => classify (sides false [.niddesa, .detail] c) != some (sangaha c)) = [.arammana, .vipaka] := by decide
+/-- ⭐ THE ROBUST CORE: with the detailed section (kusala triad), every placement other than the two that involve a
+    concept follows — under BOTH readings of 'all dhammas', with no reading of the person and no commentary. -/
+theorem the_22_without_concepts : all.filter (fun c => c != .arammana && c != .upanissaya && classify (sides false [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [] ∧ all.filter (fun c => c != .arammana && c != .upanissaya && classify (sides true [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [] := by decide
 
-/-- With the full read (the other 19 conditions, result among them): 23 — only the object, which needs a concept. -/
-theorem full_read_23 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [.arammana] := by decide
+/-- Without a reading that supplies a concept, the two concept placements fail (exclusive reading). -/
+theorem the_two_need_a_concept : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [.arammana, .upanissaya] := by decide
 
-/-- With the commentary's concept on the object (`abh03a.att.xml:7889`): all 24. -/
-theorem with_the_commentary_24 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull, .commentary] c) != some (sangaha c)) = [] := by decide
+/-- The OBJECT is placed by the inclusive reading of 'all dhammas' (`abh01m.mul.xml:8453`) or by the commentary's
+    concept (`abh03a.att.xml:7889`), and by nothing else here. -/
+theorem object_by_reading : classify (sides true [.niddesa, .detail, .detailFull] .arammana) = some .allToNama ∧
+    classify (sides false [.niddesa, .detail, .detailFull, .commentary] .arammana) = some .allToNama ∧ classify (sides false [.niddesa, .detail, .detailFull] .arammana) ≠ some .allToNama := by decide
 
-/-! ## The INCLUSIVE reading (the Dhammasaṅgaṇī calls designations dhammas, `abh01m.mul.xml:8453`) -/
+/-- DECISIVE SUPPORT is placed if the person is a designation; read as the aggregate-continuum it is not, until the
+    commentary's 'some concept' (`abh03a.att.xml:8057`). -/
+theorem decisive_support_by_reading : classify (sides false [.niddesa, .personDesignation, .detail, .detailFull] .upanissaya) = some .allToNama ∧
+    classify (sides false [.niddesa, .personContinuum, .detail, .detailFull] .upanissaya) ≠ some .allToNama ∧ classify (sides false [.niddesa, .personContinuum, .detail, .detailFull, .commentary] .upanissaya) = some .allToNama := by decide
 
-/-- The niddesa's words alone: 19 of 24 — predominance now fails (its open 'whatever dhamma' takes in a concept). -/
-theorem niddesa_19_inclusive : all.filter (fun c => classify (sides true [.niddesa] c) != some (sangaha c)) = [.adhipati, .anantara, .samanantara, .upanissaya, .vipaka] := by decide
+/-- Read COLLECTIVELY (`abh03a.att.xml:7817`), the commentary gives predominance a concept too, and unseats it. -/
+theorem collective_commentary_unseats_predominance : classify (sides false [.niddesa, .personContinuum, .detail, .detailFull, .commentaryCollective] .adhipati) ≠ some .namarupaToNamarupa := by decide
 
-/-- With the detailed section by the open-side rule: 23 — only result. -/
-theorem detail_23_inclusive : all.filter (fun c => classify (sides true [.niddesa, .detail] c) != some (sangaha c)) = [.vipaka] := by decide
-
-/-- With the full read: all 24, from the Piṭaka alone. -/
-theorem pitaka_24_inclusive : all.filter (fun c => classify (sides true [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [] := by decide
+set_option maxRecDepth 20000 in
+/-- The counts, reading by reading (exclusive · inclusive; person as continuum · as designation; commentary). -/
+theorem counts_by_reading : placed false [.niddesa, .personContinuum, .detail, .detailFull] = 22 ∧ placed false [.niddesa, .personDesignation, .detail, .detailFull] = 23 ∧ placed true [.niddesa, .personContinuum, .detail, .detailFull] = 23 ∧
+    placed true [.niddesa, .personDesignation, .detail, .detailFull] = 24 ∧ placed false [.niddesa, .personContinuum, .detail, .detailFull, .commentary] = 24 ∧ placed false [.niddesa, .personContinuum, .detail, .detailFull, .commentaryCollective] = 23 := by decide
 
 /-- The niddesa's result is mind → mind; the Saṅgaha places it mind → mind-and-matter. -/
 theorem niddesa_vipaka_is_mind_to_mind : classify (sides false [.niddesa] .vipaka) = some .namaToNama := by decide

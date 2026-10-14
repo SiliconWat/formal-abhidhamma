@@ -13,17 +13,26 @@ because it failed.
 
 ## What the check finds (`Relata.lean`, against the Saṅgaha's grouping — kala/ANSWERS.md)
 
-| Layer | Exclusive reading (concepts are not among *all dhammas*) | Inclusive reading (`abh01m.mul.xml:8453`) |
-|---|---|---|
-| the niddesa's words alone | **19 / 24** — object, proximity, contiguity, decisive support, result fail | **19 / 24** — predominance, proximity, contiguity, decisive support, result fail |
-| + the detailed section, by the open-side rule | **22 / 24** — object (no concept), result | **23 / 24** — result |
-| + the full read (the other 19 conditions; it moves only result) | **23 / 24** — object | **24 / 24 — the Piṭaka alone** |
-| + the commentary on the object (`abh03a.att.xml:7889`) | **24 / 24** | 24 / 24 |
+⭐ **The robust core: 22 of the 24 placements follow from the Paṭṭhāna's definitions and its detailed section (kusala
+triad), under BOTH readings of *all dhammas*, with no commentary** (`the_22_without_concepts`). The detailed section, not
+the definitions, closes proximity, contiguity and decisive support's mental side, and supplies result's matter (§428).
+**The two placements that involve a CONCEPT — object and decisive support — turn on readings the sources leave open:**
 
-⚠️ The first version (`bf3cad6`) claimed 23 of 24 *from the niddesa alone*. Its refuter showed the readings were not
-uniform, one leaned on the Saṅgaha's own answer, and the classifier never looked at concepts. The detailed section was
-then read for every condition the rule names: its proximity, contiguity and decisive-support clauses name only mental
-relata where the niddesa's words are open — a Piṭaka-layer source for what the first version took from the answer.
+| Reading | the choice | what it places |
+|---|---|---|
+| *All dhammas* (`:49`) | inclusive: the Dhammasaṅgaṇī calls designations dhammas (`abh01m.mul.xml:8453`) · exclusive: the commentaries set concepts apart | the object (inclusive) |
+| The *person* of `:165` | a designation (the Puggalapaññatti's title) · the aggregate-continuum under the perception 'person' (`abh01t.tik.xml:2557`; its conditionality figurative, `abh03a.att.xml:8053`) | decisive support (designation) |
+| The commentary | DISTRIBUTIVE: the object's concept (`abh03a.att.xml:7889`), decisive support's 'some concept' (`:8057`) · COLLECTIVE: all three time-free conditions include concepts (`:7817`) | both (distributive) · and it UNSEATS predominance (collective) |
+
+Counts (`counts_by_reading`): exclusive + continuum **22** · exclusive + designation **23** · inclusive + continuum **23** ·
+inclusive + designation **24** · exclusive + continuum + commentary (distributive) **24** · (collective) **23**.
+
+⚠️ **History.** The first version (`bf3cad6`) claimed 23 of 24 *from the niddesa alone*; its refuter showed non-uniform readings,
+an answer-leaning reading and a concept-blind classifier. The second (`9d1dff0`, `0dcae15`) claimed *24 from the Piṭaka alone* on
+the inclusive reading; the full-read refuter showed that rested on reading the person as a designation and on the commentary
+admitted at `:7889` but not `:7817`. The detailed section has no slot for a designation at all (the kusala triad's indeterminate
+class is result, functional, matter and the unconditioned element, `abh01m.mul.xml:4669`), so its silence on concepts is itself
+a reading. Nibbāna counts under mind by the Dhammasaṅgaṇī's own definition of *nāma* (`abh01m.mul.xml:8457`).
 
 | # | Condition | From | → To | Kinds | Timing | Line | Source | Reading |
 |---|---|---|---|---|---|---|---|---|
@@ -52,172 +61,177 @@ relata where the niddesa's words are open — a Piṭaka-layer source for what t
 | 23 | nissaya | cakkhāyatana … kāyāyatana · yaṃ rūpaṃ nissāya | pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | unstated | `:149` | niddesa | — |
 | 24 | upanissaya | purimā purimā kusalā · akusalā · abyākatā dhammā | pacchimā pacchimā dhammā | NR*→NR* | earlier | `:153` | niddesa | the class terms kusala · akusala · abyākata; abyākata includes matter (`abh01m.mul.xml:4669`) — OPEN, on both sides (`:153–161`) |
 | 25 | upanissaya | utu · bhojana · senāsana | (no relatum named) | R→* | unstated | `:165` | niddesa | climate, food, lodging: matter; the clause names nothing conditioned — OPEN |
-| 26 | upanissaya | puggala | (no relatum named) | P→* | unstated | `:165` | niddesa | a person is a designation (the Puggalapaññatti's own title); nothing conditioned named — OPEN |
-| 27 | purejata | cakkhāyatana … kāyāyatana | pañca viññāṇadhātuyo · taṃsampayuttakā | R→N | pre | `:169` | niddesa | — |
-| 28 | purejata | rūpāyatana … phoṭṭhabbāyatana | pañca viññāṇadhātuyo · manodhātu · taṃsampayuttakā | R→N | pre | `:173` | niddesa | — |
-| 29 | purejata | yaṃ rūpaṃ nissāya | manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | pre | `:177` | niddesa | to mind-consciousness 'at one time, and at another not' |
-| 30 | pacchajata | pacchājātā cittacetasikā dhammā | purejāto ayaṃ kāyo | N→R | post | `:181` | niddesa | — |
-| 31 | asevana | purimā purimā kusalā · akusalā · kiriyābyākatā dhammā | pacchimā pacchimā dhammā | N→N | earlier | `:185` | niddesa | 'kiriyābyākata' — functional, hence mental |
-| 32 | kamma | kusalākusalaṃ kammaṃ | vipākā khandhā · kaṭattā rūpāni | N→NR | done | `:189` | niddesa | — |
-| 33 | kamma | cetanā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:189` | niddesa | — |
-| 34 | vipaka | vipākā cattāro khandhā arūpino | aññamaññaṃ | N→N | co | `:193` | niddesa | the niddesa names only the mental aggregates |
-| 35 | ahara | kabaḷīkāro āhāro | ayaṃ kāyo | R→R | unstated | `:197` | niddesa | — |
-| 36 | ahara | arūpino āhārā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:197` | niddesa | — |
-| 37 | indriya | cakkhundriya … kāyindriya | pañca viññāṇadhātuyo · taṃsampayuttakā | R→N | unstated | `:201` | niddesa | — |
-| 38 | indriya | rūpajīvitindriya | kaṭattārūpāni | R→R | unstated | `:201` | niddesa | — |
-| 39 | indriya | arūpino indriyā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:205` | niddesa | — |
-| 40 | jhana | jhānaṅgāni | jhānasampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:209` | niddesa | — |
-| 41 | magga | maggaṅgāni | maggasampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:213` | niddesa | — |
-| 42 | sampayutta | cattāro khandhā arūpino | aññamaññaṃ | N→N | co | `:217` | niddesa | — |
-| 43 | vippayutta | rūpino dhammā | arūpino dhammā | R→N | unstated | `:221` | niddesa | — |
-| 44 | vippayutta | arūpino dhammā | rūpino dhammā | N→R | unstated | `:221` | niddesa | — |
-| 45 | atthi | khandhā · mahābhūtā · okkantikkhaṇe nāmarūpaṃ · cittacetasikā · mahābhūtā | aññamaññaṃ · cittasamuṭṭhānāni rūpāni · upādārūpāni | NR→NR | co | `:225` | niddesa | the five co-nascent clauses of presence |
-| 46 | atthi | cakkhāyatana … kāyāyatana · rūpāyatana … phoṭṭhabbāyatana · yaṃ rūpaṃ nissāya | pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | unstated | `:229` | niddesa | bases (:229), objects (:233) and the heart-base (:237) |
-| 47 | natthi | samanantaraniruddhā cittacetasikā dhammā | paṭuppannā cittacetasikā dhammā | N→N | ceased | `:241` | niddesa | — |
-| 48 | vigata | samanantaravigatā cittacetasikā dhammā | paṭuppannā cittacetasikā dhammā | N→N | ceased | `:245` | niddesa | — |
-| 49 | avigata | khandhā · mahābhūtā · okkantikkhaṇe nāmarūpaṃ · cittacetasikā · mahābhūtā | aññamaññaṃ · cittasamuṭṭhānāni rūpāni · upādārūpāni | NR→NR | co | `:249` | niddesa | the five co-nascent clauses of non-disappearance |
-| 50 | avigata | cakkhāyatana … kāyāyatana · rūpāyatana … phoṭṭhabbāyatana · yaṃ rūpaṃ nissāya | pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | unstated | `:253` | niddesa | bases (:253), objects (:257) and the heart-base (:261) |
-| 51 | arammana | kusala | kusala | N→N | unstated | `:5585` | detail | — |
-| 52 | arammana | kusala | akusala | N→N | unstated | `:5589` | detail | — |
-| 53 | arammana | kusala | abyākata | N→N | unstated | `:5593` | detail | the abyākata conditioned: an arahant's reviewing and insight — functional cittas |
-| 54 | arammana | akusala | akusala | N→N | unstated | `:5597` | detail | — |
-| 55 | arammana | akusala | kusala | N→N | unstated | `:5601` | detail | — |
-| 56 | arammana | akusala | abyākata | N→N | unstated | `:5605` | detail | the abyākata conditioned: reviewing, insight, rebirth-linking cittas |
-| 57 | arammana | abyākata | abyākata | NR→N | unstated | `:5609` | detail | fruition, nibbāna, the eye … the base, the aggregates → the arahant's cittas |
-| 58 | arammana | abyākata | kusala | NR→N | unstated | `:5613` | detail | — |
-| 59 | arammana | abyākata | akusala | NR→N | unstated | `:5617` | detail | — |
-| 60 | adhipati | kusala | kusala | N→N | unstated | `:5625` | detail | — |
-| 61 | adhipati | kusala | akusala | N→N | unstated | `:5629` | detail | — |
-| 62 | adhipati | kusala | abyākata | N→NR | unstated | `:5633` | detail | reviewing the path (mind); co-nascent predominance → mind-born matter |
-| 63 | adhipati | kusala | kusala · abyākata | N→NR | unstated | `:5637` | detail | — |
-| 64 | adhipati | akusala | akusala | N→N | unstated | `:5641` | detail | — |
-| 65 | adhipati | akusala | abyākata | N→R | unstated | `:5645` | detail | co-nascent predominance → mind-born matter only |
-| 66 | adhipati | akusala | akusala · abyākata | N→NR | unstated | `:5649` | detail | — |
-| 67 | adhipati | abyākata | abyākata | N→NR | unstated | `:5653` | detail | fruition, nibbāna; resultant/functional predominance → its aggregates and mind-born matter |
-| 68 | adhipati | abyākata | kusala | N→N | unstated | `:5657` | detail | — |
-| 69 | adhipati | abyākata | akusala | NR→N | unstated | `:5661` | detail | the eye … the base, the aggregates, taken as weighty |
-| 70 | anantara | kusala | kusala | N→N | unstated | `:5669` | detail | aggregates; conformity → change-of-lineage → path |
-| 71 | anantara | kusala | abyākata | N→N | unstated | `:5673` | detail | wholesome → emergence; path → fruition |
-| 72 | anantara | akusala | akusala | N→N | unstated | `:5677` | detail | — |
-| 73 | anantara | akusala | abyākata | N→N | unstated | `:5681` | detail | unwholesome → emergence |
-| 74 | anantara | abyākata | abyākata | N→N | unstated | `:5685` | detail | resultant and functional AGGREGATES only; life-continuum → adverting |
-| 75 | anantara | abyākata | kusala | N→N | unstated | `:5689` | detail | adverting → wholesome aggregates |
-| 76 | anantara | abyākata | akusala | N→N | unstated | `:5693` | detail | adverting → unwholesome aggregates |
-| 77 | samanantara | kusala | kusala | N→N | unstated | `:5701` | detail | aggregates; conformity → change-of-lineage → path |
-| 78 | samanantara | kusala | abyākata | N→N | unstated | `:5705` | detail | wholesome → emergence; path → fruition |
-| 79 | samanantara | akusala | akusala | N→N | unstated | `:5709` | detail | — |
-| 80 | samanantara | akusala | abyākata | N→N | unstated | `:5713` | detail | unwholesome → emergence |
-| 81 | samanantara | abyākata | abyākata | N→N | unstated | `:5717` | detail | resultant and functional AGGREGATES only; life-continuum → adverting |
-| 82 | samanantara | abyākata | kusala | N→N | unstated | `:5721` | detail | adverting → wholesome aggregates |
-| 83 | samanantara | abyākata | akusala | N→N | unstated | `:5725` | detail | adverting → unwholesome aggregates |
-| 84 | upanissaya | kusala | kusala | N→N | unstated | `:5845` | detail | — |
-| 85 | upanissaya | kusala | akusala | N→N | unstated | `:5865` | detail | — |
-| 86 | upanissaya | kusala | abyākata | N→N | unstated | `:5877` | detail | the abyākata conditioned: bodily feeling, fruition, result (`:5881–5889`) |
-| 87 | upanissaya | akusala | akusala | N→N | unstated | `:5893` | detail | — |
-| 88 | upanissaya | akusala | kusala | N→N | unstated | `:5909` | detail | — |
-| 89 | upanissaya | akusala | abyākata | N→N | unstated | `:5913` | detail | the abyākata conditioned: emergence, bodily feeling, fruition, result |
-| 90 | upanissaya | abyākata | abyākata | NR→N | unstated | `:5937` | detail | abyākata → abyākata (`:5925`): climate, food, lodging and bodily feeling → bodily feeling and fruition |
-| 91 | upanissaya | abyākata | kusala | NR→N | unstated | `:5957` | detail | abyākata → kusala (`:5945`): fruition, nibbāna, adverting, climate, food, lodging |
-| 92 | upanissaya | abyākata | akusala | NR→N | unstated | `:5965` | detail | abyākata → akusala (`:5961`): the eye … the base, the aggregates; climate, food, lodging (`:5977`) |
-| 93 | hetu | Kusalo | kusalassa | N→N | unstated | `:5569` | detailFull | — |
-| 94 | hetu | Kusalo | abyākatassa | N→R | unstated | `:5569` | detailFull | mind-born matter |
-| 95 | hetu | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5569` | detailFull | — |
-| 96 | hetu | Akusalo | akusalassa | N→N | unstated | `:5573` | detailFull | — |
-| 97 | hetu | Akusalo | abyākatassa | N→R | unstated | `:5573` | detailFull | mind-born matter |
-| 98 | hetu | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5573` | detailFull | — |
-| 99 | hetu | Abyākato | abyākatassa | N→NR | unstated | `:5577` | detailFull | resultant and functional roots → aggregates, mind-born and (at rebirth) kamma-born matter |
-| 100 | sahajata | Kusalo | kusalassa | N→N | unstated | `:5733` | detailFull | — |
-| 101 | sahajata | Kusalo | abyākatassa | N→R | unstated | `:5737` | detailFull | mind-born matter |
-| 102 | sahajata | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5741` | detailFull | — |
-| 103 | sahajata | Akusalo | akusalassa | N→N | unstated | `:5745` | detailFull | — |
-| 104 | sahajata | Akusalo | abyākatassa | N→R | unstated | `:5749` | detailFull | mind-born matter |
-| 105 | sahajata | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5753` | detailFull | — |
-| 106 | sahajata | Abyākato | abyākatassa | NR→NR | unstated | `:5757` | detailFull | aggregates ↔ the base, the great elements → derived matter |
-| 107 | sahajata | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5761` | detailFull | wholesome aggregates and the great elements → mind-born matter |
-| 108 | sahajata | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5765` | detailFull | — |
-| 109 | annamanna | Kusalo | kusalassa | N→N | unstated | `:5773` | detailFull | — |
-| 110 | annamanna | Akusalo | akusalassa | N→N | unstated | `:5777` | detailFull | — |
-| 111 | annamanna | Abyākato | abyākatassa | NR→NR | unstated | `:5781` | detailFull | aggregates ↔ the base at rebirth; the great elements mutually |
-| 112 | nissaya | Kusalo | kusalassa | N→N | unstated | `:5789` | detailFull | — |
-| 113 | nissaya | Kusalo | abyākatassa | N→R | unstated | `:5793` | detailFull | mind-born matter |
-| 114 | nissaya | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5797` | detailFull | — |
-| 115 | nissaya | Akusalo | akusalassa | N→N | unstated | `:5801` | detailFull | — |
-| 116 | nissaya | Akusalo | abyākatassa | N→R | unstated | `:5805` | detailFull | mind-born matter |
-| 117 | nissaya | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5809` | detailFull | — |
-| 118 | nissaya | Abyākato | abyākatassa | NR→NR | unstated | `:5813` | detailFull | as for co-nascence, and the five sense bases → their consciousness |
-| 119 | nissaya | Abyākato | kusalassa | R→N | unstated | `:5817` | detailFull | the base → wholesome aggregates |
-| 120 | nissaya | Abyākato | akusalassa | R→N | unstated | `:5821` | detailFull | — |
-| 121 | nissaya | Kusalo ca abyākato ca | kusalassa | NR→N | unstated | `:5825` | detailFull | a wholesome aggregate and the base |
-| 122 | nissaya | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5829` | detailFull | — |
-| 123 | nissaya | Akusalo ca abyākato ca | akusalassa | NR→N | unstated | `:5833` | detailFull | — |
-| 124 | nissaya | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5837` | detailFull | — |
-| 125 | purejata | Abyākato | abyākatassa | R→N | unstated | `:5989` | detailFull | object- and base-prenascence (`:5993–5997`): the eye … the base → resultant and functional aggregates, insight, the divine eye |
-| 126 | purejata | Abyākato | kusalassa | R→N | unstated | `:6001` | detailFull | — |
-| 127 | purejata | Abyākato | akusalassa | R→N | unstated | `:6013` | detailFull | — |
-| 128 | pacchajata | Kusalo | abyākatassa | N→R | unstated | `:6025` | detailFull | post-nascent aggregates → this pre-nascent body |
-| 129 | pacchajata | Akusalo | abyākatassa | N→R | unstated | `:6029` | detailFull | — |
-| 130 | pacchajata | Abyākato | abyākatassa | N→R | unstated | `:6033` | detailFull | — |
-| 131 | asevana | Kusalo | kusalassa | N→N | unstated | `:6041` | detailFull | — |
-| 132 | asevana | Akusalo | akusalassa | N→N | unstated | `:6045` | detailFull | — |
-| 133 | asevana | Abyākato | abyākatassa | N→N | unstated | `:6049` | detailFull | functional |
-| 134 | kamma | Kusalo | kusalassa | N→N | unstated | `:6057` | detailFull | — |
-| 135 | kamma | Kusalo | abyākatassa | N→NR | unstated | `:6061` | detailFull | co-nascent → mind-born matter; asynchronous → resultant aggregates and kamma-born matter (`:6065`) |
-| 136 | kamma | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6069` | detailFull | — |
-| 137 | kamma | Akusalo | akusalassa | N→N | unstated | `:6073` | detailFull | — |
-| 138 | kamma | Akusalo | abyākatassa | N→NR | unstated | `:6077` | detailFull | — |
-| 139 | kamma | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6081` | detailFull | — |
-| 140 | kamma | Abyākato | abyākatassa | N→NR | unstated | `:6085` | detailFull | resultant volition → aggregates and kamma-born matter; volition → the base |
-| 141 | vipaka | Abyākato | abyākatassa | N→NR | unstated | `:6093` | detailFull | §428: a resultant aggregate → the other three, mind-born and kamma-born matter, the base — first consulted because result FAILED; now part of the full read |
-| 142 | ahara | Kusalo | kusalassa | N→N | unstated | `:6101` | detailFull | — |
-| 143 | ahara | Kusalo | abyākatassa | N→R | unstated | `:6105` | detailFull | mind-born matter |
-| 144 | ahara | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6109` | detailFull | — |
-| 145 | ahara | Akusalo | akusalassa | N→N | unstated | `:6113` | detailFull | — |
-| 146 | ahara | Akusalo | abyākatassa | N→R | unstated | `:6117` | detailFull | mind-born matter |
-| 147 | ahara | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6121` | detailFull | — |
-| 148 | ahara | Abyākato | abyākatassa | NR→NR | unstated | `:6125` | detailFull | resultant nutriments → aggregates and kamma-born matter; edible food → this body |
-| 149 | indriya | Kusalo | kusalassa | N→N | unstated | `:6133` | detailFull | — |
-| 150 | indriya | Kusalo | abyākatassa | N→R | unstated | `:6137` | detailFull | mind-born matter |
-| 151 | indriya | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6141` | detailFull | — |
-| 152 | indriya | Akusalo | akusalassa | N→N | unstated | `:6145` | detailFull | — |
-| 153 | indriya | Akusalo | abyākatassa | N→R | unstated | `:6149` | detailFull | mind-born matter |
-| 154 | indriya | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6153` | detailFull | — |
-| 155 | indriya | Abyākato | abyākatassa | NR→NR | unstated | `:6157` | detailFull | resultant faculties → aggregates and kamma-born matter; the eye faculty → eye-consciousness; the material life faculty → kamma-born matter |
-| 156 | jhana | Kusalo | kusalassa | N→N | unstated | `:6165` | detailFull | — |
-| 157 | jhana | Kusalo | abyākatassa | N→R | unstated | `:6169` | detailFull | mind-born matter |
-| 158 | jhana | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6173` | detailFull | — |
-| 159 | jhana | Akusalo | akusalassa | N→N | unstated | `:6177` | detailFull | — |
-| 160 | jhana | Akusalo | abyākatassa | N→R | unstated | `:6181` | detailFull | mind-born matter |
-| 161 | jhana | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6185` | detailFull | — |
-| 162 | jhana | Abyākato | abyākatassa | N→NR | unstated | `:6189` | detailFull | resultant jhāna factors → aggregates and kamma-born matter |
-| 163 | magga | Kusalo | kusalassa | N→N | unstated | `:6197` | detailFull | — |
-| 164 | magga | Kusalo | abyākatassa | N→R | unstated | `:6201` | detailFull | mind-born matter |
-| 165 | magga | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6205` | detailFull | — |
-| 166 | magga | Akusalo | akusalassa | N→N | unstated | `:6209` | detailFull | — |
-| 167 | magga | Akusalo | abyākatassa | N→R | unstated | `:6213` | detailFull | mind-born matter |
-| 168 | magga | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6217` | detailFull | — |
-| 169 | magga | Abyākato | abyākatassa | N→NR | unstated | `:6221` | detailFull | resultant path factors → aggregates and kamma-born matter |
-| 170 | sampayutta | Kusalo | kusalassa | N→N | unstated | `:6229` | detailFull | — |
-| 171 | sampayutta | Akusalo | akusalassa | N→N | unstated | `:6233` | detailFull | — |
-| 172 | sampayutta | Abyākato | abyākatassa | N→N | unstated | `:6237` | detailFull | — |
-| 173 | vippayutta | Kusalo | abyākatassa | N→R | unstated | `:6245` | detailFull | aggregates → this body; mind-born matter |
-| 174 | vippayutta | Akusalo | abyākatassa | N→R | unstated | `:6249` | detailFull | — |
-| 175 | vippayutta | Abyākato | abyākatassa | NR→NR | unstated | `:6253` | detailFull | aggregates ↔ the base, kamma-born matter, the sense bases → their consciousness |
-| 176 | vippayutta | Abyākato | kusalassa | R→N | unstated | `:6257` | detailFull | the pre-nascent base → wholesome aggregates |
-| 177 | vippayutta | Abyākato | akusalassa | R→N | unstated | `:6261` | detailFull | — |
-| 178 | atthi | Kusalo | kusalassa | N→N | unstated | `:6269` | detailFull | — |
-| 179 | atthi | Kusalo | abyākatassa | N→R | unstated | `:6273` | detailFull | mind-born matter |
-| 180 | atthi | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6277` | detailFull | — |
-| 181 | atthi | Akusalo | akusalassa | N→N | unstated | `:6281` | detailFull | — |
-| 182 | atthi | Akusalo | abyākatassa | N→R | unstated | `:6285` | detailFull | mind-born matter |
-| 183 | atthi | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6289` | detailFull | — |
-| 184 | atthi | Abyākato | abyākatassa | NR→NR | unstated | `:6293` | detailFull | co-nascent, pre-nascent, post-nascent, nutriment and faculty presence |
-| 185 | atthi | Abyākato | kusalassa | R→N | unstated | `:6301` | detailFull | pre-nascent objects and the base → wholesome aggregates |
-| 186 | atthi | Abyākato | akusalassa | R→N | unstated | `:6305` | detailFull | — |
-| 187 | atthi | Kusalo ca abyākato ca | kusalassa | NR→N | unstated | `:6309` | detailFull | — |
-| 188 | atthi | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:6313` | detailFull | with the great elements, edible food, the material life faculty |
-| 189 | atthi | Akusalo ca abyākato ca | akusalassa | NR→N | unstated | `:6317` | detailFull | — |
-| 190 | atthi | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:6321` | detailFull | — |
-| 191 | natthi | Kusalo | kusalassa | N→N | unstated | `:6329` | detailFull | expanded 'as proximity' (`:6333`) |
-| 192 | vigata | Kusalo | kusalassa | N→N | unstated | `:6341` | detailFull | expanded 'as proximity' (`:6345`) |
-| 193 | avigata | Kusalo | kusalassa | N→N | unstated | `:6353` | detailFull | expanded 'as presence' (`:6357`) |
-| 194 | arammana | paññatti | (the mind that takes it) | P→N | unstated | `abh03a.att.xml:7889` | commentary | the Paṭṭhāna-aṭṭhakathā: the object is sevenfold, concepts included |
+| 26 | upanissaya | puggala | (no relatum named) | P→* | unstated | `:165` | personDesignation | READING A: the person as a designation (the Puggalapaññatti's own title) — nothing conditioned named, OPEN |
+| 27 | upanissaya | puggala | (no relatum named) | NR→* | unstated | `:165` | personContinuum | READING B: the person as the aggregate-continuum taken under the perception 'person' (the Dhammasaṅgaṇī sub-commentary, `abh01t.tik.xml:2557`); the Paṭṭhāna commentary calls the person's conditionality figurative (`abh03a.att.xml:8053`) |
+| 28 | purejata | cakkhāyatana … kāyāyatana | pañca viññāṇadhātuyo · taṃsampayuttakā | R→N | pre | `:169` | niddesa | — |
+| 29 | purejata | rūpāyatana … phoṭṭhabbāyatana | pañca viññāṇadhātuyo · manodhātu · taṃsampayuttakā | R→N | pre | `:173` | niddesa | — |
+| 30 | purejata | yaṃ rūpaṃ nissāya | manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | pre | `:177` | niddesa | to mind-consciousness 'at one time, and at another not' |
+| 31 | pacchajata | pacchājātā cittacetasikā dhammā | purejāto ayaṃ kāyo | N→R | post | `:181` | niddesa | — |
+| 32 | asevana | purimā purimā kusalā · akusalā · kiriyābyākatā dhammā | pacchimā pacchimā dhammā | N→N | earlier | `:185` | niddesa | 'kiriyābyākata' — functional, hence mental |
+| 33 | kamma | kusalākusalaṃ kammaṃ | vipākā khandhā · kaṭattā rūpāni | N→NR | done | `:189` | niddesa | — |
+| 34 | kamma | cetanā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:189` | niddesa | — |
+| 35 | vipaka | vipākā cattāro khandhā arūpino | aññamaññaṃ | N→N | co | `:193` | niddesa | the niddesa names only the mental aggregates |
+| 36 | ahara | kabaḷīkāro āhāro | ayaṃ kāyo | R→R | unstated | `:197` | niddesa | — |
+| 37 | ahara | arūpino āhārā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:197` | niddesa | — |
+| 38 | indriya | cakkhundriya … kāyindriya | pañca viññāṇadhātuyo · taṃsampayuttakā | R→N | unstated | `:201` | niddesa | — |
+| 39 | indriya | rūpajīvitindriya | kaṭattārūpāni | R→R | unstated | `:201` | niddesa | — |
+| 40 | indriya | arūpino indriyā | sampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:205` | niddesa | — |
+| 41 | jhana | jhānaṅgāni | jhānasampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:209` | niddesa | — |
+| 42 | magga | maggaṅgāni | maggasampayuttakā dhammā · taṃsamuṭṭhānāni rūpāni | N→NR | co | `:213` | niddesa | — |
+| 43 | sampayutta | cattāro khandhā arūpino | aññamaññaṃ | N→N | co | `:217` | niddesa | — |
+| 44 | vippayutta | rūpino dhammā | arūpino dhammā | R→N | unstated | `:221` | niddesa | — |
+| 45 | vippayutta | arūpino dhammā | rūpino dhammā | N→R | unstated | `:221` | niddesa | — |
+| 46 | atthi | khandhā · mahābhūtā · okkantikkhaṇe nāmarūpaṃ · cittacetasikā · mahābhūtā | aññamaññaṃ · cittasamuṭṭhānāni rūpāni · upādārūpāni | NR→NR | co | `:225` | niddesa | the five co-nascent clauses of presence |
+| 47 | atthi | cakkhāyatana … kāyāyatana · rūpāyatana … phoṭṭhabbāyatana · yaṃ rūpaṃ nissāya | pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | unstated | `:229` | niddesa | bases (:229), objects (:233) and the heart-base (:237) |
+| 48 | natthi | samanantaraniruddhā cittacetasikā dhammā | paṭuppannā cittacetasikā dhammā | N→N | ceased | `:241` | niddesa | — |
+| 49 | vigata | samanantaravigatā cittacetasikā dhammā | paṭuppannā cittacetasikā dhammā | N→N | ceased | `:245` | niddesa | — |
+| 50 | avigata | khandhā · mahābhūtā · okkantikkhaṇe nāmarūpaṃ · cittacetasikā · mahābhūtā | aññamaññaṃ · cittasamuṭṭhānāni rūpāni · upādārūpāni | NR→NR | co | `:249` | niddesa | the five co-nascent clauses of non-disappearance |
+| 51 | avigata | cakkhāyatana … kāyāyatana · rūpāyatana … phoṭṭhabbāyatana · yaṃ rūpaṃ nissāya | pañca viññāṇadhātuyo · manodhātu · manoviññāṇadhātu · taṃsampayuttakā | R→N | unstated | `:253` | niddesa | bases (:253), objects (:257) and the heart-base (:261) |
+| 52 | arammana | kusala | kusala | N→N | unstated | `:5585` | detail | — |
+| 53 | arammana | kusala | akusala | N→N | unstated | `:5589` | detail | — |
+| 54 | arammana | kusala | abyākata | N→N | unstated | `:5593` | detail | the abyākata conditioned: an arahant's reviewing and insight — functional cittas |
+| 55 | arammana | akusala | akusala | N→N | unstated | `:5597` | detail | — |
+| 56 | arammana | akusala | kusala | N→N | unstated | `:5601` | detail | — |
+| 57 | arammana | akusala | abyākata | N→N | unstated | `:5605` | detail | the abyākata conditioned: reviewing, insight, rebirth-linking cittas |
+| 58 | arammana | abyākata | abyākata | NR→N | unstated | `:5609` | detail | fruition, nibbāna, the eye … the base, the aggregates → the arahant's cittas |
+| 59 | arammana | abyākata | kusala | NR→N | unstated | `:5613` | detail | — |
+| 60 | arammana | abyākata | akusala | NR→N | unstated | `:5617` | detail | — |
+| 61 | adhipati | kusala | kusala | N→N | unstated | `:5625` | detail | — |
+| 62 | adhipati | kusala | akusala | N→N | unstated | `:5629` | detail | — |
+| 63 | adhipati | kusala | abyākata | N→NR | unstated | `:5633` | detail | reviewing the path (mind); co-nascent predominance → mind-born matter |
+| 64 | adhipati | kusala | kusala · abyākata | N→NR | unstated | `:5637` | detail | — |
+| 65 | adhipati | akusala | akusala | N→N | unstated | `:5641` | detail | — |
+| 66 | adhipati | akusala | abyākata | N→R | unstated | `:5645` | detail | co-nascent predominance → mind-born matter only |
+| 67 | adhipati | akusala | akusala · abyākata | N→NR | unstated | `:5649` | detail | — |
+| 68 | adhipati | abyākata | abyākata | N→NR | unstated | `:5653` | detail | fruition, nibbāna; resultant/functional predominance → its aggregates and mind-born matter |
+| 69 | adhipati | abyākata | kusala | N→N | unstated | `:5657` | detail | — |
+| 70 | adhipati | abyākata | akusala | NR→N | unstated | `:5661` | detail | the eye … the base, the aggregates, taken as weighty |
+| 71 | anantara | kusala | kusala | N→N | unstated | `:5669` | detail | aggregates; conformity → change-of-lineage → path |
+| 72 | anantara | kusala | abyākata | N→N | unstated | `:5673` | detail | wholesome → emergence; path → fruition |
+| 73 | anantara | akusala | akusala | N→N | unstated | `:5677` | detail | — |
+| 74 | anantara | akusala | abyākata | N→N | unstated | `:5681` | detail | unwholesome → emergence |
+| 75 | anantara | abyākata | abyākata | N→N | unstated | `:5685` | detail | resultant and functional AGGREGATES only; life-continuum → adverting |
+| 76 | anantara | abyākata | kusala | N→N | unstated | `:5689` | detail | adverting → wholesome aggregates |
+| 77 | anantara | abyākata | akusala | N→N | unstated | `:5693` | detail | adverting → unwholesome aggregates |
+| 78 | samanantara | kusala | kusala | N→N | unstated | `:5701` | detail | aggregates; conformity → change-of-lineage → path |
+| 79 | samanantara | kusala | abyākata | N→N | unstated | `:5705` | detail | wholesome → emergence; path → fruition |
+| 80 | samanantara | akusala | akusala | N→N | unstated | `:5709` | detail | — |
+| 81 | samanantara | akusala | abyākata | N→N | unstated | `:5713` | detail | unwholesome → emergence |
+| 82 | samanantara | abyākata | abyākata | N→N | unstated | `:5717` | detail | resultant and functional AGGREGATES only; life-continuum → adverting |
+| 83 | samanantara | abyākata | kusala | N→N | unstated | `:5721` | detail | adverting → wholesome aggregates |
+| 84 | samanantara | abyākata | akusala | N→N | unstated | `:5725` | detail | adverting → unwholesome aggregates |
+| 85 | upanissaya | kusala | kusala | N→N | unstated | `:5845` | detail | — |
+| 86 | upanissaya | kusala | akusala | N→N | unstated | `:5865` | detail | — |
+| 87 | upanissaya | kusala | abyākata | N→N | unstated | `:5877` | detail | the abyākata conditioned: bodily feeling, fruition, result (`:5881–5889`) |
+| 88 | upanissaya | akusala | akusala | N→N | unstated | `:5893` | detail | — |
+| 89 | upanissaya | akusala | kusala | N→N | unstated | `:5909` | detail | — |
+| 90 | upanissaya | akusala | abyākata | N→N | unstated | `:5913` | detail | the abyākata conditioned: emergence, bodily feeling, fruition, result |
+| 91 | upanissaya | abyākata | abyākata | NR→N | unstated | `:5937` | detail | abyākata → abyākata (`:5925`): climate, food, lodging and bodily feeling → bodily feeling and fruition |
+| 92 | upanissaya | abyākata | kusala | NR→N | unstated | `:5957` | detail | abyākata → kusala (`:5945`): fruition, nibbāna, adverting, climate, food, lodging |
+| 93 | upanissaya | abyākata | akusala | NR→N | unstated | `:5965` | detail | abyākata → akusala (`:5961`): the eye … the base, the aggregates; climate, food, lodging (`:5977`) |
+| 94 | hetu | Kusalo | kusalassa | N→N | unstated | `:5569` | detailFull | — |
+| 95 | hetu | Kusalo | abyākatassa | N→R | unstated | `:5569` | detailFull | mind-born matter |
+| 96 | hetu | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5569` | detailFull | — |
+| 97 | hetu | Akusalo | akusalassa | N→N | unstated | `:5573` | detailFull | — |
+| 98 | hetu | Akusalo | abyākatassa | N→R | unstated | `:5573` | detailFull | mind-born matter |
+| 99 | hetu | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5573` | detailFull | — |
+| 100 | hetu | Abyākato | abyākatassa | N→NR | unstated | `:5577` | detailFull | resultant and functional roots → aggregates, mind-born and (at rebirth) kamma-born matter |
+| 101 | sahajata | Kusalo | kusalassa | N→N | unstated | `:5733` | detailFull | — |
+| 102 | sahajata | Kusalo | abyākatassa | N→R | unstated | `:5737` | detailFull | mind-born matter |
+| 103 | sahajata | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5741` | detailFull | — |
+| 104 | sahajata | Akusalo | akusalassa | N→N | unstated | `:5745` | detailFull | — |
+| 105 | sahajata | Akusalo | abyākatassa | N→R | unstated | `:5749` | detailFull | mind-born matter |
+| 106 | sahajata | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5753` | detailFull | — |
+| 107 | sahajata | Abyākato | abyākatassa | NR→NR | unstated | `:5757` | detailFull | aggregates ↔ the base, the great elements → derived matter |
+| 108 | sahajata | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5761` | detailFull | wholesome aggregates and the great elements → mind-born matter |
+| 109 | sahajata | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5765` | detailFull | — |
+| 110 | annamanna | Kusalo | kusalassa | N→N | unstated | `:5773` | detailFull | — |
+| 111 | annamanna | Akusalo | akusalassa | N→N | unstated | `:5777` | detailFull | — |
+| 112 | annamanna | Abyākato | abyākatassa | NR→NR | unstated | `:5781` | detailFull | aggregates ↔ the base at rebirth; the great elements mutually |
+| 113 | nissaya | Kusalo | kusalassa | N→N | unstated | `:5789` | detailFull | — |
+| 114 | nissaya | Kusalo | abyākatassa | N→R | unstated | `:5793` | detailFull | mind-born matter |
+| 115 | nissaya | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:5797` | detailFull | — |
+| 116 | nissaya | Akusalo | akusalassa | N→N | unstated | `:5801` | detailFull | — |
+| 117 | nissaya | Akusalo | abyākatassa | N→R | unstated | `:5805` | detailFull | mind-born matter |
+| 118 | nissaya | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:5809` | detailFull | — |
+| 119 | nissaya | Abyākato | abyākatassa | NR→NR | unstated | `:5813` | detailFull | as for co-nascence, and the five sense bases → their consciousness |
+| 120 | nissaya | Abyākato | kusalassa | R→N | unstated | `:5817` | detailFull | the base → wholesome aggregates |
+| 121 | nissaya | Abyākato | akusalassa | R→N | unstated | `:5821` | detailFull | — |
+| 122 | nissaya | Kusalo ca abyākato ca | kusalassa | NR→N | unstated | `:5825` | detailFull | a wholesome aggregate and the base |
+| 123 | nissaya | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5829` | detailFull | — |
+| 124 | nissaya | Akusalo ca abyākato ca | akusalassa | NR→N | unstated | `:5833` | detailFull | — |
+| 125 | nissaya | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:5837` | detailFull | — |
+| 126 | purejata | Abyākato | abyākatassa | R→N | unstated | `:5989` | detailFull | object- and base-prenascence (`:5993–5997`): the eye … the base → resultant and functional aggregates, insight, the divine eye |
+| 127 | purejata | Abyākato | kusalassa | R→N | unstated | `:6001` | detailFull | — |
+| 128 | purejata | Abyākato | akusalassa | R→N | unstated | `:6013` | detailFull | — |
+| 129 | pacchajata | Kusalo | abyākatassa | N→R | unstated | `:6025` | detailFull | post-nascent aggregates → this pre-nascent body |
+| 130 | pacchajata | Akusalo | abyākatassa | N→R | unstated | `:6029` | detailFull | — |
+| 131 | pacchajata | Abyākato | abyākatassa | N→R | unstated | `:6033` | detailFull | — |
+| 132 | asevana | Kusalo | kusalassa | N→N | unstated | `:6041` | detailFull | — |
+| 133 | asevana | Akusalo | akusalassa | N→N | unstated | `:6045` | detailFull | — |
+| 134 | asevana | Abyākato | abyākatassa | N→N | unstated | `:6049` | detailFull | functional |
+| 135 | kamma | Kusalo | kusalassa | N→N | unstated | `:6057` | detailFull | — |
+| 136 | kamma | Kusalo | abyākatassa | N→NR | unstated | `:6061` | detailFull | co-nascent → mind-born matter; asynchronous → resultant aggregates and kamma-born matter (`:6065`) |
+| 137 | kamma | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6069` | detailFull | — |
+| 138 | kamma | Akusalo | akusalassa | N→N | unstated | `:6073` | detailFull | — |
+| 139 | kamma | Akusalo | abyākatassa | N→NR | unstated | `:6077` | detailFull | — |
+| 140 | kamma | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6081` | detailFull | — |
+| 141 | kamma | Abyākato | abyākatassa | N→NR | unstated | `:6085` | detailFull | resultant volition → aggregates and kamma-born matter; volition → the base |
+| 142 | vipaka | Abyākato | abyākatassa | N→NR | unstated | `:6093` | detailFull | §428: a resultant aggregate → the other three, mind-born and kamma-born matter, the base — first consulted because result FAILED; now part of the full read |
+| 143 | ahara | Kusalo | kusalassa | N→N | unstated | `:6101` | detailFull | — |
+| 144 | ahara | Kusalo | abyākatassa | N→R | unstated | `:6105` | detailFull | mind-born matter |
+| 145 | ahara | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6109` | detailFull | — |
+| 146 | ahara | Akusalo | akusalassa | N→N | unstated | `:6113` | detailFull | — |
+| 147 | ahara | Akusalo | abyākatassa | N→R | unstated | `:6117` | detailFull | mind-born matter |
+| 148 | ahara | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6121` | detailFull | — |
+| 149 | ahara | Abyākato | abyākatassa | NR→NR | unstated | `:6125` | detailFull | resultant nutriments → aggregates and kamma-born matter; edible food → this body |
+| 150 | indriya | Kusalo | kusalassa | N→N | unstated | `:6133` | detailFull | — |
+| 151 | indriya | Kusalo | abyākatassa | N→R | unstated | `:6137` | detailFull | mind-born matter |
+| 152 | indriya | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6141` | detailFull | — |
+| 153 | indriya | Akusalo | akusalassa | N→N | unstated | `:6145` | detailFull | — |
+| 154 | indriya | Akusalo | abyākatassa | N→R | unstated | `:6149` | detailFull | mind-born matter |
+| 155 | indriya | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6153` | detailFull | — |
+| 156 | indriya | Abyākato | abyākatassa | NR→NR | unstated | `:6157` | detailFull | resultant faculties → aggregates and kamma-born matter; the eye faculty → eye-consciousness; the material life faculty → kamma-born matter |
+| 157 | jhana | Kusalo | kusalassa | N→N | unstated | `:6165` | detailFull | — |
+| 158 | jhana | Kusalo | abyākatassa | N→R | unstated | `:6169` | detailFull | mind-born matter |
+| 159 | jhana | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6173` | detailFull | — |
+| 160 | jhana | Akusalo | akusalassa | N→N | unstated | `:6177` | detailFull | — |
+| 161 | jhana | Akusalo | abyākatassa | N→R | unstated | `:6181` | detailFull | mind-born matter |
+| 162 | jhana | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6185` | detailFull | — |
+| 163 | jhana | Abyākato | abyākatassa | N→NR | unstated | `:6189` | detailFull | resultant jhāna factors → aggregates and kamma-born matter |
+| 164 | magga | Kusalo | kusalassa | N→N | unstated | `:6197` | detailFull | — |
+| 165 | magga | Kusalo | abyākatassa | N→R | unstated | `:6201` | detailFull | mind-born matter |
+| 166 | magga | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6205` | detailFull | — |
+| 167 | magga | Akusalo | akusalassa | N→N | unstated | `:6209` | detailFull | — |
+| 168 | magga | Akusalo | abyākatassa | N→R | unstated | `:6213` | detailFull | mind-born matter |
+| 169 | magga | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6217` | detailFull | — |
+| 170 | magga | Abyākato | abyākatassa | N→NR | unstated | `:6221` | detailFull | resultant path factors → aggregates and kamma-born matter |
+| 171 | sampayutta | Kusalo | kusalassa | N→N | unstated | `:6229` | detailFull | — |
+| 172 | sampayutta | Akusalo | akusalassa | N→N | unstated | `:6233` | detailFull | — |
+| 173 | sampayutta | Abyākato | abyākatassa | N→N | unstated | `:6237` | detailFull | — |
+| 174 | vippayutta | Kusalo | abyākatassa | N→R | unstated | `:6245` | detailFull | aggregates → this body; mind-born matter |
+| 175 | vippayutta | Akusalo | abyākatassa | N→R | unstated | `:6249` | detailFull | — |
+| 176 | vippayutta | Abyākato | abyākatassa | NR→NR | unstated | `:6253` | detailFull | aggregates ↔ the base, kamma-born matter, the sense bases → their consciousness |
+| 177 | vippayutta | Abyākato | kusalassa | R→N | unstated | `:6257` | detailFull | the pre-nascent base → wholesome aggregates |
+| 178 | vippayutta | Abyākato | akusalassa | R→N | unstated | `:6261` | detailFull | — |
+| 179 | atthi | Kusalo | kusalassa | N→N | unstated | `:6269` | detailFull | — |
+| 180 | atthi | Kusalo | abyākatassa | N→R | unstated | `:6273` | detailFull | mind-born matter |
+| 181 | atthi | Kusalo | kusalassa ca abyākatassa ca | N→NR | unstated | `:6277` | detailFull | — |
+| 182 | atthi | Akusalo | akusalassa | N→N | unstated | `:6281` | detailFull | — |
+| 183 | atthi | Akusalo | abyākatassa | N→R | unstated | `:6285` | detailFull | mind-born matter |
+| 184 | atthi | Akusalo | akusalassa ca abyākatassa ca | N→NR | unstated | `:6289` | detailFull | — |
+| 185 | atthi | Abyākato | abyākatassa | NR→NR | unstated | `:6293` | detailFull | co-nascent, pre-nascent, post-nascent, nutriment and faculty presence |
+| 186 | atthi | Abyākato | kusalassa | R→N | unstated | `:6301` | detailFull | pre-nascent objects and the base → wholesome aggregates |
+| 187 | atthi | Abyākato | akusalassa | R→N | unstated | `:6305` | detailFull | — |
+| 188 | atthi | Kusalo ca abyākato ca | kusalassa | NR→N | unstated | `:6309` | detailFull | — |
+| 189 | atthi | Kusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:6313` | detailFull | with the great elements, edible food, the material life faculty |
+| 190 | atthi | Akusalo ca abyākato ca | akusalassa | NR→N | unstated | `:6317` | detailFull | — |
+| 191 | atthi | Akusalo ca abyākato ca | abyākatassa | NR→R | unstated | `:6321` | detailFull | — |
+| 192 | natthi | Kusalo | kusalassa | N→N | unstated | `:6329` | detailFull | expanded 'as proximity' (`:6333`) |
+| 193 | vigata | Kusalo | kusalassa | N→N | unstated | `:6341` | detailFull | expanded 'as proximity' (`:6345`) |
+| 194 | avigata | Kusalo | kusalassa | N→N | unstated | `:6353` | detailFull | expanded 'as presence' (`:6357`) |
+| 195 | arammana | paññatti | (the mind that takes it) | P→N | unstated | `abh03a.att.xml:7889` | commentary | DISTRIBUTIVE: the Paṭṭhāna-aṭṭhakathā — the object is sevenfold, concepts included |
+| 196 | upanissaya | ekaccā paññatti | (what it supports) | P→N | unstated | `abh03a.att.xml:8057` | commentary | DISTRIBUTIVE: decisive support is all the dhammas of the four planes 'together with SOME concept' |
+| 197 | arammana | paññatti | (the mind) | P→N | unstated | `abh03a.att.xml:7817` | commentaryCollective | COLLECTIVE: object, predominance and decisive support are time-free 'because concepts, with nibbāna, are included' |
+| 198 | adhipati | paññatti | (the mind) | P→N | unstated | `abh03a.att.xml:7817` | commentaryCollective | COLLECTIVE: read of all three, predominance takes a concept too — and leaves the Saṅgaha's group (refuter, 2026-10-13) |
+| 199 | upanissaya | paññatti | (the mind) | P→N | unstated | `abh03a.att.xml:7817` | commentaryCollective | COLLECTIVE: as above |
