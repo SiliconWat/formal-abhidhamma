@@ -181,7 +181,7 @@ theorem t6b_the_answer_is_not_enough :
 
 /-! ## Models of the provable theorems' hypotheses (rubric item 3), and necessity -/
 
-/-- T6L's hypotheses are jointly satisfiable, with an existence after `r0` (not vacuously). -/
+/-- T6L's hypotheses are jointly satisfiable, with an existence AT `r0` (not vacuously). -/
 theorem model_t6l_hypotheses :
     ∃ b r0, a124_incapable b ∧ a125_once_sunk_literal b r0 ∧ b.patisandhi b.actual r0 :=
   ⟨sunkForever, 0, fun _ _ _ => trivial, fun _ _ _ _ _ => trivial, trivial⟩
