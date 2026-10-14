@@ -23,8 +23,10 @@ system never states. The precedent is already in this repo — `sangaha/AnswerKe
   COMPUTED inclusion answers — what follows from the Dhammasaṅgaṇī and Vibhaṅga — are answers; what a book simply ASSERTS
   is an axiom, whichever book it is in (the Saccayamaka's "no arising at a citta's dissolution-moment" is A118).
 - The Puggalapaññatti's persons are concepts (*paññatti*): they enter as definitions, never as laws. ⭐ **A394 (founder
-  2026-10-13: "do per your recommendation"):** the rule bars a person-TYPE from acting as a law; a SUTTA's assertion that such
-  persons EXIST (AN 7.15: *santo saṃvijjamānā lokasmiṃ*, "found in the world") is an assertion and may enter as a premise. The
+  2026-10-13: "do per your recommendation"):** the rule bars a person-TYPE from acting as a law; a TEXT's assertion that such
+  persons EXIST (AN 7.15: *santo saṃvijjamānā lokasmiṃ*, "found in the world") is an assertion and may enter as a premise —
+  ⭐ the Puggalapaññatti's own existence formula included (A395 OQ-3, founder 2026-10-13: *"approve"*; sort by content, never
+  by book). The
   scope of the sutta's wording stays a fork, encoded both ways, and a reading that is a held-out answer is never a premise.
 - ⛔ IDs are never renumbered. An `AXIOMS.md` row found to be an answer stays where it is, marked **HELD OUT → ANSWERS**,
   and `runs/prereg.py --proof` refuses it as a premise.

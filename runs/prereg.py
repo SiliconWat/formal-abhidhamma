@@ -54,6 +54,11 @@ def main():
     # A393 (founder 2026-10-13, "approve"): a row that already STATES the thesis is not held out — it gets its own field,
     # and the leak check tests it like an answer (verdict STATED: a check, not a finding). "none" says nothing states it.
     p.add_argument("--states-thesis", default="", help="AXIOMS IDs that already state the thesis, or 'none' (A393)")
+    # A395 (founder 2026-10-13, "approve"): a thesis can ENTAIL a held-out answer (the sixth supposition + A124 ⊢ Kv 19.7's),
+    # and then PROVED is unreachable without a leak. Each held-out ANSWERS key gets a verdict, checked before registration.
+    p.add_argument("--thesis-vs-answer", action="append", default=[],
+                   help="'<ANSWERS key>: entails|does not entail|not decided — <how checked>', one per held-out key (A395)")
+    p.add_argument("--states-negation", default="", help="AXIOMS IDs that already state the thesis's NEGATION, or 'none' (A395)")
     OUTCOMES = ["PROVED", "REFUTED", "INDEPENDENT", "NOT-FORMALIZABLE"]
     p.add_argument("--predict-outcome", choices=OUTCOMES); p.add_argument("--founder-predicts", choices=OUTCOMES)
     p.add_argument("--control-known", help="an ANSWERS.md key the run must reproduce (a known-answer control)")
@@ -105,6 +110,24 @@ def main():
         if states != ["none"]:
             bad = [x for x in states if x not in table or "HELD OUT" in table[x] or x in ids]
             if bad: sys.exit(f"refused: --states-thesis takes live AXIOMS rows that are not premises: {', '.join(bad)}")
+        negs = [x.strip() for x in a.states_negation.split(",") if x.strip()]
+        if not negs:
+            sys.exit("refused: name what already states the thesis's NEGATION (--states-negation IDs, or 'none') — a refutation "
+                     "the texts already state is a check, not a finding (A395)")
+        if negs != ["none"]:
+            bad = [x for x in negs if x not in table or "HELD OUT" in table[x] or x in ids]
+            if bad: sys.exit(f"refused: --states-negation takes live AXIOMS rows that are not premises: {', '.join(bad)}")
+        tva = {}
+        for e in a.thesis_vs_answer:
+            k, _, v = e.partition(":")
+            m = re.match(r"\s*(entails|does not entail|not decided)\b", v)
+            if not m: sys.exit(f"refused: --thesis-vs-answer '{e}' — the verdict is entails, does not entail or not decided (A395)")
+            tva[k.strip()] = m.group(1)
+        owed = [k for k in held if k in keys and k not in tva]
+        if owed: sys.exit(f"refused: does the thesis ENTAIL the held-out answer? --thesis-vs-answer owed for {', '.join(owed)} (A395)")
+        entailed = [k for k, v in tva.items() if v == "entails"]
+        if entailed and a.predict_outcome == "PROVED":
+            sys.exit(f"refused: the thesis entails {', '.join(entailed)}, so PROVED is unreachable under the hold-out (A395)")
         stmt = open(a.lean, encoding="utf-8").read().strip() if os.path.exists(a.lean) else ""
         if not stmt: sys.exit(f"refused: {a.lean} is empty or missing — register the exact Lean statement")
         if "sorry" not in stmt:
@@ -190,6 +213,15 @@ def main():
 ## States the thesis — rows that already state it (A393: the leak check tests them; reaching one is a check, not a finding)
 
 {chr(10).join(f'- {x}' for x in [y.strip() for y in a.states_thesis.split(",") if y.strip()]) or '- (not given)'}
+
+## States the negation — rows that already state the thesis's negation (A395: reaching one makes a REFUTED a check)
+
+{chr(10).join(f'- {x}' for x in [y.strip() for y in a.states_negation.split(",") if y.strip()]) or '- (not given)'}
+
+## The thesis against each held-out answer (A395) — an answer the thesis ENTAILS makes PROVED unreachable
+
+{chr(10).join(f'- {x}' for x in a.thesis_vs_answer) or '- (no held-out ANSWERS key)'}
+{('- **Unreachable outcomes:** PROVED (the thesis entails ' + ', '.join(k for k, v in [(e.partition(":")[0].strip(), e.partition(":")[2]) for e in a.thesis_vs_answer] if v.strip().startswith("entails")) + ')') if any(e.partition(":")[2].strip().startswith("entails") for e in a.thesis_vs_answer) else ''}
 
 ## Predicted outcome
 

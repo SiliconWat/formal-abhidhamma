@@ -90,7 +90,17 @@ INSTRUMENT, not the reasoning: declare it in the PREREG, and `RUN.md` writes `PA
 ## Admission to the series *Theorems of the Abhidhamma*
 
 A run may become a paper only if it is STRONG and either the thesis is not already stated in the texts, or the outcome
-is REFUTED or INDEPENDENT. A proof of what the texts already say is a check, not a paper.
+is REFUTED or INDEPENDENT. A proof of what the texts already say is a check, not a paper — ⭐ and so is a REFUTATION the
+texts already state (A395, founder 2026-10-13: *"approve"*): rows that state the thesis's negation are registered with
+`--states-negation` and written `def negates_<id>` (docstring `NEGATES: <ID>`); the leak check reports reaching one as
+**STATED NEGATION**.
+
+⭐ **A thesis that ENTAILS a held-out answer** (A395): with the premises a run must use, the founder's sixth supposition
+entails Kv 19.7's answer, so PROVED was unreachable without a leak. Before registration every held-out ANSWERS key gets a
+verdict (`--thesis-vs-answer "<key>: entails | does not entail | not decided — <how checked>"`); an answer the thesis entails
+makes PROVED unreachable — `prereg.py` refuses `--predict-outcome PROVED`, the PREREG lists it under **Unreachable
+outcomes**, and a PROVED prediction is scored UNREACHABLE, never a miss (`runs/INDEX.md`'s calibration). ⚠️ The leak check's
+one bounded step said "no" to that very entailment: settle the verdict by attempting the proof, never by the leak check.
 
 ## Naming convention (since A388, 2026-10-13)
 

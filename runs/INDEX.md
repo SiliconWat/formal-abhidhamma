@@ -4,7 +4,7 @@
 
 **Controls scored: 7 — 3 PASS (1 confounded) · 4 FAIL (2 confounded).** **Agree-controls scored: 1 — 1 PASS (1 confounded) · 0 FAIL.** Pre-registered runs scored: 12. Retrospective (not pre-registered, never counted): 2.
 
-**Proof runs (`/prove`) scored: 6** — 3 REFUTED · 3 INDEPENDENT · known-answer controls 2 PASS (2 confounded) of 2 · **calibration**: the session predicted 6 of 6 outcomes, the founder 0 of 3. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
+**Proof runs (`/prove`) scored: 6** — 3 REFUTED · 3 INDEPENDENT · known-answer controls 2 PASS (2 confounded) of 2 · **calibration**: the session predicted 6 of 6 outcomes, the founder 0 of 1 (2 unreachable — A395). Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in [`kala/THEOREMS.md`](../kala/THEOREMS.md).
 
 A **control** is a case chosen because the texts should LOSE under the declared window; the mode passes only by
 reporting the collision plainly. An **agree-control** is a case chosen because the texts should WIN; the mode passes

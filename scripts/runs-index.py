@@ -44,8 +44,11 @@ def row(d):
         if v and re.search(r"confounded", r[v.start():r.find("\n", v.start())], re.I): vtxt += " (confounded)"
         verdict = (" · ".join(x for x in (outcome, g.group(1) if g else None, vtxt) if x)
                    or ("pending" if not r else "unscored"))
+        # A395 (founder 2026-10-13): an outcome the thesis's entailment of a held-out answer made impossible, marked in RUN.md
+        # (`## UNREACHABLE: PROVED …`) or the PREREG (`**Unreachable outcomes:** PROVED …`), is scored UNREACHABLE, never a miss
+        un = set(re.findall(r"(?:UNREACHABLE:\**|Unreachable outcomes:\**)\s*\**\s*(PROVED|REFUTED|INDEPENDENT)", r + p))
         extra = {"outcome": outcome, "session": field(p, "The session predicts"),
-                 "founder": field(p, "The founder predicts"), "control_verdict": vtxt}
+                 "founder": field(p, "The founder predicts"), "control_verdict": vtxt, "unreachable": un}
     elif not p:
         kind, verdict = "retrospective", "—"
     else:
@@ -80,8 +83,11 @@ def build():
     scored = [x for x in rows if x[1] in ("run", "control", "control (agree)") and x[2].split()[0] in ("PASS", "FAIL")]
     proofs = [x for x in rows if x[1].startswith("proof") and x[8].get("outcome")]
     norm = lambda o: (o or "").replace("-", " ").upper()
-    cal_s = [x for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(")]
-    cal_f = [x for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(")]
+    reach = lambda x, who: norm(x[8][who]) not in {norm(u) for u in x[8].get("unreachable", ())}
+    cal_s = [x for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(") and reach(x, "session")]
+    cal_f = [x for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(") and reach(x, "founder")]
+    un_s = sum(1 for x in proofs if x[8]["session"] and not x[8]["session"].startswith("(") and not reach(x, "session"))
+    un_f = sum(1 for x in proofs if x[8]["founder"] and not x[8]["founder"].startswith("(") and not reach(x, "founder"))
     hit = lambda xs, who: sum(norm(x[8][who]) == norm(x[8]["outcome"]) for x in xs)
     known = [x for x in proofs if x[1] == "proof control (known answer)" and x[8]["control_verdict"]]
     kpass = [x for x in known if x[8]["control_verdict"].startswith("PASS")]
@@ -102,8 +108,9 @@ def build():
         + (" · ".join(f"{n} {o}" for o in ("PROVED", "REFUTED", "INDEPENDENT", "NOT FORMALIZABLE")
                       if (n := sum(x[8]['outcome'] == o for x in proofs))) or "none yet")
         + f" · known-answer controls {len(kpass)} PASS" + (f" ({kconf} confounded)" if kconf else "") + f" of {len(known)}"
-        + f" · **calibration**: the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes, the founder "
-        + f"{hit(cal_f, 'founder')} of {len(cal_f)}. Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in "
+        + f" · **calibration**: the session predicted {hit(cal_s, 'session')} of {len(cal_s)} outcomes"
+        + (f" ({un_s} unreachable)" if un_s else "") + f", the founder {hit(cal_f, 'founder')} of {len(cal_f)}"
+        + (f" ({un_f} unreachable — A395)" if un_f else "") + ". Graded by [`PROVE-RUBRIC.md`](PROVE-RUBRIC.md); every theorem is in "
         + "[`kala/THEOREMS.md`](../kala/THEOREMS.md).",
         "",
         "A **control** is a case chosen because the texts should LOSE under the declared window; the mode passes only by",

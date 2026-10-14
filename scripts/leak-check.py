@@ -78,7 +78,9 @@ def check_run(d, lean):
         ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (answer_\w+)", src)
         # A393 (founder 2026-10-13): a row that already STATES the thesis is tested like an answer; reaching it is STATED
         sts = re.findall(r"/--\s*STATES:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (states_\w+)", src)
-        if not ans and not sts:
+        # A395: a row that already states the thesis's NEGATION; reaching it makes a REFUTED outcome a check
+        ngs = re.findall(r"/--\s*NEGATES:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (negates_\w+)", src)
+        if not ans and not sts and not ngs:
             # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean — unless its
             # REGISTERED PREREG (A393's structured fields, never free text) names no held-out answer AND says nothing
             # states the thesis
@@ -96,7 +98,7 @@ def check_run(d, lean):
         # sequence stops parsing after the first step and every pair reads "no" (both caught by the planted test)
         unfold = "; ".join(f"(try unfold {x} at *)" for x in reversed(defs))
 
-        def trial(label, example, key, ack, stated=False):
+        def trial(label, example, key, ack, stated=False, negated=False):
             body = src[:end[-1].start()] + example + src[end[-1].start():] if end else src + example
             tmp = tempfile.mkdtemp(prefix="leak-")
             try:
@@ -108,6 +110,8 @@ def check_run(d, lean):
                 errs = [l for l in (r.stdout + r.stderr).splitlines() if ": error" in l]
                 if errs and all("`grind` failed" in l for l in errs): return ("no", label.replace("→", "↛", 1))
                 return ("ERROR", f"{label}: Lean failed for another reason — {errs[:1] or r.stderr[:200]}")
+            if negated:
+                return ("STATED NEGATION", f"{label} ({key}): the premises reach a row that already states the thesis's negation — a REFUTED here is a check")
             if stated:
                 return ("STATED", f"{label} ({key}): the premises reach a row that already states the thesis — a check, not a finding")
             if known and key.startswith(known.strip()):
@@ -125,13 +129,14 @@ def check_run(d, lean):
                 if a389 and "∀" in concl and "∃" not in concl.split("∀", 1)[0]:
                     out.append(("ERROR", f"{name}: a ∀-claim with no premise binders — under A389 one claim per theorem, its premises as binders"))
                 continue
-            for key, a, st in [(k, x, False) for k, x in ans] + [(k, x, True) for k, x in sts]:
+            for key, a, st, ng in ([(k, x, False, False) for k, x in ans] + [(k, x, True, False) for k, x in sts]
+                                   + [(k, x, False, True) for k, x in ngs]):
                 ba = binders(a)
                 if not ba or not set(ba) <= set(names): continue
                 vs = " ".join(ba)
                 ex = (f"\nset_option maxHeartbeats {HEARTBEATS} in\n"
                       f"example {' '.join(groups)} : {a} {vs} := by\n  {unfold}; grind\n")
-                out.append(trial(f"{name} (its premises) → {a}", ex, key.strip(), f"{name} → {a}", st))
+                out.append(trial(f"{name} (its premises) → {a}", ex, key.strip(), f"{name} → {a}", st, ng))
 
         # (2) the A388 premise SETS (`def premises_<thm>`), kept so the runs registered before A389 still check
         for p in prem:

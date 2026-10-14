@@ -16,6 +16,7 @@
 
 ## OUTCOME: INDEPENDENT
 ## GRADE: NOT STRONG
+## UNREACHABLE: PROVED — with A124 §826 the thesis ENTAILS the held-out Kv 19.7 answer (proved in the re-run, `the_thesis_entails_the_answer`), so PROVED could not be reached under the hold-out; a PROVED prediction is scored UNREACHABLE, never a miss (A395, founder 2026-10-13: "approve"; marked after grading)
 
 | Theorem | Outcome | Uses (read from Lean) | Logic | Refuter | Survivor |
 |---|---|---|---|---|---|
