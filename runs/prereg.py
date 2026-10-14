@@ -226,8 +226,14 @@ def main():
     # the PREREG committed but unpushed (the founder's first thesis, 2026-10-13). Rebase onto the bot's commit and push
     # again: the PREREG text and its .ots are unchanged; only the commit ids move, so the PREREG commit is found again.
     if subprocess.run(["git", "push", "-q"], cwd=REPO, capture_output=True).returncode != 0:
-        sh("git", "pull", "-q", "--rebase"); sh("git", "push", "-q")
+        sh("git", "pull", "-q", "--rebase")
         prereg_sha = sh("git", "log", "-1", "--format=%H", f"--grep=^prereg: {a.slug} ")
+        # the index cites the PREREG commit, whose id the rebase just changed: regenerate it, or CI finds it STALE (the
+        # sixth supposition's registration, 2026-10-13 — the retry's first use)
+        subprocess.run([sys.executable, os.path.join(REPO, "scripts", "runs-index.py")], cwd=REPO, check=True, capture_output=True)
+        if sh("git", "status", "--porcelain", "runs/INDEX.md"):
+            sh("git", "add", "runs/INDEX.md"); sh("git", "commit", "-q", "-m", f"runs/INDEX.md: {a.slug} registered (after the rebase)")
+        sh("git", "push", "-q")
     sha = sh("git", "rev-parse", "HEAD")
     print(f"pushed {rel} at {prereg_sha[:7]}" + (f" (index {sha[:7]})" if sha != prereg_sha else ""))
     remote = sh("git", "remote", "get-url", "origin")
