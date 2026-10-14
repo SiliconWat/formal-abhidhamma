@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**189 theorems in 31 files** · 185 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 6 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**194 theorems in 32 files** · 190 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 7 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -217,3 +217,8 @@ texts, and never that nature agrees.
 | `needs_a3_immediate` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:108`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L108) | Without A3's immediacy: a minded interval between the death and the rebirth it conditions. | **A3** **A122** **A123** | — | constructive | — |
 | `needs_a122` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:117`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L117) | Without A122: the death conditions nothing by proximity. | **A3** **A123** | — | constructive | — |
 | `needs_a123` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:123`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L123) | Without A123: consciousness in the interval with no citta there. | **A3** **A122** | — | constructive | — |
+| `t1_no_first_citta` | [`runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean:37`](../runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean#L37) | T1 — the control: from C and A3, every citta of the stream has an earlier citta (no first citta). | **A3** **C** · `hC`, `h3`, `hq` | — | constructive | — |
+| `t0_proximity_is_irreflexive` | [`runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean:44`](../runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean#L44) | T0 — the leak check's negative case: from A3 alone, no citta conditions itself by proximity. | **A3** · `h3` | — | constructive | — |
+| `model_t1_hypotheses` | [`runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean:53`](../runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean#L53) | A model of T1's hypotheses together, NOT vacuous: a citta at every tick, each conditioning the next. | **A3** **C** | — | constructive | model |
+| `needs_c_predecessor` | [`runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean:59`](../runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean#L59) | T1 needs C: one citta and no proximity at all — it has no earlier citta. | **A3** | — | constructive | — |
+| `needs_a3_successor` | [`runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean:65`](../runs/2026-10-13-vajirabuddhi-first-citta-control/Control.lean#L65) | T1 needs A3: one citta, its own proximity condition — a loop, not a past. | **C** | — | constructive | — |
