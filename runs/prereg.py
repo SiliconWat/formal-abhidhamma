@@ -50,7 +50,10 @@ def main():
     # ── a PROOF run (/prove) ──
     p.add_argument("--proof", action="store_true")
     p.add_argument("--thesis"); p.add_argument("--approved-by"); p.add_argument("--lean")
-    p.add_argument("--held-out", default="")
+    p.add_argument("--held-out", default="", help="ANSWERS.md keys and HELD OUT AXIOMS rows near the thesis — nothing else (A393)")
+    # A393 (founder 2026-10-13, "approve"): a row that already STATES the thesis is not held out — it gets its own field,
+    # and the leak check tests it like an answer (verdict STATED: a check, not a finding). "none" says nothing states it.
+    p.add_argument("--states-thesis", default="", help="AXIOMS IDs that already state the thesis, or 'none' (A393)")
     OUTCOMES = ["PROVED", "REFUTED", "INDEPENDENT", "NOT-FORMALIZABLE"]
     p.add_argument("--predict-outcome", choices=OUTCOMES); p.add_argument("--founder-predicts", choices=OUTCOMES)
     p.add_argument("--control-known", help="an ANSWERS.md key the run must reproduce (a known-answer control)")
@@ -88,6 +91,20 @@ def main():
         if marked: sys.exit(f"refused: {', '.join(marked)} is HELD OUT (a text's own conclusion, kala/ANSWERS.md) — never a premise")
         both = [i for i in ids if i in held]
         if both: sys.exit(f"refused: {', '.join(both)} is both a premise and held out")
+        # A393: held out means an ANSWERS key or a HELD OUT row — the first thesis listed two rows that merely STATE its
+        # thesis (A2, A77) as "held out", so no instrument ever tested them
+        keys = {c.split("|")[1].strip() for c in open(os.path.join(REPO, "kala", "ANSWERS.md"), encoding="utf-8")
+                if c.startswith("| ") and not c.startswith("| Key") and not c.startswith("|---")}
+        loose = [x for x in held if x not in keys and not (x in table and "HELD OUT" in table[x])]
+        if loose: sys.exit(f"refused: --held-out takes ANSWERS keys and HELD OUT rows only (A393): {', '.join(loose)} — "
+                           "a row that STATES the thesis goes in --states-thesis")
+        states = [x.strip() for x in a.states_thesis.split(",") if x.strip()]
+        if not held and not states:
+            sys.exit("refused: name the held-out answers near the thesis (--held-out), or what already states it "
+                     "(--states-thesis IDs, or 'none') — a run silent on both cannot be leak-checked (A393)")
+        if states != ["none"]:
+            bad = [x for x in states if x not in table or "HELD OUT" in table[x] or x in ids]
+            if bad: sys.exit(f"refused: --states-thesis takes live AXIOMS rows that are not premises: {', '.join(bad)}")
         stmt = open(a.lean, encoding="utf-8").read().strip() if os.path.exists(a.lean) else ""
         if not stmt: sys.exit(f"refused: {a.lean} is empty or missing — register the exact Lean statement")
         if "sorry" not in stmt:
@@ -169,6 +186,10 @@ def main():
 ## Held out — the texts' own answers this run may NOT reason from
 
 {chr(10).join(f'- {x}' for x in held) or '- (none)'}
+
+## States the thesis — rows that already state it (A393: the leak check tests them; reaching one is a check, not a finding)
+
+{chr(10).join(f'- {x}' for x in [y.strip() for y in a.states_thesis.split(",") if y.strip()]) or '- (not given)'}
 
 ## Predicted outcome
 

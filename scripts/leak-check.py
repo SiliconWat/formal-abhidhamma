@@ -76,10 +76,18 @@ def check_run(d, lean):
         # the docstring may run over several lines (`(?:—[\s\S]*?)?`): a one-line pattern saw NO answer in the second
         # proof run and the check exited 0 having checked nothing (caught 2026-10-13, before the run was graded)
         ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (answer_\w+)", src)
-        if not ans:
-            # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean
-            if "## Type freedoms" in pre:
-                out.append(("ERROR", f"{os.path.relpath(f, REPO)}: a proof run under A388 declares no `def answer_…`"))
+        # A393 (founder 2026-10-13): a row that already STATES the thesis is tested like an answer; reaching it is STATED
+        sts = re.findall(r"/--\s*STATES:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (states_\w+)", src)
+        if not ans and not sts:
+            # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean — unless its
+            # REGISTERED PREREG (A393's structured fields, never free text) names no held-out answer AND says nothing
+            # states the thesis
+            sec = lambda h: pre.split(h, 1)[1].split("\n## ", 1)[0] if h in pre else ""
+            if ("## Type freedoms" in pre and "- (none)" in sec("## Held out") and
+                    re.search(r"(?m)^- none$", sec("## States the thesis"))):
+                out.append(("NONE NEAR", f"{os.path.relpath(f, REPO)}: registered — no held-out answer near, nothing states the thesis (A393)"))
+            elif "## Type freedoms" in pre:
+                out.append(("ERROR", f"{os.path.relpath(f, REPO)}: a proof run under A388 declares no `def answer_…` or `def states_…`"))
             continue
         defs = re.findall(r"(?m)^def (\w+)", src)
         end = list(re.finditer(r"(?m)^end (\S+)\s*$", src))
@@ -88,7 +96,7 @@ def check_run(d, lean):
         # sequence stops parsing after the first step and every pair reads "no" (both caught by the planted test)
         unfold = "; ".join(f"(try unfold {x} at *)" for x in reversed(defs))
 
-        def trial(label, example, key, ack):
+        def trial(label, example, key, ack, stated=False):
             body = src[:end[-1].start()] + example + src[end[-1].start():] if end else src + example
             tmp = tempfile.mkdtemp(prefix="leak-")
             try:
@@ -100,6 +108,8 @@ def check_run(d, lean):
                 errs = [l for l in (r.stdout + r.stderr).splitlines() if ": error" in l]
                 if errs and all("`grind` failed" in l for l in errs): return ("no", label.replace("→", "↛", 1))
                 return ("ERROR", f"{label}: Lean failed for another reason — {errs[:1] or r.stderr[:200]}")
+            if stated:
+                return ("STATED", f"{label} ({key}): the premises reach a row that already states the thesis — a check, not a finding")
             if known and key.startswith(known.strip()):
                 return ("TRIVIAL", f"{label} ({key}): the run's own known answer, within one `grind` step")
             if f"LEAK ACKNOWLEDGED: {ack}" in run_md:
@@ -115,13 +125,13 @@ def check_run(d, lean):
                 if a389 and "∀" in concl and "∃" not in concl.split("∀", 1)[0]:
                     out.append(("ERROR", f"{name}: a ∀-claim with no premise binders — under A389 one claim per theorem, its premises as binders"))
                 continue
-            for key, a in ans:
+            for key, a, st in [(k, x, False) for k, x in ans] + [(k, x, True) for k, x in sts]:
                 ba = binders(a)
                 if not ba or not set(ba) <= set(names): continue
                 vs = " ".join(ba)
                 ex = (f"\nset_option maxHeartbeats {HEARTBEATS} in\n"
                       f"example {' '.join(groups)} : {a} {vs} := by\n  {unfold}; grind\n")
-                out.append(trial(f"{name} (its premises) → {a}", ex, key.strip(), f"{name} → {a}"))
+                out.append(trial(f"{name} (its premises) → {a}", ex, key.strip(), f"{name} → {a}", st))
 
         # (2) the A388 premise SETS (`def premises_<thm>`), kept so the runs registered before A389 still check
         for p in prem:

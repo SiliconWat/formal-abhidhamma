@@ -70,6 +70,11 @@ INSTRUMENT, not the reasoning: declare it in the PREREG, and `RUN.md` writes `PA
    test bank may not read a held-out answer into its data — the first relata table took decisive support's conditioned side
    from the Saṅgaha's own grouping, the answer it was then checked against. Enforced for `matika/` by `relata.py`'s
    `answer_free()` in CI; every new generator carries its own form of that check.
+   ⭐ **HELD OUT means an ANSWERS key or a HELD OUT row, nothing else** (A393, founder 2026-10-13: *"approve"*). A row that
+   already STATES the thesis (the first thesis listed A2 and A77 as "held out", and nothing tested them) is registered with
+   `--states-thesis`, written as `def states_<id>` (docstring `STATES: <ID>`) and tested like an answer: reaching it is
+   **STATED** — reported, a check and not a finding, never a failure. A run near no answer registers `--states-thesis none`
+   and no held-out entry; `prereg.py` refuses any other held-out entry and a run silent on both.
 8. **The refuter found no defect in the encoding** that the run did not repair or narrow.
 9. **The layer is named**: the latest tier among the axioms used (Piṭaka · commentarial · sub-commentarial · manual ·
    manual's commentary · ours). A theorem that holds in the Piṭaka layer is stronger than one that needs the manual.
