@@ -77,8 +77,14 @@ def check_run(d, lean):
         # proof run and the check exited 0 having checked nothing (caught 2026-10-13, before the run was graded)
         ans = re.findall(r"/--\s*ANSWER:\s*([^\n—-]+?)\s*(?:—[\s\S]*?)?-/\s*\ndef (answer_\w+)", src)
         if not ans:
-            # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean
-            if "## Type freedoms" in pre:
+            # a post-A388 proof run (its PREREG declares type freedoms) MUST state its held-out answers in Lean — unless
+            # its PREREG registered, BEFORE the attempt, that no ANSWERS row is near (the founder's first thesis,
+            # 2026-10-13: the rule had no way to say "near none", and an ERROR there would have been a false alarm).
+            # The phrase is read from the registered Held-out section only, so it cannot be added after the attempt.
+            held = pre.split("## Held out", 1)[1].split("\n## ", 1)[0] if "## Held out" in pre else ""
+            if "## Type freedoms" in pre and "no ANSWERS row is near" in held:
+                out.append(("NONE NEAR", f"{os.path.relpath(f, REPO)}: registered before the attempt that no ANSWERS row is near"))
+            elif "## Type freedoms" in pre:
                 out.append(("ERROR", f"{os.path.relpath(f, REPO)}: a proof run under A388 declares no `def answer_…`"))
             continue
         defs = re.findall(r"(?m)^def (\w+)", src)
