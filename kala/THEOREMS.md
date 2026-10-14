@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**131 theorems in 27 files** · 127 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**135 theorems in 28 files** · 131 constructive · 4 classical · 0 sorry · 1 with an UNUSED hypothesis · 7 BY CONSTRUCTION · 4 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -159,3 +159,7 @@ texts, and never that nature agrees.
 | `eyeWorld_premises` | [`runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean:56`](../runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean#L56) | — | `h` | — | constructive | — |
 | `t2_counter_does_not_follow` | [`runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean:69`](../runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean#L69) | T2 (§907, the opponent's counter: "if not all one-moment, then all permanent"). | — | — | constructive | — |
 | `t3_duration_view_open` | [`runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean:87`](../runs/2026-10-13-kv-22-10-khanika-control/Khanika.lean#L87) | T3. With the base present when the consciousness ARISES (A98; the Vibhaṅga's unbroken base, A116, says the same), the premises do not settle the duration view whenever a mind-moment has at least tw… | **A117** `a117_two_submoments` | — | constructive | — |
+| `t1_no_room_for_the_reported_view` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:61`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L61) | T1 — proximity across death leaves no room for the intermediate existence its Kathāvatthu holders hold, as the commentaries report it: one with consciousness and no rebirth inside it. | **A3** **A122** **A123** · `h3s`, `h3`, `h122`, `h123` | — | constructive | — |
+| `t2a_mindless_interval_admitted` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:71`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L71) | T2a — the same premises admit a MINDLESS intermediate interval: a model of them all with one. | **A3** **A122** **A123** | — | constructive | — |
+| `t2b_mindless_interval_not_forced` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:80`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L80) | T2b — and a model of them all without one (with T2a: a mindless interval is INDEPENDENT of these premises). | **A3** **A122** **A123** | — | constructive | — |
+| `model_t1_hypotheses` | [`runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean:88`](../runs/2026-10-13-kv-8-2-antarabhava-control/Antarabhava.lean#L88) | — | **A3** **A122** **A123** | — | constructive | — |
