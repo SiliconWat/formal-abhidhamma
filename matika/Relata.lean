@@ -15,7 +15,7 @@ inductive Kind | nama | rupa | pannatti
 inductive Timing | co | pre | post | ceased | earlier | done | unstated
   deriving DecidableEq, Repr
 
-inductive Source | niddesa | detail | detailByOutcome | commentary
+inductive Source | niddesa | detail | detailFull | commentary
   deriving DecidableEq, Repr
 
 /-- One clause. `srcOpen`/`dstOpen`: the side is OPEN (a whatever-phrase, an unnamed relatum, the class term abyākata).
@@ -124,7 +124,107 @@ def clauses : List Clause := [
   ⟨.upanissaya, [.nama, .rupa], [.nama], false, false, false, .unstated, 5937, .detail⟩,
   ⟨.upanissaya, [.nama, .rupa], [.nama], false, false, false, .unstated, 5957, .detail⟩,
   ⟨.upanissaya, [.nama, .rupa], [.nama], false, false, false, .unstated, 5965, .detail⟩,
-  ⟨.vipaka, [.nama], [.nama, .rupa], false, false, false, .co, 6093, .detailByOutcome⟩,
+  ⟨.hetu, [.nama], [.nama], false, false, false, .unstated, 5569, .detailFull⟩,
+  ⟨.hetu, [.nama], [.rupa], false, false, false, .unstated, 5569, .detailFull⟩,
+  ⟨.hetu, [.nama], [.nama, .rupa], false, false, false, .unstated, 5569, .detailFull⟩,
+  ⟨.hetu, [.nama], [.nama], false, false, false, .unstated, 5573, .detailFull⟩,
+  ⟨.hetu, [.nama], [.rupa], false, false, false, .unstated, 5573, .detailFull⟩,
+  ⟨.hetu, [.nama], [.nama, .rupa], false, false, false, .unstated, 5573, .detailFull⟩,
+  ⟨.hetu, [.nama], [.nama, .rupa], false, false, false, .unstated, 5577, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.nama], false, false, false, .unstated, 5733, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.rupa], false, false, false, .unstated, 5737, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.nama, .rupa], false, false, false, .unstated, 5741, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.nama], false, false, false, .unstated, 5745, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.rupa], false, false, false, .unstated, 5749, .detailFull⟩,
+  ⟨.sahajata, [.nama], [.nama, .rupa], false, false, false, .unstated, 5753, .detailFull⟩,
+  ⟨.sahajata, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 5757, .detailFull⟩,
+  ⟨.sahajata, [.nama, .rupa], [.rupa], false, false, false, .unstated, 5761, .detailFull⟩,
+  ⟨.sahajata, [.nama, .rupa], [.rupa], false, false, false, .unstated, 5765, .detailFull⟩,
+  ⟨.annamanna, [.nama], [.nama], false, false, false, .unstated, 5773, .detailFull⟩,
+  ⟨.annamanna, [.nama], [.nama], false, false, false, .unstated, 5777, .detailFull⟩,
+  ⟨.annamanna, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 5781, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.nama], false, false, false, .unstated, 5789, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.rupa], false, false, false, .unstated, 5793, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.nama, .rupa], false, false, false, .unstated, 5797, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.nama], false, false, false, .unstated, 5801, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.rupa], false, false, false, .unstated, 5805, .detailFull⟩,
+  ⟨.nissaya, [.nama], [.nama, .rupa], false, false, false, .unstated, 5809, .detailFull⟩,
+  ⟨.nissaya, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 5813, .detailFull⟩,
+  ⟨.nissaya, [.rupa], [.nama], false, false, false, .unstated, 5817, .detailFull⟩,
+  ⟨.nissaya, [.rupa], [.nama], false, false, false, .unstated, 5821, .detailFull⟩,
+  ⟨.nissaya, [.nama, .rupa], [.nama], false, false, false, .unstated, 5825, .detailFull⟩,
+  ⟨.nissaya, [.nama, .rupa], [.rupa], false, false, false, .unstated, 5829, .detailFull⟩,
+  ⟨.nissaya, [.nama, .rupa], [.nama], false, false, false, .unstated, 5833, .detailFull⟩,
+  ⟨.nissaya, [.nama, .rupa], [.rupa], false, false, false, .unstated, 5837, .detailFull⟩,
+  ⟨.purejata, [.rupa], [.nama], false, false, false, .unstated, 5989, .detailFull⟩,
+  ⟨.purejata, [.rupa], [.nama], false, false, false, .unstated, 6001, .detailFull⟩,
+  ⟨.purejata, [.rupa], [.nama], false, false, false, .unstated, 6013, .detailFull⟩,
+  ⟨.pacchajata, [.nama], [.rupa], false, false, false, .unstated, 6025, .detailFull⟩,
+  ⟨.pacchajata, [.nama], [.rupa], false, false, false, .unstated, 6029, .detailFull⟩,
+  ⟨.pacchajata, [.nama], [.rupa], false, false, false, .unstated, 6033, .detailFull⟩,
+  ⟨.asevana, [.nama], [.nama], false, false, false, .unstated, 6041, .detailFull⟩,
+  ⟨.asevana, [.nama], [.nama], false, false, false, .unstated, 6045, .detailFull⟩,
+  ⟨.asevana, [.nama], [.nama], false, false, false, .unstated, 6049, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama], false, false, false, .unstated, 6057, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama, .rupa], false, false, false, .unstated, 6061, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama, .rupa], false, false, false, .unstated, 6069, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama], false, false, false, .unstated, 6073, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama, .rupa], false, false, false, .unstated, 6077, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama, .rupa], false, false, false, .unstated, 6081, .detailFull⟩,
+  ⟨.kamma, [.nama], [.nama, .rupa], false, false, false, .unstated, 6085, .detailFull⟩,
+  ⟨.vipaka, [.nama], [.nama, .rupa], false, false, false, .unstated, 6093, .detailFull⟩,
+  ⟨.ahara, [.nama], [.nama], false, false, false, .unstated, 6101, .detailFull⟩,
+  ⟨.ahara, [.nama], [.rupa], false, false, false, .unstated, 6105, .detailFull⟩,
+  ⟨.ahara, [.nama], [.nama, .rupa], false, false, false, .unstated, 6109, .detailFull⟩,
+  ⟨.ahara, [.nama], [.nama], false, false, false, .unstated, 6113, .detailFull⟩,
+  ⟨.ahara, [.nama], [.rupa], false, false, false, .unstated, 6117, .detailFull⟩,
+  ⟨.ahara, [.nama], [.nama, .rupa], false, false, false, .unstated, 6121, .detailFull⟩,
+  ⟨.ahara, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 6125, .detailFull⟩,
+  ⟨.indriya, [.nama], [.nama], false, false, false, .unstated, 6133, .detailFull⟩,
+  ⟨.indriya, [.nama], [.rupa], false, false, false, .unstated, 6137, .detailFull⟩,
+  ⟨.indriya, [.nama], [.nama, .rupa], false, false, false, .unstated, 6141, .detailFull⟩,
+  ⟨.indriya, [.nama], [.nama], false, false, false, .unstated, 6145, .detailFull⟩,
+  ⟨.indriya, [.nama], [.rupa], false, false, false, .unstated, 6149, .detailFull⟩,
+  ⟨.indriya, [.nama], [.nama, .rupa], false, false, false, .unstated, 6153, .detailFull⟩,
+  ⟨.indriya, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 6157, .detailFull⟩,
+  ⟨.jhana, [.nama], [.nama], false, false, false, .unstated, 6165, .detailFull⟩,
+  ⟨.jhana, [.nama], [.rupa], false, false, false, .unstated, 6169, .detailFull⟩,
+  ⟨.jhana, [.nama], [.nama, .rupa], false, false, false, .unstated, 6173, .detailFull⟩,
+  ⟨.jhana, [.nama], [.nama], false, false, false, .unstated, 6177, .detailFull⟩,
+  ⟨.jhana, [.nama], [.rupa], false, false, false, .unstated, 6181, .detailFull⟩,
+  ⟨.jhana, [.nama], [.nama, .rupa], false, false, false, .unstated, 6185, .detailFull⟩,
+  ⟨.jhana, [.nama], [.nama, .rupa], false, false, false, .unstated, 6189, .detailFull⟩,
+  ⟨.magga, [.nama], [.nama], false, false, false, .unstated, 6197, .detailFull⟩,
+  ⟨.magga, [.nama], [.rupa], false, false, false, .unstated, 6201, .detailFull⟩,
+  ⟨.magga, [.nama], [.nama, .rupa], false, false, false, .unstated, 6205, .detailFull⟩,
+  ⟨.magga, [.nama], [.nama], false, false, false, .unstated, 6209, .detailFull⟩,
+  ⟨.magga, [.nama], [.rupa], false, false, false, .unstated, 6213, .detailFull⟩,
+  ⟨.magga, [.nama], [.nama, .rupa], false, false, false, .unstated, 6217, .detailFull⟩,
+  ⟨.magga, [.nama], [.nama, .rupa], false, false, false, .unstated, 6221, .detailFull⟩,
+  ⟨.sampayutta, [.nama], [.nama], false, false, false, .unstated, 6229, .detailFull⟩,
+  ⟨.sampayutta, [.nama], [.nama], false, false, false, .unstated, 6233, .detailFull⟩,
+  ⟨.sampayutta, [.nama], [.nama], false, false, false, .unstated, 6237, .detailFull⟩,
+  ⟨.vippayutta, [.nama], [.rupa], false, false, false, .unstated, 6245, .detailFull⟩,
+  ⟨.vippayutta, [.nama], [.rupa], false, false, false, .unstated, 6249, .detailFull⟩,
+  ⟨.vippayutta, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 6253, .detailFull⟩,
+  ⟨.vippayutta, [.rupa], [.nama], false, false, false, .unstated, 6257, .detailFull⟩,
+  ⟨.vippayutta, [.rupa], [.nama], false, false, false, .unstated, 6261, .detailFull⟩,
+  ⟨.atthi, [.nama], [.nama], false, false, false, .unstated, 6269, .detailFull⟩,
+  ⟨.atthi, [.nama], [.rupa], false, false, false, .unstated, 6273, .detailFull⟩,
+  ⟨.atthi, [.nama], [.nama, .rupa], false, false, false, .unstated, 6277, .detailFull⟩,
+  ⟨.atthi, [.nama], [.nama], false, false, false, .unstated, 6281, .detailFull⟩,
+  ⟨.atthi, [.nama], [.rupa], false, false, false, .unstated, 6285, .detailFull⟩,
+  ⟨.atthi, [.nama], [.nama, .rupa], false, false, false, .unstated, 6289, .detailFull⟩,
+  ⟨.atthi, [.nama, .rupa], [.nama, .rupa], false, false, false, .unstated, 6293, .detailFull⟩,
+  ⟨.atthi, [.rupa], [.nama], false, false, false, .unstated, 6301, .detailFull⟩,
+  ⟨.atthi, [.rupa], [.nama], false, false, false, .unstated, 6305, .detailFull⟩,
+  ⟨.atthi, [.nama, .rupa], [.nama], false, false, false, .unstated, 6309, .detailFull⟩,
+  ⟨.atthi, [.nama, .rupa], [.rupa], false, false, false, .unstated, 6313, .detailFull⟩,
+  ⟨.atthi, [.nama, .rupa], [.nama], false, false, false, .unstated, 6317, .detailFull⟩,
+  ⟨.atthi, [.nama, .rupa], [.rupa], false, false, false, .unstated, 6321, .detailFull⟩,
+  ⟨.natthi, [.nama], [.nama], false, false, false, .unstated, 6329, .detailFull⟩,
+  ⟨.vigata, [.nama], [.nama], false, false, false, .unstated, 6341, .detailFull⟩,
+  ⟨.avigata, [.nama], [.nama], false, false, false, .unstated, 6353, .detailFull⟩,
   ⟨.arammana, [.pannatti], [.nama], false, false, false, .unstated, 7889, .commentary⟩
 ]
 
@@ -192,6 +292,13 @@ theorem consulted_where_open :
     all.filter (fun c => clauses.any (fun x => x.cond == c && x.source == .detail)) =
     all.filter (fun c => clauses.any (fun x => x.cond == c && x.source == .niddesa && (x.srcOpen || x.dstOpen))) := by decide
 
+/-- THE FULL READ (A390): every condition has its detailed section read — by the open-side rule or by the full read. -/
+theorem every_condition_read_in_detail : all.all (fun c => clauses.any (fun x => x.cond == c && (x.source == .detail || x.source == .detailFull))) = true := by decide
+
+/-- What the full read CHANGES: of the 19 conditions it adds, it moves only result's placement (both readings). -/
+theorem full_read_moves_only_result : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull] c) != classify (sides false [.niddesa, .detail] c)) = [.vipaka] ∧
+    all.filter (fun c => classify (sides true [.niddesa, .detail, .detailFull] c) != classify (sides true [.niddesa, .detail] c)) = [.vipaka] := by decide
+
 /-- The Saṅgaha's counts: 6 · 5 · 1 · 1 · 2 · 9. -/
 theorem sangaha_counts : (all.filter (sangaha · == .namaToNama)).length = 6 ∧ (all.filter (sangaha · == .namaToNamarupa)).length = 5 ∧
     (all.filter (sangaha · == .namaToRupa)).length = 1 ∧ (all.filter (sangaha · == .rupaToNama)).length = 1 ∧
@@ -205,11 +312,11 @@ theorem niddesa_19 : all.filter (fun c => classify (sides false [.niddesa] c) !=
 /-- With the detailed section by the open-side rule: 22 — the object lacks a concept, and result is untouched by the rule. -/
 theorem detail_22 : all.filter (fun c => classify (sides false [.niddesa, .detail] c) != some (sangaha c)) = [.arammana, .vipaka] := by decide
 
-/-- With §428 for result (outcome-selected): 23 — only the object, which needs a concept. -/
-theorem with_result_23 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailByOutcome] c) != some (sangaha c)) = [.arammana] := by decide
+/-- With the full read (the other 19 conditions, result among them): 23 — only the object, which needs a concept. -/
+theorem full_read_23 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [.arammana] := by decide
 
 /-- With the commentary's concept on the object (`abh03a.att.xml:7889`): all 24. -/
-theorem with_the_commentary_24 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailByOutcome, .commentary] c) != some (sangaha c)) = [] := by decide
+theorem with_the_commentary_24 : all.filter (fun c => classify (sides false [.niddesa, .detail, .detailFull, .commentary] c) != some (sangaha c)) = [] := by decide
 
 /-! ## The INCLUSIVE reading (the Dhammasaṅgaṇī calls designations dhammas, `abh01m.mul.xml:8453`) -/
 
@@ -219,8 +326,8 @@ theorem niddesa_19_inclusive : all.filter (fun c => classify (sides true [.nidde
 /-- With the detailed section by the open-side rule: 23 — only result. -/
 theorem detail_23_inclusive : all.filter (fun c => classify (sides true [.niddesa, .detail] c) != some (sangaha c)) = [.vipaka] := by decide
 
-/-- With §428 for result: all 24, from the Piṭaka alone. -/
-theorem pitaka_24_inclusive : all.filter (fun c => classify (sides true [.niddesa, .detail, .detailByOutcome] c) != some (sangaha c)) = [] := by decide
+/-- With the full read: all 24, from the Piṭaka alone. -/
+theorem pitaka_24_inclusive : all.filter (fun c => classify (sides true [.niddesa, .detail, .detailFull] c) != some (sangaha c)) = [] := by decide
 
 /-- The niddesa's result is mind → mind; the Saṅgaha places it mind → mind-and-matter. -/
 theorem niddesa_vipaka_is_mind_to_mind : classify (sides false [.niddesa] .vipaka) = some .namaToNama := by decide

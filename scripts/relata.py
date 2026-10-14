@@ -148,8 +148,67 @@ C += _heads("upanissaya", [
  (5957, _B, "NR", _K, "N", "senāsanaṃ upanissāya dānaṃ deti", "abyākata → kusala (`:5945`): fruition, nibbāna, adverting, climate, food, lodging"),
  (5965, _B, "NR", _A, "N", "cakkhuṃ garuṃ katvā assādeti abhinandati", "abyākata → akusala (`:5961`): the eye … the base, the aggregates; climate, food, lodging (`:5977`)"),
 ])
+
+# The FULL READ (A390, 2026-10-13): the detailed section for the 19 conditions the open-side rule did not reach, one row per
+# heading, so no condition is read selectively. These conditions have no open side, so here the detailed section ADDS to
+# the niddesa (union) and replaces nothing. Kinds from each clause's whole explanation (continuation lines included).
+def _H(x, y, word):
+    return f"{x} {'dhammā' if ' ca ' in x else 'dhammo'} {y} dhammassa {word}paccayena paccayo"
+_KA, _AA = "Kusalo ca abyākato ca", "Akusalo ca abyākato ca"
+_ky, _ay, _by, _kby, _aby = "kusalassa", "akusalassa", "abyākatassa", "kusalassa ca abyākatassa ca", "akusalassa ca abyākatassa ca"
+def _six(base, step, word, aby_kinds, aby_note=""):
+    """the common six-heading pattern: K→K · K→A · K→K+A · A→A · A→Aby · A→A+Aby (mind-born matter where abyākata is
+    conditioned), then Aby→Aby"""
+    rows = [(base, "Kusalo", "N", _ky, "N", ""), (base + step, "Kusalo", "N", _by, "R", "mind-born matter"),
+            (base + 2 * step, "Kusalo", "N", _kby, "NR", ""), (base + 3 * step, "Akusalo", "N", _ay, "N", ""),
+            (base + 4 * step, "Akusalo", "N", _by, "R", "mind-born matter"), (base + 5 * step, "Akusalo", "N", _aby, "NR", ""),
+            (base + 6 * step, "Abyākato", aby_kinds[0], _by, aby_kinds[1], aby_note)]
+    return rows
+_FULL = {
+ "hetu": [(5569, "Kusalo", "N", _ky, "N", ""), (5569, "Kusalo", "N", _by, "R", "mind-born matter"), (5569, "Kusalo", "N", _kby, "NR", ""),
+          (5573, "Akusalo", "N", _ay, "N", ""), (5573, "Akusalo", "N", _by, "R", "mind-born matter"), (5573, "Akusalo", "N", _aby, "NR", ""),
+          (5577, "Abyākato", "N", _by, "NR", "resultant and functional roots → aggregates, mind-born and (at rebirth) kamma-born matter")],
+ "sahajata": _six(5733, 4, "sahajāta", ("NR", "NR"), "aggregates ↔ the base, the great elements → derived matter")
+             + [(5761, _KA, "NR", _by, "R", "wholesome aggregates and the great elements → mind-born matter"),
+                (5765, _AA, "NR", _by, "R", "")],
+ "annamanna": [(5773, "Kusalo", "N", _ky, "N", ""), (5777, "Akusalo", "N", _ay, "N", ""),
+               (5781, "Abyākato", "NR", _by, "NR", "aggregates ↔ the base at rebirth; the great elements mutually")],
+ "nissaya": _six(5789, 4, "nissaya", ("NR", "NR"), "as for co-nascence, and the five sense bases → their consciousness")
+            + [(5817, "Abyākato", "R", _ky, "N", "the base → wholesome aggregates"), (5821, "Abyākato", "R", _ay, "N", ""),
+               (5825, _KA, "NR", _ky, "N", "a wholesome aggregate and the base"), (5829, _KA, "NR", _by, "R", ""),
+               (5833, _AA, "NR", _ay, "N", ""), (5837, _AA, "NR", _by, "R", "")],
+ "purejata": [(5989, "Abyākato", "R", _by, "N", "object- and base-prenascence (`:5993–5997`): the eye … the base → resultant and functional aggregates, insight, the divine eye"),
+              (6001, "Abyākato", "R", _ky, "N", ""), (6013, "Abyākato", "R", _ay, "N", "")],
+ "pacchajata": [(6025, "Kusalo", "N", _by, "R", "post-nascent aggregates → this pre-nascent body"), (6029, "Akusalo", "N", _by, "R", ""),
+                (6033, "Abyākato", "N", _by, "R", "")],
+ "asevana": [(6041, "Kusalo", "N", _ky, "N", ""), (6045, "Akusalo", "N", _ay, "N", ""), (6049, "Abyākato", "N", _by, "N", "functional")],
+ "kamma": [(6057, "Kusalo", "N", _ky, "N", ""), (6061, "Kusalo", "N", _by, "NR", "co-nascent → mind-born matter; asynchronous → resultant aggregates and kamma-born matter (`:6065`)"),
+           (6069, "Kusalo", "N", _kby, "NR", ""), (6073, "Akusalo", "N", _ay, "N", ""), (6077, "Akusalo", "N", _by, "NR", ""),
+           (6081, "Akusalo", "N", _aby, "NR", ""), (6085, "Abyākato", "N", _by, "NR", "resultant volition → aggregates and kamma-born matter; volition → the base")],
+ "vipaka": [(6093, "Abyākato", "N", _by, "NR", "§428: a resultant aggregate → the other three, mind-born and kamma-born matter, the base — first consulted because result FAILED; now part of the full read")],
+ "ahara": _six(6101, 4, "āhāra", ("NR", "NR"), "resultant nutriments → aggregates and kamma-born matter; edible food → this body"),
+ "indriya": _six(6133, 4, "indriya", ("NR", "NR"), "resultant faculties → aggregates and kamma-born matter; the eye faculty → eye-consciousness; the material life faculty → kamma-born matter"),
+ "jhana": _six(6165, 4, "jhāna", ("N", "NR"), "resultant jhāna factors → aggregates and kamma-born matter"),
+ "magga": _six(6197, 4, "magga", ("N", "NR"), "resultant path factors → aggregates and kamma-born matter"),
+ "sampayutta": [(6229, "Kusalo", "N", _ky, "N", ""), (6233, "Akusalo", "N", _ay, "N", ""), (6237, "Abyākato", "N", _by, "N", "")],
+ "vippayutta": [(6245, "Kusalo", "N", _by, "R", "aggregates → this body; mind-born matter"), (6249, "Akusalo", "N", _by, "R", ""),
+                (6253, "Abyākato", "NR", _by, "NR", "aggregates ↔ the base, kamma-born matter, the sense bases → their consciousness"),
+                (6257, "Abyākato", "R", _ky, "N", "the pre-nascent base → wholesome aggregates"), (6261, "Abyākato", "R", _ay, "N", "")],
+ "atthi": _six(6269, 4, "atthi", ("NR", "NR"), "co-nascent, pre-nascent, post-nascent, nutriment and faculty presence")
+          + [(6301, "Abyākato", "R", _ky, "N", "pre-nascent objects and the base → wholesome aggregates"), (6305, "Abyākato", "R", _ay, "N", ""),
+             (6309, _KA, "NR", _ky, "N", ""), (6313, _KA, "NR", _by, "R", "with the great elements, edible food, the material life faculty"),
+             (6317, _AA, "NR", _ay, "N", ""), (6321, _AA, "NR", _by, "R", "")],
+ "natthi": [(6329, "Kusalo", "N", _ky, "N", "expanded 'as proximity' (`:6333`)")],
+ "vigata": [(6341, "Kusalo", "N", _ky, "N", "expanded 'as proximity' (`:6345`)")],
+ "avigata": [(6353, "Kusalo", "N", _ky, "N", "expanded 'as presence' (`:6357`)")],
+}
+_WORD = {"hetu": "hetu", "sahajata": "sahajāta", "annamanna": "aññamañña", "nissaya": "nissaya", "purejata": "purejāta",
+         "pacchajata": "pacchājāta", "asevana": "āsevana", "kamma": "kamma", "vipaka": "vipāka", "ahara": "āhāra",
+         "indriya": "indriya", "jhana": "jhāna", "magga": "magga", "sampayutta": "sampayutta", "vippayutta": "vippayutta",
+         "atthi": "atthi", "natthi": "natthi", "vigata": "vigata", "avigata": "avigata"}
+for _c, _rows in _FULL.items():
+    C += [(_c, n, x, xk, y, yk, "unstated", "detailFull", [_H(x, y, _WORD[_c])], note) for (n, x, xk, y, yk, note) in _rows]
 C += [
- ("vipaka", 6093, "vipākābyākato khandho", "N", "khandhā · cittasamuṭṭhānāni rūpāni", "NR", "co", "detailByOutcome", ["vipākābyākato eko khandho tiṇṇannaṃ khandhānaṃ cittasamuṭṭhānānañca rūpānaṃ vipākapaccayena"], "§428 — consulted BECAUSE the niddesa's placement failed (outcome-selected; vipāka has no open side)"),
  ("arammana", 7889, "paññatti", "P", "(the mind that takes it)", "N", "unstated", "commentary", ["kusalākusalavipākakiriyarūpanibbānapaññattibhedato sattavidhaṃ"], "the Paṭṭhāna-aṭṭhakathā: the object is sevenfold, concepts included"),
 ]
 ORDER = ["hetu", "arammana", "adhipati", "anantara", "samanantara", "sahajata", "annamanna", "nissaya", "upanissaya",
@@ -196,13 +255,15 @@ def build():
           "**Kinds:** N mind (citta and cetasikas; nibbāna counted under mind) · R matter · P a concept · `*` an OPEN side (a",
           "*whatever*-phrase, a relatum not named, or the class term *abyākata*) · `+` takes concepts under the INCLUSIVE reading.",
           "**The rule:** the detailed section (kusala triad) is consulted for every condition with an open side, and there its",
-          "enumeration replaces the open side. Result (vipāka) has none; its §428 clause was consulted because it failed.", "",
+          "enumeration replaces the open side. Then the FULL READ (A390): the detailed section for the other 19, so no condition is",
+          "read selectively — it ADDS to their definitions and moves only result (§428 gives it matter), which was first consulted",
+          "because it failed.", "",
           "## What the check finds (`Relata.lean`, against the Saṅgaha's grouping — kala/ANSWERS.md)", "",
           "| Layer | Exclusive reading (concepts are not among *all dhammas*) | Inclusive reading (`abh01m.mul.xml:8453`) |",
           "|---|---|---|",
           "| the niddesa's words alone | **19 / 24** — object, proximity, contiguity, decisive support, result fail | **19 / 24** — predominance, proximity, contiguity, decisive support, result fail |",
           "| + the detailed section, by the open-side rule | **22 / 24** — object (no concept), result | **23 / 24** — result |",
-          "| + §428 for result (outcome-selected) | **23 / 24** — object | **24 / 24 — the Piṭaka alone** |",
+          "| + the full read (the other 19 conditions; it moves only result) | **23 / 24** — object | **24 / 24 — the Piṭaka alone** |",
           "| + the commentary on the object (`abh03a.att.xml:7889`) | **24 / 24** | 24 / 24 |", "",
           "⚠️ The first version (`bf3cad6`) claimed 23 of 24 *from the niddesa alone*. Its refuter showed the readings were not",
           "uniform, one leaned on the Saṅgaha's own answer, and the classifier never looked at concepts. The detailed section was",
@@ -220,7 +281,7 @@ def build():
             "inductive Condition | " + " | ".join(ORDER), "  deriving DecidableEq, Repr", "",
             "inductive Kind | nama | rupa | pannatti", "  deriving DecidableEq, Repr", "",
             "inductive Timing | co | pre | post | ceased | earlier | done | unstated", "  deriving DecidableEq, Repr", "",
-            "inductive Source | niddesa | detail | detailByOutcome | commentary", "  deriving DecidableEq, Repr", "",
+            "inductive Source | niddesa | detail | detailFull | commentary", "  deriving DecidableEq, Repr", "",
             "/-- One clause. `srcOpen`/`dstOpen`: the side is OPEN (a whatever-phrase, an unnamed relatum, the class term abyākata).",
             "    `srcAll`: the side takes designations under the inclusive reading of 'all dhammas'. -/",
             "structure Clause where", "  cond : Condition", "  src : List Kind", "  dst : List Kind", "  srcOpen : Bool",
@@ -259,7 +320,7 @@ def build():
     L = lambda *s: "[" + ", ".join(f".{x}" for x in s) + "]"
     def misses(incl, srcs, expect):
         return f"all.filter (fun c => classify (sides {incl} {srcs} c) != some (sangaha c)) = {expect}"
-    N, D, O, K = "[.niddesa]", "[.niddesa, .detail]", "[.niddesa, .detail, .detailByOutcome]", "[.niddesa, .detail, .detailByOutcome, .commentary]"
+    N, D, O, K = "[.niddesa]", "[.niddesa, .detail]", "[.niddesa, .detail, .detailFull]", "[.niddesa, .detail, .detailFull, .commentary]"
     lean += ["", "def all : List Condition := [" + ", ".join(f".{c}" for c in ORDER) + "]", "",
              "/-- Every condition has at least one clause in the niddesa. -/",
              "theorem every_condition_defined : all.all (fun c => clauses.any (fun x => x.cond == c && x.source == .niddesa)) = true := by decide", "",
@@ -267,6 +328,11 @@ def build():
              "theorem consulted_where_open :",
              "    all.filter (fun c => clauses.any (fun x => x.cond == c && x.source == .detail)) =",
              "    all.filter (fun c => clauses.any (fun x => x.cond == c && x.source == .niddesa && (x.srcOpen || x.dstOpen))) := by decide", "",
+             "/-- THE FULL READ (A390): every condition has its detailed section read — by the open-side rule or by the full read. -/",
+             "theorem every_condition_read_in_detail : all.all (fun c => clauses.any (fun x => x.cond == c && (x.source == .detail || x.source == .detailFull))) = true := by decide", "",
+             "/-- What the full read CHANGES: of the 19 conditions it adds, it moves only result's placement (both readings). -/",
+             "theorem full_read_moves_only_result : all.filter (fun c => classify (sides false " + O + " c) != classify (sides false " + D + " c)) = [.vipaka] ∧",
+             "    all.filter (fun c => classify (sides true " + O + " c) != classify (sides true " + D + " c)) = [.vipaka] := by decide", "",
              "/-- The Saṅgaha's counts: 6 · 5 · 1 · 1 · 2 · 9. -/",
              "theorem sangaha_counts : (all.filter (sangaha · == .namaToNama)).length = 6 ∧ (all.filter (sangaha · == .namaToNamarupa)).length = 5 ∧",
              "    (all.filter (sangaha · == .namaToRupa)).length = 1 ∧ (all.filter (sangaha · == .rupaToNama)).length = 1 ∧",
@@ -276,8 +342,8 @@ def build():
              "theorem niddesa_19 : " + misses("false", N, L("arammana", "anantara", "samanantara", "upanissaya", "vipaka")) + " := by decide", "",
              "/-- With the detailed section by the open-side rule: 22 — the object lacks a concept, and result is untouched by the rule. -/",
              "theorem detail_22 : " + misses("false", D, L("arammana", "vipaka")) + " := by decide", "",
-             "/-- With §428 for result (outcome-selected): 23 — only the object, which needs a concept. -/",
-             "theorem with_result_23 : " + misses("false", O, L("arammana")) + " := by decide", "",
+             "/-- With the full read (the other 19 conditions, result among them): 23 — only the object, which needs a concept. -/",
+             "theorem full_read_23 : " + misses("false", O, L("arammana")) + " := by decide", "",
              "/-- With the commentary's concept on the object (`abh03a.att.xml:7889`): all 24. -/",
              "theorem with_the_commentary_24 : " + misses("false", K, "[]") + " := by decide", "",
              "/-! ## The INCLUSIVE reading (the Dhammasaṅgaṇī calls designations dhammas, `abh01m.mul.xml:8453`) -/", "",
@@ -285,7 +351,7 @@ def build():
              "theorem niddesa_19_inclusive : " + misses("true", N, L("adhipati", "anantara", "samanantara", "upanissaya", "vipaka")) + " := by decide", "",
              "/-- With the detailed section by the open-side rule: 23 — only result. -/",
              "theorem detail_23_inclusive : " + misses("true", D, L("vipaka")) + " := by decide", "",
-             "/-- With §428 for result: all 24, from the Piṭaka alone. -/",
+             "/-- With the full read: all 24, from the Piṭaka alone. -/",
              "theorem pitaka_24_inclusive : " + misses("true", O, "[]") + " := by decide", "",
              "/-- The niddesa's result is mind → mind; the Saṅgaha places it mind → mind-and-matter. -/",
              "theorem niddesa_vipaka_is_mind_to_mind : classify (sides false [.niddesa] .vipaka) = some .namaToNama := by decide", "",
