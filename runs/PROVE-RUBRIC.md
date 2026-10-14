@@ -99,7 +99,9 @@ texts already state (A395, founder 2026-10-13: *"approve"*): rows that state the
 entails Kv 19.7's answer, so PROVED was unreachable without a leak. Before registration every held-out ANSWERS key gets a
 verdict (`--thesis-vs-answer "<key>: entails | does not entail | not decided — <how checked>"`); an answer the thesis entails
 makes PROVED unreachable — `prereg.py` refuses `--predict-outcome PROVED`, the PREREG lists it under **Unreachable
-outcomes**, and a PROVED prediction is scored UNREACHABLE, never a miss (`runs/INDEX.md`'s calibration). ⚠️ The leak check's
+outcomes**, and a PROVED prediction is scored UNREACHABLE, never a miss (`runs/INDEX.md`'s calibration). ⭐ **A known-answer
+control's OWN answer is exempt** (founder 2026-10-13: *"do all per your recommendation"*): its thesis IS its answer by design;
+reaching it is TRIVIAL (item 7), and the control is graded by its VERDICT. ⚠️ The leak check's
 one bounded step said "no" to that very entailment: settle the verdict by attempting the proof, never by the leak check.
 
 ## Naming convention (since A388, 2026-10-13)
