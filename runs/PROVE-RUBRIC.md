@@ -20,6 +20,15 @@ attempt is recorded, whichever outcome it reaches** — a list of successes only
 | **INDEPENDENT** | the axioms do not settle it: one model where they hold with T, one where they hold with ¬T. Often the best result — it shows where the texts are silent and a commentary filled the gap |
 | **NOT FORMALIZABLE** | the thesis could not be stated in Lean without a choice the texts do not make; it stays a reading |
 
+### Known-answer controls
+
+A control reproduces an `ANSWERS.md` row from premises that exclude it; its VERDICT is PASS or FAIL. ⭐ **A control whose
+DECISIVE premise asserts exactly the point the debate disputes is a PLUMBING CHECK by construction, and its PASS is always
+CONFOUNDED** (A392, founder 2026-10-13: *"Approve A392 per your recommendation"*). The premise stays an axiom: the sort
+rule asks whether a text ASSERTS or DERIVES a statement, never whether a later text turns it against a view (A122 in the
+Kv 8.2 control, where the sub-commentary frames the dispute as exactly what A122 asserts). Such a run tests the
+INSTRUMENT, not the reasoning: declare it in the PREREG, and `RUN.md` writes `PASS (confounded)`.
+
 ## The order (each step before the next)
 
 1. **The formal statement is approved** before any proving — by the founder for his thesis; for a control, by the vetting
