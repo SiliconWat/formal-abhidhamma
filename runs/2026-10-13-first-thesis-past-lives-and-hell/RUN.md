@@ -45,6 +45,11 @@ falls with 4.
    Brahma world (Vism XIII §405, `e0102n.mul.xml:737–745`); a no-hell witness of deva and Brahma lives remains possible.
    Both witnesses also put the arahant path on a rebirth-linking tick, which the texts never allow (the INDEPENDENT result
    does not need it).
+   ⚠️ Corrected the same night (the sixth supposition's vetting refuter): Buddhaghosa's "all" is hedged by the Vinaya ṭīkā
+   that repeats it — *idañca yebhuyyavasena vuttaṃ*, "this is said of the majority" (`vin01t1.tik.xml:4461`) — and the
+   Piṭaka's own word is *yebhuyyena*, beings "MOSTLY" go to the Ābhassara world at a contraction (DN 1 §39,
+   `s0101m.mul.xml:331`). So the witness is excluded only on the universal reading, at the commentarial layer; at the Piṭaka
+   layer it is admitted.
 3. **A model** — ✓ (`model_t3_hypotheses`).
 4. **Breaks** — ✓ four, each on T3 alone; necessity proven by the four `needs_` models.
 5. **Axioms read from Lean** — ✓ per conjunct; Unused none.
