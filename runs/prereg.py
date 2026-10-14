@@ -125,7 +125,9 @@ def main():
             tva[k.strip()] = m.group(1)
         owed = [k for k in held if k in keys and k not in tva]
         if owed: sys.exit(f"refused: does the thesis ENTAIL the held-out answer? --thesis-vs-answer owed for {', '.join(owed)} (A395)")
-        entailed = [k for k, v in tva.items() if v == "entails"]
+        # a known-answer control's thesis IS its answer: reaching it is the control's point (TRIVIAL, its VERDICT), never an
+        # unreachable PROVED — exempt that one key (found choosing the first control after A395, before anything ran)
+        entailed = [k for k, v in tva.items() if v == "entails" and k != (a.control_known or "").strip()]
         if entailed and a.predict_outcome == "PROVED":
             sys.exit(f"refused: the thesis entails {', '.join(entailed)}, so PROVED is unreachable under the hold-out (A395)")
         stmt = open(a.lean, encoding="utf-8").read().strip() if os.path.exists(a.lean) else ""
@@ -221,7 +223,7 @@ def main():
 ## The thesis against each held-out answer (A395) — an answer the thesis ENTAILS makes PROVED unreachable
 
 {chr(10).join(f'- {x}' for x in a.thesis_vs_answer) or '- (no held-out ANSWERS key)'}
-{('- **Unreachable outcomes:** PROVED (the thesis entails ' + ', '.join(k for k, v in [(e.partition(":")[0].strip(), e.partition(":")[2]) for e in a.thesis_vs_answer] if v.strip().startswith("entails")) + ')') if any(e.partition(":")[2].strip().startswith("entails") for e in a.thesis_vs_answer) else ''}
+{(lambda ks: ('- **Unreachable outcomes:** PROVED (the thesis entails ' + ', '.join(ks) + ')') if ks else '')([e.partition(":")[0].strip() for e in a.thesis_vs_answer if e.partition(":")[2].strip().startswith("entails") and e.partition(":")[0].strip() != (a.control_known or "").strip()])}
 
 ## Predicted outcome
 
