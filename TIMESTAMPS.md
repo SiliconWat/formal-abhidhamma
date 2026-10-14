@@ -4,7 +4,8 @@ This repository makes claims whose ORDER matters: a run's axioms and predictions
 derivation that tests them. Three independent dates back that up:
 
 1. **The push.** GitHub's repository activity records when each commit arrived (`runs/prereg.py` prints it).
-2. **RFC 3161.** A weekly manifest of every tracked file and its SHA-256, signed by three independent trust
+2. **RFC 3161.** A manifest of every tracked file and its SHA-256 — weekly, AND on every push that touches `kala/`,
+   `matika/` or `runs/` (2026-10-13; such a run names its manifest by the second) — signed by three independent trust
    authorities (one eIDAS-qualified) and stamped to Bitcoin — `timestamps/`, `./tsa-verify.sh`. Legal standing
    that Bitcoin lacks; Bitcoin has the permanence the authorities lack (see `timestamps/README.md`).
 3. **OpenTimestamps.** Frozen files carry a `<name>.ots` proof beside them, committing the file's SHA-256
