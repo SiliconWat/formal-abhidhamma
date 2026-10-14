@@ -198,6 +198,7 @@ theorem t6o_admitted :
 
 /-! ## Models of T6R's and T6X's hypotheses (rubric item 3), and necessity -/
 
+/-- A model of T6R's and T6X's hypotheses together (rubric item 3): one being, sunk in every existence. -/
 theorem model_t6r_hypotheses :
     ∃ w, a124_incapable_all w ∧ a125_found_in_world w ∧ a125_literal_all w :=
   ⟨single sunkForever, sunk_incapable_all, ⟨(), 0, trivial, trivial⟩, fun _ _ _ _ _ _ _ _ _ => trivial⟩
@@ -228,5 +229,85 @@ theorem needs_a125_literal_all :
   refine ⟨true, Or.inr h0, 1, Or.inr ⟨rfl, rfl⟩, by omega_c, ?_⟩
   show ¬ (1 : Int) ≤ 0
   decide
+
+
+/-! ## Added on the run refuter's findings (F1, F6) -/
+
+/-- The thesis ENTAILS the held-out answer (the run refuter's F1): with A124 §826, a being that can always become capable
+    can always leave a fixed wrong view in a strictly later existence. So no premise set that proves the thesis can avoid
+    restating Kv 19.7's conclusion — PROVED was unreachable under the hold-out (RUN.md, LEAK ACKNOWLEDGED). -/
+theorem the_thesis_entails_the_answer (w : World) (h124i : a124_incapable_all w) (h6 : thesis6 w) :
+    answer_kv_19_7 w := by
+  intro x r0 hp hw
+  obtain ⟨h, hag, r, hpr, hle, hni⟩ := h6 x r0 hp
+  have hinc0 : (w.being x).incapable (w.being x).actual r0 := h124i x _ r0 (Or.inr (Or.inl hw))
+  refine ⟨h, hag, r, hpr, ?_, fun hwv => hni (h124i x h r (Or.inr (Or.inl hwv)))⟩
+  if hlt : r0 < r then exact hlt
+  else
+    have heq : r = r0 := by omega_c
+    subst heq
+    exact absurd ((((w.being x).agree_past h r r hag (Int.le_refl _)).2.1).mpr hinc0) hni
+
+/-- A possible-histories being with a rebirth at EVERY tick in every history (the run refuter's F6 repair): actually it
+    holds a fixed wrong view and is incapable in every existence; the history `some n` is the actual one up to `n`, then a
+    rootless rebirth at `n + 1` (the fixed course's result, "immediately after the breakup of the aggregates"), then capable. -/
+def sunkThenFreed : Being :=
+  { H := Option Int, actual := none,
+    agree := fun h _ t => h = none ∨ ∃ n, h = some n ∧ t ≤ n,
+    patisandhi := fun _ _ => True,
+    incapable := fun h r => match h with | none => True | some n => r ≤ n + 1,
+    heinous := fun _ _ => False,
+    wrongView := fun h r => match h with | none => True | some n => r ≤ n,
+    rootless := fun h r => match h with | none => False | some n => r = n + 1,
+    weak := fun _ _ => False,
+    agree_actual := fun _ => Or.inl rfl,
+    agree_down := by
+      intro h t t' hag ht
+      rcases hag with hn | ⟨n, hn, htn⟩
+      · exact Or.inl hn
+      · exact Or.inr ⟨n, hn, by omega_c⟩,
+    agree_past := by
+      intro h t r hag hr
+      rcases hag with hn | ⟨n, hn, htn⟩
+      · subst hn; exact ⟨Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl⟩
+      · subst hn
+        have h1 : r ≤ n + 1 := by omega_c
+        have h2 : r ≤ n := by omega_c
+        have h3 : ¬ r = n + 1 := fun hc => by omega
+        exact ⟨Iff.rfl, ⟨fun _ => trivial, fun _ => h1⟩, Iff.rfl, ⟨fun _ => trivial, fun _ => h2⟩,
+          ⟨fun h => absurd h h3, fun h => h.elim⟩, Iff.rfl⟩ }
+
+/-- A model of T6O's premises with rebirth everywhere in which the thesis AND the held-out answer hold, and the being is
+    capable in no existence of its ACTUAL history: CAN holds where WILL fails (the run refuter's F6 repair). -/
+theorem t6o_admitted_with_rebirth :
+    ∃ w, a124_incapable_all w ∧ a124_capable_all w ∧ a125_found_in_world w ∧ thesis6 w ∧ answer_kv_19_7 w ∧
+      ∀ x r, (w.being x).incapable (w.being x).actual r := by
+  refine ⟨single sunkThenFreed, ?_, ?_, ⟨(), 0, trivial, trivial⟩, ?_, ?_, fun _ _ => trivial⟩
+  · intro _ h r hd
+    cases h with
+    | none => exact trivial
+    | some n =>
+      show r ≤ n + 1
+      rcases hd with hh | hw | hr | hk
+      · exact hh.elim
+      · have : r ≤ n := hw; omega_c
+      · have : r = n + 1 := hr; omega_c
+      · exact hk.elim
+  · intro _ h r _ hw hr _ hi
+    cases h with
+    | none => exact hw trivial
+    | some n =>
+      have a : ¬ r ≤ n := hw
+      have b : ¬ r = n + 1 := hr
+      have c : r ≤ n + 1 := hi
+      exact absurd c (fun hc => by omega)
+  · intro _ r0 _
+    refine ⟨some r0, Or.inr ⟨r0, rfl, Int.le_refl r0⟩, r0 + 2, trivial, by omega_c, ?_⟩
+    show ¬ r0 + 2 ≤ r0 + 1
+    intro hc; omega
+  · intro _ r0 _ _
+    refine ⟨some r0, Or.inr ⟨r0, rfl, Int.le_refl r0⟩, r0 + 1, trivial, by omega_c, ?_⟩
+    show ¬ r0 + 1 ≤ r0
+    intro hc; omega
 
 end FormalAbhidhamma.PotentialWorld

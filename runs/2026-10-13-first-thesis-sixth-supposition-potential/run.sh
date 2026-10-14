@@ -15,7 +15,17 @@ chunks = re.findall(r"(?m)^(def [\s\S]*?)(?=\n\n|\n/-)", reg) + re.findall(r"(?m
 chunks += re.findall(r"(?m)^(inductive [\s\S]*?)(?=\n\n)", reg)                # the Destiny type too (F9)
 thms = re.findall(r"(?m)^(theorem [\s\S]*?:= by)", reg)
 chunks += [t for t in thms if t.split()[1] not in CLAIMS]
-moved = [c.split("\n")[0] for c in chunks if c not in src]
+# ANCHORED (the re-run's refuter, F11): each registered chunk must EQUAL the source chunk of the same name, cut the same way —
+# a substring test passed a field appended to a structure or a line appended to a definition
+def cut(text):
+    out = {}
+    for pat in (r"(?m)^(def [\s\S]*?)(?=\n\n|\n/-|\Z)", r"(?m)^(structure \w+ where[\s\S]*?)(?=\n\n|\Z)",
+                r"(?m)^(inductive [\s\S]*?)(?=\n\n|\Z)", r"(?m)^(theorem [\s\S]*?:=(?: by)?)"):   # each theorem cut at ITS OWN ":=" — a
+        # term-mode theorem has no "by", and cutting at ":= by" let it swallow the next theorem's statement (caught at once)
+        for c in re.findall(pat, text): out[" ".join(c.split()[:2])] = c
+    return out
+have = cut(src)
+moved = [c.split("\n")[0] for c in chunks if have.get(" ".join(c.split()[:2])) != c]
 # an unprovable registered theorem becomes a claim: each named binder a ∀, each hypothesis an arrow, the conclusion kept
 for t in thms:
     name = t.split()[1]
