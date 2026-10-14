@@ -29,6 +29,11 @@ rule asks whether a text ASSERTS or DERIVES a statement, never whether a later t
 Kv 8.2 control, where the sub-commentary frames the dispute as exactly what A122 asserts). Such a run tests the
 INSTRUMENT, not the reasoning: declare it in the PREREG, and `RUN.md` writes `PASS (confounded)`.
 
+⭐ **When a control is owed** (founder 2026-10-13: *"amend the rule"*): after any change to `kala/AXIOMS.md` or
+`tools/Uses.lean` — what a proof reasons from, and how what it reaches is read. A change to the instrument's checks is covered
+by `scripts/selftest.py` (CI, every push), provided it ships with its plant; a change to what an outcome or a control means
+still owes one.
+
 ## The order (each step before the next)
 
 1. **The formal statement is approved** before any proving — by the founder for his thesis; for a control, by the vetting
