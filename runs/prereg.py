@@ -19,7 +19,9 @@ Refuses: a run directory that already exists (a pre-registration is never edited
 new run) · an axiom ID not in AXIOMS.md · a RECALLED axiom without --allow-recalled · no prediction ·
 (proof) a premise marked HELD OUT, or one also listed as held out · a thesis that turns on an undeclared
 question (avyākata) unless --avyakata-reviewed says why it does not · a Lean statement that is empty or
-already proved (`sorry` is required: the statement is registered, the proof comes after).
+already proved (`sorry` is required: the statement is registered, the proof comes after) · the Silicon Simile's vocabulary in
+the question, thesis, predictions, pass criteria, type freedoms or Lean statement unless --simile-reviewed says why
+(scripts/simile_guard.py; founder 2026-10-14: the simile is a reading aid, never an input).
 """
 import argparse, datetime, json, os, re, subprocess, sys, time
 
@@ -63,6 +65,9 @@ def main():
     p.add_argument("--predict-outcome", choices=OUTCOMES); p.add_argument("--founder-predicts", choices=OUTCOMES)
     p.add_argument("--control-known", help="an ANSWERS.md key the run must reproduce (a known-answer control)")
     p.add_argument("--avyakata-reviewed", help="why a thesis that mentions an undeclared question does not turn on one")
+    # The Silicon Simile (founder 2026-10-14): a READING AID, never an INPUT — refused in anything a blind reader sees or the
+    # record that fixes the result; scripts/simile_guard.py is the one home of the vocabulary
+    p.add_argument("--simile-reviewed", help="why a term the simile guard matched is not the simile")
     # A388 OQ4 (founder 2026-10-13): what the TYPE leaves free (no citta stream, presence not tied to birth …) is declared
     # BEFORE the attempt — a result that depends on what the type cannot express is BY CONSTRUCTION too
     p.add_argument("--type-freedom", action="append", default=[])
@@ -83,6 +88,14 @@ def main():
                      "if it does not TURN on one, pass --avyakata-reviewed \"<why>\"")
     elif not a.question or not a.window:
         sys.exit("refused: --question and --window are required (or --proof with --thesis)")
+    sys.path.insert(0, os.path.join(REPO, "scripts")); from simile_guard import find as simile_term
+    texts = [("the question" if not a.proof else "the thesis", a.question)] + [("a prediction", x) for x in a.predict] \
+        + [("a pass criterion", x) for x in a.passc] + [("a type freedom", x) for x in a.type_freedom]
+    if a.lean and os.path.exists(a.lean): texts.append(("the Lean statement", open(a.lean, encoding="utf-8").read()))
+    hit = next(((where, t) for where, x in texts for t in [simile_term(x)] if t), None)
+    if hit and not a.simile_reviewed:
+        sys.exit(f"refused: {hit[0]} carries the Silicon Simile's vocabulary ('{hit[1]}') — the simile is a reading aid, never an "
+                 "input (founder 2026-10-14); say it in the texts' own terms, or pass --simile-reviewed \"<why it is not the simile>\"")
     if not re.fullmatch(r"[a-z0-9-]+", a.slug): sys.exit("slug: lowercase letters, digits, hyphens")
     if a.control and a.control_agree: sys.exit("refused: --control (texts should LOSE) and --control-agree (texts should WIN) are exclusive")
     if not a.predict: sys.exit("refused: at least one --predict is required — a run with no prediction cannot fail")
@@ -164,6 +177,7 @@ def main():
 - **Window:** {a.window}
 - **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, Axioms.lean as of that commit)\n- **Tipiṭaka text:** {tip} (CST line numbers are as of this version)
 {('- ⚠️ **RECALLED axioms used (unverified):** ' + ', '.join(recalled)) if recalled else ''}
+{('- **Simile review:** ' + a.simile_reviewed) if a.simile_reviewed else ''}
 
 ## Window rows
 
@@ -201,6 +215,7 @@ def main():
 - **Instrument:** `SiliconWat/formal-abhidhamma` at `{head}` (AXIOMS.md, ANSWERS.md, Axioms.lean as of that commit)
 - **Tipiṭaka text:** {tip} (CST line numbers are as of this version)
 {('- ⚠️ **RECALLED axioms used (unverified):** ' + ', '.join(recalled)) if recalled else ''}
+{('- **Simile review:** ' + a.simile_reviewed) if a.simile_reviewed else ''}
 {('- **Avyākata review:** ' + a.avyakata_reviewed) if a.avyakata_reviewed else ''}
 
 ## The exact Lean statement (the proof comes after; the statement may not move)

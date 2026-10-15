@@ -70,6 +70,24 @@ refused("an undeclared question (the world eternal)", g(thesis=None),
         "undeclared question", thesis="the world is eternal")
 refused("AN 10.95's form of the undeclared question", g(thesis=None),
         "undeclared question", thesis="every being will eventually awaken")
+# the Silicon Simile is a reading aid, never an input (founder 2026-10-14): refused in the thesis, the Lean statement and an
+# /abhidhamma question; scripts/simile_guard.py refuses a blind back-translation copy, and passes a clean one
+refused("the Silicon Simile's vocabulary in a thesis", g(thesis=None), "reading aid, never an input",
+        thesis="perception is the compiler of every citta")
+simile_stmt = os.path.join(tmp, "SimileStatement.lean")
+open(simile_stmt, "w").write("-- the decompiler reads the source\ntheorem planted : True := by\n  sorry\n")
+refused("the Silicon Simile's vocabulary in the Lean statement", g() + ["--lean", simile_stmt], "reading aid, never an input")
+code, out = run([sys.executable, os.path.join(REPO, "runs", "prereg.py"), "selftest-planted-q", "--dry-run", "--question",
+                 "is physics the pseudo-code of matter?", "--window", "A0", "--axioms", "C,A3", "--predict", "p"])
+case("prereg refuses: the Silicon Simile's vocabulary in an /abhidhamma question", code != 0 and "reading aid, never an input" in out,
+     out.strip().splitlines()[-1] if out.strip() else "")
+guard = os.path.join(REPO, "scripts", "simile_guard.py")
+blind_dirty, blind_clean = os.path.join(tmp, "BlindDirty.lean"), os.path.join(tmp, "BlindClean.lean")
+open(blind_dirty, "w").write("def upstream_moment : Nat := 0\n"); open(blind_clean, "w").write("theorem planted : True := trivial\n")
+code, out = run([sys.executable, guard, blind_dirty])
+case("simile_guard refuses a blind copy that carries the vocabulary", code == 1 and "REFUSED" in out, out.strip()[-200:])
+code, out = run([sys.executable, guard, blind_clean])
+case("simile_guard passes a clean blind copy (the guard is not refusing everything)", code == 0, out.strip()[-200:])
 code, out = prereg(g(thesis_vs_answer=f"{KEY}: entails — the thesis is the answer", predict_outcome="PROVED") + ["--control-known", KEY])
 case("prereg ACCEPTS a valid known-answer control (the plants are not refusing everything)", code == 0 and "PRE-REGISTRATION" in out,
      out.strip().splitlines()[-1] if out.strip() else "")
