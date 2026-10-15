@@ -74,6 +74,10 @@ PASS  12 theorems …   PASS  4 theorems (rung 3) …   9 of 9 deliberate breaks
 
 **Next:** extend both comparisons beyond the first citta · arm B (perception) needs a partner.
 
+**Dissertation — started 2026-10-15.** [`dissertation/`](dissertation/) organizes this program as a self-published,
+dissertation-length monograph: the chapter plan mapped to the results above, the sources, and what is still owed (first, a
+null model that answers whether an axis-built taxonomy compresses this well anyway).
+
 **Proof runs — built 2026-10-13.** Abhidhamma mode asks what physics would have to be if the texts are right; a proof run
 asks whether the texts COMMIT you to a thesis. Three files keep the roles apart: [`kala/AXIOMS.md`](kala/AXIOMS.md) (what
 the texts assert) · [`kala/THEOREMS.md`](kala/THEOREMS.md) (what we derive — every theorem in the repo, GENERATED from
