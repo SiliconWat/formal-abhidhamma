@@ -31,10 +31,41 @@ Cite the program as [doi:10.5281/zenodo.23067241](https://doi.org/10.5281/zenodo
 
 ## Neighbors (cited, not competed with)
 
+Prior formal work and charts (full entries in *The Counts Check*, Citations):
+
+- H. Barendregt, "The Abhidhamma Model of Consciousness AM₀ and some of its Consequences" (preprint, 2006), and
+  H. Barendregt and A. Raffone, "Axiomatizing Consciousness with Applications" (LNCS, Springer, 2022), the
+  nearest formal model of the Abhidhamma.
+- Bhikkhu Bodhi (ed.), *A Comprehensive Manual of Abhidhamma*, ch. 2 Tables 2.2–2.4: the agreement of the two
+  methods, printed as a chart. The nearest prior art for the consistency test.
+- Mehm Tin Mon, *The Essence of Buddha Abhidhamma* (3rd ed., 2015), Charts No. 2 and No. 3.
+- [AloofBuddha/abhidhamma](https://github.com/AloofBuddha/abhidhamma): a Haskell model enumerating the 89 and 121.
+- Nyanaponika Thera, *Abhidhamma Studies* (1949; 3rd ed. 1976): the layering of the *yevāpanaka* in print.
+- Kyaw Pyi Phyo, *Paṭṭhāna (Conditional Relations) in Burmese Buddhism* (PhD thesis, King's College London, 2014).
 - [takuya50/buddhist-comparative-logic](https://github.com/takuya50/buddhist-comparative-logic): Lean 4 and
   Isabelle formalizations of the Heart Sutra, Madhyamaka, pramāṇa and Yogācāra.
 - [PJ-Oliveira/abhidhamma](https://github.com/PJ-Oliveira/abhidhamma): a citta-vīthi simulator, cetasika
   analyzer and Paṭṭhāna matrix.
+
+## Method references (rung 4 and the breaks)
+
+- R. A. DeMillo, R. J. Lipton and F. G. Sayward, "Hints on Test Data Selection," *Computer* 11(4), 1978
+  (mutation testing).
+- A. Celik et al., "Mutation Analysis for Coq," ASE 2019 (mutation inside a proof assistant).
+- J. Rissanen, "Modeling by shortest data description," *Automatica* 14(5), 1978 (description length).
+- J.-L. Guigues and V. Duquenne, "Familles minimales d'implications informatives résultant d'un tableau de
+  données binaires," *Mathématiques et Sciences Humaines* 95, 1986 (the canonical basis).
+- B. Ganter and R. Wille, *Formal Concept Analysis: Mathematical Foundations*, Springer, 1999.
+- G. Strona et al., "A fast and unbiased procedure to randomize ecological binary matrices with fixed row and
+  column totals," *Nature Communications* 5, 2014 (the curveball algorithm).
+- D. Gale (1957) and H. J. Ryser (1957): when a binary matrix with given row and column totals exists, and why
+  distinct ones can share every total.
+
+## Commentarial sources still to read
+
+- Ledi Sayadaw, *Paramatthadīpanī*, and the *Aṅkura-ṭīkā*: the Burmese debate on chapter 2, the likeliest
+  place for a counting of the §30 dissent.
+- The *Vibhāvinī* at §30 (already cited by `sangaha/Check.lean` for the main reading).
 
 ## Secondary literature (to read; verify the edition before citing)
 
