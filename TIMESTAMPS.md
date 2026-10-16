@@ -18,7 +18,7 @@ derivation that tests them. Three independent dates back that up:
 |---|---|
 | `runs/*/PREREG.md` — stamped AT registration by `prereg.py`, before the agent runs | `runs/PROVE-RUBRIC.md` — amended by rulings; every PREREG cites the commit it was graded by · `matika/` — GENERATED from the CST by `scripts/matika.py` and `scripts/relata.py`, regenerated as capture proceeds (classed with `kala/`, 2026-10-13) · `kala/` — `AXIOMS.md`, `Axioms.lean`, `Time.lean` change as axioms are verified; each PREREG copies the rows it used verbatim, so the stamped PREREG carries them |
 | `runs/*/DERIVATION.md`, `runs/*/RUN.md`, `runs/*/*.lean` | `RESULTS.md` — revised as rungs complete · `runs/INDEX.md` — regenerated on every run (one proof was taken by mistake on 2026-09-30 and is KEPT; the verifier classes the file exempt) |
-| `PREREGISTRATION*.md` | `README.md`, this file |
+| `PREREGISTRATION*.md` | `model/` — the working encoding for *The Calculus of Moments*, attempt 1 (`CENSUS.md`, the Lean); its frozen form is Protocol 2's PREREG under `runs/`, stamped there (2026-10-15) · `README.md`, this file |
 
 `ots stamp` overwrites an existing proof, so a stamped file is never edited. A correction is a new file
 (for a run: a new run). If a stamped file ever must change, rotate its proof to `<name>.rN.ots` first and

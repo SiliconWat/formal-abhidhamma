@@ -56,11 +56,11 @@ jobs:
       - name: Stamp any unstamped documents
         run: |
           # formal-abhidhamma (TIMESTAMPS.md): frozen = runs/*, PREREGISTRATION*, canon/, dissertation/final/, rung4/results/;
-          # LIVING and never stamped = kala/ (AXIOMS.md changes as citations are verified), RESULTS.md, dissertation/ drafts. A run's Lean files are stamped too.
+          # LIVING and never stamped = kala/ (AXIOMS.md changes as citations are verified), RESULTS.md, dissertation/ drafts, model/ (the one-model attempt's working encoding; Protocol 2 freezes it as a PREREG). A run's Lean files are stamped too.
           mapfile -t unstamped < <( { find . -name '*.md' \
             ! -name 'README.md' ! -name 'TIMESTAMPS.md' \
             ! -path './.github/*' ! -path './kala/*' ! -path './timestamps/*' ! -name 'RESULTS.md' ! -path './runs/INDEX.md' \
-            ! -path './dissertation/*' ! -path './rung4/*' -print
+            ! -path './dissertation/*' ! -path './rung4/*' ! -path './model/*' -print
             find ./runs -name '*.lean' -print
             # the dissertation is LIVING until a chapter is declared final and moved to dissertation/final/ (2026-10-15);
             # rung 4's results are frozen once written
