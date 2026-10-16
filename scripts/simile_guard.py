@@ -19,7 +19,8 @@ import re, sys
 
 SIMILE = re.compile(
     r"silicon simile|pseudo[- ]?code|decompil\w*|\bcompilers?\b|\bupstream\b|\bfirmware\b|\bVLIW\b|\blinker\b"
-    r"|\brepos?\b|\bgit\b|address space|deploy key",
+    r"|\brepos?\b|\bgit\b|address space|deploy key"
+    r"|\bturing\b|\bstate machines?\b|finite[- ]state",   # the Turing machine joined the simile, 2026-10-15 (founder: "approve")
     re.I)
 
 def find(text):

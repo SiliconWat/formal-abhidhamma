@@ -88,6 +88,11 @@ code, out = run([sys.executable, guard, blind_dirty])
 case("simile_guard refuses a blind copy that carries the vocabulary", code == 1 and "REFUSED" in out, out.strip()[-200:])
 code, out = run([sys.executable, guard, blind_clean])
 case("simile_guard passes a clean blind copy (the guard is not refusing everything)", code == 0, out.strip()[-200:])
+# the Turing machine joined the simile (founder 2026-10-15, "approve"): a CamelCase name carrying it must be refused too
+blind_turing = os.path.join(tmp, "BlindTuring.lean")
+open(blind_turing, "w").write("def turingStep : Nat := 0\n")
+code, out = run([sys.executable, guard, blind_turing])
+case("simile_guard refuses a blind copy that names the Turing machine", code == 1 and "turing" in out.lower(), out.strip()[-200:])
 code, out = prereg(g(thesis_vs_answer=f"{KEY}: entails — the thesis is the answer", predict_outcome="PROVED") + ["--control-known", KEY])
 case("prereg ACCEPTS a valid known-answer control (the plants are not refusing everything)", code == 0 and "PRE-REGISTRATION" in out,
      out.strip().splitlines()[-1] if out.strip() else "")
