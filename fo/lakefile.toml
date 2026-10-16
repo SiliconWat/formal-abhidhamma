@@ -1,0 +1,13 @@
+name = "fo"
+defaultTargets = ["FO"]
+
+# The first-order layer (founder 2026-10-16, "yes"): the stream axioms written as first-order SENTENCES in Mathlib's
+# model theory, so that a sentence cannot say "finitely many" by its type, and Łoś's theorem gives a non-standard
+# stream mechanically. A separate package so the core encoding stays core Lean with no Mathlib.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.34.1"
+
+[[lean_lib]]
+name = "FO"
