@@ -13,15 +13,28 @@ of the axioms is built here before Protocol 2 freezes the encoding by commit.
 |---|---|
 | `CENSUS.md` | every live row, with its class (constraint · by the type · not formalizable), its part of `World`, its occurrence conditions, and its rival readings |
 | `Mind.lean` | the stream: mind-moments on a clock of sub-moments (A1 · A3 · A40 · A77 · A117 · C) |
-| `run.sh` | compiles every file, then gives each definition its teeth test |
+| `Tax.lean` | the taxonomy: the kinds a world has and their counts — citta, cetasika, function, object, matter, origin, chapter 7's categories, the subjects of calm (A27–A29 · A31–A35 · A38 · A60 · A62 · A65 · A71–A74 · A105 · A107), importing the generator (`sangaha/`, `control/Cetasika.lean`) |
+| `run.sh` | compiles every file, then gives each definition its teeth test; `--control` plants the failures the test must catch |
 
 ## The teeth test
 
 Every definition `aNN_…` is followed by a **forbidden world**: a small structure its text rules out, on which Lean
-proves the definition false. `run.sh` then weakens each definition to `True` on a copy that keeps only that one
-theorem, and requires the theorem to fail. A definition with no forbidden world (`NO TEETH`), or one whose weakening
-still checks (`BLIND`), fails the suite. Tested on a known failure (2026-10-15): one planted definition without a
-forbidden world, and one whose theorem did not depend on it, were both reported, and the suite exited 1.
+proves the definition false. `run.sh` then replaces each definition, every line of it, with `True` on a copy that keeps
+only that one theorem, and requires the theorem to fail with its **first error inside that theorem**. A definition with
+no forbidden world (`NO TEETH`), one whose weakening still checks (`BLIND`), or one whose weakening breaks the file
+somewhere else (`FAILS ELSEWHERE`) fails the suite. A row with several clauses has one definition per clause, each with
+its own forbidden world, so a toothless clause cannot hide behind a sharp one.
+
+Tested on known failures: on 2026-10-15, one planted definition without a forbidden world and one whose theorem did not
+depend on it were both reported. On 2026-10-18 the harness was rebuilt: the old one weakened only a definition's first
+line, so a multi-line definition broke the file's syntax and was counted as a pass. `./run.sh --control` now plants all
+three failures and a two-line definition that must pass, and CI runs it. Its first run caught a bug in the new harness
+itself (an `example` line was read as part of the definition above it), fixed before anything relied on it.
+
+**⏳ PENDING definitions.** Some rows name a list whose members their own cited lines give (A35's functions, A38's
+other three object groups, A62's base, door and faculty, A105's absorption table). Protocol 1 §7.1 encodes a row's own
+words, so those definitions are marked PENDING: they encode the cited lines, and they stay only if the founder approves
+a correction that lets a row's cited lines supply its members. Until then they are not part of the encoding.
 
 ## The parts of `World`, in build order
 

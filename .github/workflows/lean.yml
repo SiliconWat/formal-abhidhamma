@@ -68,3 +68,27 @@ jobs:
       # must each be seen to fire; one valid control must be ACCEPTED (a tool that refused everything would pass the rest)
       - name: The instrument's refusals and detections fire (planted)
         run: python3 scripts/selftest.py
+
+      # model/run.sh's own teeth harness must catch what it is for: a definition with no forbidden world, one whose
+      # forbidden world does not use it, and one whose weakening breaks the file outside its theorem (2026-10-18)
+      - name: The teeth harness catches its planted failures
+        run: sh model/run.sh --control
+
+  fo:
+    # The first-order layer (founder 2026-10-16) and A424's chain theorem: a separate Lake package on Mathlib v4.34.1, so
+    # it has its own job. Mathlib's prebuilt files come from Mathlib's own cache (`lake exe cache get`), never built here.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Mathlib's prebuilt files
+        working-directory: fo
+        run: lake exe cache get
+
+      - name: Every theorem without sorry, every break fails in its target
+        run: sh fo/run.sh

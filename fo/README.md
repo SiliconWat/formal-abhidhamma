@@ -31,6 +31,19 @@ type rather than by a reader's audit.
   - `finitely_many_before_is_not_first_order`: so no sentence of `L` says "every moment has finitely many moments
     before it".
 
+`FO/Chain.lean` (roadmap A424, owed item 1; 2026-10-18): what a finite chain of steps spans on a hyperreal clock.
+Conditional theorems about any list of durations, never a model of the rows:
+
+- `finite_chain_spans_infinitesimal` · `finite_chain_standard_part_zero`: if every step of a FINITE chain lasts an
+  infinitesimal time, so does the chain, and its standard part is 0. A finite chain reaches a *galaxy*, inside one
+  *monad* of time.
+- `ordinary_duration_needs_a_long_step`: so a finite chain spanning more than an infinitesimal has a step that is not.
+- `infinitely_many_steps_make_a_unit`: ω steps of length ε make exactly one ordinary unit.
+- `cessation_step_is_not_infinitesimal`: one ordinary step (A112's cessation, on this clock) among infinitesimal ones,
+  and the span is no longer infinitesimal.
+
+Whether a citta's duration IS infinitesimal is the founder's reading (H₂ of Thesis H, amendment 2), never a row.
+
 ## Checking it
 
 ```sh
@@ -39,11 +52,16 @@ lake exe cache get   # Mathlib's prebuilt files
 ./run.sh
 ```
 
-`run.sh` builds the module, requires no `sorryAx` behind any theorem, and applies two breaks. Each must fail, with its
-first error inside the theorem it targets:
+`run.sh` builds both modules, requires no `sorryAx` behind any of the nine theorems, and applies five breaks. Each must
+fail, with its first error inside the theorem it targets:
 
 - **principal:** over a principal ultrafilter the ultrapower is the natural numbers again.
 - **infinite:** "finitely many" is swapped for "infinitely many".
+- **one-long-step:** the first step of the chain is exempted from being infinitesimal.
+- **no-ordinary-step:** the cessation step is made infinitesimal too.
+- **finitely-many:** a thousand steps of length ε stand in for ω of them.
+
+CI runs it in its own job (`lean.yml`, job `fo`), after `lake exe cache get`.
 
 A planted break that changes only a comment was reported as a FAIL (2026-10-16), so an "ok" line means the target
 depends on what was broken.

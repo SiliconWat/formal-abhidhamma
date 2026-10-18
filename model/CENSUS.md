@@ -25,7 +25,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | ID | Layer | Class | Part | The encoding, in one line | Occurs | Watch |
 |---|---|---|---|---|---|---|
 | A26 | L4 | T | STATUS | ultimate entities are one of four sorts: citta, cetasika, rūpa, nibbāna; concepts are a separate sort | each sort | — |
-| A27 | L4 | C | TAX | the kinds with their own characteristic number 72 (the breakdown 1 + 52 + 18 + 1 is OURS, never an axiom) | — | OURS clause excluded |
+| A27 | L4 | C | TAX | the kinds with their own characteristic number 72 (the breakdown 1 + 52 + 18 + 1 is OURS, never an axiom) | — | OURS clause excluded, so the encoding is weak by the row's own words (a count of 72 distinct entities) |
 | A28 | L4 | C | TAX | the generated citta-types number 89, and 121 by the jhāna reckoning (`sangaha/Check.lean`) | each of the 89 types in some stream | — |
 | A29 | L4 | C | TAX | the cetasikas number 52, in classes of 7 · 6 · 14 · 25 | each of the 52 in some moment | — |
 | A30 | L4 | T | MIND | a mind-moment is one citta with its cetasika set, so they arise, cease, take an object and have a base together | — | by the type: the model cannot separate them |
@@ -34,10 +34,10 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A128 | L2 | N | — | states perception's FUNCTION by similes (a carpenter's mark, a mole); nothing structural beyond A31's presence of perception | — | — |
 | A33 | L4 | C | TAX | feeling three- and fivefold; per-citta feeling counts 1 · 1 · 62 · 2 · 55 (121 reckoning) | — | — |
 | A34 | L4 | C | TAX | root counts 18 · 2 · 22 · 47 | — | — |
-| A35 | L4 | C | TAX+PROC | 14 functions, 10 stations; per-citta function counts 68 · 2 · 9 · 8 · 2; a process station holds only a citta-type with that function | each function performed | — |
+| A35 | L4 | C | TAX+PROC | 14 functions, 10 stations; per-citta function counts 68 · 2 · 9 · 8 · 2; a process station holds only a citta-type with that function | each function performed | ⏳ COVERAGE: the cited lines (§20–32) give which types perform each function; the row carries only the counts (PENDING `a35_which`) |
 | A36 | L4 | C | PROC | six doors; the mind-door is a bhavaṅga moment; 19 citta-types are door-free | each door used | — |
 | A37 | L4 | C | PROC | a sense-door citta takes a PRESENT object; a mind-door citta takes a present, past, future or time-free object | — | — |
-| A38 | L4 | C | TAX+PROC | object scopes by citta-type (sense-consciousness one kind; supramundane only nibbāna; 25 · 21 · 5) | — | — |
+| A38 | L4 | C | TAX+PROC | object scopes by citta-type (sense-consciousness one kind; supramundane only nibbāna; 25 · 21 · 5) | — | ⚠️ ROW ERROR: "5 take any object" misreads §59 (`:1077`) and the verse (`:1105`, *chacceti*): six take any object, five all but the arahant's path and fruit; encoded as the text, pending a correction · ⏳ the other three groups (6 · 20 · 5) PENDING |
 | A39 | L4 | C | MAT+MIND | six bases; by sphere (all six in the sense sphere, no nose, tongue or body in the fine-material, none in the immaterial); dependence of each consciousness | — | — |
 | A1 | L1 (shared premise) · L2 | C | MIND | at most one citta per tick in a stream | — | — |
 | A40 | L2 | C | MIND | a mind-moment is three equal sub-moments: arising, standing, dissolution | — | — |
@@ -70,7 +70,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A9 | L1 · L2 | C | STATUS | delimiting space is conditioned; kasiṇa-removed space and unentangled space are concepts | — | VARIANT: unentangled space as rūpa (A5's rival) |
 | A6 | L2 | T | MAT | matter outside a being's faculties is bound to no being (its owner field is empty) | matter outside any being | — |
 | A15 | L4 | C | MAT | every kalāpa carries the inseparable eight; lightness only in beings' mind-, temperature- and nutriment-born groups | — | the gravity link is OURS, excluded |
-| A62 | L4 | C | TAX | matter's dyads (12 gross, impinging; 16 subtle; visible = visible form only; clung-to = kamma-born) | — | — |
+| A62 | L4 | C | TAX | matter's dyads (12 gross, impinging; 16 subtle; visible = visible form only; clung-to = kamma-born) | — | ⏳ COVERAGE: "base or not; door or not; faculty or not" name dyads without members (§20–22 give 6 · 7 · 8; PENDING) |
 | A63 | L4 | C | MAT | eye and ear take objects not in contact; nose, tongue and body only objects in contact | — | VARIANT: the commentaries' sense of "reached" |
 | A64 | L4 | C | MAT | the four origins and their timing (kamma every moment from rebirth-linking; citta at its arising from the first bhavaṅga, not the immaterial resultants or the ten sense-consciousnesses; temperature at standing, inside and outside; nutriment at standing once swallowed); one heat scalar | each origin | — |
 | A65 | L4 | C | TAX+MAT | the origin table; 18 · 15 · 13 · 12; the characteristics from none | — | — |
@@ -130,7 +130,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A113 | L3 · L5 | T | MAT | a kalāpa has one place for its whole life; "going" is later kalāpas at other places | — | every motion in COSMO is read this way (a declared choice) |
 | A7 | L2 | T | STATUS | time is a function on moments, never a moment | — | — |
 | A8 | L4 · L5 | T | STATUS | nibbāna and concepts are time-free: objects, never moments | — | — |
-| A105 | L4 | C | TAX | 40 subjects in 7 groups (10 · 10 · 10 · 4 · 1 · 1 · 4); which reach absorption, and which jhāna | — | — |
+| A105 | L4 | C | TAX | 40 subjects in 7 groups (10 · 10 · 10 · 4 · 1 · 1 · 4); which reach absorption, and which jhāna | — | ⏳ COVERAGE: "which reach absorption, and which jhāna" names a table its cited lines give (§19–25; PENDING) · the temperaments, stages and signs are names (by the type) |
 | A106 | L4 | C | PROC | the four immaterial attainments' objects (two concepts, two cittas) | — | — |
 | A107 | L4 | C | TAX | the five super-knowledges arise from the fifth jhāna | a super-knowledge | — |
 | A108 | L4 | N | — | stages of a meditator's knowledge and modes of comprehension; the model holds no knowledge-content beyond citta-types | — | — |
@@ -174,3 +174,26 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 3. **The day/night geometry is not closed by any row.** A22 lights three continents and leaves the fourth dark without
    saying why. So whether Sineru's shadow reaches the full moon (P3) turns on a freedom, unless the encoding finds a row
    that commits the texts to straight shadows.
+
+## Encoded so far (2026-10-18)
+
+| Part | File | Rows | Definitions | Forbidden worlds |
+|---|---|---|---|---|
+| MIND (first six) | `Mind.lean` | A1 · A3 · A40 · A77 · A117 · C | 6 | 6 |
+| TAX | `Tax.lean` | A27 · A28 · A29 · A31 · A32 · A33 · A34 · A35 · A38 · A60 · A62 · A65 · A71 · A72 · A73 · A74 · A105 · A107 | 45, of which 8 PENDING (`a35_which` · `a38_six_exalted` · `a38_twenty` · `a38_five_but_agga` · `a62_base` · `a62_door` · `a62_faculty` · `a105_absorption`) | 45 |
+
+`run.sh` passed on 2026-10-18 with 51 forbidden worlds and no problems, after its own control. A row with several
+clauses has one definition per clause. TAX rows the census listed under TAX+PROC or TAX+MAT (A35, A38, A65) have their
+taxonomy clauses here; the PROC and MAT halves are encoded with those parts.
+
+**Findings for the founder, from the TAX encoding:**
+
+1. **A38 misreads its line.** The row says "5 take any object". The Saṅgaha says six (§59, `abh07t.nrf.xml:1077`:
+   the four knowledge-associated sense-sphere functionals, the functional super-knowledge and determining; the verse,
+   `:1105`, *pañca sabbattha chacceti*). Five take every object except the arahant's path and fruit (§58). The encoding
+   follows the text and is marked pending a correction of the row.
+2. **Four rows name a list whose members only their cited lines give** (A35, A38's other three groups, A62's base,
+   door and faculty, A105's absorption table). Protocol 1 §7.1 encodes a row's own words. The PENDING definitions
+   encode the cited lines; whether a row's own cited lines may supply its members is a correction to the protocol.
+3. **Some count rows are weak by their own words** (A27: any 72 distinct entities). This is reported, not repaired:
+   the OURS breakdown never becomes an axiom.
