@@ -8,7 +8,12 @@ forming a hyperfinite grid whose total hyperreal duration resolves into conventi
 map."* The session's stronger version, offered the same day: each citta lasts an infinitesimal but POSITIVE time
 (A40: three equal sub-moments of positive length), so the cittas that a finite chain of proximity (A3) reaches all fall
 within one instant of ordinary time; duration itself is a designation laid on the stream (A7); and across cessation a
-single step of proximity spans days (A112).
+single step of proximity spans days (A112). Its refuter narrowed it, and the founder ruled (2026-10-18, *"reconcile all
+per your recommendation"*) that the book carries the refuter's form, where the hyperfinite reading is a CHOICE the book
+makes, not a fact the texts state: *the texts allow reading a finger-snap as holding an unlimited number of cittas, so
+a finite chain of proximity lies infinitely close in ordinary time and any stretch of one stream may be read as
+hyperfinite; time laid on the stream has no interval anywhere, and only the sun-and-moon reckoning gives one step of
+proximity an ordinary length, across cessation and across the mindless existence.*
 
 This file proves the mathematical core of that version and nothing about the texts:
 

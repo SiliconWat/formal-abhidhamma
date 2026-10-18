@@ -161,7 +161,7 @@ def kammatthana40 : List (List Kammatthana) :=
    (List.range 10).map (Kammatthana.anussati ·.succ), (List.range 4).map (Kammatthana.appamanna ·.succ),
    [.sanna], [.vavatthana], (List.range 4).map (Kammatthana.aruppa ·.succ)]
 
-/-- ⏳ PENDING correction 2 (A105's last clause): which subjects reach absorption, and in which jhāna, as the row's
+/-- from the row's cited lines, Protocol 1 correction 2 §2 (A105's last clause): which subjects reach absorption, and in which jhāna, as the row's
     own cited lines give it (ch. 9 §19–25, `:3125–3149`). `n` 1–5 is a fine-material jhāna on the fivefold scheme;
     `n = 6` is an immaterial jhāna (⚠️ that code is OURS). The ten kasiṇas and breathing: all five · the ten foul
     objects and mindfulness of the body: the first · loving-kindness, compassion, appreciative joy: the first four ·
@@ -175,7 +175,7 @@ def jhanaTable : Kammatthana → Nat → Bool
   | .aruppa _, n => n == 6
   | _, _ => false
 
-/-- ⏳ PENDING correction 2 (A35's members): which citta-type performs which function, as the row's own cited lines
+/-- from the row's cited lines, Protocol 1 correction 2 §2 (A35's members): which citta-type performs which function, as the row's own cited lines
     give it (ch. 3 §20–32, `:893–941`): the 19 (two equanimity investigations, eight great resultants, nine exalted
     resultants) rebirth-linking, bhavaṅga and death · the two advertings · each sense-consciousness its own sense
     function · the two receivings · the three investigations · mind-door adverting determining · the 55 javanas
@@ -238,7 +238,7 @@ structure Tax where
   visible : Rupa → Bool
   /-- which origin can produce which kind -/
   origin : Rupa → Origin → Bool
-  /-- ⏳ PENDING correction 2: A62's three dyads named without members -/
+  /-- from the row's cited lines, Protocol 1 correction 2 §2: A62's three dyads named without members -/
   base : Rupa → Bool
   door : Rupa → Bool
   faculty : Rupa → Bool
@@ -251,7 +251,7 @@ structure Tax where
   dhammayatana : List Dhamma
   /-- the subjects of calm, grouped -/
   kammatthana : List (List Kammatthana)
-  /-- ⏳ PENDING correction 2: which jhāna a subject reaches (n = 6 the immaterial) -/
+  /-- from the row's cited lines, Protocol 1 correction 2 §2: which jhāna a subject reaches (n = 6 the immaterial) -/
   kjhana : Kammatthana → Nat → Bool
 
 /-- The citta-types in the 89 reckoning. -/
@@ -354,25 +354,25 @@ def a38_twentyone (t : Tax) : Prop :=
 /-- A38, any object (L4, §59 and §63, `:1077`, `:1105`). ⚠️ FINDING, for the founder: the row says "5 take any object";
     the text says SIX — the four knowledge-associated sense-sphere functionals, the functional super-knowledge and
     determining (*… kiriyābhiññāvoṭṭhabbanañceti sabbathāpi sabbārammaṇāni*), and the verse (*pañca sabbattha chacceti*):
-    five take every object except the arahant's path and fruit (§58), six take every object. Encoded as the TEXT says,
-    pending a correction of the row; the row's literal 5 is this definition's forbidden world. Counted over the
+    five take every object except the arahant's path and fruit (§58), six take every object. Encoded as the TEXT says
+    (Protocol 1 correction 2 §1, 2026-10-18); the row's literal 5 is this definition's forbidden world. Counted over the
     citta-types and the two that also occur as a super-knowledge (§58–59 count those apart: 89 + 2 = 91). -/
 def a38_six_any (t : Tax) : Prop := num t.modes (fun p => Obj.all.all (t.scope p.1 p.2)) = 6
 
-/-- A38, exalted objects (⏳ PENDING correction 2: in the cited lines, not the row's words; §60 and §63, `:1081`,
+/-- A38, exalted objects (from the row's cited lines, not its words — Protocol 1 correction 2 §2; §60 and §63, `:1081`,
     `:1093`): six citta-types take exalted objects only (the second and fourth immaterial, in their three classes). -/
 def a38_six_exalted (t : Tax) : Prop := num t.kinds89 (fun c => Obj.all.all (fun o => t.scope c false o == (o == .mahaggata))) = 6
 
-/-- A38, all but the supramundane (⏳ PENDING correction 2; §57 and §63, `:1069`, `:1101`): twenty citta-types (the
+/-- A38, all but the supramundane (from the row's cited lines, Protocol 1 correction 2 §2; §57 and §63, `:1069`, `:1101`): twenty citta-types (the
     unwholesome and the knowledge-dissociated sense-sphere javanas) take every object except the supramundane. -/
 def a38_twenty (t : Tax) : Prop :=
   num t.kinds89 (fun c => Obj.all.all (fun o => t.scope c false o == !([Obj.lokuttara, .agga, .nibbana].contains o))) = 20
 
-/-- A38, all but the arahant's path and fruit (⏳ PENDING correction 2; §58 and §63, `:1073`, `:1101–1105`): five (the
+/-- A38, all but the arahant's path and fruit (from the row's cited lines, Protocol 1 correction 2 §2; §58 and §63, `:1073`, `:1101–1105`): five (the
     knowledge-associated sense-sphere wholesome and the wholesome super-knowledge) take every object except those. -/
 def a38_five_but_agga (t : Tax) : Prop := num t.modes (fun p => Obj.all.all (fun o => t.scope p.1 p.2 o == (o != .agga))) = 5
 
-/-- A35, which (⏳ PENDING correction 2): every citta-type performs exactly the functions `kiccaTable` gives it. -/
+/-- A35, which (from the row's cited lines, Protocol 1 correction 2 §2): every citta-type performs exactly the functions `kiccaTable` gives it. -/
 def a35_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, ∀ k ∈ Kicca.all, t.kicca c k = kiccaTable c k
 
 /-- A60, the 28 (L4, ch. 6 §3–17, `:2049–2121`): 28 kinds of matter (four great elements and 24 derived, in eleven
@@ -401,13 +401,13 @@ def a62_clung (t : Tax) : Prop := ∀ r ∈ Rupa.all, t.clung r = t.origin r .ka
 /-- A62, visible (L4, §25, `:2161`): only visible form is visible; the rest is invisible. -/
 def a62_visible (t : Tax) : Prop := ∀ r ∈ Rupa.all, t.visible r = (r == .vanna)
 
-/-- A62, base (⏳ PENDING correction 2; §20, `:2141`): the base is the five organs and the heart-base, six. -/
+/-- A62, base (from the row's cited lines, Protocol 1 correction 2 §2; §20, `:2141`): the base is the five organs and the heart-base, six. -/
 def a62_base (t : Tax) : Prop := ∀ r ∈ Rupa.all, t.base r = (pasada ++ [Rupa.hadaya]).contains r
 
-/-- A62, door (⏳ PENDING correction 2; §21, `:2145`): the doors are the five organs and the two intimations, seven. -/
+/-- A62, door (from the row's cited lines, Protocol 1 correction 2 §2; §21, `:2145`): the doors are the five organs and the two intimations, seven. -/
 def a62_door (t : Tax) : Prop := ∀ r ∈ Rupa.all, t.door r = (pasada ++ [Rupa.kayavinnatti, .vacivinnatti]).contains r
 
-/-- A62, faculty (⏳ PENDING correction 2; §22, `:2149`): the faculties are the five organs, the two of sex and the
+/-- A62, faculty (from the row's cited lines, Protocol 1 correction 2 §2; §22, `:2149`): the faculties are the five organs, the two of sex and the
     life faculty, eight. -/
 def a62_faculty (t : Tax) : Prop := ∀ r ∈ Rupa.all, t.faculty r = indriyaRupa.contains r
 
@@ -478,7 +478,7 @@ def a74_seven_elements (t : Tax) : Prop := (t.kinds.map (·.dhatu)).eraseDups.le
     of development and three signs are names: by the type, nothing to constrain. -/
 def a105_forty (t : Tax) : Prop := t.kammatthana = kammatthana40
 
-/-- A105, absorption (⏳ PENDING correction 2: the row says "which subjects reach absorption, and which jhāna", and its
+/-- A105, absorption (from the row's cited lines, Protocol 1 correction 2 §2: the row says "which subjects reach absorption, and which jhāna", and its
     cited lines give it, §19–25): every subject reaches exactly the jhānas `jhanaTable` gives it. -/
 def a105_absorption (t : Tax) : Prop := ∀ s ∈ t.kammatthana.flatten, ∀ n ∈ [1, 2, 3, 4, 5, 6], t.kjhana s n = jhanaTable s n
 
@@ -765,7 +765,7 @@ theorem kammatthana_forty : kammatthana40.flatten.length = 40 ∧ kammatthana40.
 theorem category_sizes :
     (PapaCat.all.map PapaCat.size, MissakaCat.all.map MissakaCat.size, BodhiCat.all.map BodhiCat.size, SabbaCat.all.map SabbaCat.size)
       = ([4, 4, 4, 4, 4, 6, 7, 10, 10, 10], [6, 7, 8, 4, 22, 9, 4, 4], [4, 4, 4, 5, 5, 7, 8], [5, 5, 12, 18, 4]) := by decide
-/-- An ENCODING check, not a world: the pending table gives the text's own totals, 30 subjects reach absorption (§20,
+/-- An ENCODING check, not a world: the table gives the text's own totals, 30 subjects reach absorption (§20,
     `:3129`) and 26 reach a fine-material jhāna (§24, `:3145`). -/
 theorem jhanaTable_text_totals :
     (kammatthana40.flatten.filter fun s => [1, 2, 3, 4, 5, 6].any (jhanaTable s)).length = 30 ∧

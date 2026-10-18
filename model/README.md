@@ -31,10 +31,11 @@ line, so a multi-line definition broke the file's syntax and was counted as a pa
 three failures and a two-line definition that must pass, and CI runs it. Its first run caught a bug in the new harness
 itself (an `example` line was read as part of the definition above it), fixed before anything relied on it.
 
-**⏳ PENDING definitions.** Some rows name a list whose members their own cited lines give (A35's functions, A38's
-other three object groups, A62's base, door and faculty, A105's absorption table). Protocol 1 §7.1 encodes a row's own
-words, so those definitions are marked PENDING: they encode the cited lines, and they stay only if the founder approves
-a correction that lets a row's cited lines supply its members. Until then they are not part of the encoding.
+**Definitions from a row's cited lines.** Some rows name a list whose members only their own cited lines give (A35's
+functions, A38's other three object groups, A62's base, door and faculty, A105's absorption table). Protocol 1 §7.1
+encodes a row's own words; correction 2 §2 (founder 2026-10-18) lets a row's OWN cited lines supply the members of a
+list it names, never lines it does not cite. The eight such definitions are part of the encoding and say so in their
+docstrings.
 
 ## The parts of `World`, in build order
 
