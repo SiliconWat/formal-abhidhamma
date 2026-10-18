@@ -14,6 +14,7 @@ of the axioms is built here before Protocol 2 freezes the encoding by commit.
 | `CENSUS.md` | every live row, with its class (constraint · by the type · not formalizable), its part of `World`, its occurrence conditions, and its rival readings |
 | `Mind.lean` | the stream: mind-moments on a clock of sub-moments (A1 · A3 · A40 · A77 · A117 · C) |
 | `Tax.lean` | the taxonomy: the kinds a world has and their counts — citta, cetasika, function, object, matter, origin, chapter 7's categories, the subjects of calm (A27–A29 · A31–A35 · A38 · A60 · A62 · A65 · A71–A74 · A105 · A107), importing the generator (`sangaha/`, `control/Cetasika.lean`) |
+| `Proc.lean` | cognitive processes: the five-door process by grade, the mind-door process, absorption, the path process, death, the immaterial attainments' objects, the sense meeting (A35's and A38's PROC halves · A36 · A37 · A41–A45 · A57 · A106 · A109 · A115), importing `Tax.lean` |
 | `run.sh` | compiles every file, then gives each definition its teeth test; `--control` plants the failures the test must catch |
 
 ## The teeth test

@@ -36,15 +36,15 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A34 | L4 | C | TAX | root counts 18 · 2 · 22 · 47 | — | — |
 | A35 | L4 | C | TAX+PROC | 14 functions, 10 stations; per-citta function counts 68 · 2 · 9 · 8 · 2; a process station holds only a citta-type with that function | each function performed | ⏳ COVERAGE: the cited lines (§20–32) give which types perform each function; the row carries only the counts (`a35_which`, from the cited lines: correction 2 §2) |
 | A36 | L4 | C | PROC | six doors; the mind-door is a bhavaṅga moment; 19 citta-types are door-free | each door used | — |
-| A37 | L4 | C | PROC | a sense-door citta takes a PRESENT object; a mind-door citta takes a present, past, future or time-free object | — | — |
+| A37 | L4 | C | PROC | a sense-door citta takes a PRESENT object; a mind-door citta takes a present, past, future or time-free object | — | ⚠️ the eye-door-only-visible-form clause of §51 is not in the row's words (finding 5); the mind-door clause permits (finding 6) |
 | A38 | L4 | C | TAX+PROC | object scopes by citta-type (sense-consciousness one kind; supramundane only nibbāna; 25 · 21 · 5) | — | ⚠️ ROW ERROR: "5 take any object" misreads §59 (`:1077`) and the verse (`:1105`, *chacceti*): six take any object, five all but the arahant's path and fruit; encoded as the text (correction 2 §1) · the other three groups (6 · 20 · 5) from the cited lines (§2) |
 | A39 | L4 | C | MAT+MIND | six bases; by sphere (all six in the sense sphere, no nose, tongue or body in the fine-material, none in the immaterial); dependence of each consciousness | — | — |
 | A1 | L1 (shared premise) · L2 | C | MIND | at most one citta per tick in a stream | — | — |
 | A40 | L2 | C | MIND | a mind-moment is three equal sub-moments: arising, standing, dissolution | — | — |
 | A4 | L2 | C | MAT | concretely produced matter lasts 17 mind-moments (51 sub-moments) | — | VARIANT: 16 (a ṭīkā's reading), 16⅓ (a ṭīkā's report) |
 | A41 | L5 | C | PROC | the very great five-door process: entry after one past moment, 2 vibrations, 14 process cittas, then the object ceases (17) | a very great five-door process | VARIANT: Ledi, 6 or 5 javanas for weak objects; dissents the Vibhāvinī rejects are not encoded |
-| A42 | L5 | C | PROC | grades by past moments: 1 · 2–3 · 4–9 · 10–15, with the Vibhāvinī's fit rule (extending it to every stage is OURS → a declared choice) | each grade | the *keci* 16-moment view is A4's variant |
-| A43 | L4 | C | PROC | mind-door process (clear: registration; obscure: none); absorption after 3 or 4 preparatory javanas, with no registration | a mind-door process; an absorption | — |
+| A42 | L5 | C | PROC | grades by past moments: 1 · 2–3 · 4–9 · 10–15, as the row gives them (the fit rule that derives them in `kala/Vithi.lean` is not encoded: extending it to every stage is OURS) | each grade | the *keci* 16-moment view is A4's variant · ⚠️ SCOPE: "with registration" encoded as the row says, against §10's *yathārahaṃ* (finding 4) |
+| A43 | L4 | C | PROC | mind-door process (clear: registration; obscure: none); absorption after 3 or 4 preparatory javanas, with no registration | a mind-door process; an absorption | absorption read from §21 (the 26 exalted and supramundane javanas), so the path process is one (correction 2 §2) |
 | A44 | L4 | C | PROC | javana counts: 7 (or 6); 5 at death; a first absorption and super-knowledge once; a path citta one moment, then 2 or 3 fruition | — | VARIANT: the reported twin-miracle reviewing (*vadanti*) |
 | A45 | L4 | C | PROC | registration only for sense-sphere beings, objects and javana, on a clear or very great object; resultant follows desirability | — | VARIANT: the teachers' intervening equanimity investigation |
 | A46 | L4 | C | MIND | no wholesome or unwholesome javana for arahants; no functional javana for others; supramundane javana only for noble persons; non-percipient beings have no citta | — | — |
@@ -60,7 +60,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A54 | L4 | C | MIND | kamma → rebirth and resultants (the table at its cited lines, captured in full) | — | VARIANT: *kecana*, prompted ↔ unprompted |
 | A55 | L4 | T | MIND | each death is one of four kinds | each kind of death | — |
 | A56 | L4 | C | MIND | at death a sign presents at a door; the rebirth-linking citta arises immediately after the death citta | a death followed by a rebirth | — |
-| A57 | L4 | C | PROC | death javanas are five; the rebirth citta may take a present object; kamma is always past | — | — |
+| A57 | L4 | C | PROC | death javanas are five; the rebirth citta may take a present object; kamma is always past | — | "can take a present object" permits (finding 6) |
 | A58 | L4 (L1 for the womb-born) | C | MIND | every existence with mind begins with its rebirth-linking citta; every citta lies at or after it | — | — |
 | A11 | L1 | C | COSMO | day-lengths by realm (50 human years = one Four-Great-Kings day; 200 = one Yāma day) | — | — |
 | A13 | L1 · L2 · L4 | C | MIND+MAT | a non-percipient existence: matter and a life faculty, no citta; an immaterial existence: citta, no matter | each | — |
@@ -100,7 +100,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A85 | L1 | C | COND | support: the co-nascent relations; each organ for its consciousness; the base for mind | — | — |
 | A86 | L1 · L4 | C | COND | decisive support: earlier states condition later ones; three kinds | — | — |
 | A87 | L1 | C | COND+MAT | pre-nascence: the five organs and objects, already arisen, condition the consciousness that takes them; the heart-base the mind-element | — | — |
-| A115 | L1 (+ an added existential reading) | C | PROC | when the eye is intact, form in range, and attention, eye-consciousness arises | an instance (the added reading, declared) | — |
+| A115 | L1 (+ an added existential reading) | C | PROC | when the eye is intact, form in range, and attention, eye-consciousness arises | an instance (the added reading, declared) | the conditional over meetings; the manifesting consciousness as a process step is the MIND link (finding 7) |
 | A116 | L1 · L2 | C | MAT+PROC | the five sense-consciousnesses arise in a pre-born, unceased base (presence at arising only) | — | — |
 | A117 | L1 | C | MIND | a mind-moment has an arising-moment and a dissolution-moment | — | — |
 | A118 | L1 (wording) · L3 (scope) | C | MIND+MAT | COMMON CORE (correction 1): in the course of existence, no mind-born matter arises at a citta's dissolution-moment; in the formless world no truth of suffering arises then | — | VARIANT: Ānanda's literal scope (no matter at all); the *apare*'s formless-only scope. ⛔ never with A120 at base |
@@ -135,7 +135,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A107 | L4 | C | TAX | the five super-knowledges arise from the fifth jhāna | a super-knowledge | — |
 | A108 | L4 | N | — | stages of a meditator's knowledge and modes of comprehension; the model holds no knowledge-content beyond citta-types | — | — |
 | A127 | L2 | N | — | what APPEARS to a meditator and what conceals it | — | — |
-| A109 | L4 | C | PROC | the path process: preparation, access, conformity; change-of-lineage on nibbāna; path one moment; 2–3 fruition; bhavaṅga; reviewing | a path process | — |
+| A109 | L4 | C | PROC | the path process: preparation, access, conformity; change-of-lineage on nibbāna; path one moment; 2–3 fruition; bhavaṅga; reviewing | a path process | "then reviewing" is the order of processes: the MIND link (finding 7) |
 | A110 | L4 | C | MIND | four noble persons by what each path abandons; a stream-enterer has at most seven more births | each noble person | — |
 | A111 | L1 (MN 43) · L2 · L4 | C | MIND+MAT | cessation for non-returners and arahants: after neither-perception javanas the stream is cut off for a pre-fixed time (≤ the remaining life); no death within; emergence by one fruition citta; life and heat persist | a cessation with emergence | — |
 | A112 | L1 · L2 · L3 | C | MIND+COND | proximity holds across cessation (neither-perception → fruition) | — | VARIANT: the teachers' temporal reading of contiguity (Revata) |
@@ -181,8 +181,9 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 |---|---|---|---|---|
 | MIND (first six) | `Mind.lean` | A1 · A3 · A40 · A77 · A117 · C | 6 | 6 |
 | TAX | `Tax.lean` | A27 · A28 · A29 · A31 · A32 · A33 · A34 · A35 · A38 · A60 · A62 · A65 · A71 · A72 · A73 · A74 · A105 · A107 | 45, of which 8 from the rows' cited lines (`a35_which` · `a38_six_exalted` · `a38_twenty` · `a38_five_but_agga` · `a62_base` · `a62_door` · `a62_faculty` · `a105_absorption`; Protocol 1 correction 2 §2) | 45 |
+| PROC | `Proc.lean` | A35 (PROC half) · A36 · A37 · A38 (PROC half) · A41 · A42 · A43 · A44 · A45 · A57 · A106 · A109 · A115 | 44 | 44 |
 
-`run.sh` passed on 2026-10-18 with 51 forbidden worlds and no problems, after its own control. A row with several
+`run.sh` passed on 2026-10-18 with 95 forbidden worlds and no problems, after its own control. A row with several
 clauses has one definition per clause. TAX rows the census listed under TAX+PROC or TAX+MAT (A35, A38, A65) have their
 taxonomy clauses here; the PROC and MAT halves are encoded with those parts.
 
@@ -199,3 +200,20 @@ taxonomy clauses here; the PROC and MAT halves are encoded with those parts.
    them, so the eight definitions are part of the encoding.
 3. **Some count rows are weak by their own words** (A27: any 72 distinct entities). This is reported, not repaired:
    the OURS breakdown never becomes an axiom.
+
+**Findings for the founder, from the PROC encoding (2026-10-18):**
+
+4. **A42's row says more than its line.** It calls the very great grade "the full process, WITH registration"; the
+   Saṅgaha says the two registrations come "as fitting" (*yathārahaṃ*, ch. 4 §10, `abh07t.nrf.xml:1237`), and A45 bars
+   registration outside the sense sphere. Encoded as the ROW says (`a42_very_great`), so with A45 a world has no very
+   great five-door object for a being of the fine-material sphere. If the attempt meets it, it is a scope collision of
+   the row's words, not of the text; whether to read the row as the line (as correction 2 §1 did for A38) is the
+   founder's.
+5. **A37's cited line says more than the row.** Every eye-door citta takes visible form only (§51, `:1045`); the row's
+   words do not say so, and it is not a list's members, so correction 2 §2 does not bring it in. Not encoded.
+6. **Three clauses permit and forbid nothing**: A37's mind-door times, A44's "in attainments javanas run many times",
+   A57's "the rebirth citta can take a present object". No forbidden world exists for a permission; they go to the
+   occurrence list (Protocol 1 §4), with A115's added existential reading.
+7. **What PROC leaves to the MIND link**: how a process's steps sit in a stream's moments, the order of processes
+   (A109's "then reviewing", the bhavaṅga after a process), and that A115's manifesting consciousness is a step of a
+   process.

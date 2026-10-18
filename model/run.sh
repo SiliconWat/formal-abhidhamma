@@ -1,6 +1,7 @@
 #!/bin/sh
 # model/ — the one-World encoding for The Calculus of Moments, attempt 1 (a WORKING encoding; Protocol 2 freezes it).
-# 1. Every file compiles (Tax.lean imports the generator, so its oleans are built first, in a scratch directory).
+# 1. Every file compiles (Tax.lean imports the generator and Proc.lean imports Tax.lean, so their oleans are built
+#    first, in a scratch directory).
 # 2. TEETH: each definition `def aNN_… / c_… / k_…` has a forbidden-world theorem `<id>_forbids_…` that uses it, and
 #    replacing the WHOLE definition (every line of it) with `True` makes that theorem fail, checked on a copy that keeps the
 #    definitions and only that theorem (isolated, per the Kv 8.2 run's lesson), with the FIRST error inside that theorem:
@@ -9,11 +10,13 @@
 # Exit 0 only if all hold. LEAN=path/to/lean to override. `./run.sh --control` plants the three failures it must catch.
 set -u; cd "$(dirname "$0")"; LEAN="${LEAN:-lean}"
 command -v "$LEAN" >/dev/null 2>&1 || LEAN="$HOME/.elan/bin/lean"
-FILES="Mind.lean Tax.lean"
+FILES="Mind.lean Tax.lean Proc.lean"
 B=$(mktemp -d); trap 'rm -rf "$B"' EXIT
 export LEAN_PATH="$B"
 ( cd ../control && $LEAN -o "$B/Cetasika.olean" Cetasika.lean ) && ( cd ../sangaha && $LEAN -o "$B/Citta.olean" Citta.lean \
   && $LEAN -o "$B/Rules.olean" Rules.lean ) || { echo "FAIL  the generator does not build"; exit 1; }
+# Proc.lean imports Tax.lean, so Tax's olean is built next (from model/, where the repo's toolchain is pinned)
+$LEAN -o "$B/Tax.olean" Tax.lean || { echo "FAIL  Tax.lean does not build"; exit 1; }
 CONTROL=0; [ "${1:-}" = "--control" ] && CONTROL=1
 if [ $CONTROL = 1 ]; then
   # Planted, each of which the teeth test must report: a definition with no forbidden world (NO TEETH), one whose forbidden
