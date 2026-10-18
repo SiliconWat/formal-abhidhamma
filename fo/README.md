@@ -35,14 +35,19 @@ type rather than by a reader's audit.
 Conditional theorems about any list of durations, never a model of the rows:
 
 - `finite_chain_spans_infinitesimal` · `finite_chain_standard_part_zero`: if every step of a FINITE chain lasts an
-  infinitesimal time, so does the chain, and its standard part is 0. A finite chain reaches a *galaxy*, inside one
-  *monad* of time.
+  infinitesimal time, so does the chain, and its standard part is 0. The moments within a finite chain (a *galaxy*, in
+  the order) fall inside one *halo* of time (on the clock); in one space the inclusion runs the other way, so the two
+  words always name their spaces.
 - `ordinary_duration_needs_a_long_step`: so a finite chain spanning more than an infinitesimal has a step that is not.
-- `infinitely_many_steps_make_a_unit`: ω steps of length ε make exactly one ordinary unit.
-- `cessation_step_is_not_infinitesimal`: one ordinary step (A112's cessation, on this clock) among infinitesimal ones,
-  and the span is no longer infinitesimal.
+- `infinitely_many_steps_make_a_unit`: ε · ω = 1, a product (the hyperfinite sum of ω steps follows by transfer, not
+  formalized here).
+- `cessation_step_is_not_infinitesimal`: one ordinary step among infinitesimal ones, and the span is no longer
+  infinitesimal. It models the day-reckoning; on time laid on the stream the texts give no interval across cessation
+  (`abh03t.tik.xml:4309`).
 
-Whether a citta's duration IS infinitesimal is the founder's reading (H₂ of Thesis H, amendment 2), never a row.
+Whether a citta's duration IS infinitesimal is a clock reading the texts allow and never force, never a row. It is not
+H₂ of Thesis H (amendment 2), which counts moments: the clock reading yields H₂ on a stretch of ordinary length with no
+cessation in it, and H₂ does not yield the clock reading.
 
 ## Checking it
 

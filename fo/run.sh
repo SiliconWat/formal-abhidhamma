@@ -43,7 +43,7 @@ BREAKS = [
      "make the long step infinitesimal too (ε for 1): then the span IS infinitesimal, and the theorem must not prove otherwise",
      lambda s: s.replace("¬ Infinitesimal ((1 : ℝ*) + ε) := by", "¬ Infinitesimal ((ε : ℝ*) + ε) := by")),
     ("FO/Chain.lean", "finitely-many", "infinitely_many_steps_make_a_unit",
-     "a thousand steps of length ε for ω of them: a finite number of infinitesimal steps cannot make the unit",
+     "ε · 1000 for ε · ω: a finite multiple of an infinitesimal cannot make the unit",
      lambda s: s.replace("theorem infinitely_many_steps_make_a_unit : ε * ω = 1 ∧ stdPart (ε * ω) = 1 :=",
                          "theorem infinitely_many_steps_make_a_unit : ε * 1000 = 1 ∧ stdPart (ε * 1000) = 1 :=")),
 ]

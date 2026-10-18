@@ -13,19 +13,25 @@ single step of proximity spans days (A112).
 This file proves the mathematical core of that version and nothing about the texts:
 
 - `finite_chain_spans_infinitesimal` — if every step of a FINITE chain lasts an infinitesimal time, the whole chain
-  does too, so its standard part is 0 (`finite_chain_standard_part_zero`): a finite chain reaches only a *galaxy*, which
-  lies inside one *monad* of time.
+  does too, so its standard part is 0 (`finite_chain_standard_part_zero`). Across two spaces: the moments within a
+  finite chain of one moment (its *galaxy*, in the ORDER) all fall inside one *halo* of its time (on the CLOCK). ⚠️ In one
+  space the inclusion runs the other way (the halo lies inside the galaxy), so the two words are never put side by
+  side without naming their spaces (the A424 refuter, 2026-10-18).
 - `ordinary_duration_needs_a_long_step` — so a finite chain that spans an ordinary duration has a step that is not
   infinitesimal.
-- `infinitely_many_steps_make_a_unit` — the other side: ω steps of length ε = ω⁻¹ make exactly one ordinary unit, so an
-  ordinary duration made of infinitesimal steps needs infinitely many of them.
-- `cessation_step_is_not_infinitesimal` — one step of ordinary length (A112's cessation, read on this clock) among
-  infinitesimal ones, and the span is no longer infinitesimal: across cessation the hypothesis fails, not the theorem.
+- `infinitely_many_steps_make_a_unit` — the other side: ε · ω = 1, a PRODUCT. That an internal (hyperfinite) sum of ω
+  steps of length ε is 1 follows by transfer, which this file does not formalize.
+- `cessation_step_is_not_infinitesimal` — one step of ordinary length among infinitesimal ones, and the span is no longer
+  infinitesimal. ⚠️ It models the DAY-RECKONING (time laid on the sun's and moon's turning, A104). On time laid on the
+  stream's own occurrence the texts give no interval across cessation at all (*nirodhuppādanirantaratāya kālantaratā
+  natthi*, the Mūlaṭīkā, `abh03t.tik.xml:4309`), so there the theorem's premise is denied, not met.
 
 ⛔ **Not a model of the rows.** Protocol 1 forbids any model search before Protocol 2 freezes the encoding. These are
 CONDITIONAL theorems about any list of durations on Mathlib's hyperreals; the stream rows, the clock (`model/Mind.lean`
-`Scale`) and the founder's Thesis H (amendment 2) are not used. Whether a step's duration IS infinitesimal is the
-founder's reading (H₂), never a row. Physics: none — no measurement returns an infinitesimal (A424's reading).
+`Scale`) and the founder's Thesis H (amendment 2) are not used. Whether a citta's duration IS infinitesimal is a CLOCK
+reading the texts allow and never force; it is not H₂, which is a COUNT claim (some stretch infinite yet hyperfinite).
+With a stretch of ordinary length and no cessation in it, the clock reading yields H₂; H₂ does not yield it. Never a row.
+Physics: none — no measurement returns an infinitesimal (A424's reading).
 
 `Infinitesimal` is Mathlib's convention made explicit: `x` is infinitesimal when its Archimedean class lies above the
 ordinary numbers' (`0 < ArchimedeanClass.mk x`; for the ordinary numbers it is 0, and `mk 0 = ⊤`).
