@@ -37,6 +37,18 @@ structure Link (S : Scale) where
   rebirth : s.M → Prop
   produces : s.M → Prop
   embodied : s.M → Prop
+  /-- death citta (K) -/
+  death : s.M → Prop := fun _ => False
+  /-- concretely produced matter, as opposed to the intimations and the characteristics (A4) -/
+  concrete : K → Bool := fun _ => true
+  /-- where an occurrence ceases: the mind-moment and the sub-moment of its dissolution (A4) -/
+  ceaseMom : K → s.M
+  ceasePhase : K → Phase
+
+/-- Steps of proximity: `Steps prox n m m'` — m' is n proximity-steps after m. -/
+inductive Steps {M : Type} (prox : M → M → Prop) : Nat → M → M → Prop
+  | zero (m : M) : Steps prox 0 m m
+  | succ {n : Nat} {m a b : M} : Steps prox n m a → prox a b → Steps prox (n + 1) m b
 
 /-- A120 (L2/L3/L5, `kala/AXIOMS.md`; Vism XX §700 `e0102n.mul.xml`): mind-born matter arises only at a citta's arising sub-moment
     (*nāpi ṭhitikkhaṇe vā bhaṅgakkhaṇe vā uppajjati*). -/
@@ -64,13 +76,32 @@ def a67_mind_born_not_at_rebirth (S : Scale) (l : Link S) : Prop := ∀ k, l.ori
 /-- A64 (L4, `:2197`): only cittas that produce matter produce it (all but the immaterial resultants and the ten sense-consciousnesses). -/
 def a64_mind_born_only_by_producers (S : Scale) (l : Link S) : Prop := ∀ k, l.origin k = .citta → l.produces (l.mom k)
 
-/-! ## Forbidden worlds (whole-number scale; one occurrence each) -/
+/-- A4 in stream terms (L2/L4, `abh02a.att.xml:413`; `abh07t.nrf.xml:1233`), the COUNT INCLUSIVE of the moment at which the matter arises
+    (⚠️ a declared choice, founder 2026-10-20 *"continue per your recommendation"*, the K row's own reading): concretely produced
+    matter lasts fifty-one sub-moments, so matter arising at a citta's arising sub-moment ceases at the dissolution-moment of the
+    citta sixteen steps on (the "seventeenth"), standing → the arising of the seventeenth step, dissolution → its standing. -/
+def a4_life_in_the_stream (S : Scale) (l : Link S) : Prop :=
+  ∀ k, l.concrete k = true →
+    (l.phase k = .arise → Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∧
+    (l.phase k = .stand → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .arise) ∧
+    (l.phase k = .dissolve → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .stand)
+
+/-- K (L4, ch. 6 §56, `abh07t.nrf.xml:2333`): from the standing phase of the seventeenth citta before the death citta (the death citta counted
+    as the first, so b is sixteen steps before it), kamma-born matter no longer arises: not at b's standing or dissolution, and at none of
+    the cittas from b's successor to the death citta. -/
+def k_kamma_born_stops (S : Scale) (l : Link S) : Prop :=
+  ∀ d b, l.death d → Steps l.s.prox 16 b d → ∀ k, l.origin k = .kamma →
+    ¬ (l.mom k = b ∧ l.phase k ≠ .arise) ∧ ∀ n, 1 ≤ n → n ≤ 16 → ¬ Steps l.s.prox n b (l.mom k)
+
+/-! ## Forbidden worlds -/
+
+/-! ### One moment, one occurrence (whole-number scale) -/
 
 /-- One moment 0 (arise 0, stand 1, dissolve 2, close 3); one occurrence at moment 0 with origin o and phase p. -/
 abbrev one (o : Origin) (p : Phase) (rb pr em : Prop) : Link Z :=
   { s := ⟨Unit, fun _ => (0 : Int), fun _ => (1 : Int), fun _ => (2 : Int), fun _ => (3 : Int), fun _ _ => False⟩,
     K := Unit, origin := fun _ => o, mom := fun _ => (), phase := fun _ => p,
-    rebirth := fun _ => rb, produces := fun _ => pr, embodied := fun _ => em }
+    rebirth := fun _ => rb, produces := fun _ => pr, embodied := fun _ => em, ceaseMom := fun _ => (), ceasePhase := fun _ => .dissolve }
 
 /-- Mind-born matter arising at a citta's standing sub-moment. -/
 abbrev mindBornStanding : Link Z := one .citta .stand False True True
@@ -101,5 +132,51 @@ theorem a67_forbids_mindBornAtRebirth : ¬ a67_mind_born_not_at_rebirth Z mindBo
 abbrev mindBornByNonProducer : Link Z := one .citta .arise False False True
 theorem a64_forbids_mindBornByNonProducer : ¬ a64_mind_born_only_by_producers Z mindBornByNonProducer := by
   intro h; exact h () rfl
+
+/-! ### A chain of moments 0, 1, 2, …: moment n arises at 3n, each the proximate successor of the one before -/
+
+abbrev chain : Stream Z := ⟨Nat, fun n => (3 * n : Int), fun n => (3 * n + 1 : Int), fun n => (3 * n + 2 : Int), fun n => (3 * n + 3 : Int), fun m n => n = m + 1⟩
+
+@[local simp] theorem chain_steps {n a b : Nat} (h : Steps chain.prox n a b) : b = a + n := by
+  induction h with
+  | zero m => rfl
+  | succ _ hp ih => have : _ = _ := hp; omega
+
+@[local simp] theorem chain_reach : ∀ n : Nat, Steps chain.prox n 0 n := by
+  intro n; induction n with
+  | zero => exact Steps.zero 0
+  | succ n ih => exact Steps.succ ih (show n + 1 = n + 1 from rfl)
+
+/-- A chain with one occurrence at moment `m` and phase `p`, origin `o`, ceasing at moment `cm` in phase `cp`; moment `dm` is the death citta. -/
+abbrev chainLink (o : Origin) (m : Nat) (p : Phase) (cm : Nat) (cp : Phase) (dm : Nat) : Link Z :=
+  { s := chain, K := Unit, origin := fun _ => o, mom := fun _ => m, phase := fun _ => p,
+    rebirth := fun _ => False, produces := fun _ => True, embodied := fun _ => True,
+    death := fun d => d = dm, ceaseMom := fun _ => cm, ceasePhase := fun _ => cp }
+
+/-- Matter arising at a citta's arising that ceases at the dissolution of the fifteenth step on (sixteen moments, not seventeen). -/
+abbrev dies16 : Link Z := chainLink .utu 0 .arise 15 .dissolve 0
+theorem a4_forbids_dies16 : ¬ a4_life_in_the_stream Z dies16 := by
+  intro h
+  have := chain_steps (((h () rfl).1 rfl).1)
+  simp at this
+
+/-- Matter arising at a citta's standing that ceases at the arising of the sixteenth step on rather than the seventeenth. -/
+abbrev standsTooShort : Link Z := chainLink .utu 0 .stand 16 .arise 0
+theorem a4_forbids_standsTooShort : ¬ a4_life_in_the_stream Z standsTooShort := by
+  intro h
+  have := chain_steps (((h () rfl).2.1 rfl).1)
+  simp at this
+
+/-- Kamma-born matter arising at the standing phase of the seventeenth citta before the death citta (moment 0; death at 16). -/
+abbrev kammaAtStanding : Link Z := chainLink .kamma 0 .stand 0 .arise 16
+theorem k_forbids_kammaAtStanding : ¬ k_kamma_born_stops Z kammaAtStanding := by
+  intro h
+  exact (h 16 (0 : Nat) rfl (chain_reach 16) () rfl).1 ⟨rfl, by decide⟩
+
+/-- Kamma-born matter arising at a later citta before the death citta (moment 3; death at 16, so b = 0). -/
+abbrev kammaLater : Link Z := chainLink .kamma 3 .arise 0 .arise 16
+theorem k_forbids_kammaLater : ¬ k_kamma_born_stops Z kammaLater := by
+  intro h
+  exact (h 16 (0 : Nat) rfl (chain_reach 16) () rfl).2 3 (by decide) (by decide) (chain_reach 3)
 
 end FormalAbhidhamma.Model
