@@ -44,6 +44,10 @@ structure Link (S : Scale) where
   /-- where an occurrence ceases: the mind-moment and the sub-moment of its dissolution (A4) -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
+  /-- a sense-consciousness: its base (the organ) and its object, as occurrences (A116, A87) -/
+  sense : s.M → Prop := fun _ => False
+  base : s.M → Option K := fun _ => none
+  object : s.M → Option K := fun _ => none
 
 /-- Steps of proximity: `Steps prox n m m'` — m' is n proximity-steps after m. -/
 inductive Steps {M : Type} (prox : M → M → Prop) : Nat → M → M → Prop
@@ -178,5 +182,51 @@ abbrev kammaLater : Link Z := chainLink .kamma 3 .arise 0 .arise 16
 theorem k_forbids_kammaLater : ¬ k_kamma_born_stops Z kammaLater := by
   intro h
   exact (h 16 (0 : Nat) rfl (chain_reach 16) () rfl).2 3 (by decide) (by decide) (chain_reach 3)
+
+/-- The clock reading of a sub-moment of a moment. -/
+def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
+  | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
+
+/-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading and has not ceased before m's arising. -/
+def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
+  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ ¬ S.lt (l.ceasePhase k |>.at S l.s (l.ceaseMom k)) (l.s.arise m)
+
+/-- A116 (L1/L2, Vibhaṅga §762 `abh02m.mul.xml:9125`; Sammohavinodanī `abh02a.att.xml:7361`): a sense-consciousness arises in a pre-born, unceased
+    base — the base has arisen before it and has not ceased when it arises. Presence at the ARISING only, never "throughout". -/
+def a116_prenascent_unceased_base (S : Scale) (l : Link S) : Prop :=
+  ∀ m, l.sense m → ∃ k, l.base m = some k ∧ present_at_arising S l k m
+
+/-- A87, the MAT half (L1, `abh03m7.mul.xml:169–177`): the organ and the object are already arisen, and unceased, when the consciousness that takes them arises. (The
+    condition relation itself, pre-nascence, is the COND link's.) -/
+def a87_organ_and_object_already_arisen (S : Scale) (l : Link S) : Prop :=
+  ∀ m, l.sense m → (∃ k, l.base m = some k ∧ present_at_arising S l k m) ∧ (∃ k, l.object m = some k ∧ present_at_arising S l k m)
+
+/-! ### Forbidden worlds: A116, A87 -/
+
+/-- Two moments, 0 and 1 on the chain; a sense-consciousness at 1 whose base arises at moment 1 itself (co-arising). -/
+abbrev coarisingBase : Link Z :=
+  { (chainLink .kamma 1 .arise 3 .dissolve 99) with sense := fun m => m = 1, base := fun m => (if m = 1 then some () else none : Option Unit), object := fun m => (if m = 1 then some () else none : Option Unit) }
+theorem a116_forbids_coarisingBase : ¬ a116_prenascent_unceased_base Z coarisingBase := by
+  intro h
+  obtain ⟨k, hk, hp⟩ := h 1 rfl
+  have := hp.1
+  simp [Phase.at, coarisingBase, chainLink] at this
+
+/-- A sense-consciousness whose base arose at moment 0 but ceased at moment 0's dissolution, before moment 1 arises. -/
+abbrev ceasedBase : Link Z :=
+  { (chainLink .kamma 0 .arise 0 .dissolve 99) with sense := fun m => m = 1, base := fun m => (if m = 1 then some () else none : Option Unit), object := fun m => (if m = 1 then some () else none : Option Unit) }
+theorem a116_forbids_ceasedBase : ¬ a116_prenascent_unceased_base Z ceasedBase := by
+  intro h
+  obtain ⟨k, hk, hp⟩ := h 1 rfl
+  have := hp.2
+  simp [Phase.at, ceasedBase, chainLink] at this
+
+/-- A sense-consciousness with no object. -/
+abbrev noObject : Link Z :=
+  { (chainLink .kamma 0 .arise 5 .dissolve 99) with sense := fun m => m = 1, base := fun m => (if m = 1 then some () else none : Option Unit) }
+theorem a87_forbids_noObject : ¬ a87_organ_and_object_already_arisen Z noObject := by
+  intro h
+  obtain ⟨_, k, hk, _⟩ := h 1 rfl
+  simp [noObject] at hk
 
 end FormalAbhidhamma.Model
