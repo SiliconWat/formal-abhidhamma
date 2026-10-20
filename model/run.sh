@@ -10,7 +10,7 @@
 # Exit 0 only if all hold. LEAN=path/to/lean to override. `./run.sh --control` plants the three failures it must catch.
 set -u; cd "$(dirname "$0")"; LEAN="${LEAN:-lean}"
 command -v "$LEAN" >/dev/null 2>&1 || LEAN="$HOME/.elan/bin/lean"
-FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean"
+FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean Cond.lean"
 B=$(mktemp -d); trap 'rm -rf "$B"' EXIT
 export LEAN_PATH="$B"
 ( cd ../control && $LEAN -o "$B/Cetasika.olean" Cetasika.lean ) && ( cd ../sangaha && $LEAN -o "$B/Citta.olean" Citta.lean \
@@ -19,6 +19,8 @@ export LEAN_PATH="$B"
 $LEAN -o "$B/Tax.olean" Tax.lean || { echo "FAIL  Tax.lean does not build"; exit 1; }
 # Link.lean imports Mind.lean and Tax.lean
 $LEAN -o "$B/Mind.olean" Mind.lean || { echo "FAIL  Mind.lean does not build"; exit 1; }
+# Cond.lean imports Relata.lean (the Paṭṭhāna relata, matika/)
+( cd ../matika && $LEAN -o "$B/Relata.olean" Relata.lean ) || { echo "FAIL  Relata.lean does not build"; exit 1; }
 # Mat.lean imports Proc.lean, so Proc's olean is built too
 $LEAN -o "$B/Proc.olean" Proc.lean || { echo "FAIL  Proc.lean does not build"; exit 1; }
 CONTROL=0; [ "${1:-}" = "--control" ] && CONTROL=1
