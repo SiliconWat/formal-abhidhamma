@@ -185,6 +185,7 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 | MAT (batches 1–2, 2026-10-20) | `Mat.lean` | A39 (sphere clauses) · A4 · A15 · A63 · A6 · A66 · A5 · A13 · A129 (A61 by the type) | 17 | 17 |
 | MAT link (2026-10-20) | `Link.lean` | A120 (two clauses) · A118 (common core) · A64 (kamma from rebirth; mind-born by producers) · A67 (mind-born not at rebirth) · A4 in stream terms · K (the death citta counted in: founder 2026-10-20) · A116 · A87 (its MAT half; the condition relation waits for COND) | 10 | 10 |
 | COND (batch 1, 2026-10-20) | `Cond.lean` | A78 (relata) · A83 · A84 · A87 (COND half) · A88 · A96 · A97 · A98 · A99 · A100 · A101 | 11 | 11 |
+| COND (batch 2, 2026-10-20) | `Cond.lean` | A79 · A80 (sense pairing) · A81 · A89 · A90 · A91 · A92 · A93 · A94 · A95 | 10 | 10 |
 
 `run.sh` passed on 2026-10-18 with 95 forbidden worlds and no problems, after its own control. A row with several
 clauses has one definition per clause. TAX rows the census listed under TAX+PROC or TAX+MAT (A35, A38, A65) have their
