@@ -189,6 +189,7 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 | CLOCKS (2026-10-20) | `Clocks.lean` | A7 (the day-reckoning keeps the order) · A112 (the cessation step: a night to a week on the day-reckoning) · A24 (no night; the rate) | 4 | 5 |
 | COND/LINK additions (2026-10-20) | `Cond.lean` · `Link.lean` | A82 (contiguity, same relata as proximity) · A122 (death then rebirth, both ways) | 3 | 3 |
 | JOIN (2026-10-20) | `Join.lean` | A3 · C (proximity facts ARE the stream's successor relation; the occurrence carries its moment's readings) | 1 | 2 |
+| MAT batch 3 + A121 (2026-10-20) | `Mat.lean` · `Cond.lean` | A68 (three planes' kinds) · A114 (breath absent in seven cases) · A113 (by the TYPE: one `place` per kalāpa) · A121 (every occurrence passes away) | 5 | 7 |
 
 `run.sh` passed on 2026-10-18 with 95 forbidden worlds and no problems, after its own control. A row with several
 clauses has one definition per clause. TAX rows the census listed under TAX+PROC or TAX+MAT (A35, A38, A65) have their

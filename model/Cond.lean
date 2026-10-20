@@ -332,4 +332,12 @@ theorem a82_forbids_proxNotContig : ¬ a82_contiguity_same_relata proxNotContig 
   have := (h 0 1).mp (by simp [proxNotContig, cw])
   simp [proxNotContig, cw] at this
 
+/-- A121 (L1, AN 3.47 `s0402m2.mul.xml:1492`): the conditioned passes away — every occurrence ceases, after it arises, so no conditioned dhamma exists forever. -/
+def a121_passes_away {S : Scale} (w : CondW S) : Prop := ∀ a ∈ w.occs, S.lt a.rise a.fall
+
+/-- An occurrence that never ceases (its ceasing is no later than its arising). -/
+abbrev everLasting : CondW Z := cw [o .nama 5 5] []
+theorem a121_forbids_everLasting : ¬ a121_passes_away everLasting := by
+  intro h; have := h (o .nama 5 5) (by simp [everLasting, cw]); simp [o] at this
+
 end FormalAbhidhamma.Model

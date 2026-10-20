@@ -32,6 +32,9 @@ import Proc
 namespace FormalAbhidhamma.Model
 open FormalAbhidhamma
 
+/-- The cases in which a being does not breathe (A114), besides the two spheres: `normal` is none of them. -/
+inductive BreathCase | normal | womb | water | swoon | dead | fourthJhana | cessation deriving DecidableEq, Repr
+
 /-- A being: the sphere it lives in (A39, A68) and the matter-bases it has, by kind. -/
 structure Being where
   id : Nat
@@ -41,6 +44,11 @@ structure Being where
   hasMind : Bool := true
   hasMatter : Bool := true
   faculties : List Rupa := []
+  /-- A68: the kinds of matter the being's body has -/
+  kinds : List Rupa := []
+  /-- A114: whether it breathes, and which of the seven cases it is in -/
+  breathes : Bool := false
+  breathCase : BreathCase := .normal
   deriving DecidableEq, Repr
 
 /-- A kalāpa (A66): a group of the 28 kinds that arise together, with its origin (A64), its life from arising to
@@ -52,6 +60,8 @@ structure Kalapa where
   life : Nat
   owner : Option Nat
   bound : Bool
+  /-- A113: the place it arises at and stays at for its whole life (a single field by the type: it has no second place, so "going" is another kalāpa at another place) -/
+  place : Nat := 0
   /-- A129: its size in paramāṇu (the Visuddhimagga-ṭīkā: a kalāpa is of paramāṇu size) -/
   size : Nat := 1
   deriving DecidableEq, Repr
@@ -232,5 +242,53 @@ theorem a129_forbids_eightLadder : ¬ a129_ladder eightLadder := by unfold a129_
 /-- A kalāpa two paramāṇu in size. -/
 abbrev bigKalapa : Mat := { okMat with kalapas := [{ okKalapa with size := 2 }] }
 theorem a129_forbids_bigKalapa : ¬ a129_size bigKalapa := by unfold a129_size; decide
+
+/-! ## Batch 3 -/
+
+/-- The 23 kinds of the fine-material sphere: the 28 without nose, tongue, body, woman and man (A68; ch. 6 §58–61, `abh07t.nrf.xml:2345`). -/
+def fineKinds : List Rupa := Rupa.all.filter (fun r => ![Rupa.ghana, .jivha, .kaya, .itthatta, .purisatta].contains r)
+/-- The 17 kinds of the non-percipient: the vital nonad (the pure octad and life), space, the three mutabilities and the four characteristics. -/
+def nonPercipientKinds : List Rupa :=
+  eight ++ [.jivita, .akasa, .lahuta, .muduta, .kammannata, .upacaya, .santati, .jarata, .aniccata]
+
+theorem plane_counts : Rupa.all.length = 28 ∧ fineKinds.length = 23 ∧ nonPercipientKinds.length = 17 := by decide
+
+/-- A68, the fine-material sphere (L4): twenty-three kinds, and no nutriment-born group in the body (§58–61). -/
+def a68_fine (m : Mat) : Prop :=
+  (∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.kinds, r ∈ fineKinds) ∧
+  (∀ b ∈ m.beings, b.plane = .rupa → ∀ k ∈ m.kalapas, k.owner = some b.id → k.origin ≠ .ahara)
+
+/-- A68, the non-percipient: seventeen kinds (the vital nonad at rebirth and the temperature-born except sound). -/
+def a68_non_percipient (m : Mat) : Prop := ∀ b ∈ m.beings, b.hasMind = false → ∀ r ∈ b.kinds, r ∈ nonPercipientKinds
+
+/-- A68, the immaterial sphere: none. -/
+def a68_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.kinds = []
+
+/-- A114 (L1/L2/L3/L5, Vism VIII `e0101n.mul.xml:6717`; SN 41.6 `s0304m.mul.xml:6871`): breath is absent in the seven cases — the womb, under water, the swoon or the non-percipient,
+    the dead, the fourth jhāna, the fine-material and immaterial beings, cessation. ⚠️ The *asaññībhūta* reading as the swoon is the ṭīkās'; the Vism's word is two-way
+    (a VARIANT), and the living unconscious person's bhavaṅga is a recorded tension with A47 + A64 (the breath run). -/
+def a114_absent (m : Mat) : Prop :=
+  ∀ b ∈ m.beings, (b.breathCase ≠ .normal ∨ b.plane = .rupa ∨ b.plane = .arupa ∨ b.hasMind = false) → b.breathes = false
+
+/-! ### Forbidden worlds, batch 3 -/
+
+abbrev fineWithNoseKind : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], kinds := [.ghana] }] }
+theorem a68_forbids_fineWithNoseKind : ¬ a68_fine fineWithNoseKind := by unfold a68_fine; decide
+
+abbrev fineNutrimentBorn : Mat :=
+  { okMat with beings := [{ id := 0, plane := .rupa, bases := [] }], kalapas := [{ okKalapa with owner := some 0, bound := true, origin := .ahara }] }
+theorem a68_forbids_fineNutrimentBorn : ¬ a68_fine fineNutrimentBorn := by unfold a68_fine; decide
+
+abbrev nonPercipientWithSound : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], hasMind := false, kinds := [.sadda] }] }
+theorem a68_forbids_nonPercipientWithSound : ¬ a68_non_percipient nonPercipientWithSound := by unfold a68_non_percipient; decide
+
+abbrev immaterialWithKind : Mat := { okMat with beings := [{ id := 0, plane := .arupa, bases := [], kinds := [.pathavi] }] }
+theorem a68_forbids_immaterialWithKind : ¬ a68_immaterial immaterialWithKind := by unfold a68_immaterial; decide
+
+abbrev breathingInTheWomb : Mat := { okMat with beings := [{ id := 0, plane := .kama, bases := [], breathes := true, breathCase := .womb }] }
+theorem a114_forbids_breathingInTheWomb : ¬ a114_absent breathingInTheWomb := by unfold a114_absent; decide
+
+abbrev breathingFineMaterial : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], breathes := true }] }
+theorem a114_forbids_breathingFineMaterial : ¬ a114_absent breathingFineMaterial := by unfold a114_absent; decide
 
 end FormalAbhidhamma.Model
