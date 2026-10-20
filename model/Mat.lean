@@ -1,8 +1,9 @@
 /-
   model/Mat.lean — the MAT part of the one World: matter (*rūpa*), as the rows count it. FIRST BATCH (2026-10-20):
   A39 (bases by sphere) · A4 (the life-span) · A15 (the inseparable eight; lightness) · A63 (reaching) · A6 (matter bound to
-  no being) · A61 (by type: see below). The rest of MAT (A5 · A13 · A64–A67 · A129 · A114 · K · A68 · A87 · A116 · A118 ·
-  A120 · A121 · A88 · A113) follows in later batches.
+  no being) · A61 (by type: see below). BATCH 2 (2026-10-20): A66 (the 21 kalāpas; the two external; no space or
+  characteristic as a member) · A5 (space) · A13 (mindless and immaterial beings) · A129 (the size ladder). The rest of MAT
+  (A64 · A67 · A114 · K · A68 · A87 · A116 · A118 · A120 · A121 · A88 · A113) needs the MIND link or COSMO and follows later.
   For *The Calculus of Moments*, attempt 1 (Protocol 1, its corrections 1–3, amendments 1 and 2,
   thonly/the-calculus-of-moments). A WORKING encoding: frozen only by Protocol 2, before any model is searched — so
   this file builds NO model of anything, and no world here satisfies the rows (each world below is FORBIDDEN).
@@ -36,6 +37,10 @@ structure Being where
   id : Nat
   plane : Bhumi
   bases : List Rupa
+  /-- A13: whether the being has mind, whether it has matter, and its material faculties -/
+  hasMind : Bool := true
+  hasMatter : Bool := true
+  faculties : List Rupa := []
   deriving DecidableEq, Repr
 
 /-- A kalāpa (A66): a group of the 28 kinds that arise together, with its origin (A64), its life from arising to
@@ -47,6 +52,8 @@ structure Kalapa where
   life : Nat
   owner : Option Nat
   bound : Bool
+  /-- A129: its size in paramāṇu (the Visuddhimagga-ṭīkā: a kalāpa is of paramāṇu size) -/
+  size : Nat := 1
   deriving DecidableEq, Repr
 
 /-- What a world has of matter. `reached`: the doors whose objects are taken by reaching (A63). -/
@@ -54,6 +61,10 @@ structure Mat where
   beings : List Being
   kalapas : List Kalapa
   reached : List Door
+  /-- A5: the space between kalāpas, as pairs of their positions in `kalapas` -/
+  gaps : List (Nat × Nat) := []
+  /-- A129: the size ladder's ratios, paramāṇu to aṅgula -/
+  ladder : List Nat := [36, 36, 36, 36, 7, 7, 7]
 
 /-- The six bases (A39; ch. 3 §64, `abh07t.nrf.xml:1113`): the five organs and the heart-base. -/
 def sixBases : List Rupa := pasada ++ [Rupa.hadaya]
@@ -133,5 +144,93 @@ theorem a63_forbids_eyeReaches : ¬ a63_reach eyeReaches := by unfold a63_reach;
 /-- Matter bound to no faculty that nevertheless has an owner. -/
 abbrev unboundOwned : Mat := { okMat with kalapas := [{ okKalapa with owner := some 0 }] }
 theorem a6_forbids_unboundOwned : ¬ a6_unbound unboundOwned := by unfold a6_unbound; decide
+
+
+/-! ## Batch 2 -/
+
+/-- Kinds of matter in the text's order, to compare two groups as sets. -/
+def canon (l : List Rupa) : List Rupa := Rupa.all.filter (· ∈ l)
+
+/-- The twenty-one kalāpas (A66; ch. 6 §45–51, `abh07t.nrf.xml:2269–2297`), each as its members and its origin. The decads of the
+    kamma-born are the pure octad, life and one of eye, ear, nose, tongue, body, woman, man, heart-base; the nonad has life only. -/
+def twentyOne : List (List Rupa × Origin) :=
+  (([Rupa.cakkhu, .sota, .ghana, .jivha, .kaya, .itthatta, .purisatta, .hadaya].map fun r => (eight ++ [.jivita, r], Origin.kamma))
+    ++ [(eight ++ [.jivita], .kamma)])
+  ++ [(eight, .citta), (eight ++ [.kayavinnatti], .citta), (eight ++ [.vacivinnatti, .sadda], .citta),
+      (eight ++ [.lahuta, .muduta, .kammannata], .citta), (eight ++ [.kayavinnatti, .lahuta, .muduta, .kammannata], .citta),
+      (eight ++ [.vacivinnatti, .sadda, .lahuta, .muduta, .kammannata], .citta)]
+  ++ [(eight, .utu), (eight ++ [.sadda], .utu), (eight ++ [.lahuta, .muduta, .kammannata], .utu),
+      (eight ++ [.sadda, .lahuta, .muduta, .kammannata], .utu)]
+  ++ [(eight, .ahara), (eight ++ [.lahuta, .muduta, .kammannata], .ahara)]
+
+theorem twentyOne_counts : twentyOne.length = 21 ∧ (twentyOne.filter (·.2 == .kamma)).length = 9 ∧
+    (twentyOne.filter (·.2 == .citta)).length = 6 ∧ (twentyOne.filter (·.2 == .utu)).length = 4 ∧
+    (twentyOne.filter (·.2 == .ahara)).length = 2 := by decide
+
+def isKind (k : Kalapa) (t : List Rupa × Origin) : Bool := canon k.members == canon t.1 && k.origin == t.2
+
+/-- A66, the kinds (L4, `abh07t.nrf.xml:2269`): every kalāpa of a world is one of the twenty-one. -/
+def a66_twenty_one (m : Mat) : Prop := ∀ k ∈ m.kalapas, ∃ t ∈ twentyOne, isKind k t = true
+
+/-- A66, outside beings (`:2289`): a kalāpa with no owner is the pure octad or the sound nonad, temperature-born. -/
+def a66_external (m : Mat) : Prop :=
+  ∀ k ∈ m.kalapas, k.owner = none → isKind k (eight, .utu) = true ∨ isKind k (eight ++ [.sadda], .utu) = true
+
+/-- A66, what a kalāpa is not made of (`:2305`): space and the four characteristics are no member of any kalāpa; they delimit and mark. -/
+def a66_no_delimiter_member (m : Mat) : Prop :=
+  ∀ k ∈ m.kalapas, ∀ r ∈ [Rupa.akasa, .upacaya, .santati, .jarata, .aniccata], r ∉ k.members
+
+/-- A5 (L1 on the ṭīkās' reading, L4 `abh07t.nrf.xml:2085`): space is the delimitation between two kalāpas of the world; it has no birth
+    of its own, so a gap between a kalāpa and itself, or with one the world lacks, is none. -/
+def a5_space (m : Mat) : Prop :=
+  ∀ g ∈ m.gaps, g.1 < m.kalapas.length ∧ g.2 < m.kalapas.length ∧ g.1 ≠ g.2
+
+/-- A13, the immaterial (L1/L2/L4, `abh07t.nrf.xml:1485`): a being of the immaterial sphere has mind and no matter. -/
+def a13_arupa (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.hasMatter = false ∧ b.hasMind = true
+
+/-- A13, the mindless (`:1485`, `:1957`): a being without mind has matter and a life faculty. -/
+def a13_mindless (m : Mat) : Prop := ∀ b ∈ m.beings, b.hasMind = false → b.hasMatter = true ∧ Rupa.jivita ∈ b.faculties
+
+/-- A129, the ladder (L2, Sammohavinodanī): 36 paramāṇu to the aṇu, 36 to the tajjārī, 36 to the rathareṇu, 36 to the likkhā, then 7,
+    7, 7 to the aṅgula. ⚠️ Any conversion to meters is OURS and not here. -/
+def a129_ladder (m : Mat) : Prop := m.ladder = [36, 36, 36, 36, 7, 7, 7]
+
+/-- A129, the kalāpa's size (L3, the Visuddhimagga-ṭīkā: *te pana kalāpā paramāṇuparimāṇā honti*): one paramāṇu. ⚠️ VARIANT (Ledi): at most
+    one forty-ninth of it; recorded in the variants list, not here. -/
+def a129_size (m : Mat) : Prop := ∀ k ∈ m.kalapas, k.size = 1
+
+/-! ### Forbidden worlds, batch 2 -/
+
+/-- A kalāpa of seven kinds that is none of the twenty-one. -/
+abbrev sevenKinds : Mat := { okMat with kalapas := [{ okKalapa with members := eight ++ [.hadaya, .cakkhu], origin := .utu, owner := some 0, bound := true }] }
+theorem a66_forbids_sevenKinds : ¬ a66_twenty_one sevenKinds := by unfold a66_twenty_one; decide
+
+/-- Lightness in matter outside a being (the temperature-born ekādasaka is internal only). -/
+abbrev externalEkadasaka : Mat := { okMat with kalapas := [{ okKalapa with members := eight ++ [.lahuta, .muduta, .kammannata] }] }
+theorem a66_forbids_externalEkadasaka : ¬ a66_external externalEkadasaka := by unfold a66_external; decide
+
+/-- A kalāpa with space as a member. -/
+abbrev spaceMember : Mat := { okMat with kalapas := [{ okKalapa with members := Rupa.akasa :: eight }] }
+theorem a66_forbids_spaceMember : ¬ a66_no_delimiter_member spaceMember := by unfold a66_no_delimiter_member; decide
+
+/-- A gap with a kalāpa the world does not have. -/
+abbrev strayGap : Mat := { okMat with kalapas := [okKalapa], gaps := [(0, 1)] }
+theorem a5_forbids_strayGap : ¬ a5_space strayGap := by unfold a5_space; decide
+
+/-- An immaterial being with matter. -/
+abbrev arupaWithMatter : Mat := { okMat with beings := [{ id := 0, plane := .arupa, bases := [], hasMatter := true }] }
+theorem a13_forbids_arupaWithMatter : ¬ a13_arupa arupaWithMatter := by unfold a13_arupa; decide
+
+/-- A mindless being with no life faculty. -/
+abbrev mindlessNoLife : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], hasMind := false }] }
+theorem a13_forbids_mindlessNoLife : ¬ a13_mindless mindlessNoLife := by unfold a13_mindless; decide
+
+/-- A ladder whose last three steps are 8. -/
+abbrev eightLadder : Mat := { okMat with ladder := [36, 36, 36, 36, 8, 8, 8] }
+theorem a129_forbids_eightLadder : ¬ a129_ladder eightLadder := by unfold a129_ladder; decide
+
+/-- A kalāpa two paramāṇu in size. -/
+abbrev bigKalapa : Mat := { okMat with kalapas := [{ okKalapa with size := 2 }] }
+theorem a129_forbids_bigKalapa : ¬ a129_size bigKalapa := by unfold a129_size; decide
 
 end FormalAbhidhamma.Model
