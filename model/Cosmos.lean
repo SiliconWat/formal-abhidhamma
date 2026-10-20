@@ -47,6 +47,8 @@ structure Cosmos where
   windReaches : Nat
   /-- how many buddha-fields one destruction ruins -/
   destroyedFields : Nat
+  /-- the life-span of each of the twenty fine-material and immaterial planes, in SIXTHS of a kappa, in the Saṅgaha's order (the first-jhāna planes, the second, the third, Vehapphala and the non-percipient, the five Pure Abodes, the four immaterial) -/
+  planeLife : List Nat
 
 /-- A14 (L1, AN 7.66; `kala/AXIOMS.md`): Sineru is 84,000 yojanas long and wide, sunk 84,000 into the great ocean and risen 84,000 above it; the ocean is 84,000 deep. -/
 def a14_sineru (c : Cosmos) : Prop :=
@@ -93,7 +95,8 @@ abbrev okCosmos : Cosmos :=
   { sunk := 84000, risen := 84000, sineruLength := 84000, sineruWidth := 84000, oceanDepth := 84000,
     moon := (49, 49, 49), sun := (50, 50, 50), moonBottom := 42000, sunBottom := 42050, cakkavala := 1203450,
     litContinents := 3, dayGain := 100000, planes := [4, 7, 16, 4], kingsDay := 50, yamaDay := 200,
-    lifespan := fun k => 9000000 * 4 ^ k, kappaPhases := 4, fireReaches := 5, waterReaches := 8, windReaches := 9, destroyedFields := 1 }
+    lifespan := fun k => 9000000 * 4 ^ k, kappaPhases := 4, fireReaches := 5, waterReaches := 8, windReaches := 9, destroyedFields := 1,
+    planeLife := [2, 3, 6, 12, 24, 48, 96, 192, 384, 3000, 3000, 6000, 12000, 24000, 48000, 96000, 120000, 240000, 360000, 504000] }
 
 abbrev shallowSineru : Cosmos := { okCosmos with sunk := 42000 }
 theorem a14_forbids_shallowSineru : ¬ a14_sineru shallowSineru := by unfold a14_sineru; decide
@@ -133,5 +136,16 @@ theorem a10_forbids_threePhases : ¬ a10_phases threePhases := by unfold a10_pha
 /-- A destruction by fire that reaches the Ābhassara plane (the sixth). -/
 abbrev fireTooHigh : Cosmos := { okCosmos with fireReaches := 6 }
 theorem a10_forbids_fireTooHigh : ¬ a10_limits fireTooHigh := by unfold a10_limits; decide
+
+/-- A50 (L4, ch. 5 §29–48, `abh07t.nrf.xml:1657–1733`): the life-spans of the twenty fine-material and immaterial planes, in kappas: ⅓ · ½ · 1 · 2 · 4 · 8 · 16 · 32 · 64 · 500 (Vehapphala and the non-percipient) ·
+    1,000 · 2,000 · 4,000 · 8,000 · 16,000 · 20,000 · 40,000 · 60,000 · 84,000 (19 figures, 20 planes). Here in sixths of a kappa. ⚠️ The text does not say which kappa: a FREEDOM. -/
+def a50_plane_lives (c : Cosmos) : Prop :=
+  c.planeLife = [2, 3, 6, 12, 24, 48, 96, 192, 384, 3000, 3000, 6000, 12000, 24000, 48000, 96000, 120000, 240000, 360000, 504000]
+
+theorem a50_counts : ([2, 3, 6, 12, 24, 48, 96, 192, 384, 3000, 3000, 6000, 12000, 24000, 48000, 96000, 120000, 240000, 360000, 504000] : List Nat).length = 20 := by decide
+
+/-- A world in which the Pure Abodes live no longer than Vehapphala. -/
+abbrev shortPureAbodes : Cosmos := { okCosmos with planeLife := [2, 3, 6, 12, 24, 48, 96, 192, 384, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 120000, 240000, 360000, 504000] }
+theorem a50_forbids_shortPureAbodes : ¬ a50_plane_lives shortPureAbodes := by unfold a50_plane_lives; decide
 
 end FormalAbhidhamma.Model
