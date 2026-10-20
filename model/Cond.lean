@@ -320,4 +320,16 @@ theorem a80_forbids_formToEar : ¬ a80_object_sense formToEar := by
   simp [ends, formToEar, cw] at he
   obtain ⟨rfl, rfl⟩ := he; exact absurd (hk .vanna 1 2 rfl rfl rfl) (by decide)
 
+/-- A82 (L1, contiguity, `abh03m7.mul.xml:137`): contiguity has the same relata as proximity — a fact of one holds exactly when the same fact of the other holds. ⚠️ Grouping
+    it with absence and disappearance is HELD OUT; Buddhaghosa's concession that contiguity is no immediacy in time is A112's, in Clocks.lean. -/
+def a82_contiguity_same_relata {S : Scale} (w : CondW S) : Prop :=
+  ∀ i j, (Condition.anantara, i, j) ∈ w.holds ↔ (Condition.samanantara, i, j) ∈ w.holds
+
+/-- Proximity without contiguity. -/
+abbrev proxNotContig : CondW Z := cw [cwo .nama 0 2 1, cwo .nama 3 5 2] [(.anantara, 0, 1)]
+theorem a82_forbids_proxNotContig : ¬ a82_contiguity_same_relata proxNotContig := by
+  intro h
+  have := (h 0 1).mp (by simp [proxNotContig, cw])
+  simp [proxNotContig, cw] at this
+
 end FormalAbhidhamma.Model

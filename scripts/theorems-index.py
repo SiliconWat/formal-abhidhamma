@@ -23,10 +23,27 @@ LIBS = ["control", "sangaha", "kala", "matika"]   # suite directories (their mod
 MUST_FAIL = {"control/Broken.lean"}
 AXIOM_BINDER = re.compile(r"^(a0′?|a\d+b?|c|k)_", re.I)   # the /prove convention: `a112_link` → A112
 
+def toolchain():
+    """The pinned toolchain, read from `lean-toolchain` — the one CI installs. ⚠️ `elan`'s `lean` is a PROXY that picks a toolchain from
+    the CURRENT DIRECTORY; this script compiles in temporary directories outside the repo, where the proxy falls back to the machine's
+    DEFAULT (4.35.0 here, 4.34.1 in CI) — and two run files then read `classical` here and `constructive` in CI (2026-10-20)."""
+    return open(os.path.join(REPO, "lean-toolchain"), encoding="utf-8").read().strip()
+
+def pinned_env(extra=None):
+    return dict(os.environ, ELAN_TOOLCHAIN=toolchain(), **(extra or {}))
+
+def assert_pinned(lean):
+    """Refuse to run on any other Lean than the pinned one: a different version can change what a proof's axioms report."""
+    want = toolchain().split(":v")[-1]
+    got = subprocess.run([lean, "--version"], capture_output=True, text=True, env=pinned_env(), cwd=tempfile.gettempdir()).stdout
+    if f"version {want}" not in got:
+        sys.exit(f"✗ Lean is not the pinned toolchain {want} (got: {got.strip() or 'nothing'}); set LEAN to `elan which lean` run inside the repo")
+
 def lean_bin():
     if os.environ.get("LEAN"): return os.environ["LEAN"]
     try:
-        return subprocess.run(["elan", "which", "lean"], cwd=REPO, capture_output=True, text=True, check=True).stdout.strip()
+        elan = shutil.which("elan") or os.path.expanduser("~/.elan/bin/elan")
+        return subprocess.run([elan, "which", "lean"], cwd=REPO, capture_output=True, text=True, check=True).stdout.strip()
     except Exception:
         return "lean"
 
@@ -34,7 +51,7 @@ def imports(path):
     return re.findall(r"(?m)^import\s+(\S+)", open(path, encoding="utf-8").read())
 
 def run(lean, f, cwd, path, olean=None):
-    env = dict(os.environ, LEAN_PATH=":".join(path))
+    env = pinned_env({"LEAN_PATH": ":".join(path)})
     args = [lean] + (["-o", olean] if olean else []) + [f]
     return subprocess.run(args, cwd=cwd, env=env, capture_output=True, text=True)
 
@@ -287,6 +304,7 @@ def build(results):
 
 def main():
     lean = lean_bin()
+    assert_pinned(lean)
     tmp = tempfile.mkdtemp(prefix="theorems-")
     try:
         results, errors = collect(tmp, lean)

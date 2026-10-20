@@ -229,4 +229,28 @@ theorem a87_forbids_noObject : ¬ a87_organ_and_object_already_arisen Z noObject
   obtain ⟨_, k, hk, _⟩ := h 1 rfl
   simp [noObject] at hk
 
+/-- A122 (L1, `abh07t.nrf.xml:1941`, the Paṭṭhāna's rebirths of different class): the death citta conditions the rebirth-linking citta by proximity — what comes
+    immediately after a death citta is a rebirth-linking citta. -/
+def a122_death_then_rebirth (S : Scale) (l : Link S) : Prop := ∀ d n, l.death d → l.s.prox d n → l.rebirth n
+
+/-- A122, the other way: a rebirth-linking citta is immediately preceded by a death citta (every existence is joined to the one before it). -/
+def a122_rebirth_after_death (S : Scale) (l : Link S) : Prop := ∀ r, l.rebirth r → ∃ d, l.death d ∧ l.s.prox d r
+
+/-- A death citta followed at once by a moment that is no rebirth-linking citta (moment 1 follows death at 0; only moment 2 is a rebirth). -/
+abbrev deathNotFollowed : Link Z :=
+  { (chainLink .kamma 0 .arise 0 .dissolve 0) with rebirth := fun m => m = 2 }
+theorem a122_forbids_deathNotFollowed : ¬ a122_death_then_rebirth Z deathNotFollowed := by
+  intro h
+  have := h 0 1 rfl rfl
+  simp [deathNotFollowed, chainLink] at this
+
+/-- A rebirth-linking citta whose predecessor is no death citta (rebirth at 5, death at 0). -/
+abbrev rebirthNotAfterDeath : Link Z :=
+  { (chainLink .kamma 0 .arise 0 .dissolve 0) with rebirth := fun m => m = 5 }
+theorem a122_forbids_rebirthNotAfterDeath : ¬ a122_rebirth_after_death Z rebirthNotAfterDeath := by
+  intro h
+  obtain ⟨d, hd, hp⟩ := h 5 rfl
+  simp [rebirthNotAfterDeath, chainLink] at hd hp
+  omega
+
 end FormalAbhidhamma.Model
