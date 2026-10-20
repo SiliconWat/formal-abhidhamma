@@ -10,7 +10,7 @@
 # Exit 0 only if all hold. LEAN=path/to/lean to override. `./run.sh --control` plants the three failures it must catch.
 set -u; cd "$(dirname "$0")"; LEAN="${LEAN:-lean}"
 command -v "$LEAN" >/dev/null 2>&1 || LEAN="$HOME/.elan/bin/lean"
-FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean Cond.lean Clocks.lean Join.lean"
+FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean Cond.lean Clocks.lean Join.lean Cosmos.lean"
 B=$(mktemp -d); trap 'rm -rf "$B"' EXIT
 export LEAN_PATH="$B"
 ( cd ../control && $LEAN -o "$B/Cetasika.olean" Cetasika.lean ) && ( cd ../sangaha && $LEAN -o "$B/Citta.olean" Citta.lean \
