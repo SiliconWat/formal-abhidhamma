@@ -43,7 +43,7 @@ relations) · COSMO (Sineru, the sun and moon, planes, days, eons) · STATUS (co
 | A40 | L2 | C | MIND | a mind-moment is three equal sub-moments: arising, standing, dissolution | — | — |
 | A4 | L2 | C | MAT | concretely produced matter lasts 17 mind-moments (51 sub-moments) | — | VARIANT: 16 (a ṭīkā's reading), 16⅓ (a ṭīkā's report) |
 | A41 | L5 | C | PROC | the very great five-door process: entry after one past moment, 2 vibrations, 14 process cittas, then the object ceases (17) | a very great five-door process | VARIANT: Ledi, 6 or 5 javanas for weak objects; dissents the Vibhāvinī rejects are not encoded |
-| A42 | L5 | C | PROC | grades by past moments: 1 · 2–3 · 4–9 · 10–15, as the row gives them (the fit rule that derives them in `kala/Vithi.lean` is not encoded: extending it to every stage is OURS) | each grade | the *keci* 16-moment view is A4's variant · ⚠️ SCOPE: "with registration" encoded as the row says, against §10's *yathārahaṃ* (finding 4) |
+| A42 | L5 | C | PROC | grades by past moments: 1 · 2–3 · 4–9 · 10–15, as the row gives them (the fit rule that derives them in `kala/Vithi.lean` is not encoded: extending it to every stage is OURS) | each grade | the *keci* 16-moment view is A4's variant · ✅ "with registration" read as §10's *yathārahaṃ* (finding 4, correction 3) |
 | A43 | L4 | C | PROC | mind-door process (clear: registration; obscure: none); absorption after 3 or 4 preparatory javanas, with no registration | a mind-door process; an absorption | absorption read from §21 (the 26 exalted and supramundane javanas), so the path process is one (correction 2 §2) |
 | A44 | L4 | C | PROC | javana counts: 7 (or 6); 5 at death; a first absorption and super-knowledge once; a path citta one moment, then 2 or 3 fruition | — | VARIANT: the reported twin-miracle reviewing (*vadanti*) |
 | A45 | L4 | C | PROC | registration only for sense-sphere beings, objects and javana, on a clear or very great object; resultant follows desirability | — | VARIANT: the teachers' intervening equanimity investigation |
@@ -209,6 +209,7 @@ taxonomy clauses here; the PROC and MAT halves are encoded with those parts.
    great five-door object for a being of the fine-material sphere. If the attempt meets it, it is a scope collision of
    the row's words, not of the text; whether to read the row as the line (as correction 2 §1 did for A38) is the
    founder's.
+   ✅ **RULED 2026-10-20 (Protocol 1 correction 3 §1, founder *"Reconcile A42"*):** read as the line; `a42_very_great` now requires the javana, and the scope collision cannot occur.
 5. **A37's cited line says more than the row.** Every eye-door citta takes visible form only (§51, `:1045`); the row's
    words do not say so, and it is not a list's members, so correction 2 §2 does not bring it in. Not encoded.
 6. **Three clauses permit and forbid nothing**: A37's mind-door times, A44's "in attainments javanas run many times",

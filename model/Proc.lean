@@ -23,9 +23,9 @@
   ⚠️ Findings, for the founder (each in its definition's comment, and in `CENSUS.md`):
   (1) A42's row says the very great grade is "the full process, WITH registration"; the Saṅgaha's line says the two
       registrations come "as fitting" (*yathārahaṃ*, §10, `abh07t.nrf.xml:1237`), and A45 bars registration outside the
-      sense sphere. Encoded
-      as the ROW says, so with A45 a world has no very great five-door object for a being of the fine-material sphere.
-      If the attempt meets that, it is a scope collision of the row's words, not of the text.
+      sense sphere. RULED 2026-10-20 (correction 3 §1): read as the LINE; the grade requires the javana, registration
+      is A41's and A45's. (Encoded first as the row's words; that left no very great five-door object for a being of
+      the fine-material sphere, a collision of the row's words, not of the text.)
   (2) A37's cited line also says that every eye-door citta takes visible form only (§51); the row's words do not, so it
       is not encoded (a coverage gap of the axiom list).
   (3) Three clauses PERMIT rather than forbid, and so have no forbidden world: A37's mind-door times, A44's "in
@@ -217,10 +217,11 @@ def a41_order (w : Proc) : Prop :=
     process does not outlast them. -/
 def a41_seventeen (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past = 1 → p.past + p.steps.length ≤ 17
 
-/-- A42, very great (L5, the Vibhāvinī's range `:4821`: one past moment): "the full process, WITH registration", as
-    the ROW says. ⚠️ FINDING (1): the Saṅgaha's §10 says the registrations come "as fitting" (*yathārahaṃ*, `abh07t.nrf.xml:1237`), and A45
-    bars them outside the sense sphere; encoded as the row's words. -/
-def a42_very_great (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past = 1 → 1 ≤ p.count .tadarammana
+/-- A42, very great (L5, the Vibhāvinī's range `:4821`: one past moment): "the full process", which reaches the javanas.
+    READ AS THE LINE (correction 3 §1, as correction 2 §1 read A38): the row adds "WITH registration", but the Saṅgaha says
+    the two registrations come "as fitting" (*yathārahaṃ*, §10, `abh07t.nrf.xml:1237`), A41's order carries them, and A45
+    bars them outside the sense sphere. So registration is NOT required here; what the grade requires is the javana. -/
+def a42_very_great (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past = 1 → 1 ≤ p.count .javana
 
 /-- A42, great (L5 range: two or three past moments; L4 §12, `:1245`): no registration. -/
 def a42_great (w : Proc) : Prop :=
@@ -473,9 +474,15 @@ theorem a41_forbids_registrationFirst : ¬ a41_order registrationFirst := by unf
 abbrev eighteenMoments : Proc := withProcs [atEye 1 (eyeSteps 8 2)]
 theorem a41_forbids_eighteenMoments : ¬ a41_seventeen eighteenMoments := by unfold a41_seventeen; decide
 
-/-- A very great object with no registration. -/
+/-- A very great object whose process never reaches a javana (the row's old forbidden world, a bare 7-javana process with no
+    registration, is now ALLOWED: registration is "as fitting"). -/
+abbrev veryGreatNoJavana : Proc := withProcs [atEye 1 (eyeSteps 0 2)]
+theorem a42_forbids_veryGreatNoJavana : ¬ a42_very_great veryGreatNoJavana := by unfold a42_very_great; decide
+
+/-- Correction 3: a very great object, seven javanas and no registration, is a world the grade ADMITS (so a fine-material being
+    has a very great five-door object). -/
 abbrev veryGreatBare : Proc := withProcs [atEye 1 (eyeSteps 7 0)]
-theorem a42_forbids_veryGreatBare : ¬ a42_very_great veryGreatBare := by unfold a42_very_great; decide
+theorem a42_admits_veryGreatBare : a42_very_great veryGreatBare := by unfold a42_very_great; decide
 
 /-- A great object (two moments past) with registration. -/
 abbrev greatRegisters : Proc := withProcs [atEye 2 (eyeSteps 7 2)]
