@@ -23,7 +23,7 @@ import Relata
 namespace FormalAbhidhamma.Model
 open FormalAbhidhamma.Relata
 
-/-- One occurrence: mind or matter, and the clock readings of its arising and its ceasing. -/
+/-- One occurrence: mind, matter or a concept (`kind`), with `rise` and `fall` the clock readings (on the world's scale) at which it arises and at which it ceases. -/
 structure Occ (S : Scale) where
   kind : Kind
   rise : S.T
@@ -37,7 +37,7 @@ structure Occ (S : Scale) where
   /-- the origin, for a matter occurrence -/
   born : Option FormalAbhidhamma.Model.Origin := none
 
-/-- A world's conditioning: its occurrences, and the facts `(c, i, j)`: condition c from occurrence i to occurrence j. -/
+/-- A world's conditioning: its occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at index `i` of `occs` to the one at index `j` (indices into `occs`, counted from 0; they are not `cit` values). -/
 structure CondW (S : Scale) where
   occs : List (Occ S)
   holds : List (Condition × Nat × Nat)
@@ -78,27 +78,38 @@ def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
   ∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds
 
+/-- The kinds of matter that condition by pre-nascence: the five sense organs, the five sense-object kinds (visible form, sound, smell, taste, the three tangible elements) and the heart-base. -/
+def prenascent : List FormalAbhidhamma.Model.Rupa :=
+  [.cakkhu, .sota, .ghana, .jivha, .kaya, .vanna, .sadda, .gandha, .rasa, .pathavi, .tejo, .vayo, .hadaya]
+
 /-- A87, the COND half (L1, pre-nascence): the condition arose before the conditioned and has not ceased when it arises. -/
 def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ S.lt b.rise a.fall
+  facts_between_occurrences w .purejata fun a b =>
+    S.lt a.rise b.rise ∧ S.lt b.rise a.fall ∧ ∃ r, a.rupa = some r ∧ r ∈ prenascent
+
 
 /-- A88 (L1/L2/L5, post-nascence): the conditioned (a body) arose before the conditioning citta and has not ceased when that arises. -/
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
 
-/-- A96 (L1, association): the related are mind, and arise and cease together (the four marks, A30). -/
+/-- A96 (L1, association): the four mental aggregates condition one another — any two different mental occurrences of one citta have an association fact between them. (The marks of the facts that exist — mind, and arising and ceasing together — are A30's.) -/
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
+  ∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.sampayutta, i, j) ∈ w.holds
+
+/-- A30 (the four marks of association), as a scope on the facts: an association fact relates two mental occurrences that arise together and cease together. -/
+def a30_sampayutta_marks {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .sampayutta fun a b => a.kind = .nama ∧ b.kind = .nama ∧ a.rise = b.rise ∧ a.fall = b.fall
 
 /-- A97 (L1, dissociation): the related are one mind and one matter. -/
 def a97_dissociated {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .vippayutta fun a b => a.kind ≠ b.kind
 
-/-- A98 (L1, presence) and A101 (non-disappearance): the related exist together — neither has ceased before the other arises. -/
+/-- A98 (L1, presence): the related exist together — neither has ceased before the other arises. A101 (non-disappearance) relates the same pairs as presence. -/
 def a98_present {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .atthi fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .avigata fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
+  ∀ i j, (Condition.avigata, i, j) ∈ w.holds ↔ (Condition.atthi, i, j) ∈ w.holds
 
 /-- A99 (L1, absence) and A100 (disappearance): the condition has just ceased, and is not later than the conditioned's arising: it arose first and has ceased by then. -/
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
@@ -135,7 +146,15 @@ abbrev preCeased : CondW Z := cw [o .rupa 0 2, o .nama 5 9] [(.purejata, 0, 1)]
 theorem a87_forbids_preCeased : ¬ a87_pre_born preCeased := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.purejata, 0, 1) (by simp [preCeased, cw]) rfl
   simp [ends, preCeased, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2.1 (by decide)
+
+/-- Pre-nascence from matter that is not one of the pre-nascent kinds (the life faculty). -/
+abbrev preWrongKind : CondW Z :=
+  cw [{ kind := .rupa, rise := 0, fall := 9, rupa := some .jivita }, o .nama 5 9] [(.purejata, 0, 1)]
+theorem a87_forbids_preWrongKind : ¬ a87_pre_born preWrongKind := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.purejata, 0, 1) (by simp [preWrongKind, cw]) rfl
+  simp [ends, preWrongKind, cw, o] at he
+  obtain ⟨rfl, rfl⟩ := he; simp [prenascent] at hk
 
 /-- Post-nascence where the conditioning citta arose first. -/
 abbrev postWrongOrder : CondW Z := cw [o .nama 0 9, o .rupa 5 9] [(.pacchajata, 0, 1)]
@@ -146,7 +165,7 @@ theorem a88_forbids_postWrongOrder : ¬ a88_post_born postWrongOrder := by
 
 /-- Association between occurrences that cease at different readings. -/
 abbrev assocUnequal : CondW Z := cw [o .nama 0 5, o .nama 0 6] [(.sampayutta, 0, 1)]
-theorem a96_forbids_assocUnequal : ¬ a96_associated assocUnequal := by
+theorem a30_forbids_assocUnequal : ¬ a30_sampayutta_marks assocUnequal := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.sampayutta, 0, 1) (by simp [assocUnequal, cw]) rfl
   simp [ends, assocUnequal, cw, o] at he
   obtain ⟨rfl, rfl⟩ := he; simp at hk
@@ -158,6 +177,12 @@ theorem a97_forbids_dissocMindMind : ¬ a97_dissociated dissocMindMind := by
   simp [ends, dissocMindMind, cw, o] at he
   obtain ⟨rfl, rfl⟩ := he; exact hk rfl
 
+/-- Two mental occurrences of one citta with no association fact between them. -/
+abbrev assocMissing : CondW Z := cw [o .nama 0 5, o .nama 0 5] []
+theorem a96_forbids_assocMissing : ¬ a96_associated assocMissing := by
+  intro h; have := h 0 1 (o .nama 0 5) (o .nama 0 5) (by decide) (by simp [assocMissing, cw]) (by simp [assocMissing, cw]) rfl rfl rfl
+  simp [assocMissing, cw] at this
+
 /-- Presence between occurrences, one of which has ceased before the other arises. -/
 abbrev notPresent : CondW Z := cw [o .nama 0 2, o .rupa 5 9] [(.atthi, 0, 1)]
 theorem a98_forbids_notPresent : ¬ a98_present notPresent := by
@@ -167,9 +192,7 @@ theorem a98_forbids_notPresent : ¬ a98_present notPresent := by
 
 abbrev notPresent2 : CondW Z := cw [o .nama 0 2, o .rupa 5 9] [(.avigata, 0, 1)]
 theorem a101_forbids_notPresent2 : ¬ a101_not_disappeared notPresent2 := by
-  intro h; obtain ⟨a, b, he, hk⟩ := h (.avigata, 0, 1) (by simp [notPresent2, cw]) rfl
-  simp [ends, notPresent2, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.1 (by decide)
+  intro h; have := (h 0 1).1 (by simp [notPresent2, cw]); simp [notPresent2, cw] at this
 
 /-- Absence from an occurrence that has not ceased when the conditioned arises. -/
 abbrev notAbsent : CondW Z := cw [o .nama 0 9, o .nama 5 9] [(.natthi, 0, 1)]
@@ -188,6 +211,13 @@ theorem a100_forbids_notGone : ¬ a100_gone notGone := by
 
 def sameCittaTogether {S : Scale} (a b : Occ S) : Prop := a.cit = b.cit ∧ a.rise = b.rise
 
+/-- A mental occurrence of a resultant citta: it is mental, and some occurrence of its citta (the `cit` it carries) is a resultant citta-type. -/
+def vipakaNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ (p.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
+
+/-- What a jhāna, path or nutriment factor conditions, in its own citta: a mental occurrence of that citta, or matter that citta originates. -/
+def ownCittaScope {S : Scale} (a b : Occ S) : Prop := a.kind = .nama ∧ b.cit = a.cit ∧ (b.kind = .nama ∨ (b.kind = .rupa ∧ b.born = some .citta))
+
 /-- A79 (Piṭaka, `abh03m7.mul.xml:45`): a root conditions the states associated with it and the matter they originate — those of its own citta, arising with it. -/
 def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu sameCittaTogether
 
@@ -197,11 +227,16 @@ def a81_predominance {S : Scale} (w : CondW S) : Prop :=
     (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
 /-- A94 jhāna (`:209`) and A95 path (`:213`): the factors condition their associated states and matter — of their own citta, together. -/
-def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana sameCittaTogether
-def a95_path_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .magga sameCittaTogether
+def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana ownCittaScope
+def a95_path_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .magga ownCittaScope
 
 /-- A91 (`:193`): the resultant mental aggregates condition one another — mind to mind, both resultants, together. -/
 def a91_result {S : Scale} (w : CondW S) : Prop :=
+  ∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → vipakaNama w a → vipakaNama w b → a.cit = b.cit →
+    (Condition.vipaka, i, j) ∈ w.holds
+
+/-- A78 (the vipāka condition's relata), as a scope on the facts: a result condition relates two mental occurrences that arise together and are resultants. -/
+def a78_vipaka_scope {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .vipaka fun a b =>
     a.kind = .nama ∧ b.kind = .nama ∧ a.rise = b.rise ∧
     (a.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∧ (b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
@@ -227,7 +262,7 @@ def a93_faculty {S : Scale} (w : CondW S) : Prop :=
 /-- A92 (`:197`): edible food conditions this body; a mental nutriment conditions its associated states and matter. -/
 def a92_nutriment {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .ahara fun a b =>
-    (a.rupa = some .ahara ∧ b.kind = .rupa) ∨ (a.kind = .nama ∧ sameCittaTogether a b)
+    (a.rupa = some .ahara ∧ b.kind = .rupa) ∨ ownCittaScope a b
 
 /-- Which sense a kind of sense-object belongs to: visible form 1, sound 2, smell 3, taste 4, the tangible (earth, fire, air) 5. -/
 def senseOfObject : FormalAbhidhamma.Model.Rupa → Option Nat
@@ -265,22 +300,35 @@ abbrev jhanaOther : CondW Z := cw [cwo .nama 0 5 1, cwo .nama 0 5 2] [(.jhana, 0
 theorem a94_forbids_jhanaOther : ¬ a94_jhana_scope jhanaOther := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.jhana, 0, 1) (by simp [jhanaOther, cw]) rfl
   simp [ends, jhanaOther, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [ownCittaScope] at hk
 
 /-- A path factor conditioning a state of another citta. -/
 abbrev pathOther : CondW Z := cw [cwo .nama 0 5 1, cwo .nama 0 5 2] [(.magga, 0, 1)]
 theorem a95_forbids_pathOther : ¬ a95_path_scope pathOther := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.magga, 0, 1) (by simp [pathOther, cw]) rfl
   simp [ends, pathOther, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [ownCittaScope] at hk
 
 /-- Result conditioning a wholesome (non-resultant) mind. -/
 abbrev resultOnWholesome : CondW Z :=
   cw [{ kind := .nama, rise := 0, fall := 5, citta := vip }, { kind := .nama, rise := 0, fall := 5, citta := kus }] [(.vipaka, 0, 1)]
-theorem a91_forbids_resultOnWholesome : ¬ a91_result resultOnWholesome := by
+theorem a78_forbids_resultOnWholesome : ¬ a78_vipaka_scope resultOnWholesome := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.vipaka, 0, 1) (by simp [resultOnWholesome, cw]) rfl
   simp [ends, resultOnWholesome, cw, vip, kus] at he
   obtain ⟨rfl, rfl⟩ := he; simp [vip, kus] at hk
+
+/-- Two resultant mental occurrences of one citta with no result fact between them. -/
+abbrev resultMissing : CondW Z :=
+  cw [{ kind := .nama, rise := 0, fall := 5, citta := vip }, { kind := .nama, rise := 0, fall := 5 }] []
+theorem a91_forbids_resultMissing : ¬ a91_result resultMissing := by
+  intro h
+  let a : Occ Z := { kind := .nama, rise := 0, fall := 5, citta := vip }
+  let b : Occ Z := { kind := .nama, rise := 0, fall := 5 }
+  have hm : a ∈ resultMissing.occs := by simp [resultMissing, cw, a]
+  have ha : vipakaNama resultMissing a := ⟨rfl, a, hm, rfl, by simp [a, vip]⟩
+  have hb : vipakaNama resultMissing b := ⟨rfl, a, hm, rfl, by simp [a, vip]⟩
+  have := h 0 1 a b (by decide) (by simp [resultMissing, cw, a]) (by simp [resultMissing, cw, b]) ha hb rfl
+  simp [resultMissing, cw] at this
 
 /-- Kamma conditioning an earlier state (the condition arose AFTER the conditioned) of another citta. -/
 abbrev kammaBackward : CondW Z := cw [cwo .nama 5 9 1, cwo .nama 0 4 2] [(.kamma, 0, 1)]
@@ -311,7 +359,7 @@ abbrev foodOnMind : CondW Z :=
 theorem a92_forbids_foodOnMind : ¬ a92_nutriment foodOnMind := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.ahara, 0, 1) (by simp [foodOnMind, cw]) rfl
   simp [ends, foodOnMind, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [ownCittaScope] at hk
 
 /-- Visible form as the object of an ear-consciousness (sense 2). -/
 abbrev formToEar : CondW Z :=

@@ -36,6 +36,10 @@ def a9_three_spaces (c : Status) : Prop :=
 
 def a70_nibbana (c : Status) : Prop := c.nibbanaConditioned = false ∧ c.nibbanaCount = 1
 
+def a7_time_is_a_concept (c : Status) : Prop := c.timeSort = .pannatti ∧ c.timeSort ∉ c.ultimates
+
+def a5_delimiting_space_is_matter (c : Status) : Prop := c.spaceSort .delimiting = .rupa
+
 def a104_time_is_a_concept (c : Status) : Prop := c.timeSort = .pannatti
 
 def a126_only_own_nature (c : Status) : Prop := ∀ d, c.realDesignation d = true ↔ d = .ownNature

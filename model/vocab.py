@@ -9,7 +9,16 @@ FILES = [("control/Cetasika.lean", None), ("sangaha/Citta.lean", None), ("matika
          ("model/Mind.lean", None), ("model/Tax.lean", None), ("model/Proc.lean", None), ("model/Mat.lean", None), ("model/Link.lean", None), ("model/Cond.lean", None),
          ("model/Clocks.lean", None), ("model/Join.lean", None), ("model/Cosmos.lean", None), ("model/Status.lean", None), ("model/World.lean", None)]
 def strip(t):
-    t = re.sub(r"/-.*?-/", "", t, flags=re.S); return re.sub(r"(?m)--.*$", "", t)
+    # keep docstrings (/-- ... -/): they are the field meanings; drop file headers (/- ... -/) and line comments
+    t = re.sub(r"/-(?!-).*?-/", "", t, flags=re.S); t = re.sub(r"(?m)^\s*--.*\n", "", t)
+    # field meanings only: drop row ids, citations and provenance from the docstrings
+    def clean(m):
+        d = m.group(0)
+        d = re.sub(r"\s*\((?:A\d+[a-z]?(?:[, ]+(?:and )?A\d+[a-z]?)*|K)\)", "", d)
+        d = re.sub(r"\b[Ff]rom the row's cited lines, Protocol 1 correction 2 §2: ", "", d)
+        d = re.sub(r"\bA\d+[a-z]?(?:, A\d+[a-z]?)*(?:'s)?:? ?", "", d)
+        return d
+    return re.sub(r"/--.*?-/", clean, t, flags=re.S)
 def blocks(t):
     out, cur = [], None
     for l in t.split("\n"):

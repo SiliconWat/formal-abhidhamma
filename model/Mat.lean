@@ -86,6 +86,9 @@ def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → ∀ r 
 def a39_fine (m : Mat) : Prop :=
   ∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.bases, r ∈ [Rupa.cakkhu, .sota, .hadaya]
 
+/-- A39, any other plane of a world's beings: at most the six bases (the six are all there are). -/
+def a39_other (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .lokuttara → ∀ r ∈ b.bases, r ∈ sixBases
+
 /-- A39, the immaterial sphere: no base exists. -/
 def a39_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.bases = []
 
@@ -128,6 +131,9 @@ theorem a39_forbids_fineWithNose : ¬ a39_fine fineWithNose := by unfold a39_fin
 
 /-- A being of the immaterial sphere with a heart-base. -/
 abbrev immaterialWithHeart : Mat := { okMat with beings := [{ id := 0, plane := .arupa, bases := [.hadaya] }] }
+abbrev lokuttaraWithEarth : Mat := { okMat with beings := [{ id := 0, plane := .lokuttara, bases := [.pathavi] }] }
+theorem a39_forbids_lokuttaraWithEarth : ¬ a39_other lokuttaraWithEarth := by unfold a39_other; decide
+
 theorem a39_forbids_immaterialWithHeart : ¬ a39_immaterial immaterialWithHeart := by unfold a39_immaterial; decide
 
 /-- A concretely produced kalāpa that lasts sixteen moments (the variant's number, forbidden under the 17 reading). -/
@@ -259,7 +265,7 @@ def a68_fine (m : Mat) : Prop :=
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ k ∈ m.kalapas, k.owner = some b.id → k.origin ≠ .ahara)
 
 /-- A68, the non-percipient: seventeen kinds (the vital nonad at rebirth and the temperature-born except sound). -/
-def a68_non_percipient (m : Mat) : Prop := ∀ b ∈ m.beings, b.hasMind = false → ∀ r ∈ b.kinds, r ∈ nonPercipientKinds
+def a68_non_percipient (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .rupa → b.hasMind = false → ∀ r ∈ b.kinds, r ∈ nonPercipientKinds
 
 /-- A68, the immaterial sphere: none. -/
 def a68_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.kinds = []

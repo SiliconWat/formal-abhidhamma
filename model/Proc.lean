@@ -630,6 +630,21 @@ def a46_javana_by_person (w : Proc) : Prop :=
     (p.person ≠ .arahant → s.citta.jati ≠ .kiriya) ∧
     (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
 
+/-- Whether a plane lacks the organ a citta's element needs: the immaterial plane has no sense organ, the fine-material none of nose, tongue and body (door numbers 2, 3, 4). -/
+def organAbsent (pl : Bhumi) : Dhatu → Bool
+  | .sense d => pl == .arupa || (pl == .rupa && decide (2 ≤ d))
+  | _ => false
+
+/-- A46, the planes' organs (the Saṅgaha, ch. 4): in each plane the cittas lacking its organs do not arise — no nose-, tongue- or body-consciousness in the fine-material plane (door numbers 2, 3, 4), no sense-consciousness in the immaterial. -/
+def a46_plane_organs (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, organAbsent p.plane s.citta.dhatu = false
+
+/-- A fine-material process with a nose-consciousness step. -/
+abbrev fineNoseConsciousness : Proc :=
+  withProcs [{ kind := .mindDoor, door := .mind, plane := .rupa, steps := [{ citta := { kamaJavana with dhatu := .sense 2 }, kicca := .dassana }] }]
+theorem a46_forbids_fineNoseConsciousness : ¬ a46_plane_organs fineNoseConsciousness := by
+  unfold a46_plane_organs; decide
+
 /-- An arahant with an unwholesome javana. -/
 abbrev arahantUnwholesome : Proc :=
   withProcs [{ kind := .mindDoor, door := .mind, person := .arahant, steps := [{ citta := { kamaJavana with jati := .akusala }, kicca := .javana }] }]

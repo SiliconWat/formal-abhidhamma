@@ -18,34 +18,41 @@ open FormalAbhidhamma.Relata
 
 /-- The ONE World. `s` is the stream; the matter placed in it, the day-reckoning, the conditioning facts and their map to moments are all over `s`. -/
 structure World (S R : Scale) where
+  /-- the one stream of mind-moments; its clock readings are on the scale `S` -/
   s : Stream S
-  -- matter placed in the stream (Link)
+  /-- the pieces of matter placed in the stream (a type of them): each has an origin, the mind-moment it arises with, and the sub-moment (arise, stand or dissolve) at which it arises -/
   K : Type
   origin : K → FormalAbhidhamma.Model.Origin
   mom : K → s.M
   phase : K → Phase
+  /-- facts about a mind-moment: it is a rebirth-linking moment · it is a moment that produces new kamma-born matter · the being it belongs to is embodied (has matter) -/
   rebirth : s.M → Prop
   produces : s.M → Prop
   embodied : s.M → Prop
+  /-- the moment is a death moment · the neither-perception moment just before a cessation attainment · an arahant's final death moment (no rebirth follows) · a fruition moment -/
   death : s.M → Prop
   cessation : s.M → Prop
   parinibbana : s.M → Prop
   fruition : s.M → Prop
+  /-- the piece is concretely produced matter (as opposed to the intimations and the characteristics) -/
   concrete : K → Bool
+  /-- the mind-moment and sub-moment at which the piece ceases -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
+  /-- the moment is a sense-consciousness; if so, `base` is the piece it arises in (its organ) and `object` the piece it takes -/
   sense : s.M → Prop
   base : s.M → Option K
   object : s.M → Option K
-  -- the day-reckoning (Clocks)
+  /-- the second clock: the ordinary day-reckoning `R`, laid on the stream by `f` (from a stream reading to a day-reckoning reading); `night`, `week` and `snap` are lengths on it (a night, a week, a finger-snap) -/
   f : S.T → R.T
   night : R.T
   week : R.T
   snap : R.T
-  -- the conditioning facts and their map to the stream's moments (Cond, Join)
+  /-- conditioning: the occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at INDEX `i` of `cond.occs` to the one at INDEX `j` (indices into that list, counted from 0; not `cit` values) -/
   cond : CondW S
+  /-- which mind-moment of the stream the occurrence at a given index of `cond.occs` is, when it is a citta -/
   momOf : Nat → Option s.M
-  -- bodies and kalāpas, processes, the taxonomy, the cosmos, the status
+  /-- bodies and kalāpas, processes, the taxonomy, the cosmos, the status -/
   mat : Mat
   proc : Proc
   tax : Tax
@@ -120,6 +127,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a74_seven_elements w.tax ∧   -- Tax
   a105_forty w.tax ∧   -- Tax
   a105_absorption w.tax ∧   -- Tax
+  a5_space_anipphanna w.tax ∧   -- Tax
   a71_by_nature w.tax ∧   -- Tax
   a71_which w.tax ∧   -- Tax
   a72_which w.tax ∧   -- Tax
@@ -170,6 +178,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a109_fruition w.proc ∧   -- Proc
   a115_conditions_meet w.proc ∧   -- Proc
   a46_javana_by_person w.proc ∧   -- Proc
+  a46_plane_organs w.proc ∧   -- Proc
   a35_step_cittas_are_types w.tax w.proc ∧   -- Proc
   a38_abhinna_flag_is_an_abhinna_citta w.tax w.proc ∧   -- Proc
   a36_steps_at_the_processs_door w.proc ∧   -- Proc
@@ -179,6 +188,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a115_no_conditions_no_consciousness w.proc ∧   -- Proc
   a39_sense w.mat ∧   -- Mat
   a39_fine w.mat ∧   -- Mat
+  a39_other w.mat ∧   -- Mat
   a39_immaterial w.mat ∧   -- Mat
   a4_life w.mat ∧   -- Mat
   a15_eight w.mat ∧   -- Mat
@@ -221,6 +231,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a87_pre_born w.cond ∧   -- Cond
   a88_post_born w.cond ∧   -- Cond
   a96_associated w.cond ∧   -- Cond
+  a30_sampayutta_marks w.cond ∧   -- Cond
   a97_dissociated w.cond ∧   -- Cond
   a98_present w.cond ∧   -- Cond
   a101_not_disappeared w.cond ∧   -- Cond
@@ -231,6 +242,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a94_jhana_scope w.cond ∧   -- Cond
   a95_path_scope w.cond ∧   -- Cond
   a91_result w.cond ∧   -- Cond
+  a78_vipaka_scope w.cond ∧   -- Cond
   a90_kamma w.cond ∧   -- Cond
   a89_repetition w.cond ∧   -- Cond
   a93_faculty w.cond ∧   -- Cond
@@ -264,12 +276,14 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a8_time_free w.status ∧   -- Status
   a9_three_spaces w.status ∧   -- Status
   a70_nibbana w.status ∧   -- Status
+  a7_time_is_a_concept w.status ∧   -- Status
+  a5_delimiting_space_is_matter w.status ∧   -- Status
   a104_time_is_a_concept w.status ∧   -- Status
   a126_only_own_nature w.status ∧   -- Status
   a76_twelve_links w.status ∧   -- Status
   a77_structure w.status     -- Status
 
 /-- How many definitions `Satisfies` conjoins. -/
-def satisfiesCount : Nat := 201
+def satisfiesCount : Nat := 208
 
 end FormalAbhidhamma.Model

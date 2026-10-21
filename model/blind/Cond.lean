@@ -55,13 +55,21 @@ def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
   ∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds
 
+def prenascent : List FormalAbhidhamma.Model.Rupa :=
+  [.cakkhu, .sota, .ghana, .jivha, .kaya, .vanna, .sadda, .gandha, .rasa, .pathavi, .tejo, .vayo, .hadaya]
+
 def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ S.lt b.rise a.fall
+  facts_between_occurrences w .purejata fun a b =>
+    S.lt a.rise b.rise ∧ S.lt b.rise a.fall ∧ ∃ r, a.rupa = some r ∧ r ∈ prenascent
 
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
 
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
+  ∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.sampayutta, i, j) ∈ w.holds
+
+def a30_sampayutta_marks {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .sampayutta fun a b => a.kind = .nama ∧ b.kind = .nama ∧ a.rise = b.rise ∧ a.fall = b.fall
 
 def a97_dissociated {S : Scale} (w : CondW S) : Prop :=
@@ -71,7 +79,7 @@ def a98_present {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .atthi fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 
 def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .avigata fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
+  ∀ i j, (Condition.avigata, i, j) ∈ w.holds ↔ (Condition.atthi, i, j) ∈ w.holds
 
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
@@ -85,17 +93,26 @@ abbrev cw (os : List (Occ Z)) (h : List (Condition × Nat × Nat)) : CondW Z := 
 
 def sameCittaTogether {S : Scale} (a b : Occ S) : Prop := a.cit = b.cit ∧ a.rise = b.rise
 
+def vipakaNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ (p.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
+
+def ownCittaScope {S : Scale} (a b : Occ S) : Prop := a.kind = .nama ∧ b.cit = a.cit ∧ (b.kind = .nama ∨ (b.kind = .rupa ∧ b.born = some .citta))
+
 def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu sameCittaTogether
 
 def a81_predominance {S : Scale} (w : CondW S) : Prop :=
   ∀ f ∈ w.holds, f.1 = .adhipati → ∃ a b, ends w f.2.1 f.2.2 = some (a, b) ∧
     (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
-def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana sameCittaTogether
+def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana ownCittaScope
 
-def a95_path_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .magga sameCittaTogether
+def a95_path_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .magga ownCittaScope
 
 def a91_result {S : Scale} (w : CondW S) : Prop :=
+  ∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → vipakaNama w a → vipakaNama w b → a.cit = b.cit →
+    (Condition.vipaka, i, j) ∈ w.holds
+
+def a78_vipaka_scope {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .vipaka fun a b =>
     a.kind = .nama ∧ b.kind = .nama ∧ a.rise = b.rise ∧
     (a.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∧ (b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
@@ -116,7 +133,7 @@ def a93_faculty {S : Scale} (w : CondW S) : Prop :=
 
 def a92_nutriment {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .ahara fun a b =>
-    (a.rupa = some .ahara ∧ b.kind = .rupa) ∨ (a.kind = .nama ∧ sameCittaTogether a b)
+    (a.rupa = some .ahara ∧ b.kind = .rupa) ∨ ownCittaScope a b
 
 def senseOfObject : FormalAbhidhamma.Model.Rupa → Option Nat
   | .vanna => some 1 | .sadda => some 2 | .gandha => some 3 | .rasa => some 4

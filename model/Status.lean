@@ -56,6 +56,12 @@ def a9_three_spaces (c : Status) : Prop :=
 /-- A70 (L4): nibbāna is unconditioned and one by nature. -/
 def a70_nibbana (c : Status) : Prop := c.nibbanaConditioned = false ∧ c.nibbanaCount = 1
 
+/-- A7 (L1/L4): time is "a mere concept, not existing by its own nature" — its sort is the concept, which is not among the ultimates. -/
+def a7_time_is_a_concept (c : Status) : Prop := c.timeSort = .pannatti ∧ c.timeSort ∉ c.ultimates
+
+/-- A5 (the ṭīkās' reading): the space element, the delimitation between kalāpas, is of the matter sort. -/
+def a5_delimiting_space_is_matter (c : Status) : Prop := c.spaceSort .delimiting = .rupa
+
 /-- A104 (L4, ch. 8 §39–43, `abh07t.nrf.xml:2977–3005`): direction and time are concepts, designated on the revolution of the moon and the like. -/
 def a104_time_is_a_concept (c : Status) : Prop := c.timeSort = .pannatti
 
@@ -95,6 +101,10 @@ theorem a70_forbids_conditionedNibbana : ¬ a70_nibbana conditionedNibbana := by
 
 abbrev realTime : Status := { okStatus with timeSort := .rupa }
 theorem a104_forbids_realTime : ¬ a104_time_is_a_concept realTime := by unfold a104_time_is_a_concept; decide
+theorem a7_forbids_realTime : ¬ a7_time_is_a_concept realTime := by unfold a7_time_is_a_concept; decide
+
+abbrev delimitingConcept : Status := { okStatus with spaceSort := fun _ => .pannatti }
+theorem a5_forbids_delimitingConcept : ¬ a5_delimiting_space_is_matter delimitingConcept := by unfold a5_delimiting_space_is_matter; decide
 
 abbrev derivationReal : Status := { okStatus with realDesignation := fun d => d == .ownNature || d == .derivation }
 theorem a126_forbids_derivationReal : ¬ a126_only_own_nature derivationReal := by

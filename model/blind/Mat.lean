@@ -49,6 +49,8 @@ def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → ∀ r 
 def a39_fine (m : Mat) : Prop :=
   ∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.bases, r ∈ [Rupa.cakkhu, .sota, .hadaya]
 
+def a39_other (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .lokuttara → ∀ r ∈ b.bases, r ∈ sixBases
+
 def a39_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.bases = []
 
 def a4_life (m : Mat) : Prop :=
@@ -108,7 +110,7 @@ def a68_fine (m : Mat) : Prop :=
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.kinds, r ∈ fineKinds) ∧
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ k ∈ m.kalapas, k.owner = some b.id → k.origin ≠ .ahara)
 
-def a68_non_percipient (m : Mat) : Prop := ∀ b ∈ m.beings, b.hasMind = false → ∀ r ∈ b.kinds, r ∈ nonPercipientKinds
+def a68_non_percipient (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .rupa → b.hasMind = false → ∀ r ∈ b.kinds, r ∈ nonPercipientKinds
 
 def a68_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.kinds = []
 

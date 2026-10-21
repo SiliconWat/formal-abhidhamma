@@ -45,6 +45,8 @@ Reader: a Scale is a type of values with a strict less-than (irreflexive, transi
 | a77_structure | periods is exactly [2, 8, 2], and modes 20, connections 3, groups 4, rounds 3, roots 2. |
 
 Reader: each a-def in Status.lean pins fields of a record to fixed values, so they are satisfiable by construction and constrain only the record, not any world. (Session: true, and intended — these rows are type-level facts; see the census class T.)
+| a7_time_is_a_concept | Time's sort is pannatti and is not among the ultimates. |
+| a5_delimiting_space_is_matter | The delimiting space's sort is rupa. |
 
 ## Tax.lean
 
@@ -106,6 +108,7 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a74_seven_elements | The cittas in kinds show exactly 7 distinct dhatu values. |
 | a105_forty | The kammatthana field equals kammatthana40 exactly. |
 | a105_absorption | For every subject in the flattened kammatthana list and every jhana number 1 to 6, kjhana equals jhanaTable. |
+| a5_space_anipphanna | t.nipphanna of akasa is false (space is not classed as concretely produced). |
 
 ## Proc.lean
 
@@ -159,6 +162,8 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a109_fruition | Every path process has 2 or 3 fruit steps after the path step (same as a44_fruition). |
 | a115_conditions_meet | For every meeting at a non-mind door where the door is intact, in range and attended, at least one following step has a kicca belonging to that door's sense functions. |
 | a46_javana_by_person | For every javana in every process: an arahant's javanas are not kusala (or are lokuttara); an arahant's javanas are not akusala; a non-arahant's javanas are not kiriya; a lokuttara javana implies the person is not a worldling. |
+| organAbsent | Helper: for a sense element d, true when the plane is arupa, or rupa with d at least 2; false for any other element. |
+| a46_plane_organs | No step of any process uses a sense element that is absent on that process's plane (organAbsent is false). |
 
 ## Mat.lean
 
@@ -183,9 +188,10 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a129_size | Every kalapa has size exactly 1. (Reader: also the default.) |
 | fineKinds / nonPercipientKinds | All Rupa.all entries except ghana, jivha, kaya, itthatta, purisatta; and the eight plus jivita, akasa, lahuta, muduta, kammannata, upacaya, santati, jarata, aniccata. |
 | a68_fine | (1) Every rupa-plane being's kinds list is within fineKinds. (2) No kalapa owned by a rupa-plane being has ahara origin. |
-| a68_non_percipient | Every mindless being has kinds only from nonPercipientKinds. |
 | a68_immaterial | Every arupa-plane being has an empty kinds list. |
 | a114_absent | Any being whose breathCase is not normal, or which is on the rupa or arupa plane, or has no mind, must have breathes = false. Nothing forces anyone to breathe. |
+| a39_other | Every being on the lokuttara plane has all its bases among the six. |
+| a68_non_percipient | Every rupa-plane being with no mind has all its kinds among the non-percipient kinds. Other beings are unconstrained. |
 
 ## Link.lean
 
@@ -218,30 +224,35 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a78_relata | Every fact of any condition must have two real ends, and the kinds of those ends must be admitted for the group that `sangaha` assigns to the condition. Facts pointing at nonexistent positions make it false. |
 | a83_co_nascent | For every sahajata fact, the two ends have the same rise time. It says nothing about fall times. |
 | a84_mutual | For every annamanna fact, the ends have the same rise time. Also, the reversed fact (annamanna, j, i) must be in the list. |
-| a87_pre_born | For every purejata fact, the first end rises strictly before the second rises, and the first has not fallen strictly before the second rises. |
 | a88_post_born | The mirror of a87. For every pacchajata fact, the second end rises strictly before the first rises; the second has not fallen strictly before the first rises. |
-| a96_associated | For every sampayutta fact, both ends are nama and have identical rise and fall times. |
 | a97_dissociated | For every vippayutta fact, the two ends have different kinds. |
 | a98_present | For every atthi fact, the two ends' lifetimes overlap or touch: neither fell strictly before the other rose. |
-| a101_not_disappeared | Identical in content to a98, for avigata facts. |
 | a99_absent | For every natthi fact, the first rises strictly before the second, and the second does not rise strictly before the first falls: the first has ended by the time the second starts, or ends exactly then. |
 | a100_gone | Identical in content to a99, for vigata facts. |
 | sameCittaTogether | Two occurrences have the same `cit` number and the same rise time. |
 | a79_root_scope | For every hetu fact, the ends have the same `cit` and rise time. |
 | a81_predominance | For every adhipati fact, either the ends share `cit` and rise time, or the second end is nama. |
-| a94_jhana_scope | For every jhana fact, the ends share `cit` and rise time. |
-| a95_path_scope | For every magga fact, the ends share `cit` and rise time. |
-| a91_result | For every vipaka fact, both ends are nama with the same rise time, and both have a citta whose `jati` is vipaka. An end with no citta fails. |
 | a90_kamma | For every kamma fact: either the ends share `cit` and rise time; or the first rises strictly before the second and the second either has a vipaka citta or has `born` = kamma. |
 | a89_repetition | For every asevana fact, both ends are nama, the first rises strictly before the second, both have the same `jati`, that `jati` is not vipaka, and the first has a citta. |
 | a93_faculty | For every indriya fact one of: (1) the first end's rupa is in `pasada` and the second end is nama; (2) the first end's rupa is `jivita` and the second was born of kamma; (3) the first end is nama and the ends share `cit` and rise time. |
-| a92_nutriment | For every ahara fact: the first end's rupa is `ahara` and the second end is rupa; or the first end is nama and the ends share `cit` and rise time. |
 | senseOfObject | vanna→1, sadda→2, gandha→3, rasa→4, pathavi/tejo/vayo→5, else nothing. |
 | a80_object_sense | For every arammana fact, take the first end's rupa r with a sense number n; if the second end's citta has dhatu `sense d`, then d = n. Vacuous when the first end has no rupa, the rupa has no number, or the second end's dhatu is not a sense one. |
 | a82_contiguity_same_relata | For all i and j, an anantara fact (i,j) is present exactly when a samanantara fact (i,j) is present. |
 | a121_passes_away | Every occurrence has rise strictly before fall. |
 
 Reader's observations: a98/a101 are the same statement under different condition names; a99/a100 likewise; a96 requires matching fall times but a83 does not; every `a…` predicate except a82 and a121 is vacuously true in a world with no facts of its condition.
+| prenascent | A list of 13 matter kinds: the five sense organs (cakkhu, sota, ghana, jivha, kaya), vanna, sadda, gandha, rasa, pathavi, tejo, vayo, and hadaya. Only a list. |
+| a87_pre_born | Every purejata fact from occurrence a to b needs: a rises strictly before b rises, b rises strictly before a falls, and a's matter-kind is one of the 13 in `prenascent`. Says nothing about what b is. |
+| a96_associated | For any two different occurrences i and j that are both mental (nama) and share the same `cit`, the world must record the sampayutta condition from i to j. A forced-presence rule, in both directions. |
+| a30_sampayutta_marks | Every recorded sampayutta fact between two occurrences needs both mental, with identical rise and identical fall. Restricts the facts present; forces none. |
+| a101_not_disappeared | For every pair i, j, the avigata fact holds exactly when the atthi fact holds. |
+| vipakaNama | An occurrence is mental and some occurrence sharing its `cit` has a citta whose jati is vipaka (possibly itself). |
+| ownCittaScope | a is mental and b has the same `cit`; b is mental, or matter whose origin is citta. |
+| a94_jhana_scope | Every recorded jhana fact between a and b satisfies ownCittaScope. Restricts present facts; forces none. |
+| a95_path_scope | As a94, for the magga condition. |
+| a91_result | For any two different occurrences i and j that are both vipakaNama and share a `cit`, the world must record the vipaka condition from i to j. Forced presence, both directions. |
+| a78_vipaka_scope | Every recorded vipaka fact between a and b needs both mental, the same rise, and both citta-types resultant (vipaka). Restricts present facts. |
+| a92_nutriment | Every recorded ahara fact between a and b is either (a's matter-kind is ahara and b is matter) or satisfies ownCittaScope. Restricts present facts. |
 
 ## Cosmos.lean
 
@@ -290,10 +301,8 @@ Reader's observation: every Cosmos predicate is a bare equality of fields to sti
 | a87_organ_and_object_already_arisen | At every sense moment, both the base and the object exist and each is present at the moment's arising. Its base half duplicates a116. |
 | a56_death_followed_unless_final | Every death moment that is not a parinibbana moment has some next moment under the stream's proximity relation. |
 | a56_final_ends | Every parinibbana moment is a death moment and has no next moment at all. |
-| a87_pre_born | Every pre-born condition fact between two occurrences: the supporter arises strictly before the other arises, and the other arises strictly before the supporter falls. |
 | a88_post_born | Every post-born fact: the second arises strictly before the first arises, and the first arises strictly before the second falls. |
 | a98_present | Every presence fact: the two lifetimes strictly overlap. |
-| a101_not_disappeared | Identical to a98 for non-disappearance facts: the two lifetimes strictly overlap. |
 | a81_predominance | Every predominance fact has endpoints such that either they are the same-citta-together case, or the second is of kind nama and an object fact on the same pair is also recorded. Fails if endpoints cannot be found. |
 | a121_passes_away | Every occurrence not of kind pannatti arises strictly before it falls. Pannatti occurrences are exempt. |
 | a24_rate | For any two moments m and n joined by exactly 10^12 stream steps, none departing from a moment flagged cessation, the clock time of n's arising is strictly less than m's arising time plus one snap. |

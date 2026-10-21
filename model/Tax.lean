@@ -632,6 +632,10 @@ abbrev spaceConcrete : Tax :=
 
 theorem a60_forbids_spaceConcrete : ¬ a60_concretely_produced spaceConcrete := by unfold a60_concretely_produced; decide
 
+/-- A5: the space element has no nature of its own — it is not among the concretely produced. -/
+def a5_space_anipphanna (t : Tax) : Prop := t.nipphanna .akasa = false
+theorem a5_forbids_spaceConcrete : ¬ a5_space_anipphanna spaceConcrete := by unfold a5_space_anipphanna; decide
+
 /-- The heart-base counted as internal, with the five organs. -/
 abbrev heartInternal : Tax := { bare with internal := fun r => pasada.contains r || r == .hadaya }
 

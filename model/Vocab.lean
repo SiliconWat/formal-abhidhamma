@@ -4,18 +4,13 @@
 namespace V
 
 inductive Cetasika where
-  
   | phassa | vedana | sanna | cetana | ekaggata | jivitindriya | manasikara
-  
   | vitakka | vicara | adhimokkha | viriya | piti | chanda
-  
   | moha | ahirika | anottappa | uddhacca | lobha | ditthi | mana | dosa
   | issa | macchariya | kukkucca | thina | middha | vicikiccha
-  
   | saddha | sati | hiri | ottappa | alobha | adosa | tatramajjhattata
   | kayapassaddhi | cittapassaddhi | kayalahuta | cittalahuta | kayamuduta | cittamuduta
   | kayakammannata | cittakammannata | kayapagunnata | cittapagunnata | kayujukata | cittujukata
-  
   | sammavaca | sammakammanta | sammaajiva
   | karuna | mudita
   | panna
@@ -37,13 +32,13 @@ structure Citta where
   vedana   : Vedana
   root     : Root
   dhatu    : Dhatu := .manovinnana
-  ofKusala : Bool := true    
-  knowing  : Bool := false   
-  view     : Bool := false   
-  prompted : Bool := false   
-  jhana    : Nat  := 0       
-  base     : Nat  := 0       
-  path     : Nat  := 0       
+  ofKusala : Bool := true    -- for resultants: result of wholesome (true) or unwholesome kamma
+  knowing  : Bool := false   -- ñāṇasampayutta
+  view     : Bool := false   -- diṭṭhigatasampayutta
+  prompted : Bool := false   -- sasaṅkhārika
+  jhana    : Nat  := 0       -- 0 = not a jhāna-citta; 1–5 on the fivefold scheme; immaterial = 5
+  base     : Nat  := 0       -- immaterial base 1–4
+  path     : Nat  := 0       -- supramundane path 1–4
   deriving DecidableEq, Repr
 
 inductive Condition | hetu | arammana | adhipati | anantara | samanantara | sahajata | annamanna | nissaya | upanissaya | purejata | pacchajata | asevana | kamma | vipaka | ahara | indriya | jhana | magga | sampayutta | vippayutta | atthi | natthi | vigata | avigata
@@ -115,45 +110,45 @@ inductive Kammatthana
   deriving DecidableEq, Repr
 
 structure Tax where
-  
+  /-- the citta-types, in the 121 reckoning (each supramundane citta by its jhāna) -/
   kinds : List Citta
-  
+  /-- the cetasikas -/
   cets : List Cetasika
-  
+  /-- which cetasika arises in which citta-type -/
   assoc : Citta → Cetasika → Bool
-  
+  /-- which function a citta-type performs -/
   kicca : Citta → Kicca → Bool
-  
+  /-- which citta-types can occur as a super-knowledge -/
   abhinna : Citta → Bool
-  
+  /-- which objects a citta-type takes; the Bool is true when it occurs as a super-knowledge (§58–59 count those apart) -/
   scope : Citta → Bool → Obj → Bool
-  
+  /-- the ultimate entities with their own characteristic -/
   salakkhana : List Dhamma
-  
+  /-- the kinds of matter -/
   rupas : List Rupa
-  
+  /-- which kinds are concretely produced -/
   nipphanna : Rupa → Bool
-  
+  /-- matter's dyads -/
   internal : Rupa → Bool
   gross : Rupa → Bool
   clung : Rupa → Bool
   visible : Rupa → Bool
-  
+  /-- which origin can produce which kind -/
   origin : Rupa → Origin → Bool
-  
+  /-- three dyads named without members -/
   base : Rupa → Bool
   door : Rupa → Bool
   faculty : Rupa → Bool
-  
+  /-- chapter 7's categories: each member by its nature -/
   papa : PapaCat → List (List Cetasika)
   missaka : MissakaCat → List (List Dhamma)
   bodhi : BodhiCat → List (List Dhamma)
   sabba : SabbaCat → List (List Dhamma)
-  
+  /-- the members of the mind-object base -/
   dhammayatana : List Dhamma
-  
+  /-- the subjects of calm, grouped -/
   kammatthana : List (List Kammatthana)
-  
+  /-- which jhāna a subject reaches (n = 6 the immaterial) -/
   kjhana : Kammatthana → Nat → Bool
 
 inductive Door | eye | ear | nose | tongue | body | mind deriving DecidableEq, Repr
@@ -202,9 +197,9 @@ structure Meeting where
 
 structure Proc where
   procs : List Process
-  
+  /-- which organ, if any, each door is -/
   organ : Door → Option Rupa
-  
+  /-- the members of the mind-object -/
   mindObject : List MObj
   meetings : List Meeting
 
@@ -214,13 +209,13 @@ structure Being where
   id : Nat
   plane : Bhumi
   bases : List Rupa
-  
+  /-- whether the being has mind, whether it has matter, and its material faculties -/
   hasMind : Bool := true
   hasMatter : Bool := true
   faculties : List Rupa := []
-  
+  /-- the kinds of matter the being's body has -/
   kinds : List Rupa := []
-  
+  /-- whether it breathes, and which of the seven cases it is in -/
   breathes : Bool := false
   breathCase : BreathCase := .normal
   deriving DecidableEq, Repr
@@ -231,9 +226,9 @@ structure Kalapa where
   life : Nat
   owner : Option Nat
   bound : Bool
-  
+  /-- the place it arises at and stays at for its whole life (a single field by the type: it has no second place, so "going" is another kalāpa at another place) -/
   place : Nat := 0
-  
+  /-- its size in paramāṇu (the Visuddhimagga-ṭīkā: a kalāpa is of paramāṇu size) -/
   size : Nat := 1
   deriving DecidableEq, Repr
 
@@ -241,9 +236,9 @@ structure Mat where
   beings : List Being
   kalapas : List Kalapa
   reached : List Door
-  
+  /-- the space between kalāpas, as pairs of their positions in `kalapas` -/
   gaps : List (Nat × Nat) := []
-  
+  /-- the size ladder's ratios, paramāṇu to aṅgula -/
   ladder : List Nat := [36, 36, 36, 36, 7, 7, 7]
 
 inductive Phase | arise | stand | dissolve deriving DecidableEq, Repr
@@ -257,19 +252,19 @@ structure Link (S : Scale) where
   rebirth : s.M → Prop
   produces : s.M → Prop
   embodied : s.M → Prop
-  
+  /-- death citta -/
   death : s.M → Prop := fun _ => False
-  
+  /-- concretely produced matter, as opposed to the intimations and the characteristics -/
   concrete : K → Bool := fun _ => true
-  
+  /-- where an occurrence ceases: the mind-moment and the sub-moment of its dissolution -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
-  
+  /-- the neither-perception moment before a cessation attainment, and the fruition citta that emerges -/
   cessation : s.M → Prop := fun _ => False
-  
+  /-- an arahant's last death citta: no rebirth-linking citta follows it -/
   parinibbana : s.M → Prop := fun _ => False
   fruition : s.M → Prop := fun _ => False
-  
+  /-- a sense-consciousness: its base (the organ) and its object, as occurrences -/
   sense : s.M → Prop := fun _ => False
   base : s.M → Option K := fun _ => none
   object : s.M → Option K := fun _ => none
@@ -282,13 +277,13 @@ structure Occ (S : Scale) where
   kind : Kind
   rise : S.T
   fall : S.T
-  
+  /-- the citta it belongs to (a mental state) or is originated by (mind-born matter): occurrences with one `cit` are of one citta -/
   cit : Nat := 0
-  
+  /-- the citta-type, for a mind occurrence -/
   citta : Option Citta := none
-  
+  /-- the kind of matter, for a matter occurrence -/
   rupa : Option Rupa := none
-  
+  /-- the origin, for a matter occurrence -/
   born : Option Origin := none
 
 structure CondW (S : Scale) where
@@ -318,31 +313,31 @@ structure Cosmos where
   sineruLength : Nat
   sineruWidth : Nat
   oceanDepth : Nat
-  
+  /-- length, breadth, height in yojanas -/
   moon : Nat × Nat × Nat
   sun : Nat × Nat × Nat
-  
+  /-- height above the earth of each disc's lower edge -/
   moonBottom : Nat
   sunBottom : Nat
   cakkavala : Nat
   litContinents : Nat
-  
+  /-- yojanas a day the sun gains on the moon -/
   dayGain : Nat
-  
+  /-- the number of planes in each of the four spheres: states of loss, happy sense, fine-material, immaterial -/
   planes : List Nat
-  
+  /-- how many human years are one day and night of the Four Great Kings, of the Yāma devas -/
   kingsDay : Nat
   yamaDay : Nat
-  
+  /-- the life-span in human years of the k-th sense deva realm, k = 0 the Four Great Kings -/
   lifespan : Nat → Nat
   kappaPhases : Nat
-  
+  /-- the highest of the sixteen fine-material planes (counted from 1) that each destruction reaches -/
   fireReaches : Nat
   waterReaches : Nat
   windReaches : Nat
-  
+  /-- how many buddha-fields one destruction ruins -/
   destroyedFields : Nat
-  
+  /-- the life-span of each of the twenty fine-material and immaterial planes, in SIXTHS of a kappa, in the Saṅgaha's order (the first-jhāna planes, the second, the third, Vehapphala and the non-percipient, the five Pure Abodes, the four immaterial) -/
   planeLife : List Nat
 
 inductive Sort5 | citta | cetasika | rupa | nibbana | pannatti deriving DecidableEq, Repr
@@ -361,9 +356,9 @@ structure Status where
   realDesignation : Designation → Bool
   nibbanaConditioned : Bool
   nibbanaCount : Nat
-  
+  /-- what direction and time are designated on, by the sort they are -/
   timeSort : Sort5
-  
+  /-- dependent origination: the links in order, and how many fall in each of the three periods -/
   chain : List Link12
   periods : List Nat
   modes : Nat
@@ -373,34 +368,41 @@ structure Status where
   roots : Nat
 
 structure World (S R : Scale) where
+  /-- the one stream of mind-moments; its clock readings are on the scale `S` -/
   s : Stream S
-  
+  /-- the pieces of matter placed in the stream (a type of them): each has an origin, the mind-moment it arises with, and the sub-moment (arise, stand or dissolve) at which it arises -/
   K : Type
   origin : K → Origin
   mom : K → s.M
   phase : K → Phase
+  /-- facts about a mind-moment: it is a rebirth-linking moment · it is a moment that produces new kamma-born matter · the being it belongs to is embodied (has matter) -/
   rebirth : s.M → Prop
   produces : s.M → Prop
   embodied : s.M → Prop
+  /-- the moment is a death moment · the neither-perception moment just before a cessation attainment · an arahant's final death moment (no rebirth follows) · a fruition moment -/
   death : s.M → Prop
   cessation : s.M → Prop
   parinibbana : s.M → Prop
   fruition : s.M → Prop
+  /-- the piece is concretely produced matter (as opposed to the intimations and the characteristics) -/
   concrete : K → Bool
+  /-- the mind-moment and sub-moment at which the piece ceases -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
+  /-- the moment is a sense-consciousness; if so, `base` is the piece it arises in (its organ) and `object` the piece it takes -/
   sense : s.M → Prop
   base : s.M → Option K
   object : s.M → Option K
-  
+  /-- the second clock: the ordinary day-reckoning `R`, laid on the stream by `f` (from a stream reading to a day-reckoning reading); `night`, `week` and `snap` are lengths on it (a night, a week, a finger-snap) -/
   f : S.T → R.T
   night : R.T
   week : R.T
   snap : R.T
-  
+  /-- conditioning: the occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at INDEX `i` of `cond.occs` to the one at INDEX `j` (indices into that list, counted from 0; not `cit` values) -/
   cond : CondW S
+  /-- which mind-moment of the stream the occurrence at a given index of `cond.occs` is, when it is a citta -/
   momOf : Nat → Option s.M
-  
+  /-- bodies and kalāpas, processes, the taxonomy, the cosmos, the status -/
   mat : Mat
   proc : Proc
   tax : Tax

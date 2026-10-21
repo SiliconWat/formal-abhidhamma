@@ -351,6 +351,8 @@ abbrev entryPath (n : Nat) : Citta :=
   { jati := .kusala, bhumi := .lokuttara, vedana := if n == 5 then .upekkha else .somanassa, root := .beautiful,
     knowing := true, jhana := n, path := 1 }
 
+def a5_space_anipphanna (t : Tax) : Prop := t.nipphanna .akasa = false
+
 set_option maxRecDepth 400000 in
 
 set_option maxRecDepth 400000 in

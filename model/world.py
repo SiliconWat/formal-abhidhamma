@@ -54,34 +54,41 @@ open FormalAbhidhamma.Relata
 
 /-- The ONE World. `s` is the stream; the matter placed in it, the day-reckoning, the conditioning facts and their map to moments are all over `s`. -/
 structure World (S R : Scale) where
+  /-- the one stream of mind-moments; its clock readings are on the scale `S` -/
   s : Stream S
-  -- matter placed in the stream (Link)
+  /-- the pieces of matter placed in the stream (a type of them): each has an origin, the mind-moment it arises with, and the sub-moment (arise, stand or dissolve) at which it arises -/
   K : Type
   origin : K → FormalAbhidhamma.Model.Origin
   mom : K → s.M
   phase : K → Phase
+  /-- facts about a mind-moment: it is a rebirth-linking moment · it is a moment that produces new kamma-born matter · the being it belongs to is embodied (has matter) -/
   rebirth : s.M → Prop
   produces : s.M → Prop
   embodied : s.M → Prop
+  /-- the moment is a death moment · the neither-perception moment just before a cessation attainment · an arahant's final death moment (no rebirth follows) · a fruition moment -/
   death : s.M → Prop
   cessation : s.M → Prop
   parinibbana : s.M → Prop
   fruition : s.M → Prop
+  /-- the piece is concretely produced matter (as opposed to the intimations and the characteristics) -/
   concrete : K → Bool
+  /-- the mind-moment and sub-moment at which the piece ceases -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
+  /-- the moment is a sense-consciousness; if so, `base` is the piece it arises in (its organ) and `object` the piece it takes -/
   sense : s.M → Prop
   base : s.M → Option K
   object : s.M → Option K
-  -- the day-reckoning (Clocks)
+  /-- the second clock: the ordinary day-reckoning `R`, laid on the stream by `f` (from a stream reading to a day-reckoning reading); `night`, `week` and `snap` are lengths on it (a night, a week, a finger-snap) -/
   f : S.T → R.T
   night : R.T
   week : R.T
   snap : R.T
-  -- the conditioning facts and their map to the stream's moments (Cond, Join)
+  /-- conditioning: the occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at INDEX `i` of `cond.occs` to the one at INDEX `j` (indices into that list, counted from 0; not `cit` values) -/
   cond : CondW S
+  /-- which mind-moment of the stream the occurrence at a given index of `cond.occs` is, when it is a citta -/
   momOf : Nat → Option s.M
-  -- bodies and kalāpas, processes, the taxonomy, the cosmos, the status
+  /-- bodies and kalāpas, processes, the taxonomy, the cosmos, the status -/
   mat : Mat
   proc : Proc
   tax : Tax

@@ -283,6 +283,13 @@ def a46_javana_by_person (w : Proc) : Prop :=
     (p.person ≠ .arahant → s.citta.jati ≠ .kiriya) ∧
     (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
 
+def organAbsent (pl : Bhumi) : Dhatu → Bool
+  | .sense d => pl == .arupa || (pl == .rupa && decide (2 ≤ d))
+  | _ => false
+
+def a46_plane_organs (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, organAbsent p.plane s.citta.dhatu = false
+
 def a35_step_cittas_are_types (t : Tax) (w : Proc) : Prop :=
   ∀ p ∈ w.procs, ∀ s ∈ p.steps, reckon89 s.citta ∈ t.kinds89
 
