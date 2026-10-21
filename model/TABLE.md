@@ -304,7 +304,7 @@ def a23_cakkavala (c : Cosmos) : Prop := c.cakkavala = 1203450
 
 ## A24
 
-> The RATE of mind: in one finger-snap moment (*accharākkhaṇa*) "many hundreds of thousands of koṭis of cittas arise" (*anekāni cittakoṭisatasahassāni uppajjanti*: > 10¹² per snap); no single citta lasts a night or a day; quoted with the Milindapañha's measure (a cartload of rice-grains too few to count the cittas of one snap). The same rate for feeling: *vedanā … ekaccharakkhaṇe koṭisatasahassasaṅkhyā uppajjitvā nirujjhati*
+> The RATE of mind: in one finger-snap moment (*accharākkhaṇa*) "many hundreds of thousands of koṭis of cittas arise" (*anekāni cittakoṭisatasahassāni uppajjanti*: > 10¹² per snap); no single citta lasts a night or a day; quoted with the Milindapañha's measure (a cartload of rice-grains too few to count the cittas of one snap). The same rate for feeling: *vedanā … ekaccharakkhaṇe koṭisatasahassasaṅkhyā uppajjitvā nirujjhati* ⚠️ READ 2026-10-20 (correction 4 §1.2): the rate is encoded as *any trillion consecutive cittas with no cessation moment among them arise within one snap*, with 0 < snap < night ≤ week; a window-for-every-reading form would have forced a stream with no last moment.
 
 **`a24_no_night`** (Clocks.lean)
 
@@ -681,7 +681,7 @@ def a38_twentyone (t : Tax) : Prop :=
 
 ## A39
 
-> Six bases: eye, ear, nose, tongue, body and the **heart-base** (*hadayavatthu*). All six exist in the sense sphere; nose, tongue and body are absent in the fine-material sphere; none exists in the immaterial. The sense-consciousnesses depend on their organ; the mind-element and most mind-consciousness on the heart-base; the immaterial resultants on no base
+> Six bases: eye, ear, nose, tongue, body and the **heart-base** (*hadayavatthu*). All six exist in the sense sphere; nose, tongue and body are absent in the fine-material sphere; none exists in the immaterial. The sense-consciousnesses depend on their organ; the mind-element and most mind-consciousness on the heart-base; the immaterial resultants on no base ⚠️ READ 2026-10-20 (correction 4 §1.4): a sense-sphere being has *at most* the six bases (the womb-born have three decads at rebirth; §65 says all six are *found* in the sense world); some sense-sphere being having all six is an OCCURRENCE.
 
 **`a39_fine`** (Mat.lean)
 
@@ -808,7 +808,7 @@ def a42_very_slight (w : Proc) : Prop :=
 
 ## A43
 
-> Mind-door process: a clear object gets adverting, javana and registration; an obscure one gets no registration. Absorption: three or four preparatory javanas (preparation, access, conformity, change-of-lineage), then the fourth or fifth is absorption, with no registration
+> Mind-door process: a clear object gets adverting, javana and registration; an obscure one gets no registration. Absorption: three or four preparatory javanas (preparation, access, conformity, change-of-lineage), then the fourth or fifth is absorption, with no registration ⚠️ READ 2026-10-20 (*The Calculus of Moments*, Protocol 1 correction 4 §1.1): registration follows a clear mind-door object *for a being of the sense sphere whose javanas and object are of the sense sphere* (A45 bars it elsewhere).
 
 **`a43_absorption`** (Proc.lean)
 
@@ -976,7 +976,7 @@ def a45_sense_objects (w : Proc) : Prop :=
 
 ## A46
 
-> Restrictions by person and plane: arahants have no wholesome or unwholesome javana; trainees and worldlings no functional javana; supramundane javanas arise only for noble persons; in each plane the cittas lacking its organs do not arise; **the non-percipient beings have no citta at all** (corroborates A13)
+> Restrictions by person and plane: arahants have no wholesome or unwholesome javana; trainees and worldlings no functional javana; supramundane javanas arise only for noble persons; in each plane the cittas lacking its organs do not arise; **the non-percipient beings have no citta at all** (corroborates A13) ⚠️ READ 2026-10-20 (correction 4 §1.5): an arahant's only supramundane javana is the arahatta fruition (Saṅgaha §43 `abh07t.nrf.xml:1433`, §48 `:1453`: 44 vīthi-cittas).
 
 **`a46_javana_by_person`** (Proc.lean)
 
