@@ -51,7 +51,12 @@ def compare(work, ids, lean):
         body = re.sub(r"(?m)^\s*namespace V\s*$|^\s*end V\s*$", "", ans)
         o, names = ours(r)
         results = []
-        for t in TACTICS:
+        NM = ", ".join(names)
+        extra = [f"by constructor <;> intro h <;> simp_all [ours, enc, {NM}]",
+                 f"by constructor <;> intro h <;> simp_all [ours, enc, {NM}, not_and_or, or_iff_not_imp_left]",
+                 f"by unfold ours enc {NM}; constructor <;> intro h <;> simp_all <;> omega",
+                 f"by unfold ours enc {NM}; simp_all [not_and_or, imp_iff_not_or]; grind"]
+        for t in TACTICS + extra:
             src = f"import World\nnamespace FormalAbhidhamma.Model\nopen FormalAbhidhamma FormalAbhidhamma.Relata\n{body}\n{o}\ntheorem same {{S R : Scale}} (w : World S R) : ours w ↔ enc w := {t}\nend FormalAbhidhamma.Model\n"
             p = os.path.join(work, r, "Compare.lean"); open(p, "w", encoding="utf-8").write(src)
             res = subprocess.run([lean, p], capture_output=True, text=True, env=dict(os.environ, LEAN_PATH=os.environ.get("LEAN_PATH", ""), ELAN_TOOLCHAIN=open(os.path.join(REPO, "lean-toolchain")).read().strip()))
