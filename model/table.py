@@ -30,8 +30,9 @@ def lean_defs():
     return d
 
 def row_of(name):
-    m = re.match(r"(a\d+b?)_", name)
+    m = re.match(r"(?:o_)?(a\d+b?)_", name)
     if m: return m.group(1).upper()
+    if name.startswith("o_k_"): return "K"
     if name.startswith("c_"): return "C"
     if name.startswith("k_"): return "K"
     return None

@@ -4,7 +4,7 @@ sees only the definitions and the vocabulary they use. Writes model/blind/<File>
   blind.py            write the copies      blind.py --check   exit 1 if a copy is stale     (the reader's plain English goes to model/BLIND.md, written by hand from the reader's report)"""
 import glob, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(HERE, "blind")
-FILES = ["Mind", "Tax", "Proc", "Mat", "Link", "Cond", "Clocks", "Join", "Cosmos", "Status"]
+FILES = ["Mind", "Tax", "Proc", "Mat", "Link", "Cond", "Clocks", "Join", "Cosmos", "Status", "Occurs"]
 WORLD_TYPES = re.compile(r"^abbrev \w+ : (Mat|Proc|Link Z|CondW Z|Cosmos|Status|Reck Z Z|Joined Z|Tax|Stream Z|Process|Occ Z|Option [A-Za-z.]+)\b")
 
 def strip_comments(t):

@@ -10,7 +10,7 @@
 # Exit 0 only if all hold. LEAN=path/to/lean to override. `./run.sh --control` plants the three failures it must catch.
 set -u; cd "$(dirname "$0")"; LEAN="${LEAN:-lean}"
 command -v "$LEAN" >/dev/null 2>&1 || LEAN="$HOME/.elan/bin/lean"
-FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean Cond.lean Clocks.lean Join.lean Cosmos.lean Status.lean"
+FILES="Mind.lean Tax.lean Proc.lean Mat.lean Link.lean Cond.lean Clocks.lean Join.lean Cosmos.lean Status.lean World.lean Occurs.lean"
 B=$(mktemp -d); trap 'rm -rf "$B"' EXIT
 export LEAN_PATH="$B"
 ( cd ../control && $LEAN -o "$B/Cetasika.olean" Cetasika.lean ) && ( cd ../sangaha && $LEAN -o "$B/Citta.olean" Citta.lean \
@@ -25,6 +25,8 @@ $LEAN -o "$B/Mind.olean" Mind.lean || { echo "FAIL  Mind.lean does not build"; e
 $LEAN -o "$B/Cond.olean" Cond.lean || { echo "FAIL  Cond.lean does not build"; exit 1; }
 # Mat.lean imports Proc.lean, so Proc's olean is built too
 $LEAN -o "$B/Proc.olean" Proc.lean || { echo "FAIL  Proc.lean does not build"; exit 1; }
+# World.lean imports every part, Occurs.lean imports World.lean: the rest of the oleans, in dependency order
+for m in Mat Link Clocks Join Cosmos Status World; do $LEAN -o "$B/$m.olean" $m.lean || { echo "FAIL  $m.lean does not build"; exit 1; }; done
 CONTROL=0; [ "${1:-}" = "--control" ] && CONTROL=1
 if [ $CONTROL = 1 ]; then
   # Planted, each of which the teeth test must report: a definition with no forbidden world (NO TEETH), one whose forbidden

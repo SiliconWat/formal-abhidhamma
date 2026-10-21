@@ -194,6 +194,7 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 | COSMO A50 + STATUS (2026-10-20) | `Cosmos.lean` · `Status.lean` | A50 (twenty planes' life-spans) · A26 · A8 · A9 · A70 · A104 · A126 · A76 · A77 (the structure: 2·8·2, 20 · 3 · 4 · 3 · 2; the beginningless clause is Mind's) (A7 · A103 by the type, in Mind/Clocks/Link) | 9 | 10 |
 | MIND link batch (2026-10-20) | `Link.lean` | A58 · A47 (unbroken; the cessation exception is on the clock only) · A111 (emergence by a fruition citta; no death within) | 4 | 4 |
 | REFUTER PASS 1 + WORLD (2026-10-20) | all | the first refuter pass's fixes (`FINDINGS.md`: 40 findings, 22 fixed in the Lean, the rest deferred, declined or the founder's) and `World.lean`, the ONE World with `Satisfies` generated from the row definitions | 24 | 15 |
+| OCCURRENCE LIST as Lean (2026-10-20) | `Occurs.lean` | the occurrence list as 22 existence clauses over the one World, `Occurs`; the EMPTY-world control (it fails the list); the rival-readings control (A4's 17 and the 16 together are FOUND); 7 occurrences not yet expressible (A18 · A20 · A51 · A55 · A124 · A125 · A26) | 3 | 1 |
 | PROC A46 (2026-10-20) | `Proc.lean` | A46 (javana by person: no wholesome or unwholesome for an arahant, no functional for others, supramundane only for the noble) | 1 | 3 |
 
 `run.sh` passed on 2026-10-18 with 95 forbidden worlds and no problems, after its own control. A row with several

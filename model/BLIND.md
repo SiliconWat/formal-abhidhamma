@@ -295,3 +295,33 @@ Reader's observation: every Cosmos predicate is a bare equality of fields to sti
 | a3_cit_labels_are_moments | For any two occurrences both assigned moments, they have equal cit label exactly when they are assigned the same moment. |
 | a3_every_moment_has_an_occurrence | Every moment of the stream is assigned to by some occurrence index within the occurrence list. |
 | a16_stack | Twice moonBottom is at most risen; risen is at most twice moonBottom plus 200; sunBottom equals moonBottom plus the moon's third component plus 1; and moonBottom plus 100 equals sunBottom plus the sun's third component (the last two force the two third components to sum to 99). |
+
+## Occurs.lean — the occurrence list as Lean (read 2026-10-20)
+
+| definition name | plain English |
+|---|---|
+| o_a28_every_type | Every item in the world's list of 89 kinds must appear in at least one process: some step of some process must have its citta reckoned (by reckon89) as that kind. |
+| o_a29_every_cetasika | Every item in the world's cetasika list must be associated with the reckoned kind of some step's citta in some process. |
+| o_a35_every_function | Every function in Kicca.all must be the function of some step in some process. |
+| o_a36_every_door | Each of the six doors must be the door of at least one process. |
+| o_a41_very_great | There must be a process of kind fiveDoor whose "past" value is exactly 1. |
+| o_a42_every_grade | There must be four fiveDoor processes, with past = 1, past in 2..3, past in 4..9 and past in 10..15 respectively. (The first clause duplicates o_a41; one process cannot fill two grades.) |
+| o_a43_mind_door_and_absorption | There must be at least one process of kind mindDoor and at least one of kind absorption. |
+| o_a109_path | There must be at least one process of kind path. |
+| o_a110_every_person | There must be processes whose person is worldling, noble and arahant (at least one of each). |
+| o_a115_a_meeting | There must be a meeting whose door is not mind and which is intact, inRange and attended. |
+| o_a107_an_abhinna | Some item in the world's kinds list must be marked abhinna = true. |
+| o_a48_every_sphere | For each of the three planes (kama, rupa, arupa), the world must have a being in that plane. |
+| o_a13_both_kinds | There must be a being in plane arupa and a being with hasMind = false (possibly different beings). |
+| o_a60_every_kind | Every rupa marked nipphanna must be a member of at least one kalapa in the world. Vacuous if no rupa is marked nipphanna. |
+| o_a6_outside | There must be a kalapa whose owner is none. |
+| o_a64_every_origin | Every origin in Origin.all must be the origin of at least one kalapa. |
+| o_a66_every_kalapa | For every entry t in twentyOne, some kalapa must satisfy isKind k t. |
+| o_k_a_corpse | Some death must exist, and some kalapa must have origin utu and an owner that is not none. (Reader: the two parts are not linked; the kalapa need not be tied to that death, and nothing about a corpse is stated — a known weak form, named in the file.) |
+| o_a56_death_then_rebirth | There must be a death d and a rebirth n such that n is the proximate successor of d. |
+| o_a77_a_stream | There must exist at least one moment. |
+| o_a78_every_condition | Every condition in Relata.all must be the first component of some entry in the world's holds list. |
+| o_a111_cessation_with_emergence | There must be moments m and n such that m is a cessation, n is the proximate successor of m, and n is a fruition. |
+| Occurs | The conjunction of the 22 conditions above. A pure existence and coverage list; constrains nothing else. |
+| emptyWorld | A world over the whole-number scales with no moments and no kalapas, every predicate false, every list empty, f the identity (night 2, week 7, snap 1) and placeholder process, taxonomy, cosmos and status. It cannot satisfy Occurs. |
+| a4_variant_sixteen | For a link: for every concrete item that arises at a citta's arising, the cease moment is reached from the start moment in exactly 15 steps of proximity and the cease phase is dissolve. Vacuous if nothing is concrete and arising. |
