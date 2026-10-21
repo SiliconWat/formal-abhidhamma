@@ -259,9 +259,10 @@ theorem a122_forbids_rebirthNotAfterDeath : ¬ a122_rebirth_after_death Z rebirt
 /-- A58 (L4, ch. 5 §99–102, `abh07t.nrf.xml:1989–2005`): every citta lies at or after the rebirth-linking citta of its own existence — some rebirth-linking citta is the moment itself or arises before it. -/
 def a58_begins_with_rebirth (S : Scale) (l : Link S) : Prop := ∀ m, ∃ r, l.rebirth r ∧ (r = m ∨ S.lt (l.s.arise r) (l.s.arise m))
 
-/-- A47 (L5, `abh07t.nrf.xml:1501`, `:5193`): within a life the process and the bhavaṅga run unbroken — every moment has a proximate successor. The cessation exception is on the CLOCK
-    only (A112, Clocks.lean): proximity itself holds across it. -/
-def a47_unbroken (S : Scale) (l : Link S) : Prop := ∀ m, ∃ n, l.s.prox m n
+/-- A47 (L5, `abh07t.nrf.xml:1501`, `:5193`): within a life the process and the bhavaṅga run unbroken — every moment that is not a death citta has a proximate successor. (LITERAL: the row says
+    "within a life"; what follows a death citta is A122's, and an arahant's last death citta has no successor. The first version said every moment, which would end no stream — too strong; found
+    by the blind reader's remark, 2026-10-20.) The cessation exception is on the CLOCK only (A112, Clocks.lean): proximity itself holds across it. -/
+def a47_unbroken (S : Scale) (l : Link S) : Prop := ∀ m, ¬ l.death m → ∃ n, l.s.prox m n
 
 /-- A111, emergence (L1/L2/L4, MN 43; `kala/AXIOMS.md`): the attainer emerges by one fruition citta — the proximate successor of the neither-perception moment before cessation is a fruition citta. -/
 def a111_emerges_by_fruition (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → l.fruition n
@@ -277,7 +278,7 @@ abbrev endsAtOnce : Link Z :=
     ceaseMom := fun _ => false, ceasePhase := fun _ => .dissolve }
 theorem a47_forbids_endsAtOnce : ¬ a47_unbroken Z endsAtOnce := by
   intro h
-  obtain ⟨n, hn⟩ := h true
+  obtain ⟨n, hn⟩ := h true (by simp [endsAtOnce])
   exact absurd hn.1 (by decide)
 
 /-- A stream with no rebirth-linking citta at all. -/

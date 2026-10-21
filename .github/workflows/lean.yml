@@ -51,6 +51,10 @@ jobs:
       - name: The occurrence, variants and freedoms lists are current
         run: python3 model/lists.py --check
 
+      # a definition that changes without a fresh blind copy fails here, so a changed definition always owes a re-read (Protocol 1 §7.3)
+      - name: The blind copies and the row table are current
+        run: python3 model/blind.py --check && python3 model/table.py --check
+
       # matika/RELATA is generated from scripts/relata.py's clause table (no CST needed to build it). --check also refuses a
       # reading that cites the held-out answer it is tested against (the first version did; its refuter caught it, 2026-10-13)
       - name: The relata are current and answer-free

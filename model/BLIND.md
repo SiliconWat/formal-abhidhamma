@@ -1,0 +1,257 @@
+# BLIND — the blind readers' plain English for every definition (Protocol 1 §7.3)
+
+*Five `lean` readers (no memory, no doctrine, no CLAUDE.md) each read ONLY the comment-stripped copies in `model/blind/` (copied outside the repository so the original comments could not be reached) and wrote what each definition REQUIRES of a world. `scripts/simile_guard.py` ran clean on the copies first. Their tables are kept below as the readers wrote them (2026-10-20), Cond and Cosmos condensed by the session from the reader's table. `model/table.py` joins them to the rows and the Lean as `model/TABLE.md`, the table the founder reads before Protocol 2. A reader's remark is kept as a remark; ⛔ none is acted on by this file.*
+
+## Mind.lean
+
+| definition name | plain English |
+|---|---|
+| a1_never_together | For any two different moments m and n, at least one of: n does not arise before m closes, or m does not arise before n closes. No two different moments can overlap; touching is allowed (the test is strict less-than). |
+| a117_arising_and_dissolution | Every moment arises strictly before it dissolves, and dissolves strictly before it closes. Says nothing about "stand". |
+| a40_three_equal | For every moment there is a positive step d with stand = arise + d, dissolve = stand + d, close = dissolve + d: four times evenly spaced by one positive amount. (Implies a117's ordering.) |
+| a3_no_moment_between | For any m, n: prox m n holds exactly when m arises strictly before n and no moment at all arises strictly between them. prox is the immediate successor by arising time; if arising times are dense or tied it may be empty. |
+| c_every_citta_has_a_proximate | Every moment n has some m with prox m n: every moment has an immediate predecessor in arising order. |
+| a77_beginningless | Every moment has some moment arising strictly before it: no earliest-arising moment. (Mostly redundant with the previous definition when prox is as in a3, but stated independently.) |
+
+Reader: a Scale is a type of values with a strict less-than (irreflexive, transitive, total), an associative commutative addition with zero, and left-addition preserving less-than; it does not require positivity or cancellation. A Stream imposes no constraints in itself.
+
+## Clocks.lean
+
+| definition name | plain English |
+|---|---|
+| a7_reckoning_keeps_order | f never reverses order: if a is strictly below b in S, then f b is not strictly below f a in R (monotone, non-strict; f may be constant). |
+| a112_cessation_step | For any moment m marked cessation and any n with prox m n: f(arise n) is not below f(close m) + night, and f(close m) + week is not below f(arise n): the gap from m's close to n's arising, in R, is at least "night" and at most "week". Vacuous if no moment is marked cessation. |
+| a24_no_night | For every moment m, f(close m) is strictly below f(arise m) + night: each moment's duration in R is less than "night". |
+| a24_rate | For every R-time-point x there exists a list of distinct moments, at least 10^12 long, each arising at or after x and strictly before x + snap: every window of length "snap" holds at least a trillion distinct moments. Very strong: requires infinitely many moments overall (in effect). |
+
+## Join.lean
+
+| definition name | plain English |
+|---|---|
+| j_readings_are_the_moments | Whenever position i is mapped to a moment m and the occurrence list has an entry a at position i, that entry has kind "nama", its rise equals the moment's arise value, and its fall equals the moment's close value. Positions with no moment or no occurrence are unconstrained. |
+| a3_proximity_is_the_streams_prox | For all positions i, k: the triple (anantara, i, k) is in the holds list exactly when i and k map to moments m and n with prox m n: the anantara links match the stream's prox in both directions and require both positions to map to a moment. |
+
+## Status.lean
+
+| definition name | plain English |
+|---|---|
+| a26_ultimates | The "ultimates" list is exactly [citta, cetasika, rupa, nibbana], in that order. |
+| a8_time_free | The "timeFree" list is exactly [nibbana, pannatti], in that order. |
+| a9_three_spaces | delimiting maps to rupa, kasina maps to pannatti, unentangled maps to pannatti. |
+| a70_nibbana | nibbanaConditioned is false and nibbanaCount is exactly 1. |
+| a104_time_is_a_concept | timeSort is pannatti. |
+| a126_only_own_nature | For every designation d, realDesignation d is true exactly when d is ownNature. |
+| a76_twelve_links | The chain is exactly the twelve links in the declared order, each once. |
+| a77_structure | periods is exactly [2, 8, 2], and modes 20, connections 3, groups 4, rounds 3, roots 2. |
+
+Reader: each a-def in Status.lean pins fields of a record to fixed values, so they are satisfiable by construction and constrain only the record, not any world. (Session: true, and intended — these rows are type-level facts; see the census class T.)
+
+## Tax.lean
+
+| definition name | plain English |
+|---|---|
+| kiccaTable | For a given citta and a Kicca, says whether the citta can do that function: patisandhi, bhavanga and cuti need a vipaka citta of one of three kinds (kama, no roots, manovinnana, upekkha; kama with beautiful roots; any rupa- or arupa-realm citta); avajjana needs kiriya, no roots, upekkha; the five sense functions need the matching sense element 1 to 5; sampaticchana needs vipaka with mano element; santirana needs vipaka, kama, no roots, manovinnana; votthabbana needs kiriya, no roots, upekkha, manovinnana; javana needs kusala, or akusala, or lokuttara vipaka, or kiriya that is not (rootless and upekkha); tadarammana needs vipaka, kama, and either beautiful roots or (no roots and manovinnana). |
+| originTable | A fixed table saying whether a Rupa has a given Origin: hadaya, the five pasada, itthatta, purisatta and jivita only kamma; the two vinnatti only citta; sadda citta or utu; lahuta, muduta, kammannata every origin except kamma; upacaya, santati, jarata, aniccata none; every other Rupa all four. |
+| jhanaTable | Whether a meditation subject allows a given jhana number: any kasina, and anussati 10, 1 to 5; any asubha, and anussati 9, only 1; appamanna 4 only 5; other appamanna 1 to 4; any aruppa only 6; everything else none. (Match order: anussati 10 is handled as 1 to 5; other anussati values fall through to false.) |
+| a27_seventytwo | The salakkhana list has no repeats and exactly 72 entries. |
+| a28_eightynine | The kinds list has no repeats; its collapsed version (kinds89) has 89 entries, split 54 kama, 15 rupa, 12 arupa and 8 lokuttara (lokuttara cittas differing only by jhana or feeling merge). |
+| a28_onetwentyone | The kinds list has 121 entries, 40 of them lokuttara; for every lokuttara citta in kinds89 and each jhana number 1 to 5, some citta in kinds collapses to it and has that jhana number. |
+| a29_fiftytwo | The cets list has no repeats and 52 entries: 7 universals, 6 occasionals, 14 unwholesome, 25 beautiful. |
+| a31_universals | Every citta in kinds is associated with every cetasika in universals. |
+| a32_generated | The kinds list contains exactly the same cittas as cittas121 (defined elsewhere); no check of duplicates or order. |
+| a32_association | For every citta in kinds and every item in FormalAbhidhamma.all, assoc agrees with an external function `arises`. |
+| a33_feelings | Among kinds, exactly 1 citta has sukha, 1 dukkha, 62 somanassa, 2 domanassa, 55 upekkha (sum 121). |
+| a34_roots | Among kinds89, 18 cittas have 0 roots, 2 have 1, 22 have 2 and 47 have 3 (sum 89). |
+| a35_every_function | Every Kicca is performed by at least one citta in kinds89. |
+| a35_counts | In kinds89, 68 cittas perform exactly 1 function, 2 exactly 2, 9 exactly 3, 8 exactly 4, 2 exactly 5 (sum 89, so no citta performs 0 or 6+). |
+| a35_which | For every citta in kinds89 and every Kicca, the kicca field gives the same answer as kiccaTable. |
+| a36_nineteen | Exactly 19 of the taxonomy's 89 kinds can perform patisandhi, bhavanga or cuti. |
+| a38_one_object | For every sense citta in kinds89, the scope (flag false) is true for exactly one object, the one senseObj gives for the citta's door. |
+| a38_supramundane | For every lokuttara citta in kinds, the scope (flag false) is true for exactly nibbana. |
+| a38_twentyfive | Exactly 25 cittas in kinds89 are kama-realm, take at least one object, and take only kama-type objects. |
+| a38_twentyone | Exactly 21 cittas in kinds89 take exactly the pannatti object and no other. |
+| a38_six_any | Exactly 6 entries in modes (a citta plus a flag) can take every object. |
+| a38_six_exalted | Exactly 6 cittas in kinds89 take exactly the mahaggata object and no other. |
+| a38_twenty | Exactly 20 cittas in kinds89 take every object except lokuttara, agga and nibbana, and none of those three. |
+| a38_five_but_agga | Exactly 5 entries in modes take every object except agga. |
+| a60_twentyeight | The rupas list has no repeats and exactly 28 entries. |
+| a60_concretely_produced | nipphanna is true exactly when the Rupa is not in anipphanna; exactly 18 members of the rupas list are nipphanna. |
+| a62_internal | internal is true exactly when the Rupa is in pasada. |
+| a62_gross | gross is true exactly when the Rupa is in pasada or gocara; exactly 12 Rupa labels are gross. |
+| a62_clung | clung equals the origin function's answer for kamma. |
+| a62_visible | visible is true only for vanna. |
+| a62_base | base is true exactly for the five pasada and hadaya. |
+| a62_door | door is true exactly for the five pasada and the two vinnatti. |
+| a62_faculty | faculty is true exactly when the Rupa is in indriyaRupa. |
+| a65_table | For every Rupa and Origin, the origin field equals originTable. |
+| a65_counts | Among the rupas list, 18 have kamma origin, 15 citta, 13 utu, 12 ahara. |
+| a107_fifth_jhana | Every citta in kinds flagged abhinna is rupa-realm and has jhana 5 (vacuous if none is flagged). |
+| a71_sizes | For each PapaCat, the papa list has as many groups as the category's size (asava, ogha, yoga, gantha, upadana 4; nivarana 6; anusaya 7; the last three 10). |
+| a71_unwholesome | In every papa group, each member list is non-empty and every cetasika in it is in the unwholesome list. |
+| a72_sizes | For each MissakaCat, the missaka list has as many groups as the category's size (hetu 6, jhananga 7, maggangaRight 8, maggangaWrong 4, indriya 22, bala 9, adhipati 4, ahara 4). |
+| a72_life_faculty | In the indriya category some group contains the rupa jivita, and some group contains the cetasika jivitindriya (possibly different groups). |
+| a72_nutriments | The ahara category is exactly the four groups [rupa ahara], [cetasika phassa], [cetasika cetana], [citta], in that order. |
+| a73_sizes | For each BodhiCat, the bodhi list has as many groups as the category's size. |
+| a73_fourteen | Taking all groups from all bodhi categories, flattening and removing duplicates, there are exactly 14 distinct groups. |
+| a74_sizes | For each SabbaCat, the sabba list has as many groups as the category's size (khandha 5, upadanakkhandha 5, ayatana 12, dhatu 18, sacca 4). |
+| a74_nibbana_outside | No group in the khandha category contains nibbana. |
+| a74_sixtynine | The dhammayatana list has no repeats and 69 entries; each passes inDhammaBase; every cetasika in cets is in it; every non-gross rupa in rupas is in it; nibbana is in it. |
+| a74_seven_elements | The cittas in kinds show exactly 7 distinct dhatu values. |
+| a105_forty | The kammatthana field equals kammatthana40 exactly. |
+| a105_absorption | For every subject in the flattened kammatthana list and every jhana number 1 to 6, kjhana equals jhanaTable. |
+
+## Proc.lean
+
+| definition name | plain English |
+|---|---|
+| veryGreatOrder | True when the list starts exactly with the five-door head, then has at least one javana, and after the javanas is either nothing or exactly two tadarammana. |
+| mindDoorOrder | True when the list starts with at least one bhavanga, then one avajjana, then at least one javana, then only tadarammana (any number, including zero). |
+| absorbsAfter | True when the first m javana steps are all kama, there is at least one more step, and all the remaining steps are non-kama. |
+| afterPath | The steps after (and including) the first path step; empty if no path step exists. |
+| a35_station_fits | In every step of every process, the taxonomy permits that step's citta (in the 89 scheme) to perform that step's kicca. |
+| a36_organs | The organs for eye, ear, nose, tongue and body are exactly cakkhu, sota, ghana, jivha and kaya. Says nothing about the mind door. |
+| a36_mind_door_no_organ | The mind door has no organ. |
+| a36_mind_door_is_bhavanga | Every process that is not a five-door process begins with a bhavanga step (an empty process fails). |
+| a36_door_free | In every step, the step has no door exactly when its kicca is patisandhi, bhavanga or cuti. |
+| a37_sense_door_present | Every step with a door that is not the mind door has time "present". |
+| a37_mind_object | The world's mind-object list contains all pasada rupas, all non-gross rupas the taxonomy marks, citta, every cetasika in the taxonomy, nibbana and pannatti. |
+| a38_in_scope | Every step is within the taxonomy's scope for its citta, abhinna flag and object. |
+| a41_entry | Every five-door process has past at least 1. |
+| a41_two_vibrations | Every five-door process with past exactly 1 begins with the kiccas bhavanga, bhavanga, avajjana. |
+| a41_order | Every five-door process with past 1 has, after dropping its first two steps, a kicca order satisfying veryGreatOrder for its door. |
+| a41_seventeen | Every five-door process with past 1 has past plus number of steps at most 17. |
+| a42_very_great | Every five-door process with past 1 has at least one javana. |
+| a42_great | Every five-door process with past 2 or 3 has no tadarammana. |
+| a42_slight | Every five-door process with past 4 to 9 has no javana and has 2 or 3 votthabbana steps. |
+| a42_very_slight | Every five-door process with past 10 to 15 consists only of bhavanga steps (an empty process passes). |
+| a43_clear | Every mind-door process marked clear has at least one tadarammana. |
+| a43_obscure | Every mind-door process marked not clear has no tadarammana. |
+| a43_order | Every mind-door process has a kicca sequence satisfying mindDoorOrder. |
+| a43_absorption | Every absorption or path process has javanas where the first 3 are kama and the rest non-kama, or the first 4 are kama and the rest non-kama; at least one non-kama javana is required. |
+| a43_absorption_no_registration | Every absorption or path process has no tadarammana. |
+| a44_seven_or_six | Every five-door or mind-door process not near death has 0, 6 or 7 javanas. |
+| a44_five_at_death | Every five-door or mind-door process near death has 0 or 5 javanas. |
+| a44_first_once | Every absorption process flagged first has exactly one non-kama javana. |
+| a44_abhinna_once | Every process has at most one step with the abhinna flag set. |
+| a44_path_one_moment | Every path process has exactly one path step. |
+| a44_fruition | Every path process has 2 or 3 steps after the path step, all fruit steps. |
+| a45_desirability | In every process, each step with a sense-type, sampaticchana, santirana or tadarammana kicca has a citta whose ofKusala value equals "the process desirability is not anittha". |
+| a45_sense_beings | Every process with at least one tadarammana has plane kama. |
+| a45_sense_objects | Every tadarammana step has an object that counts as a sense (kama) object. |
+| a45_sense_javana | Every process with a tadarammana has javanas that are all kama. |
+| a45_clear_or_very_great | Every process with a tadarammana is either a five-door process with past 1, or a mind-door process that is clear. |
+| a57_five_at_death | Every process flagged near death has 0 or 5 javanas. |
+| a57_kamma_past | Every patisandhi or bhavanga step with sign kamma has time "past". |
+| a106_first | Every arupa attainment step with base 1 has object pannatti. |
+| a106_second | Every arupa attainment step with base 2 has object mahaggata and objBase 1. |
+| a106_third | Every arupa attainment step with base 3 has object pannatti. |
+| a106_fourth | Every arupa attainment step with base 4 has object mahaggata and objBase 3. |
+| a109_insight | Every path process has, after 3 or 4 initial all-kama javanas, a next javana that is a path step. |
+| a109_change_of_lineage | In every path process, the last step before the first path step has object nibbana (fails if there is no step before it). |
+| a109_path_once | Every path process has exactly one path step (same as a44_path_one_moment). |
+| a109_fruition | Every path process has 2 or 3 fruit steps after the path step (same as a44_fruition). |
+| a115_conditions_meet | For every meeting at a non-mind door where the door is intact, in range and attended, at least one following step has a kicca belonging to that door's sense functions. |
+| a46_javana_by_person | For every javana in every process: an arahant's javanas are not kusala (or are lokuttara); an arahant's javanas are not akusala; a non-arahant's javanas are not kiriya; a lokuttara javana implies the person is not a worldling. |
+
+## Mat.lean
+
+| definition name | plain English |
+|---|---|
+| a39_sense | Every being on the kama plane has bases exactly equal to sixBases (same order). Vacuously true if there are no kama beings. |
+| a39_fine | Every being on the rupa plane has only bases drawn from cakkhu, sota, hadaya: an upper limit, not a requirement. |
+| a39_immaterial | Every being on the arupa plane has an empty bases list. |
+| a4_life | Every kalapa with no member in anipphanna has life exactly 51; kalapas with any anipphanna member are unconstrained. |
+| a15_eight | Every kalapa contains all eight of pathavi, apo, tejo, vayo, vanna, gandha, rasa, ahara. |
+| a15_lightness | Any kalapa containing lahuta must have an origin other than kamma and must have an owner. |
+| a63_reach | The reached list is exactly [nose, tongue, body], in that order (pins the list; not a "contains" test). |
+| a6_unbound | For every kalapa, bound is false exactly when owner is none. |
+| twentyOne / isKind | A fixed list of 21 (member list, origin) pairs (9 kamma, 6 citta, 4 utu, 2 ahara); isKind compares a kalapa's members after canon (Rupa.all order, duplicates dropped) and origin to a pair. |
+| a66_twenty_one | Every kalapa matches at least one of the 21 listed pairs. |
+| a66_external | Every kalapa with no owner is exactly the eight with utu origin, or exactly the eight plus sadda with utu origin. |
+| a66_no_delimiter_member | No kalapa has akasa, upacaya, santati, jarata or aniccata among its members. |
+| a5_space | Every gap is a pair of two different valid kalapa indexes. |
+| a13_arupa | Every arupa-plane being has no matter and has mind. |
+| a13_mindless | Every being without mind has matter and has jivita in its faculties. |
+| a129_ladder | The ladder equals exactly [36,36,36,36,7,7,7]. (Reader: also the default, so trivially true unless overridden.) |
+| a129_size | Every kalapa has size exactly 1. (Reader: also the default.) |
+| fineKinds / nonPercipientKinds | All Rupa.all entries except ghana, jivha, kaya, itthatta, purisatta; and the eight plus jivita, akasa, lahuta, muduta, kammannata, upacaya, santati, jarata, aniccata. |
+| a68_fine | (1) Every rupa-plane being's kinds list is within fineKinds. (2) No kalapa owned by a rupa-plane being has ahara origin. |
+| a68_non_percipient | Every mindless being has kinds only from nonPercipientKinds. |
+| a68_immaterial | Every arupa-plane being has an empty kinds list. |
+| a114_absent | Any being whose breathCase is not normal, or which is on the rupa or arupa plane, or has no mind, must have breathes = false. Nothing forces anyone to breathe. |
+
+## Link.lean
+
+| definition name | plain English |
+|---|---|
+| a120_mind_born_at_arising | Every item with citta origin has phase arise. |
+| a120_kamma_born_at_all_three | For every embodied moment and each of the three phases, some item exists with kamma origin, that moment, and that phase. |
+| a118_core | No item with citta origin has phase dissolve. (Weaker than a120_mind_born_at_arising, which fixes the phase to arise.) |
+| a64_kamma_from_rebirth | Every kamma-origin item has some rebirth moment r that is the item's own moment or strictly earlier. |
+| a67_mind_born_not_at_rebirth | No citta-origin item sits at a rebirth moment. |
+| a64_mind_born_only_by_producers | Every citta-origin item sits at a moment satisfying produces. |
+| a4_life_in_the_stream | For every concrete item: arising → reached by exactly 16 steps, cease phase dissolve; standing → 17 steps, cease phase arise; dissolving → 17 steps, cease phase stand (exact step counts). |
+| k_kamma_born_stops | For any death moment d and any b that is 16 steps before d, every kamma-origin item is not at b with a phase other than arise, and is not 1 to 16 steps after b (which includes d). |
+| present_at_arising | Item k is present at moment m's arising when the time of k's own phase at its moment is strictly before m's arise time and k's cease time is not strictly before m's arise time. |
+| a116_prenascent_unceased_base | Every sense moment has a base item present at that moment's arising. |
+| a87_organ_and_object_already_arisen | Every sense moment has both a base item and an object item present at its arising (a strict superset of a116). |
+| a122_death_then_rebirth | Whatever immediately follows (via prox) a death moment is a rebirth moment. |
+| a122_rebirth_after_death | Every rebirth moment is the immediate prox successor of some death moment. |
+| a58_begins_with_rebirth | For every moment m there is a rebirth moment that is m itself or strictly earlier. |
+| a47_unbroken | For every moment m that is not marked a death moment, some moment n is linked from m by prox: every non-death moment has at least one successor. (Re-read 2026-10-20 after the definition was corrected; the first reading — *every* moment has a successor, forcing an endless stream — showed the first version too strong. The re-reader adds: existence only, not uniqueness or lateness; death moments are exempt but may have a successor; a world with no death marks is endless; marking every moment death makes it trivial — the death marks are constrained by A122 and A58 elsewhere.) |
+| a111_emerges_by_fruition | Any moment following a cessation moment (via prox) is a fruition moment. |
+| a111_no_death_within | For a cessation moment m and a successor n, neither m nor n is a death moment. |
+
+## Cond.lean
+
+(blind reader's table, verbatim in substance; notation: a "fact" is a triple (condition, i, j) in the world's `holds` list)
+
+| definition name | plain English |
+|---|---|
+| a78_relata | Every fact of any condition must have two real ends, and the kinds of those ends must be admitted for the group that `sangaha` assigns to the condition. Facts pointing at nonexistent positions make it false. |
+| a83_co_nascent | For every sahajata fact, the two ends have the same rise time. It says nothing about fall times. |
+| a84_mutual | For every annamanna fact, the ends have the same rise time. Also, the reversed fact (annamanna, j, i) must be in the list. |
+| a87_pre_born | For every purejata fact, the first end rises strictly before the second rises, and the first has not fallen strictly before the second rises. |
+| a88_post_born | The mirror of a87. For every pacchajata fact, the second end rises strictly before the first rises; the second has not fallen strictly before the first rises. |
+| a96_associated | For every sampayutta fact, both ends are nama and have identical rise and fall times. |
+| a97_dissociated | For every vippayutta fact, the two ends have different kinds. |
+| a98_present | For every atthi fact, the two ends' lifetimes overlap or touch: neither fell strictly before the other rose. |
+| a101_not_disappeared | Identical in content to a98, for avigata facts. |
+| a99_absent | For every natthi fact, the first rises strictly before the second, and the second does not rise strictly before the first falls: the first has ended by the time the second starts, or ends exactly then. |
+| a100_gone | Identical in content to a99, for vigata facts. |
+| sameCittaTogether | Two occurrences have the same `cit` number and the same rise time. |
+| a79_root_scope | For every hetu fact, the ends have the same `cit` and rise time. |
+| a81_predominance | For every adhipati fact, either the ends share `cit` and rise time, or the second end is nama. |
+| a94_jhana_scope | For every jhana fact, the ends share `cit` and rise time. |
+| a95_path_scope | For every magga fact, the ends share `cit` and rise time. |
+| a91_result | For every vipaka fact, both ends are nama with the same rise time, and both have a citta whose `jati` is vipaka. An end with no citta fails. |
+| a90_kamma | For every kamma fact: either the ends share `cit` and rise time; or the first rises strictly before the second and the second either has a vipaka citta or has `born` = kamma. |
+| a89_repetition | For every asevana fact, both ends are nama, the first rises strictly before the second, both have the same `jati`, that `jati` is not vipaka, and the first has a citta. |
+| a93_faculty | For every indriya fact one of: (1) the first end's rupa is in `pasada` and the second end is nama; (2) the first end's rupa is `jivita` and the second was born of kamma; (3) the first end is nama and the ends share `cit` and rise time. |
+| a92_nutriment | For every ahara fact: the first end's rupa is `ahara` and the second end is rupa; or the first end is nama and the ends share `cit` and rise time. |
+| senseOfObject | vanna→1, sadda→2, gandha→3, rasa→4, pathavi/tejo/vayo→5, else nothing. |
+| a80_object_sense | For every arammana fact, take the first end's rupa r with a sense number n; if the second end's citta has dhatu `sense d`, then d = n. Vacuous when the first end has no rupa, the rupa has no number, or the second end's dhatu is not a sense one. |
+| a82_contiguity_same_relata | For all i and j, an anantara fact (i,j) is present exactly when a samanantara fact (i,j) is present. |
+| a121_passes_away | Every occurrence has rise strictly before fall. |
+
+Reader's observations: a98/a101 are the same statement under different condition names; a99/a100 likewise; a96 requires matching fall times but a83 does not; every `a…` predicate except a82 and a121 is vacuously true in a world with no facts of its condition.
+
+## Cosmos.lean
+
+| definition name | plain English |
+|---|---|
+| a14_sineru | sunk, risen, sineruLength, sineruWidth and oceanDepth are all exactly 84000. |
+| a17_discs | The first and second components of the moon triple are 49; of the sun triple, 50. |
+| a19_solids | The third component of the moon triple is 49; of the sun triple, 50. |
+| a16_stack | (1) Twice moonBottom is at most `risen`; (2) sunBottom = moonBottom + the moon's third component + 1; (3) moonBottom + 100 = sunBottom + the sun's third component. Relates the numbers without pinning an absolute value; combined with a19, consistent. |
+| a20_day_gain | dayGain equals 100000. |
+| a22_three_lit | litContinents equals 3. |
+| a23_cakkavala | cakkavala equals 1203450. |
+| a48_planes | The `planes` list is exactly [4, 7, 16, 4]. |
+| a11_day_lengths | kingsDay is 50 and yamaDay is 200. |
+| a49_lifespans | For every k from 0 to 5, lifespan k = 9000000 × 4^k; nothing for k above 5. |
+| a10_phases | kappaPhases equals 4. |
+| a10_limits | fireReaches 5, waterReaches 8, windReaches 9, destroyedFields 1. |
+| a50_plane_lives | The `planeLife` list is exactly the given 20 numbers, from 2 up to 504000. |
+
+Reader's observation: every Cosmos predicate is a bare equality of fields to stipulated numbers; a16 is the only one that relates fields to each other.
