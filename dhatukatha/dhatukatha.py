@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""dhatukatha.py — capture of the Dhātukathā's first naya, sections 1–3 (Khandho, Āyatanaṃ, Dhātu): the COUNTS the book states for each combination of aggregates, bases and elements
-("rūpakkhandho katihi khandhehi katihāyatanehi katihi dhātūhi saṅgahito?"), read from the CST (`abh03m1.mul.xml:73–264`) and written as `Dhatukatha.lean` (the rows as data) and `DHATUKATHA.md`.
+"""dhatukatha.py — capture of the Dhātukathā's first naya, sections 1–6 (Khandho, Āyatanaṃ, Dhātu, Saccaṃ, Indriyaṃ, Paṭiccasamuppādādi): the COUNTS the book states for each combination of aggregates, bases and elements
+("rūpakkhandho katihi khandhehi katihāyatanehi katihi dhātūhi saṅgahito?"), read from the CST (`abh03m1.mul.xml:73–448`) and written as `Dhatukatha.lean` (the rows as data) and `DHATUKATHA.md`.
 The counts are the TEST BANK, never premises (Protocol 1 §10; kala/ANSWERS.md): Lean computes them from the manual's tables (Saṅgaha ch. 7: which dhammas are in which aggregate, base and element)
 and compares. Every row's three pairs must sum to 5, 12 and 18, the parser's own check.   dhatukatha.py --check exits 1 if the generated files are stale."""
 import os, re, sys, unicodedata
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(REPO, "..", "tipitaka-mcp"))
 import server
-FILE = "abh03m1.mul.xml"; FIRST, LAST = 73, 264
+FILE = "abh03m1.mul.xml"; FIRST, LAST = 73, 448
 
 def norm(s): return unicodedata.normalize("NFC", s).lower()
 ITEMS = {  # stem → (kind, index)
@@ -17,20 +17,68 @@ ITEMS = {  # stem → (kind, index)
      "cakkhuviññāṇadhātu", "sotaviññāṇadhātu", "ghānaviññāṇadhātu", "jivhāviññāṇadhātu", "kāyaviññāṇadhātu", "manodhātu", "manoviññāṇadhātu", "dhammadhātu"])},
 }
 ALL = {"pañcakkhandhā": [("kh", i) for i in range(5)], "dvādasāyatanāni": [("ay", i) for i in range(12)], "aṭṭhārasa": [("dh", i) for i in range(18)]}
+# sections 4–6: the truths, the twenty-two faculties, dependent origination and the other items of the inner mātikā; multi-word phrases first (normalised, no final ca/ñca)
+SC = ["dukkhasacc", "samudayasacc", "maggasacc", "nirodhasacc"]
+IND = ["cakkhundriy", "sotindriy", "ghānindriy", "jivhindriy", "kāyindriy", "itthindriy", "purisindriy", "manindriy", "jīvitindriy", "sukhindriy", "dukkhindriy", "somanassindriy",
+       "domanassindriy", "upekkhindriy", "saddhindriy", "vīriyindriy", "satindriy", "samādhindriy", "paññindriy", "anaññātaññassāmītindriy", "aññindriy", "aññātāvindriy"]
+MULTI = [("avijjāpaccayā saṅkhārā", "sankhara_link"), ("saṅkhārapaccayā viññāṇaṃ", "vinnana_link"), ("viññāṇapaccayā nāmarūpaṃ", "namarupa"), ("nāmarūpapaccayā saḷāyatanaṃ", "salayatana"),
+         ("saḷāyatanapaccayā phasso", "phassa_link"), ("phassapaccayā vedanā", "vedana_link"), ("vedanāpaccayā taṇhā", "tanha"), ("taṇhāpaccayā upādānaṃ", "upadana"),
+         ("upādānapaccayā kammabhavo", "kammabhava"), ("ariyo aṭṭhaṅgiko maggo", "magga8"), ("pañca balāni", "bala5"), ("satta bojjhaṅgā", "bojjhanga7"), ("pañcindriyāni", "indriya5"),
+         ("cattāri saccāni", "sacca4"), ("bāvīsatindriyāni", "indriya22")]
+SINGLE = [("avijjā", "avijja"), ("upapattibhavo", "upapattibhava"), ("kāmabhavo", "kamabhava"), ("saññābhavo", "sannabhava"), ("pañcavokārabhavo", "pancavokarabhava"), ("rūpabhavo", "rupabhava"),
+          ("arūpabhavo", "arupabhava"), ("nevasaññānāsaññābhavo", "nevasannabhava"), ("catuvokārabhavo", "catuvokarabhava"), ("asaññābhavo", "asannabhava"), ("ekavokārabhavo", "ekavokarabhava"),
+          ("jāti", "jati"), ("jarā", "jara"), ("maraṇaṃ", "marana"), ("soko", "soka"), ("paridevo", "parideva"), ("dukkhaṃ", "dukkha_f"), ("domanassaṃ", "domanassa_f"), ("upāyāso", "upayasa"),
+          ("satipaṭṭhānaṃ", "satipatthana"), ("sammappadhānaṃ", "sammappadhana"), ("iddhipādo", "iddhipada"), ("jhānaṃ", "jhana"), ("appamaññā", "appamanna"), ("phasso", "phassa"),
+          ("vedanā", "vedana_f"), ("saññā", "sanna_f"), ("cetanā", "cetana"), ("adhimokkho", "adhimokkha"), ("manasikāro", "manasikara"), ("cittaṃ", "citta")]
+SLUG = {}
+for i, k in enumerate(["rūpakkhandh", "vedanākkhandh", "saññākkhandh", "saṅkhārakkhandh", "viññāṇakkhandh"]): SLUG[k] = f"kh{i}"
+for i, k in enumerate(["cakkhāyatan", "sotāyatan", "ghānāyatan", "jivhāyatan", "kāyāyatan", "rūpāyatan", "saddāyatan", "gandhāyatan", "rasāyatan", "phoṭṭhabbāyatan", "manāyatan", "dhammāyatan"]): SLUG[k] = f"ay{i}"
+for i, k in enumerate(["cakkhudhātu", "sotadhātu", "ghānadhātu", "jivhādhātu", "kāyadhātu", "rūpadhātu", "saddadhātu", "gandhadhātu", "rasadhātu", "phoṭṭhabbadhātu", "cakkhuviññāṇadhātu", "sotaviññāṇadhātu",
+                       "ghānaviññāṇadhātu", "jivhāviññāṇadhātu", "kāyaviññāṇadhātu", "manodhātu", "manoviññāṇadhātu", "dhammadhātu"]): SLUG[k] = f"dh{i}"
+for k, v in zip(SC, ["sacca_dukkha", "sacca_samudaya", "sacca_magga", "sacca_nirodha"]): SLUG[k] = v
+for i, k in enumerate(IND): SLUG[k] = f"ind{i}"
+ALLSLUG = {"pañcakkhandhā": [f"kh{i}" for i in range(5)], "dvādasāyatanāni": [f"ay{i}" for i in range(12)], "aṭṭhārasa dhātuyo": [f"dh{i}" for i in range(18)]}
 NUM = [("ekādasa", 11), ("dvādasa", 12), ("dvādas", 12), ("ekādas", 11), ("terasa", 13), ("cuddasa", 14), ("pannarasa", 15), ("soḷasa", 16), ("sattarasa", 17), ("aṭṭhārasa", 18),
        ("pañca", 5), ("eken", 1), ("ekāya", 1), ("eka", 1), ("dvī", 2), ("dva", 2), ("tī", 3), ("catū", 4), ("cha", 6), ("satta", 7), ("aṭṭha", 8), ("nava", 9), ("dasa", 10)]
-def item_of(tok):
-    t = norm(tok).strip(",;.?")
-    t = re.sub(r"(ñca|ca)$", "", t)
-    for stem, v in ITEMS.items():
-        if t.startswith(stem): return v
-    return None
 def num_of(tok):
     t = norm(tok)
     for p, n in NUM:
         if t.startswith(p): return n
     return None
 
+def stripca(t):
+    t = norm(t).strip(",;.?")
+    return re.sub(r"(ñca|ca)$", "", t) if len(t) > 3 and not t.endswith("pa") else t
+
+def match_items(toks):
+    """Consume item phrases from the front of toks; return (slugs, rest)."""
+    out = []
+    while toks:
+        if norm(toks[0]) in ("ca", "(sī.", "syā.)"): toks = toks[1:]; continue
+        # the collective ones
+        two = " ".join(norm(x) for x in toks[:2])
+        if norm(toks[0]) in ALLSLUG or two in ALLSLUG:
+            key = norm(toks[0]) if norm(toks[0]) in ALLSLUG else two
+            out += ALLSLUG[key]; toks = toks[1:] if key == norm(toks[0]) else toks[2:]; continue
+        got = False
+        for n in (3, 2):
+            ph = " ".join(stripca(x) if j == n - 1 else norm(x) for j, x in enumerate(toks[:n]))
+            for phrase, slug in MULTI:
+                if ph == phrase: out.append(slug); toks = toks[n:]; got = True; break
+            if got: break
+        if got: continue
+        t = stripca(toks[0])
+        if t == "kammabhavo" and len(toks) > 1 and norm(toks[1]) == "upādānapaccayā": toks = toks[1:]; continue   # the variant reading's repeated head word
+        for phrase, slug in MULTI:
+            if t == phrase: out.append(slug); toks = toks[1:]; got = True; break
+        if got: continue
+        for phrase, slug in SINGLE:
+            if t == phrase: out.append(slug); toks = toks[1:]; got = True; break
+        if got: continue
+        for stem, slug in SLUG.items():
+            if t.startswith(stem): out.append(slug); toks = toks[1:]; got = True; break
+        if not got: break
+    return out, toks
 def clean(l): return re.sub(r"\s+", " ", server.plain(l)).strip()
 
 def parse():
@@ -49,14 +97,8 @@ def parse():
         pieces = re.split(r"\s*…(?:pe…)?\s*", first)
         subsets = []; counts_text = None
         for k, pc in enumerate(pieces):
-            toks = pc.split(); items = []
-            if toks and norm(toks[0]) in ALL: items = list(ALL[norm(toks[0])]); toks = toks[1:]
-            else:
-                while toks:
-                    if norm(toks[0]) == "ca": toks = toks[1:]; continue
-                    it = item_of(toks[0])
-                    if it is None: break
-                    items.append(it); toks = toks[1:]
+            toks = pc.split()
+            items, toks = match_items(toks)
             if items: subsets.append(items)
             if k == len(pieces) - 1: counts_text = " ".join(toks)
         if counts_text is None or not subsets: skipped.append((i, "no counts")); continue
@@ -86,23 +128,23 @@ def parse():
 
 KH = ["rupa", "vedana", "sanna", "sankhara", "vinnana"]
 def lean(rows):
-    out = ["/-", "  dhatukatha/Dhatukatha.lean — GENERATED by dhatukatha.py (⛔ never edited by hand): the Dhātukathā's first naya, sections 1–3, as data. The COUNTS are the test bank; Lean computes them from the manual's tables below.", "-/",
+    out = ["/-", "  dhatukatha/Dhatukatha.lean — GENERATED by dhatukatha.py (⛔ never edited by hand): the Dhātukathā's first naya, sections 1–6, as data. The COUNTS are the test bank; Lean computes them from the manual's tables below.", "-/",
            "namespace FormalAbhidhamma.Dhatukatha", ""]
-    out.append("inductive Item | kh (n : Nat) | ay (n : Nat) | dh (n : Nat) deriving DecidableEq, Repr")
+    out.append("/- An item is named by a slug: kh0–4 the aggregates, ay0–11 the bases, dh0–17 the elements, sacca_*, ind0–21 the faculties, the rest the items of the inner mātikā. -/")
     out.append("/-- One stated row: the items combined, the counts of aggregates, bases and elements that include them, and that do not. `line` is the CST line (`abh03m1.mul.xml`). -/")
-    out.append("structure Row where\n  line : Nat\n  items : List Item\n  inc : Nat × Nat × Nat\n  exc : Nat × Nat × Nat\n  deriving Repr\n")
-    def it(x): return f"Item.{x[0]} {x[1]}"
+    out.append("structure Row where\n  line : Nat\n  items : List String\n  inc : Nat × Nat × Nat\n  exc : Nat × Nat × Nat\n  deriving Repr\n")
+    def it(x): return f'"{x}"' 
     out.append("def rows : List Row := [")
     out.append(",\n".join("  ⟨%d, [%s], (%d, %d, %d), (%d, %d, %d)⟩" % (r["line"], ", ".join(it(x) for x in r["items"]), *r["inc"], *r["exc"]) for r in rows))
     out.append("]\n\nend FormalAbhidhamma.Dhatukatha")
     return "\n".join(out) + "\n"
 
 def md(rows, skipped):
-    L = ["# DHATUKATHA — the first naya, sections 1–3, as captured", "", "*GENERATED by `dhatukatha.py` from `abh03m1.mul.xml:73–264` (the Dhātukathā, mūla). ⛔ Never edited by hand. The counts are the TEST BANK (`kala/ANSWERS.md`), never premises.*", "",
+    L = ["# DHATUKATHA — the first naya, sections 1–6, as captured", "", "*GENERATED by `dhatukatha.py` from `abh03m1.mul.xml:73–448` (the Dhātukathā, mūla). ⛔ Never edited by hand. The counts are the TEST BANK (`kala/ANSWERS.md`), never premises.*", "",
          f"**{len(rows)} stated combinations parsed** (every one's three pairs sum to 5, 12 and 18). Skipped lines: {len(skipped)}.", ""]
     for i, why in skipped: L.append(f"- line {i}: {why}")
     L += ["", "| line | items (kind:index) | included in (aggregates, bases, elements) | not included in |", "|---|---|---|---|"]
-    for r in rows: L.append(f"| {r['line']} | {', '.join(x[0] + ':' + str(x[1]) for x in r['items'])} | {r['inc']} | {r['exc']} |")
+    for r in rows: L.append(f"| {r['line']} | {', '.join(r['items'])} | {r['inc']} | {r['exc']} |")
     return "\n".join(L) + "\n"
 
 if __name__ == "__main__":
