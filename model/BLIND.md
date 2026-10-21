@@ -90,6 +90,13 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a71_unwholesome | In every papa group, each member list is non-empty and every cetasika in it is in the unwholesome list. |
 | a72_sizes | For each MissakaCat, the missaka list has as many groups as the category's size (hetu 6, jhananga 7, maggangaRight 8, maggangaWrong 4, indriya 22, bala 9, adhipati 4, ahara 4). |
 | a72_life_faculty | In the indriya category some group contains the rupa jivita, and some group contains the cetasika jivitindriya (possibly different groups). |
+| a38_which | The taxonomy's scope function agrees with `scopeTable` for every one of the 89 kinds of citta, with the flag both false and true, and for every object. |
+| a38_abhinna_which | The taxonomy's abhinna function agrees with `abhinnaTable` on all 89 kinds. |
+| a71_by_nature | The distinct cetasikas in each papa list: asava, ogha, yoga 3 each; gantha 3; upadana 2; nivarana 8; anusaya 6; the two fetter lists together 9; kilesa 10. A count check only. |
+| a71_which | The taxonomy's papa lists equal `papaTable` for every papa category (the exact members). |
+| a72_which | The taxonomy's missaka lists equal `missakaTable` for every missaka category. |
+| a73_which | The taxonomy's bodhi lists equal `bodhiTable` for every bodhi category. |
+| a74_which | The taxonomy's sabba lists equal `sabbaTable` for every sabba category. |
 | a72_nutriments | The ahara category is exactly the four groups [rupa ahara], [cetasika phassa], [cetasika cetana], [citta], in that order. |
 | a73_sizes | For each BodhiCat, the bodhi list has as many groups as the category's size. |
 | a73_fourteen | Taking all groups from all bodhi categories, flattening and removing duplicates, there are exactly 14 distinct groups. |

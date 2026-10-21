@@ -372,6 +372,34 @@ def a38_twenty (t : Tax) : Prop :=
     knowledge-associated sense-sphere wholesome and the wholesome super-knowledge) take every object except those. -/
 def a38_five_but_agga (t : Tax) : Prop := num t.modes (fun p => Obj.all.all (fun o => t.scope p.1 p.2 o == (o != .agga))) = 5
 
+/-- Which citta-types may occur as a super-knowledge (§41 `:1221`, §58–59): the fifth-jhāna wholesome and functional fine-material cittas (*abhiññāvasena pavattamānaṃ pañcamajjhānaṃ*). A107 fixes their number and class. -/
+def abhinnaTable (c : Citta) : Bool := c.bhumi == .rupa && c.jhana == 5 && (c.jati == .kusala || c.jati == .kiriya)
+
+/-- Which objects each citta-type takes (A38; Saṅgaha ch. 3 §54–62, `abh07t.nrf.xml:1057–1089`), the second flag being the super-knowledge mode (§58–59 count those apart).
+    The seven groups: §54 each sense-consciousness its own object · §55 the mind-element triad the five sense objects · §56 the remaining sense-sphere resultants and the smile the sense-sphere objects · §57 the unwholesome and the
+    knowledge-dissociated sense-sphere javanas every object but the supramundane · §58 the knowledge-associated wholesome sense-sphere javanas and the wholesome super-knowledge every object but the arahant's path and fruit · §59 the knowledge-associated
+    functional sense-sphere javanas, the functional super-knowledge and the mind-door adverting every object · §60 the second and fourth immaterial exalted objects · §61 the remaining exalted cittas concepts · §62 the supramundane nibbāna. -/
+def scopeTable (c : Citta) (abh : Bool) (o : Obj) : Bool :=
+  if abh then (if abhinnaTable c then (if c.jati == .kusala then o != .agga else true) else false)
+  else match c.dhatu with
+    | .sense d => o == senseObj d
+    | .mano => [Obj.rupa, .sadda, .gandha, .rasa, .photthabba].contains o
+    | .manovinnana =>
+      if c.bhumi == .lokuttara then o == .nibbana
+      else if c.bhumi == .arupa then (if c.base == 2 || c.base == 4 then o == .mahaggata else o == .pannatti)
+      else if c.bhumi == .rupa then o == .pannatti
+      else if c.jati == .vipaka || (c.jati == .kiriya && c.root == .none && c.vedana == .somanassa) then o.kama
+      else if c.jati == .kiriya && c.root == .none then true
+      else if c.jati == .akusala || c.knowing == false then !([Obj.lokuttara, .agga, .nibbana].contains o)
+      else if c.jati == .kusala then o != .agga
+      else true
+
+/-- A38, which (from the row's cited lines, Protocol 1 correction 2 §2): every citta-type, in each mode, takes exactly the objects `scopeTable` gives it — so the groups are pinned by their MEMBERS, not only by their counts. -/
+def a38_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, ∀ b ∈ [false, true], ∀ o ∈ Obj.all, t.scope c b o = scopeTable c b o
+
+/-- A38 and A107, which citta-types are super-knowledges: exactly those `abhinnaTable` names. -/
+def a38_abhinna_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, t.abhinna c = abhinnaTable c
+
 /-- A35, which (from the row's cited lines, Protocol 1 correction 2 §2): every citta-type performs exactly the functions `kiccaTable` gives it. -/
 def a35_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, ∀ k ∈ Kicca.all, t.kicca c k = kiccaTable c k
 
@@ -772,5 +800,173 @@ theorem category_sizes :
 theorem jhanaTable_text_totals :
     (kammatthana40.flatten.filter fun s => [1, 2, 3, 4, 5, 6].any (jhanaTable s)).length = 30 ∧
     (kammatthana40.flatten.filter fun s => [1, 2, 3, 4, 5].any (jhanaTable s)).length = 26 := by decide
+
+/-- A sense-sphere mind-element citta taking exalted objects (the table says the five sense objects only). -/
+abbrev manoTakesExalted : Tax := { bare with kinds := [{ jati := .vipaka, bhumi := .kama, vedana := .upekkha, root := .none, dhatu := .mano }], scope := fun _ _ o => o == .mahaggata }
+theorem a38_forbids_manoTakesExalted : ¬ a38_which manoTakesExalted := by unfold a38_which; decide
+
+/-- A world that flags the wrong citta as a super-knowledge (a sense-sphere one). -/
+abbrev wrongAbhinna : Tax := { bare with kinds := [{ jati := .kusala, bhumi := .kama, vedana := .somanassa, root := .beautiful, knowing := true }], abhinna := fun _ => true }
+theorem a38_forbids_wrongAbhinna : ¬ a38_abhinna_which wrongAbhinna := by unfold a38_abhinna_which; decide
+
+/-- THE TABLES CHECKED AGAINST THE TEXT'S OWN COUNTS (refuter 1: "no theorem checks kiccaTable against a35_counts"): the world whose citta-types are the generated 121 and whose functions, objects and super-knowledges are the typed tables
+    satisfies the Saṅgaha's counts — the functions (68·2·9·8·2 and the nineteen) and the objects (25 · 6 · 21 · 8 · 20 · 5 · 6). -/
+abbrev tabled : Tax := { bare with kinds := cittas121, kicca := kiccaTable, scope := scopeTable, abhinna := abhinnaTable }
+
+set_option maxRecDepth 400000 in
+theorem tabled_reproduces_the_function_counts : a35_counts tabled := by unfold a35_counts; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_one_object : a38_one_object tabled := by unfold a38_one_object; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_supramundane : a38_supramundane tabled := by unfold a38_supramundane; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_twentyfive : a38_twentyfive tabled := by unfold a38_twentyfive; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_twentyone : a38_twentyone tabled := by unfold a38_twentyone; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_six_any : a38_six_any tabled := by unfold a38_six_any; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_six_exalted : a38_six_exalted tabled := by unfold a38_six_exalted; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_twenty : a38_twenty tabled := by unfold a38_twenty; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_five_but_agga : a38_five_but_agga tabled := by unfold a38_five_but_agga; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_abhinna_which : a38_abhinna_which tabled := by unfold a38_abhinna_which; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a38_which : a38_which tabled := by unfold a38_which; decide
+
+set_option maxRecDepth 400000 in
+theorem tabled_a35_which : a35_which tabled := by unfold a35_which; decide
+
+/-! ## The member tables of A71–A74 (refuter 1: "sizes only; members not pinned"), typed from Saṅgaha ch. 7 §3–12, §15–21, §30–36, §42–46 (`abh07t.nrf.xml:2437–2760`) and tested against its own verse counts -/
+
+open Cetasika in
+/-- A71: the members of each list of the unwholesome, each by the cetasika(s) it is. *Thinamiddha* is two; the greed of the taints, floods and bonds is one dhamma named for its object (*kāma*, *bhava*). -/
+def papaTable : PapaCat → List (List Cetasika)
+  | .asava | .ogha | .yoga => [[lobha], [lobha], [ditthi], [moha]]
+  | .gantha => [[lobha], [dosa], [ditthi], [ditthi]]
+  | .upadana => [[lobha], [ditthi], [ditthi], [ditthi]]
+  | .nivarana => [[lobha], [dosa], [thina, middha], [uddhacca, kukkucca], [vicikiccha], [moha]]
+  | .anusaya => [[lobha], [lobha], [dosa], [mana], [ditthi], [vicikiccha], [moha]]
+  | .samyojanaSutta => [[lobha], [lobha], [lobha], [dosa], [mana], [ditthi], [ditthi], [vicikiccha], [uddhacca], [moha]]
+  | .samyojanaAbhi => [[lobha], [lobha], [dosa], [mana], [ditthi], [ditthi], [vicikiccha], [issa], [macchariya], [moha]]
+  | .kilesa => [[lobha], [dosa], [moha], [mana], [ditthi], [vicikiccha], [thina], [uddhacca], [ahirika], [anottappa]]
+
+/-- How many different natures the members of a list have. -/
+def natureCount (gs : List (List Cetasika)) : Nat := gs.flatten.eraseDups.length
+
+/-- A71, the verse (§14, `abh07t.nrf.xml:2481–2501`): by nature the taints, floods and bonds are three each, the bodily knots three, the clingings two, the hindrances eight, the latent tendencies six, the fetters nine
+    (the two lists together) and the defilements ten. -/
+def a71_by_nature (t : Tax) : Prop :=
+  natureCount (t.papa .asava) = 3 ∧ natureCount (t.papa .ogha) = 3 ∧ natureCount (t.papa .yoga) = 3 ∧ natureCount (t.papa .gantha) = 3 ∧
+  natureCount (t.papa .upadana) = 2 ∧ natureCount (t.papa .nivarana) = 8 ∧ natureCount (t.papa .anusaya) = 6 ∧
+  natureCount (t.papa .samyojanaSutta ++ t.papa .samyojanaAbhi) = 9 ∧ natureCount (t.papa .kilesa) = 10
+
+/-- A71, which (from the row's cited lines, Protocol 1 correction 2 §2): the members are the table's. -/
+def a71_which (t : Tax) : Prop := ∀ g ∈ PapaCat.all, t.papa g = papaTable g
+
+open Cetasika in
+/-- A72: the members of the mixed lists (roots 6 · jhāna factors 7 · path factors 8 + 4 · faculties 22 · powers 9 · predominants 4 · nutriments 4). The three feelings of the jhāna factors, and the five feelings of the faculties, are the one cetasika *vedanā* in its kinds. -/
+def missakaTable : MissakaCat → List (List Dhamma)
+  | .hetu => [[.cetasika lobha], [.cetasika dosa], [.cetasika moha], [.cetasika alobha], [.cetasika adosa], [.cetasika panna]]
+  | .jhananga => [[.cetasika vitakka], [.cetasika vicara], [.cetasika piti], [.cetasika ekaggata], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana]]
+  | .maggangaRight => [[.cetasika panna], [.cetasika vitakka], [.cetasika sammavaca], [.cetasika sammakammanta], [.cetasika sammaajiva], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata]]
+  | .maggangaWrong => [[.cetasika ditthi], [.cetasika vitakka], [.cetasika viriya], [.cetasika ekaggata]]
+  | .indriya => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .itthatta], [.rupa .purisatta], [.rupa .jivita, .cetasika jivitindriya], [.citta],
+      [.cetasika vedana], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana],
+      [.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna], [.cetasika panna], [.cetasika panna], [.cetasika panna]]
+  | .bala => [[.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna], [.cetasika hiri], [.cetasika ottappa], [.cetasika ahirika], [.cetasika anottappa]]
+  | .adhipati => [[.cetasika chanda], [.cetasika viriya], [.citta], [.cetasika panna]]
+  | .ahara => [[.rupa .ahara], [.cetasika phassa], [.cetasika cetana], [.citta]]
+
+def a72_which (t : Tax) : Prop := ∀ g ∈ MissakaCat.all, t.missaka g = missakaTable g
+
+open Cetasika in
+/-- A73: the 37 factors of enlightenment — four foundations of mindfulness (all *sati*), four right efforts (all *viriya*), four bases of power, five faculties, five powers, seven factors of awakening
+    (tranquillity is two cetasikas, of body and of mind), eight path factors — which are fourteen different dhammas (the verse, §37). -/
+def bodhiTable : BodhiCat → List (List Dhamma)
+  | .satipatthana => [[.cetasika sati], [.cetasika sati], [.cetasika sati], [.cetasika sati]]
+  | .sammappadhana => [[.cetasika viriya], [.cetasika viriya], [.cetasika viriya], [.cetasika viriya]]
+  | .iddhipada => [[.cetasika chanda], [.cetasika viriya], [.citta], [.cetasika panna]]
+  | .indriya | .bala => [[.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna]]
+  | .bojjhanga => [[.cetasika sati], [.cetasika panna], [.cetasika viriya], [.cetasika piti], [.cetasika kayapassaddhi, .cetasika cittapassaddhi], [.cetasika ekaggata], [.cetasika tatramajjhattata]]
+  | .magganga => [[.cetasika panna], [.cetasika vitakka], [.cetasika sammavaca], [.cetasika sammakammanta], [.cetasika sammaajiva], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata]]
+
+def a73_which (t : Tax) : Prop := ∀ g ∈ BodhiCat.all, t.bodhi g = bodhiTable g
+
+/-- The sixteen subtle (non-gross) kinds of matter. -/
+def subtle16 : List Rupa := [.apo, .itthatta, .purisatta, .hadaya, .jivita, .ahara, .akasa, .kayavinnatti, .vacivinnatti, .lahuta, .muduta, .kammannata, .upacaya, .santati, .jarata, .aniccata]
+def cets52 : List Cetasika := universals ++ occasionals ++ unwholesome ++ beautiful
+def cets50 : List Cetasika := cets52.filter (fun x => x != .vedana && x != .sanna)
+/-- The mind-object base and element: the 52 cetasikas, the 16 subtle kinds and nibbāna (69; A74). -/
+def dhammayatanaList : List Dhamma := cets52.map Dhamma.cetasika ++ subtle16.map Dhamma.rupa ++ [Dhamma.nibbana]
+
+/-- A74: the five aggregates (form = all 28 kinds · feeling · perception · the other fifty formations · consciousness), the same five as aggregates of clinging (mundane; nibbāna is in neither), the twelve bases, the eighteen elements
+    and the four truths (suffering: all that is mundane but craving; origin: craving; cessation: nibbāna; path: its eight factors). -/
+def sabbaTable : SabbaCat → List (List Dhamma)
+  | .khandha | .upadanakkhandha => [Rupa.all.map Dhamma.rupa, [.cetasika .vedana], [.cetasika .sanna], cets50.map Dhamma.cetasika, [.citta]]
+  | .ayatana => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .vanna], [.rupa .sadda], [.rupa .gandha], [.rupa .rasa],
+      [.rupa .pathavi, .rupa .tejo, .rupa .vayo], [.citta], dhammayatanaList]
+  | .dhatu => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .vanna], [.rupa .sadda], [.rupa .gandha], [.rupa .rasa],
+      [.rupa .pathavi, .rupa .tejo, .rupa .vayo], [.citta], [.citta], [.citta], [.citta], [.citta], [.citta], [.citta], dhammayatanaList]
+  | .sacca => [Dhamma.citta :: ((cets52.filter (· != .lobha)).map Dhamma.cetasika ++ Rupa.all.map Dhamma.rupa), [.cetasika .lobha], [.nibbana],
+      [.cetasika .panna, .cetasika .vitakka, .cetasika .sammavaca, .cetasika .sammakammanta, .cetasika .sammaajiva, .cetasika .viriya, .cetasika .sati, .cetasika .ekaggata]]
+
+def a74_which (t : Tax) : Prop := ∀ g ∈ SabbaCat.all, t.sabba g = sabbaTable g
+
+/-- The grossness the text gives (A62; §22–24): the five organs and the seven objects. -/
+def grossTable (r : Rupa) : Bool := (pasada ++ gocara).contains r
+
+/-- A world whose chapter-7 lists are the typed tables. -/
+abbrev tabledLists : Tax :=
+  { bare with cets := cets52, rupas := Rupa.all, gross := grossTable, papa := papaTable, missaka := missakaTable, bodhi := bodhiTable, sabba := sabbaTable, dhammayatana := dhammayatanaList }
+
+set_option maxRecDepth 400000 in
+theorem tabledLists_a71_sizes : a71_sizes tabledLists := by unfold a71_sizes; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a71_by_nature : a71_by_nature tabledLists := by unfold a71_by_nature; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a71_unwholesome : a71_unwholesome tabledLists := by unfold a71_unwholesome; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a72_sizes : a72_sizes tabledLists := by unfold a72_sizes; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a72_life_faculty : a72_life_faculty tabledLists := by unfold a72_life_faculty; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a72_nutriments : a72_nutriments tabledLists := by unfold a72_nutriments; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a73_sizes : a73_sizes tabledLists := by unfold a73_sizes; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a73_fourteen : a73_fourteen tabledLists := by unfold a73_fourteen; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a74_sizes : a74_sizes tabledLists := by unfold a74_sizes; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a74_nibbana_outside : a74_nibbana_outside tabledLists := by unfold a74_nibbana_outside; decide
+set_option maxRecDepth 400000 in
+theorem tabledLists_a74_sixtynine : a74_sixtynine tabledLists := by unfold a74_sixtynine; decide
+
+/-- Forbidden worlds for the member tables. -/
+abbrev greedAsDelusion : Tax := { bare with papa := fun g => if g == .asava then [[.lobha], [.lobha], [.ditthi], [.lobha]] else [] }
+theorem a71_forbids_greedAsDelusion : ¬ a71_which greedAsDelusion := by unfold a71_which; decide
+abbrev fourFactorsOfMind : Tax := { bare with papa := fun g => if g == .nivarana then [[.lobha], [.dosa], [.thina], [.middha], [.uddhacca], [.vicikiccha]] else papaTable g }
+theorem a71_forbids_fourFactorsOfMind : ¬ a71_which fourFactorsOfMind := by unfold a71_which; decide
+abbrev noWrongPathFactors : Tax := { bare with missaka := fun g => if g == .maggangaWrong then [] else missakaTable g }
+theorem a72_forbids_noWrongPathFactors : ¬ a72_which noWrongPathFactors := by unfold a72_which; decide
+abbrev satiAsWisdom : Tax := { bare with bodhi := fun g => if g == .satipatthana then [[.cetasika .panna], [.cetasika .panna], [.cetasika .panna], [.cetasika .panna]] else bodhiTable g }
+theorem a73_forbids_satiAsWisdom : ¬ a73_which satiAsWisdom := by unfold a73_which; decide
+abbrev nibbanaInForm : Tax := { bare with sabba := fun g => if g == .khandha then [Rupa.all.map Dhamma.rupa ++ [Dhamma.nibbana], [.cetasika .vedana], [.cetasika .sanna], cets50.map Dhamma.cetasika, [.citta]] else sabbaTable g }
+theorem a74_forbids_nibbanaInForm : ¬ a74_which nibbanaInForm := by unfold a74_which; decide
+abbrev wrongNature : Tax := { tabledLists with papa := fun g => if g == .upadana then [[.lobha], [.ditthi], [.dosa], [.ditthi]] else papaTable g }
+theorem a71_forbids_wrongNature : ¬ a71_by_nature wrongNature := by unfold a71_by_nature; decide
 
 end FormalAbhidhamma.Model

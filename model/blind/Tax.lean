@@ -255,6 +255,27 @@ def a38_twenty (t : Tax) : Prop :=
 
 def a38_five_but_agga (t : Tax) : Prop := num t.modes (fun p => Obj.all.all (fun o => t.scope p.1 p.2 o == (o != .agga))) = 5
 
+def abhinnaTable (c : Citta) : Bool := c.bhumi == .rupa && c.jhana == 5 && (c.jati == .kusala || c.jati == .kiriya)
+
+def scopeTable (c : Citta) (abh : Bool) (o : Obj) : Bool :=
+  if abh then (if abhinnaTable c then (if c.jati == .kusala then o != .agga else true) else false)
+  else match c.dhatu with
+    | .sense d => o == senseObj d
+    | .mano => [Obj.rupa, .sadda, .gandha, .rasa, .photthabba].contains o
+    | .manovinnana =>
+      if c.bhumi == .lokuttara then o == .nibbana
+      else if c.bhumi == .arupa then (if c.base == 2 || c.base == 4 then o == .mahaggata else o == .pannatti)
+      else if c.bhumi == .rupa then o == .pannatti
+      else if c.jati == .vipaka || (c.jati == .kiriya && c.root == .none && c.vedana == .somanassa) then o.kama
+      else if c.jati == .kiriya && c.root == .none then true
+      else if c.jati == .akusala || c.knowing == false then !([Obj.lokuttara, .agga, .nibbana].contains o)
+      else if c.jati == .kusala then o != .agga
+      else true
+
+def a38_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, ∀ b ∈ [false, true], ∀ o ∈ Obj.all, t.scope c b o = scopeTable c b o
+
+def a38_abhinna_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, t.abhinna c = abhinnaTable c
+
 def a35_which (t : Tax) : Prop := ∀ c ∈ t.kinds89, ∀ k ∈ Kicca.all, t.kicca c k = kiccaTable c k
 
 def a60_twentyeight (t : Tax) : Prop := t.rupas.Nodup ∧ t.rupas.length = 28
@@ -329,5 +350,121 @@ abbrev firstJhana : Citta :=
 abbrev entryPath (n : Nat) : Citta :=
   { jati := .kusala, bhumi := .lokuttara, vedana := if n == 5 then .upekkha else .somanassa, root := .beautiful,
     knowing := true, jhana := n, path := 1 }
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+open Cetasika in
+
+def papaTable : PapaCat → List (List Cetasika)
+  | .asava | .ogha | .yoga => [[lobha], [lobha], [ditthi], [moha]]
+  | .gantha => [[lobha], [dosa], [ditthi], [ditthi]]
+  | .upadana => [[lobha], [ditthi], [ditthi], [ditthi]]
+  | .nivarana => [[lobha], [dosa], [thina, middha], [uddhacca, kukkucca], [vicikiccha], [moha]]
+  | .anusaya => [[lobha], [lobha], [dosa], [mana], [ditthi], [vicikiccha], [moha]]
+  | .samyojanaSutta => [[lobha], [lobha], [lobha], [dosa], [mana], [ditthi], [ditthi], [vicikiccha], [uddhacca], [moha]]
+  | .samyojanaAbhi => [[lobha], [lobha], [dosa], [mana], [ditthi], [ditthi], [vicikiccha], [issa], [macchariya], [moha]]
+  | .kilesa => [[lobha], [dosa], [moha], [mana], [ditthi], [vicikiccha], [thina], [uddhacca], [ahirika], [anottappa]]
+
+def natureCount (gs : List (List Cetasika)) : Nat := gs.flatten.eraseDups.length
+
+def a71_by_nature (t : Tax) : Prop :=
+  natureCount (t.papa .asava) = 3 ∧ natureCount (t.papa .ogha) = 3 ∧ natureCount (t.papa .yoga) = 3 ∧ natureCount (t.papa .gantha) = 3 ∧
+  natureCount (t.papa .upadana) = 2 ∧ natureCount (t.papa .nivarana) = 8 ∧ natureCount (t.papa .anusaya) = 6 ∧
+  natureCount (t.papa .samyojanaSutta ++ t.papa .samyojanaAbhi) = 9 ∧ natureCount (t.papa .kilesa) = 10
+
+def a71_which (t : Tax) : Prop := ∀ g ∈ PapaCat.all, t.papa g = papaTable g
+
+open Cetasika in
+
+def missakaTable : MissakaCat → List (List Dhamma)
+  | .hetu => [[.cetasika lobha], [.cetasika dosa], [.cetasika moha], [.cetasika alobha], [.cetasika adosa], [.cetasika panna]]
+  | .jhananga => [[.cetasika vitakka], [.cetasika vicara], [.cetasika piti], [.cetasika ekaggata], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana]]
+  | .maggangaRight => [[.cetasika panna], [.cetasika vitakka], [.cetasika sammavaca], [.cetasika sammakammanta], [.cetasika sammaajiva], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata]]
+  | .maggangaWrong => [[.cetasika ditthi], [.cetasika vitakka], [.cetasika viriya], [.cetasika ekaggata]]
+  | .indriya => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .itthatta], [.rupa .purisatta], [.rupa .jivita, .cetasika jivitindriya], [.citta],
+      [.cetasika vedana], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana], [.cetasika vedana],
+      [.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna], [.cetasika panna], [.cetasika panna], [.cetasika panna]]
+  | .bala => [[.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna], [.cetasika hiri], [.cetasika ottappa], [.cetasika ahirika], [.cetasika anottappa]]
+  | .adhipati => [[.cetasika chanda], [.cetasika viriya], [.citta], [.cetasika panna]]
+  | .ahara => [[.rupa .ahara], [.cetasika phassa], [.cetasika cetana], [.citta]]
+
+def a72_which (t : Tax) : Prop := ∀ g ∈ MissakaCat.all, t.missaka g = missakaTable g
+
+open Cetasika in
+
+def bodhiTable : BodhiCat → List (List Dhamma)
+  | .satipatthana => [[.cetasika sati], [.cetasika sati], [.cetasika sati], [.cetasika sati]]
+  | .sammappadhana => [[.cetasika viriya], [.cetasika viriya], [.cetasika viriya], [.cetasika viriya]]
+  | .iddhipada => [[.cetasika chanda], [.cetasika viriya], [.citta], [.cetasika panna]]
+  | .indriya | .bala => [[.cetasika saddha], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata], [.cetasika panna]]
+  | .bojjhanga => [[.cetasika sati], [.cetasika panna], [.cetasika viriya], [.cetasika piti], [.cetasika kayapassaddhi, .cetasika cittapassaddhi], [.cetasika ekaggata], [.cetasika tatramajjhattata]]
+  | .magganga => [[.cetasika panna], [.cetasika vitakka], [.cetasika sammavaca], [.cetasika sammakammanta], [.cetasika sammaajiva], [.cetasika viriya], [.cetasika sati], [.cetasika ekaggata]]
+
+def a73_which (t : Tax) : Prop := ∀ g ∈ BodhiCat.all, t.bodhi g = bodhiTable g
+
+def subtle16 : List Rupa := [.apo, .itthatta, .purisatta, .hadaya, .jivita, .ahara, .akasa, .kayavinnatti, .vacivinnatti, .lahuta, .muduta, .kammannata, .upacaya, .santati, .jarata, .aniccata]
+
+def cets52 : List Cetasika := universals ++ occasionals ++ unwholesome ++ beautiful
+
+def cets50 : List Cetasika := cets52.filter (fun x => x != .vedana && x != .sanna)
+
+def dhammayatanaList : List Dhamma := cets52.map Dhamma.cetasika ++ subtle16.map Dhamma.rupa ++ [Dhamma.nibbana]
+
+def sabbaTable : SabbaCat → List (List Dhamma)
+  | .khandha | .upadanakkhandha => [Rupa.all.map Dhamma.rupa, [.cetasika .vedana], [.cetasika .sanna], cets50.map Dhamma.cetasika, [.citta]]
+  | .ayatana => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .vanna], [.rupa .sadda], [.rupa .gandha], [.rupa .rasa],
+      [.rupa .pathavi, .rupa .tejo, .rupa .vayo], [.citta], dhammayatanaList]
+  | .dhatu => [[.rupa .cakkhu], [.rupa .sota], [.rupa .ghana], [.rupa .jivha], [.rupa .kaya], [.rupa .vanna], [.rupa .sadda], [.rupa .gandha], [.rupa .rasa],
+      [.rupa .pathavi, .rupa .tejo, .rupa .vayo], [.citta], [.citta], [.citta], [.citta], [.citta], [.citta], [.citta], dhammayatanaList]
+  | .sacca => [Dhamma.citta :: ((cets52.filter (· != .lobha)).map Dhamma.cetasika ++ Rupa.all.map Dhamma.rupa), [.cetasika .lobha], [.nibbana],
+      [.cetasika .panna, .cetasika .vitakka, .cetasika .sammavaca, .cetasika .sammakammanta, .cetasika .sammaajiva, .cetasika .viriya, .cetasika .sati, .cetasika .ekaggata]]
+
+def a74_which (t : Tax) : Prop := ∀ g ∈ SabbaCat.all, t.sabba g = sabbaTable g
+
+def grossTable (r : Rupa) : Bool := (pasada ++ gocara).contains r
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
+
+set_option maxRecDepth 400000 in
 
 end FormalAbhidhamma.Model

@@ -92,6 +92,8 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a38_six_exalted w.tax ∧   -- Tax
   a38_twenty w.tax ∧   -- Tax
   a38_five_but_agga w.tax ∧   -- Tax
+  a38_which w.tax ∧   -- Tax
+  a38_abhinna_which w.tax ∧   -- Tax
   a35_which w.tax ∧   -- Tax
   a60_twentyeight w.tax ∧   -- Tax
   a60_concretely_produced w.tax ∧   -- Tax
@@ -118,6 +120,11 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a74_seven_elements w.tax ∧   -- Tax
   a105_forty w.tax ∧   -- Tax
   a105_absorption w.tax ∧   -- Tax
+  a71_by_nature w.tax ∧   -- Tax
+  a71_which w.tax ∧   -- Tax
+  a72_which w.tax ∧   -- Tax
+  a73_which w.tax ∧   -- Tax
+  a74_which w.tax ∧   -- Tax
   a35_station_fits w.tax w.proc ∧   -- Proc
   a36_organs w.proc ∧   -- Proc
   a36_mind_door_no_organ w.proc ∧   -- Proc
@@ -263,6 +270,6 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a77_structure w.status     -- Status
 
 /-- How many definitions `Satisfies` conjoins. -/
-def satisfiesCount : Nat := 194
+def satisfiesCount : Nat := 201
 
 end FormalAbhidhamma.Model
