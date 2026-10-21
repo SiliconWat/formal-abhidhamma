@@ -44,6 +44,9 @@ structure Link (S : Scale) where
   /-- where an occurrence ceases: the mind-moment and the sub-moment of its dissolution (A4) -/
   ceaseMom : K → s.M
   ceasePhase : K → Phase
+  /-- the neither-perception moment before a cessation attainment, and the fruition citta that emerges (A111) -/
+  cessation : s.M → Prop := fun _ => False
+  fruition : s.M → Prop := fun _ => False
   /-- a sense-consciousness: its base (the organ) and its object, as occurrences (A116, A87) -/
   sense : s.M → Prop := fun _ => False
   base : s.M → Option K := fun _ => none
@@ -252,5 +255,49 @@ theorem a122_forbids_rebirthNotAfterDeath : ¬ a122_rebirth_after_death Z rebirt
   obtain ⟨d, hd, hp⟩ := h 5 rfl
   simp [rebirthNotAfterDeath, chainLink] at hd hp
   omega
+
+/-- A58 (L4, ch. 5 §99–102, `abh07t.nrf.xml:1989–2005`): every citta lies at or after the rebirth-linking citta of its own existence — some rebirth-linking citta is the moment itself or arises before it. -/
+def a58_begins_with_rebirth (S : Scale) (l : Link S) : Prop := ∀ m, ∃ r, l.rebirth r ∧ (r = m ∨ S.lt (l.s.arise r) (l.s.arise m))
+
+/-- A47 (L5, `abh07t.nrf.xml:1501`, `:5193`): within a life the process and the bhavaṅga run unbroken — every moment has a proximate successor. The cessation exception is on the CLOCK
+    only (A112, Clocks.lean): proximity itself holds across it. -/
+def a47_unbroken (S : Scale) (l : Link S) : Prop := ∀ m, ∃ n, l.s.prox m n
+
+/-- A111, emergence (L1/L2/L4, MN 43; `kala/AXIOMS.md`): the attainer emerges by one fruition citta — the proximate successor of the neither-perception moment before cessation is a fruition citta. -/
+def a111_emerges_by_fruition (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → l.fruition n
+
+/-- A111, no death within: the attainer does not die during cessation — neither the moment before it nor the one that emerges is a death citta. -/
+def a111_no_death_within (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → ¬ l.death m ∧ ¬ l.death n
+
+/-- A stream of two moments, and nothing after the second. -/
+abbrev endsAtOnce : Link Z :=
+  { s := ⟨Bool, fun b => if b then (4 : Int) else 0, fun b => if b then (5 : Int) else 1, fun b => if b then (6 : Int) else 2, fun b => if b then (7 : Int) else 3, fun m n => m = false ∧ n = true⟩,
+    K := Unit, origin := fun _ => .kamma, mom := fun _ => false, phase := fun _ => .arise,
+    rebirth := fun m => m = false, produces := fun _ => True, embodied := fun _ => True,
+    ceaseMom := fun _ => false, ceasePhase := fun _ => .dissolve }
+theorem a47_forbids_endsAtOnce : ¬ a47_unbroken Z endsAtOnce := by
+  intro h
+  obtain ⟨n, hn⟩ := h true
+  exact absurd hn.1 (by decide)
+
+/-- A stream with no rebirth-linking citta at all. -/
+abbrev noRebirthAnywhere : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 99) with rebirth := fun _ => False }
+theorem a58_forbids_noRebirthAnywhere : ¬ a58_begins_with_rebirth Z noRebirthAnywhere := by
+  intro h
+  obtain ⟨r, hr, _⟩ := h 0
+  exact hr
+
+/-- Cessation emerging by a citta that is no fruition (moment 0 is the cessation moment, moment 1 follows and is not a fruition). -/
+abbrev emergesByOther : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 99) with cessation := fun m => m = 0, fruition := fun m => m = 5 }
+theorem a111_forbids_emergesByOther : ¬ a111_emerges_by_fruition Z emergesByOther := by
+  intro h
+  have := h 0 1 rfl rfl
+  simp [emergesByOther, chainLink] at this
+
+/-- A death during cessation (moment 1 follows the cessation moment 0 and is the death citta). -/
+abbrev diesInCessation : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 1) with cessation := fun m => m = 0 }
+theorem a111_forbids_diesInCessation : ¬ a111_no_death_within Z diesInCessation := by
+  intro h
+  exact (h 0 1 rfl rfl).2 rfl
 
 end FormalAbhidhamma.Model
