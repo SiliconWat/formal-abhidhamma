@@ -423,7 +423,8 @@ def a65_counts (t : Tax) : Prop :=
 /-- A107 (L4, ch. 9 §41–42, `:3221–3233`): the super-knowledges arise from the fifth jhāna — the fine-material fifth
     jhāna occurring as a super-knowledge (*abhiññāvasena pavattamānaṃ pana rūpāvacarapañcamajjhānaṃ*). The five
     (psychic power, the divine ear, knowing others' minds, recollecting past lives, the divine eye) are names. -/
-def a107_fifth_jhana (t : Tax) : Prop := ∀ c ∈ t.kinds, t.abhinna c = true → c.bhumi = .rupa ∧ c.jhana = 5
+def a107_fifth_jhana (t : Tax) : Prop :=
+  ∀ c ∈ t.kinds, t.abhinna c = true → c.bhumi = .rupa ∧ c.jhana = 5 ∧ (c.jati = .kusala ∨ c.jati = .kiriya)
 
 /-- A71, the lists (L4, ch. 7 §3–12, `abh07t.nrf.xml:2437–2473`): 4 taints, 4 floods, 4 bonds, 4 bodily knots, 4
     clingings, 6 hindrances, 7 latent tendencies, 10 fetters in the Suttanta's list and 10 in the Abhidhamma's, 10
@@ -459,7 +460,8 @@ def a73_fourteen (t : Tax) : Prop := ((BodhiCat.all.map t.bodhi).flatten).eraseD
 def a74_sizes (t : Tax) : Prop := ∀ g ∈ SabbaCat.all, (t.sabba g).length = g.size
 
 /-- A74, nibbāna (§50, `:2713`): nibbāna is outside the aggregates (*khandhasaṅgahanissaṭaṃ*). -/
-def a74_nibbana_outside (t : Tax) : Prop := ∀ m ∈ t.sabba .khandha, Dhamma.nibbana ∉ m
+def a74_nibbana_outside (t : Tax) : Prop :=
+  ∀ g ∈ [SabbaCat.khandha, SabbaCat.upadanakkhandha], ∀ m ∈ t.sabba g, Dhamma.nibbana ∉ m
 
 /-- A74, the mind-object base (§47, `:2693`): 69 dhammas, the cetasikas, subtle matter and nibbāna, make up the
     mind-object base and element — so the world's 52 cetasikas (A29) and its 16 subtle kinds (A62) must leave room for

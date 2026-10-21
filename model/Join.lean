@@ -59,4 +59,26 @@ theorem j_forbids_wrongReading : ¬ j_readings_are_the_moments Z wrongReading :=
   have := (h 0 0 _ rfl rfl).2.1
   simp at this
 
+/-- A3 and C, the labels (refuter 2, finding 3): two mind occurrences carry one `cit` label exactly when they are one and the same moment of the stream. -/
+def a3_cit_labels_are_moments (S : Scale) (j : Joined S) : Prop :=
+  ∀ i k a b m n, j.w.occs[i]? = some a → j.w.occs[k]? = some b → j.mom i = some m → j.mom k = some n → (a.cit = b.cit ↔ m = n)
+
+/-- A3 and C, no moment without an occurrence (refuter 2, finding 3): every moment of the stream is some occurrence of the world. -/
+def a3_every_moment_has_an_occurrence (S : Scale) (j : Joined S) : Prop := ∀ m, ∃ i, i < j.w.occs.length ∧ j.mom i = some m
+
+/-- Two different moments given the same label. -/
+abbrev sameLabel : Joined Z :=
+  { w := ⟨[⟨.nama, 0, 3, 7, none, none, none⟩, ⟨.nama, 4, 7, 7, none, none, none⟩], []⟩, s := jstream, mom := fun i => some i }
+theorem a3_forbids_sameLabel : ¬ a3_cit_labels_are_moments Z sameLabel := by
+  intro h
+  have := (h 0 1 _ _ 0 1 rfl rfl rfl rfl).mp rfl
+  exact absurd this (by decide)
+
+/-- The stream has more moments than the world has occurrences. -/
+theorem a3_forbids_unreachedMoment : ¬ a3_every_moment_has_an_occurrence Z missingFact := by
+  intro h
+  obtain ⟨i, hi, hm⟩ := h 5
+  simp [missingFact, jw] at hi hm
+  omega
+
 end FormalAbhidhamma.Model

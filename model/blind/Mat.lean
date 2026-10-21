@@ -44,7 +44,7 @@ structure Mat where
 
 def sixBases : List Rupa := pasada ++ [Rupa.hadaya]
 
-def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → b.bases = sixBases
+def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → ∀ r ∈ b.bases, r ∈ sixBases
 
 def a39_fine (m : Mat) : Prop :=
   ∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.bases, r ∈ [Rupa.cakkhu, .sota, .hadaya]
@@ -52,7 +52,7 @@ def a39_fine (m : Mat) : Prop :=
 def a39_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → b.bases = []
 
 def a4_life (m : Mat) : Prop :=
-  ∀ k ∈ m.kalapas, (∀ r ∈ k.members, r ∉ anipphanna) → k.life = 51
+  ∀ k ∈ m.kalapas, (∀ r ∈ k.members, r ≠ .kayavinnatti ∧ r ≠ .vacivinnatti) → k.life = 51
 
 def a15_eight (m : Mat) : Prop :=
   ∀ k ∈ m.kalapas, ∀ r ∈ [Rupa.pathavi, .apo, .tejo, .vayo, .vanna, .gandha, .rasa, .ahara], r ∈ k.members

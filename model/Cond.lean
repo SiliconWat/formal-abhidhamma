@@ -80,11 +80,11 @@ def a84_mutual {S : Scale} (w : CondW S) : Prop :=
 
 /-- A87, the COND half (L1, pre-nascence): the condition arose before the conditioned and has not ceased when it arises. -/
 def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt a.fall b.rise
+  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ S.lt b.rise a.fall
 
 /-- A88 (L1/L2/L5, post-nascence): the conditioned (a body) arose before the conditioning citta and has not ceased when that arises. -/
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
 
 /-- A96 (L1, association): the related are mind, and arise and cease together (the four marks, A30). -/
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
@@ -96,9 +96,9 @@ def a97_dissociated {S : Scale} (w : CondW S) : Prop :=
 
 /-- A98 (L1, presence) and A101 (non-disappearance): the related exist together — neither has ceased before the other arises. -/
 def a98_present {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .atthi fun a b => ¬ S.lt a.fall b.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .atthi fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .avigata fun a b => ¬ S.lt a.fall b.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .avigata fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 
 /-- A99 (L1, absence) and A100 (disappearance): the condition has just ceased, and is not later than the conditioned's arising: it arose first and has ceased by then. -/
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
@@ -135,7 +135,7 @@ abbrev preCeased : CondW Z := cw [o .rupa 0 2, o .nama 5 9] [(.purejata, 0, 1)]
 theorem a87_forbids_preCeased : ¬ a87_pre_born preCeased := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.purejata, 0, 1) (by simp [preCeased, cw]) rfl
   simp [ends, preCeased, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact hk.2 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2 (by decide)
 
 /-- Post-nascence where the conditioning citta arose first. -/
 abbrev postWrongOrder : CondW Z := cw [o .nama 0 9, o .rupa 5 9] [(.pacchajata, 0, 1)]
@@ -163,13 +163,13 @@ abbrev notPresent : CondW Z := cw [o .nama 0 2, o .rupa 5 9] [(.atthi, 0, 1)]
 theorem a98_forbids_notPresent : ¬ a98_present notPresent := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.atthi, 0, 1) (by simp [notPresent, cw]) rfl
   simp [ends, notPresent, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact hk.1 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.1 (by decide)
 
 abbrev notPresent2 : CondW Z := cw [o .nama 0 2, o .rupa 5 9] [(.avigata, 0, 1)]
 theorem a101_forbids_notPresent2 : ¬ a101_not_disappeared notPresent2 := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.avigata, 0, 1) (by simp [notPresent2, cw]) rfl
   simp [ends, notPresent2, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact hk.1 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.1 (by decide)
 
 /-- Absence from an occurrence that has not ceased when the conditioned arises. -/
 abbrev notAbsent : CondW Z := cw [o .nama 0 9, o .nama 5 9] [(.natthi, 0, 1)]
@@ -193,7 +193,8 @@ def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences
 
 /-- A81 (`:57–61`): a predominant conditions its associated states and the matter they originate (its own citta, together); whatever is esteemed as OBJECT conditions the mind that esteems it. -/
 def a81_predominance {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .adhipati fun a b => sameCittaTogether a b ∨ b.kind = .nama
+  ∀ f ∈ w.holds, f.1 = .adhipati → ∃ a b, ends w f.2.1 f.2.2 = some (a, b) ∧
+    (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
 /-- A94 jhāna (`:209`) and A95 path (`:213`): the factors condition their associated states and matter — of their own citta, together. -/
 def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana sameCittaTogether
@@ -333,11 +334,11 @@ theorem a82_forbids_proxNotContig : ¬ a82_contiguity_same_relata proxNotContig 
   simp [proxNotContig, cw] at this
 
 /-- A121 (L1, AN 3.47 `s0402m2.mul.xml:1492`): the conditioned passes away — every occurrence ceases, after it arises, so no conditioned dhamma exists forever. -/
-def a121_passes_away {S : Scale} (w : CondW S) : Prop := ∀ a ∈ w.occs, S.lt a.rise a.fall
+def a121_passes_away {S : Scale} (w : CondW S) : Prop := ∀ a ∈ w.occs, a.kind ≠ .pannatti → S.lt a.rise a.fall
 
 /-- An occurrence that never ceases (its ceasing is no later than its arising). -/
 abbrev everLasting : CondW Z := cw [o .nama 5 5] []
 theorem a121_forbids_everLasting : ¬ a121_passes_away everLasting := by
-  intro h; have := h (o .nama 5 5) (by simp [everLasting, cw]); simp [o] at this
+  intro h; have := h (o .nama 5 5) (by simp [everLasting, cw]) (by simp [o]); simp [o] at this
 
 end FormalAbhidhamma.Model

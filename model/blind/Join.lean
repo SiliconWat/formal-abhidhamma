@@ -19,4 +19,9 @@ abbrev joccs : List (Occ Z) := [⟨.nama, 0, 3, 0, none, none, none⟩, ⟨.nama
 
 abbrev jw (h : List (Condition × Nat × Nat)) : Joined Z := { w := ⟨joccs, h⟩, s := jstream, mom := fun i => some i }
 
+def a3_cit_labels_are_moments (S : Scale) (j : Joined S) : Prop :=
+  ∀ i k a b m n, j.w.occs[i]? = some a → j.w.occs[k]? = some b → j.mom i = some m → j.mom k = some n → (a.cit = b.cit ↔ m = n)
+
+def a3_every_moment_has_an_occurrence (S : Scale) (j : Joined S) : Prop := ∀ m, ∃ i, i < j.w.occs.length ∧ j.mom i = some m
+
 end FormalAbhidhamma.Model

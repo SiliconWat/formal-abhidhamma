@@ -43,7 +43,7 @@ def a17_discs (c : Cosmos) : Prop := c.moon.1 = 49 ∧ c.moon.2.1 = 49 ∧ c.sun
 def a19_solids (c : Cosmos) : Prop := c.moon.2.2 = 49 ∧ c.sun.2.2 = 50
 
 def a16_stack (c : Cosmos) : Prop :=
-  2 * c.moonBottom ≤ c.risen ∧ c.sunBottom = c.moonBottom + c.moon.2.2 + 1 ∧ c.moonBottom + 100 = c.sunBottom + c.sun.2.2
+  2 * c.moonBottom ≤ c.risen ∧ c.risen ≤ 2 * c.moonBottom + 200 ∧ c.sunBottom = c.moonBottom + c.moon.2.2 + 1 ∧ c.moonBottom + 100 = c.sunBottom + c.sun.2.2
 
 def a20_day_gain (c : Cosmos) : Prop := c.dayGain = 100000
 

@@ -142,7 +142,9 @@ def a42_slight (w : Proc) : Prop :=
 def a42_very_slight (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → (p.kiccas.all (· == .bhavanga)) = true
 
-def a43_clear (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = true → 1 ≤ p.count .tadarammana
+def a43_clear (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = true → p.plane = .kama →
+    (∀ s ∈ p.javanas, stepKama s = true ∧ s.obj.kama = true) → 1 ≤ p.count .tadarammana
 
 def a43_obscure (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = false → p.count .tadarammana = 0
 
@@ -194,7 +196,7 @@ def a57_five_at_death (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.nearDeath = true → (p.count .javana = 0 ∨ p.count .javana = 5)
 
 def a57_kamma_past (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, ∀ s ∈ p.steps, (s.kicca = .patisandhi ∨ s.kicca = .bhavanga) → s.sign = some .kamma → s.when = .past
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, s.sign = some .kamma → s.when = .past
 
 def arupaAttainment (s : Step) (b : Nat) : Bool :=
   s.kicca == .javana && s.citta.bhumi == .arupa && s.citta.jati != .vipaka && s.citta.base == b
@@ -276,9 +278,36 @@ abbrev pathProc (ss : List Step) : Process := { kind := .path, door := .mind, st
 
 def a46_javana_by_person (w : Proc) : Prop :=
   ∀ p ∈ w.procs, ∀ s ∈ p.javanas,
-    (p.person = .arahant → s.citta.jati ≠ .kusala ∨ s.citta.bhumi = .lokuttara) ∧
-    (p.person = .arahant → s.citta.jati ≠ .akusala) ∧
+    (p.person = .arahant → s.citta.jati ≠ .kusala ∧ s.citta.jati ≠ .akusala ∧
+      (s.citta.bhumi = .lokuttara → s.citta.jati = .vipaka ∧ s.citta.path = 4)) ∧
     (p.person ≠ .arahant → s.citta.jati ≠ .kiriya) ∧
     (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
+
+def a35_step_cittas_are_types (t : Tax) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, reckon89 s.citta ∈ t.kinds89
+
+def a38_abhinna_flag_is_an_abhinna_citta (t : Tax) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, s.abhinna = true → t.abhinna (reckon89 s.citta) = true
+
+def a36_steps_at_the_processs_door (w : Proc) : Prop :=
+  ∀ p ∈ w.procs,
+    (p.kind = .fiveDoor → p.door ≠ .mind) ∧ (p.kind ≠ .fiveDoor → p.door = .mind) ∧
+    ∀ s ∈ p.steps, s.door ≠ none → s.door = some p.door
+
+def doorObject : Door → Obj
+  | .eye => .rupa | .ear => .sadda | .nose => .gandha | .tongue => .rasa | .body => .photthabba | .mind => .kamaOther
+
+def a37_sense_door_takes_its_object (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → ∀ s ∈ p.steps, s.door ≠ none → s.obj = doorObject p.door
+
+def a42_range (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past ≤ 15
+
+def a43_kind_follows_content (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ((p.steps.any stepPath) = true ↔ p.kind = .path) ∧
+    ((p.kind = .fiveDoor ∨ p.kind = .mindDoor) → ∀ s ∈ p.javanas, stepKama s = true)
+
+def a115_no_conditions_no_consciousness (w : Proc) : Prop :=
+  ∀ m ∈ w.meetings, m.door ≠ .mind → (m.intact && m.inRange && m.attended) = false →
+    (m.follows.any fun s => m.door.senseKicca.contains s.kicca) = false
 
 end FormalAbhidhamma.Model

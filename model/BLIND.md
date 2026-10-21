@@ -255,3 +255,43 @@ Reader's observations: a98/a101 are the same statement under different condition
 | a50_plane_lives | The `planeLife` list is exactly the given 20 numbers, from 2 up to 504000. |
 
 Reader's observation: every Cosmos predicate is a bare equality of fields to stipulated numbers; a16 is the only one that relates fields to each other.
+
+## Re-read, 2026-10-20 — the definitions changed or added after the first refuter pass (`FINDINGS.md`)
+
+*One blind reader (no memory, no doctrine) read only a file holding these definitions with their comments removed. Where a name appears above and here, THIS reading replaces it (`table.py` takes the last).*
+
+| definition name | plain English |
+|---|---|
+| a107_fifth_jhana | Every citta-type in the list that is flagged as a super-knowledge type must be of the rupa plane, have jhana 5, and be of kind kusala or kiriya. Nothing in the reverse direction; vacuous if none are flagged. |
+| a74_nibbana_outside | For the two groupings khandha and upadanakkhandha, no member group in the world's list for either contains nibbana. Vacuous if those lists are empty. |
+| a43_clear | For every mind-door process that is clear and on the sense plane: if every one of its javana steps is a sense-sphere step whose object is sense-sphere, then the process contains at least one tadarammana step. The antecedent can be false, in which case nothing is required. |
+| a57_kamma_past | Every step in every process that carries the sign kamma must have its time marked past. |
+| a46_javana_by_person | For every javana step of every process: (1) if the person is an arahant, the step's citta is neither kusala nor akusala, and if supramundane it must be vipaka with path equal to 4; (2) if the person is not an arahant, it is not kiriya; (3) if it is supramundane, the person is not a worldling. |
+| a35_step_cittas_are_types | For every step of every process, the step's citta, after reckon89, is in the taxonomy's kinds89. |
+| a38_abhinna_flag_is_an_abhinna_citta | Whenever a step has its abhinna flag set, the taxonomy marks that step's citta (after reckon89) as an abhinna type. |
+| a36_steps_at_the_processs_door | For each process: if five-door its door is not the mind door; otherwise its door is the mind door; and every step that names a door names the process's door. |
+| doorObject | eye gives rupa, ear gives sadda, nose gives gandha, tongue gives rasa, body gives photthabba, mind gives kamaOther. |
+| a37_sense_door_takes_its_object | In every five-door process, every step that names a door has as its object exactly doorObject of the process's door. |
+| a42_range | Every five-door process has its past count at most 15. |
+| a43_kind_follows_content | For every process: it contains some path step exactly when its kind is path; and if its kind is five-door or mind-door, all its javana steps are sense-sphere steps. |
+| a115_no_conditions_no_consciousness | For every meeting at a non-mind door where it is not the case that intact, in range and attended all hold, none of the steps that follow has a kicca in that door's sense-kicca list. |
+| a39_sense | Every being on the sense plane has all its bases drawn from sixBases. |
+| a4_life | Every kalapa whose members include neither bodily-intimation nor verbal-intimation matter has life exactly 51; clusters containing either are unconstrained. |
+| a120_kamma_born_at_all_three | For every embodied moment that is not within 16 or fewer steps before some death moment, and for each of the three phases, there is an item of origin kamma at that moment and phase. Moments within 16 steps before a death are exempt. |
+| present_at_arising | An item is present at the arising of moment m when its own starting time is strictly before m's arising, and m's arising is strictly before its ceasing time. |
+| a116_prenascent_unceased_base | At every sense moment, the base is some item present at that moment's arising (started earlier, not yet ceased). |
+| a87_organ_and_object_already_arisen | At every sense moment, both the base and the object exist and each is present at the moment's arising. Its base half duplicates a116. |
+| a56_death_followed_unless_final | Every death moment that is not a parinibbana moment has some next moment under the stream's proximity relation. |
+| a56_final_ends | Every parinibbana moment is a death moment and has no next moment at all. |
+| a87_pre_born | Every pre-born condition fact between two occurrences: the supporter arises strictly before the other arises, and the other arises strictly before the supporter falls. |
+| a88_post_born | Every post-born fact: the second arises strictly before the first arises, and the first arises strictly before the second falls. |
+| a98_present | Every presence fact: the two lifetimes strictly overlap. |
+| a101_not_disappeared | Identical to a98 for non-disappearance facts: the two lifetimes strictly overlap. |
+| a81_predominance | Every predominance fact has endpoints such that either they are the same-citta-together case, or the second is of kind nama and an object fact on the same pair is also recorded. Fails if endpoints cannot be found. |
+| a121_passes_away | Every occurrence not of kind pannatti arises strictly before it falls. Pannatti occurrences are exempt. |
+| a24_rate | For any two moments m and n joined by exactly 10^12 stream steps, none departing from a moment flagged cessation, the clock time of n's arising is strictly less than m's arising time plus one snap. |
+| a112_night_week_order | Zero is strictly less than snap, snap is strictly less than night, and week is NOT strictly less than night. |
+| a47_unbroken_on_the_clock | For every moment m not flagged cessation and its next moment n, the clock time of m's closing is not strictly less than the clock time of n's arising (no gap; overlap allowed). |
+| a3_cit_labels_are_moments | For any two occurrences both assigned moments, they have equal cit label exactly when they are assigned the same moment. |
+| a3_every_moment_has_an_occurrence | Every moment of the stream is assigned to by some occurrence index within the occurrence list. |
+| a16_stack | Twice moonBottom is at most risen; risen is at most twice moonBottom plus 200; sunBottom equals moonBottom plus the moon's third component plus 1; and moonBottom plus 100 equals sunBottom plus the sun's third component (the last two force the two third components to sum to 99). |

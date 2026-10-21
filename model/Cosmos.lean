@@ -61,7 +61,7 @@ def a19_solids (c : Cosmos) : Prop := c.moon.2.2 = 49 ∧ c.sun.2.2 = 50
 /-- A16 (L2/L3, `abh01a.att.xml:8297`, `:8353`): the discs travel at about half Sineru's height (the encoding reads the upper bound only), the moon BELOW and the sun
     ABOVE with one yojana between, a hundred yojanas from the moon's lower edge to the sun's upper edge. -/
 def a16_stack (c : Cosmos) : Prop :=
-  2 * c.moonBottom ≤ c.risen ∧ c.sunBottom = c.moonBottom + c.moon.2.2 + 1 ∧ c.moonBottom + 100 = c.sunBottom + c.sun.2.2
+  2 * c.moonBottom ≤ c.risen ∧ c.risen ≤ 2 * c.moonBottom + 200 ∧ c.sunBottom = c.moonBottom + c.moon.2.2 + 1 ∧ c.moonBottom + 100 = c.sunBottom + c.sun.2.2
 
 /-- A20 (L2, DN-a `s0103a.att.xml:825`): from the new moon the sun leaves the moon behind a hundred thousand yojanas a day. -/
 def a20_day_gain (c : Cosmos) : Prop := c.dayGain = 100000
@@ -106,6 +106,10 @@ theorem a17_forbids_equalDiscs : ¬ a17_discs equalDiscs := by unfold a17_discs;
 
 abbrev flatDiscs : Cosmos := { okCosmos with sun := (50, 50, 1) }
 theorem a19_forbids_flatDiscs : ¬ a19_solids flatDiscs := by unfold a19_solids; decide
+
+/-- The moon discs a thousand yojanas up, not half Sineru's height (A16's "a few yojanas less later" is read as at most 100 each way: a declared tolerance, OURS). -/
+abbrev moonTooLow : Cosmos := { okCosmos with moonBottom := 1000, sunBottom := 1050 }
+theorem a16_forbids_moonTooLow : ¬ a16_stack moonTooLow := by unfold a16_stack; decide
 
 /-- The sun below the moon. -/
 abbrev sunBelow : Cosmos := { okCosmos with sunBottom := 41000 }

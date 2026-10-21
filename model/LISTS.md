@@ -102,4 +102,4 @@ Protocol 2 registers them. A row's entry here is what the encoding does NOT forb
 
 - `Clocks.lean:11` ⚠️ Declared freedoms (recorded in the freedoms list, not rows): whether the reckoning is injective (it need not be) · what the
 - `Cosmos.lean:11` ⚠️ FREEDOMS (the freedoms list, not rows): the number of cakkavāḷas · how the fourth continent is dark (occlusion or range, A22) · the divine
-- `Cosmos.lean:141` 1,000 · 2,000 · 4,000 · 8,000 · 16,000 · 20,000 · 40,000 · 60,000 · 84,000 (19 figures, 20 planes). Here in sixths of a kappa. ⚠️ The text does not say which kappa: a FREEDOM. -/
+- `Cosmos.lean:145` 1,000 · 2,000 · 4,000 · 8,000 · 16,000 · 20,000 · 40,000 · 60,000 · 84,000 (19 figures, 20 planes). Here in sixths of a kappa. ⚠️ The text does not say which kappa: a FREEDOM. -/

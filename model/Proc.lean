@@ -243,7 +243,9 @@ def a42_very_slight (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → (p.kiccas.all (· == .bhavanga)) = true
 
 /-- A43, the clear mind-door object (L4, §17, `:1277`): registration follows the javanas. -/
-def a43_clear (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = true → 1 ≤ p.count .tadarammana
+def a43_clear (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = true → p.plane = .kama →
+    (∀ s ∈ p.javanas, stepKama s = true ∧ s.obj.kama = true) → 1 ≤ p.count .tadarammana
 
 /-- A43, the obscure one (L4, §18, `:1281`): no registration. -/
 def a43_obscure (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = false → p.count .tadarammana = 0
@@ -317,7 +319,7 @@ def a57_five_at_death (w : Proc) : Prop :=
 /-- A57, kamma always past (L4, §92, `abh07t.nrf.xml:1945`: *kammaṃ pana atītameva*): a rebirth or bhavaṅga citta that takes kamma takes it
     as past. (That they CAN take a present object permits: the occurrence list.) -/
 def a57_kamma_past (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, ∀ s ∈ p.steps, (s.kicca = .patisandhi ∨ s.kicca = .bhavanga) → s.sign = some .kamma → s.when = .past
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, s.sign = some .kamma → s.when = .past
 
 /-- An immaterial attainment's javana with base b. -/
 def arupaAttainment (s : Step) (b : Nat) : Bool :=
@@ -620,11 +622,11 @@ abbrev noSeeing : Proc := { bareProc with meetings := [⟨.eye, true, true, true
 theorem a115_forbids_noSeeing : ¬ a115_conditions_meet noSeeing := by unfold a115_conditions_meet; decide
 
 /-- A46 (L4, ch. 4 §37–46, `abh07t.nrf.xml:1501`ff.; `kala/AXIOMS.md`): no wholesome or unwholesome javana for an arahant; no functional javana for anyone else; supramundane javana only for a noble person
-    (the path and fruition javanas of an arahant included). ⚠️ "Non-percipient beings have no citta" is A13's (Mat.lean), not here. -/
+    (an arahant has only the arahatta fruition among the supramundane, §43 `:1433`, §48 `:1453`). ⚠️ "Non-percipient beings have no citta" is A13's (Mat.lean), not here. -/
 def a46_javana_by_person (w : Proc) : Prop :=
   ∀ p ∈ w.procs, ∀ s ∈ p.javanas,
-    (p.person = .arahant → s.citta.jati ≠ .kusala ∨ s.citta.bhumi = .lokuttara) ∧
-    (p.person = .arahant → s.citta.jati ≠ .akusala) ∧
+    (p.person = .arahant → s.citta.jati ≠ .kusala ∧ s.citta.jati ≠ .akusala ∧
+      (s.citta.bhumi = .lokuttara → s.citta.jati = .vipaka ∧ s.citta.path = 4)) ∧
     (p.person ≠ .arahant → s.citta.jati ≠ .kiriya) ∧
     (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
 
@@ -645,5 +647,83 @@ abbrev worldlingPath : Proc :=
   withProcs [{ kind := .path, door := .mind, person := .worldling, steps := [{ citta := { kamaJavana with bhumi := .lokuttara }, kicca := .javana }] }]
 theorem a46_forbids_worldlingPath : ¬ a46_javana_by_person worldlingPath := by
   unfold a46_javana_by_person; decide
+
+/-! ## Findings of the encoding's first refuter (2026-10-20), TAX and PROC slice -/
+
+/-- The cittas of a world's steps are citta-types of the world (refuter P2, with A35 and A38). -/
+def a35_step_cittas_are_types (t : Tax) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, reckon89 s.citta ∈ t.kinds89
+
+/-- A step flagged as a super-knowledge is a citta-type the taxonomy lets occur as one (refuter P3, A38 and A44). -/
+def a38_abhinna_flag_is_an_abhinna_citta (t : Tax) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.steps, s.abhinna = true → t.abhinna (reckon89 s.citta) = true
+
+/-- The door a five-door process is at, and the door its steps are at (refuter P4, A36): every step that has a door has the process's door. -/
+def a36_steps_at_the_processs_door (w : Proc) : Prop :=
+  ∀ p ∈ w.procs,
+    (p.kind = .fiveDoor → p.door ≠ .mind) ∧ (p.kind ≠ .fiveDoor → p.door = .mind) ∧
+    ∀ s ∈ p.steps, s.door ≠ none → s.door = some p.door
+
+/-- The object a sense door takes (A37; §51 `:1045`: every eye-door citta takes visible form only). -/
+def doorObject : Door → Obj
+  | .eye => .rupa | .ear => .sadda | .nose => .gandha | .tongue => .rasa | .body => .photthabba | .mind => .kamaOther
+
+/-- Every step of a five-door process that has a door takes the object of that door (refuter P5, A37 and A41's *tameva rūpārammaṇaṃ*). -/
+def a37_sense_door_takes_its_object (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → ∀ s ∈ p.steps, s.door ≠ none → s.obj = doorObject p.door
+
+/-- A42, the range (L5, the Vibhāvinī `abh07t.nrf.xml:4821`; refuter P6): the four grades cover one to fifteen past moments, and no five-door object enters after more. -/
+def a42_range (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past ≤ 15
+
+/-- A process's kind follows its content (refuter P1, A43 and A44): it is a path process exactly when it holds a path citta, and a five-door or mind-door
+    process has sense-sphere javanas only (the exalted and supramundane javanas are absorption's, §21 `:1305`). -/
+def a43_kind_follows_content (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ((p.steps.any stepPath) = true ↔ p.kind = .path) ∧
+    ((p.kind = .fiveDoor ∨ p.kind = .mindDoor) → ∀ s ∈ p.javanas, stepKama s = true)
+
+/-- The converse of A115 (MN 28 §306 `s0201m.mul.xml:4216`, said twice in the negative; refuter P7): if the eye is not intact, or the form not in range, or there is no attention,
+    the consciousness does not arise — no step of the door's sense function follows. -/
+def a115_no_conditions_no_consciousness (w : Proc) : Prop :=
+  ∀ m ∈ w.meetings, m.door ≠ .mind → (m.intact && m.inRange && m.attended) = false →
+    (m.follows.any fun s => m.door.senseKicca.contains s.kicca) = false
+
+/-! ### Forbidden worlds for the findings -/
+
+abbrev fabricatedCitta : Proc := withProcs [atMind [stp kamaJavana .javana .mind .kamaOther]]
+theorem a35_forbids_fabricatedCitta : ¬ a35_step_cittas_are_types { bare with kinds := [eyeCons] } fabricatedCitta := by
+  unfold a35_step_cittas_are_types; decide
+
+abbrev unflaggedAbhinna : Proc := withProcs [{ atMind [{ citta := kamaJavana, kicca := .javana, abhinna := true }] with door := .mind }]
+theorem a38_forbids_unflaggedAbhinna : ¬ a38_abhinna_flag_is_an_abhinna_citta { bare with kinds := [kamaJavana] } unflaggedAbhinna := by
+  unfold a38_abhinna_flag_is_an_abhinna_citta; decide
+
+abbrev fiveDoorAtMind : Proc := withProcs [{ atEye 1 (eyeSteps 7 2) with door := .mind }]
+theorem a36_forbids_fiveDoorAtMind : ¬ a36_steps_at_the_processs_door fiveDoorAtMind := by unfold a36_steps_at_the_processs_door; decide
+
+abbrev eyeTakesSoundObject : Proc :=
+  withProcs [atEye 1 [bhv, bhv, stp fiveAdverting .avajjana .eye .sadda]]
+theorem a37_forbids_eyeTakesSoundObject : ¬ a37_sense_door_takes_its_object eyeTakesSoundObject := by
+  unfold a37_sense_door_takes_its_object; decide
+
+abbrev pastTwenty : Proc := withProcs [atEye 20 []]
+theorem a42_forbids_pastTwenty : ¬ a42_range pastTwenty := by unfold a42_range; decide
+
+abbrev relabeledPath : Proc :=
+  withProcs [{ atMind [stp (entryPath 1) .javana .mind .nibbana] with door := .mind }]
+theorem a43_forbids_relabeledPath : ¬ a43_kind_follows_content relabeledPath := by unfold a43_kind_follows_content; decide
+
+abbrev seeingWithoutAttention : Proc :=
+  { bareProc with meetings := [{ door := .eye, intact := true, inRange := true, attended := false, follows := [stp eyeCons .dassana .eye .rupa] }] }
+theorem a115_forbids_seeingWithoutAttention : ¬ a115_no_conditions_no_consciousness seeingWithoutAttention := by
+  unfold a115_no_conditions_no_consciousness; decide
+
+/-- The A43 repair (as correction 3 did for A42): a clear mind-door object of a fine-material being with no registration is a world the law ADMITS. -/
+abbrev clearFineMaterial : Proc := withProcs [{ atMind (mindSteps 7 0) with plane := .rupa }]
+theorem a43_admits_clearFineMaterial : a43_clear clearFineMaterial := by unfold a43_clear; decide
+
+/-- An arahant with a path javana (the old definition let it through). -/
+abbrev arahantPath : Proc :=
+  withProcs [{ kind := .path, door := .mind, person := .arahant, steps := [{ citta := entryPath 4, kicca := .javana }] }]
+theorem a46_forbids_arahantPath : ¬ a46_javana_by_person arahantPath := by unfold a46_javana_by_person; decide
 
 end FormalAbhidhamma.Model

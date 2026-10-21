@@ -44,12 +44,24 @@ def a112_cessation_step (S R : Scale) (z : Reck S R) : Prop :=
 def a24_no_night (S R : Scale) (z : Reck S R) : Prop :=
   ∀ m, R.lt (z.f (z.s.close m)) (R.add (z.f (z.s.arise m)) z.night)
 
+/-- Steps of proximity that pass through no cessation moment (A24's rate is of ordinary mind, not of the gap of a cessation): `StepsFree blocked prox n m b`. -/
+inductive StepsFree {M : Type} (blocked : M → Prop) (prox : M → M → Prop) : Nat → M → M → Prop
+  | zero (m : M) : StepsFree blocked prox 0 m m
+  | succ {n : Nat} {m a b : M} : StepsFree blocked prox n m a → prox a b → ¬ blocked a → StepsFree blocked prox (n + 1) m b
+
 /-- A24, the rate (L2, `s0302a.att.xml:1463`, `abh02a.att.xml:533`): in one finger-snap "many hundreds of thousands of koṭis" of cittas arise — at least
     10¹² distinct moments of the stream arise within any stretch of the day-reckoning one snap long. A lower bound (*aneka*): ⚠️ a
     ṭīkā reads the snap as only *anekakoṭi*, about 10⁷ (`abh04t.nrf.xml:821`), a VARIANT recorded in the variants list. -/
 def a24_rate (S R : Scale) (z : Reck S R) : Prop :=
-  ∀ x, ∃ l : List z.s.M, l.Nodup ∧ 1000000000000 ≤ l.length ∧
-    ∀ m ∈ l, ¬ R.lt (z.f (z.s.arise m)) x ∧ R.lt (z.f (z.s.arise m)) (R.add x z.snap)
+  ∀ m n, StepsFree z.cessation z.s.prox 1000000000000 m n → R.lt (z.f (z.s.arise n)) (R.add (z.f (z.s.arise m)) z.snap)
+
+/-- A24 and A112, the lengths (refuter 2, findings 1 and 6): a snap is a positive length shorter than a night, and a night is no longer than a week. -/
+def a112_night_week_order (S R : Scale) (z : Reck S R) : Prop := R.lt R.zero z.snap ∧ R.lt z.snap z.night ∧ ¬ R.lt z.week z.night
+
+/-- A47, on the clock (L5, `abh07t.nrf.xml:1501`, the Vibhāvinī's *abbocchinnā asati nirodhasamāpattiyaṃ*): outside cessation the stream is unbroken in time too — a step of proximity from a moment
+    that is not a cessation moment shows no gap on the day-reckoning. -/
+def a47_unbroken_on_the_clock (S R : Scale) (z : Reck S R) : Prop :=
+  ∀ m n, ¬ z.cessation m → z.s.prox m n → ¬ R.lt (z.f (z.s.close m)) (z.f (z.s.arise n))
 
 /-! ## Forbidden worlds (both clocks on the whole numbers) -/
 
@@ -81,26 +93,26 @@ abbrev longCitta : Reck Z Z := reck (fun a => 3 * a) (fun _ => False) 2 7 4
 theorem a24_forbids_longCitta : ¬ a24_no_night Z Z longCitta := by
   intro h; have := h 0; revert this; decide
 
-private theorem window_one (a b : Nat) (e1 : (0 : Int) ≤ 4 * (a : Int)) (e2 : 4 * (a : Int) < 0 + 4)
-    (e3 : (0 : Int) ≤ 4 * (b : Int)) (e4 : 4 * (b : Int) < 0 + 4) : a = b := by omega
+@[local simp] theorem free_reach (n : Nat) : StepsFree (fun _ : Nat => False) cchain.prox n 0 n := by
+  induction n with
+  | zero => exact StepsFree.zero 0
+  | succ n ih => exact StepsFree.succ ih (show n + 1 = n + 1 from rfl) (by simp)
 
-/-- A snap that holds a single citta (moments four units apart, a snap of four units). -/
+/-- A snap that holds a single citta (moments four units apart, a snap of four units): a trillion cittas do not fit. -/
 abbrev oneInASnap : Reck Z Z := reck (fun a => a) (fun _ => False) 2 7 4
 theorem a24_forbids_oneInASnap : ¬ a24_rate Z Z oneInASnap := by
   intro h
-  obtain ⟨l, hn, hl, hm⟩ := h 0
-  match l, hn, hl, hm with
-  | [], _, hl, _ => simp at hl
-  | [_], _, hl, _ => simp at hl
-  | a :: b :: t, hn, _, hm =>
-    obtain ⟨h1, h2⟩ := hm a (by simp)
-    obtain ⟨h3, h4⟩ := hm b (by simp)
-    have hne : a ≠ b := by
-      intro e; subst e; simp at hn
-    have e1 : (0 : Int) ≤ 4 * (a : Int) := Int.not_lt.mp h1
-    have e2 : 4 * (a : Int) < 0 + 4 := h2
-    have e3 : (0 : Int) ≤ 4 * (b : Int) := Int.not_lt.mp h3
-    have e4 : 4 * (b : Int) < 0 + 4 := h4
-    exact hne (window_one a b e1 e2 e3 e4)
+  have := h 0 1000000000000 (free_reach 1000000000000)
+  revert this; decide
+
+/-- A snap as long as a night. -/
+abbrev snapAsLongAsANight : Reck Z Z := reck (fun a => a) (fun _ => False) 4 7 4
+theorem a112_forbids_snapAsLongAsANight : ¬ a112_night_week_order Z Z snapAsLongAsANight := by
+  intro h; exact absurd h.2.1 (by decide)
+
+/-- A gap on the day-reckoning at an ordinary step (the identity reckoning shows one unit between a close and the next arising). -/
+abbrev gapAtAnOrdinaryStep : Reck Z Z := reck (fun a => a) (fun _ => False) 2 7 4
+theorem a47_forbids_gapAtAnOrdinaryStep : ¬ a47_unbroken_on_the_clock Z Z gapAtAnOrdinaryStep := by
+  intro h; exact h 0 1 (by simp [gapAtAnOrdinaryStep, reck]) rfl (by decide)
 
 end FormalAbhidhamma.Model

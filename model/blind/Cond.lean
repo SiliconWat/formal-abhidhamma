@@ -56,10 +56,10 @@ def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   ∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds
 
 def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt a.fall b.rise
+  facts_between_occurrences w .purejata fun a b => S.lt a.rise b.rise ∧ S.lt b.rise a.fall
 
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
 
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .sampayutta fun a b => a.kind = .nama ∧ b.kind = .nama ∧ a.rise = b.rise ∧ a.fall = b.fall
@@ -68,10 +68,10 @@ def a97_dissociated {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .vippayutta fun a b => a.kind ≠ b.kind
 
 def a98_present {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .atthi fun a b => ¬ S.lt a.fall b.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .atthi fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 
 def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .avigata fun a b => ¬ S.lt a.fall b.rise ∧ ¬ S.lt b.fall a.rise
+  facts_between_occurrences w .avigata fun a b => S.lt b.rise a.fall ∧ S.lt a.rise b.fall
 
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
@@ -88,7 +88,8 @@ def sameCittaTogether {S : Scale} (a b : Occ S) : Prop := a.cit = b.cit ∧ a.ri
 def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu sameCittaTogether
 
 def a81_predominance {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .adhipati fun a b => sameCittaTogether a b ∨ b.kind = .nama
+  ∀ f ∈ w.holds, f.1 = .adhipati → ∃ a b, ends w f.2.1 f.2.2 = some (a, b) ∧
+    (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
 def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana sameCittaTogether
 
@@ -130,6 +131,6 @@ abbrev cwo (k : Kind) (r f : Int) (c : Nat) : Occ Z := { kind := k, rise := r, f
 def a82_contiguity_same_relata {S : Scale} (w : CondW S) : Prop :=
   ∀ i j, (Condition.anantara, i, j) ∈ w.holds ↔ (Condition.samanantara, i, j) ∈ w.holds
 
-def a121_passes_away {S : Scale} (w : CondW S) : Prop := ∀ a ∈ w.occs, S.lt a.rise a.fall
+def a121_passes_away {S : Scale} (w : CondW S) : Prop := ∀ a ∈ w.occs, a.kind ≠ .pannatti → S.lt a.rise a.fall
 
 end FormalAbhidhamma.Model

@@ -46,6 +46,8 @@ structure Link (S : Scale) where
   ceasePhase : K → Phase
   /-- the neither-perception moment before a cessation attainment, and the fruition citta that emerges (A111) -/
   cessation : s.M → Prop := fun _ => False
+  /-- an arahant's last death citta: no rebirth-linking citta follows it (A56, A122) -/
+  parinibbana : s.M → Prop := fun _ => False
   fruition : s.M → Prop := fun _ => False
   /-- a sense-consciousness: its base (the organ) and its object, as occurrences (A116, A87) -/
   sense : s.M → Prop := fun _ => False
@@ -64,7 +66,7 @@ def a120_mind_born_at_arising (S : Scale) (l : Link S) : Prop := ∀ k, l.origin
 /-- A120, the other half: kamma-born matter arises at all three sub-moments of every citta of an embodied being (*tīsu tīsu
     khaṇesu*, Buddhaghosa's own voice). -/
 def a120_kamma_born_at_all_three (S : Scale) (l : Link S) : Prop :=
-  ∀ m, l.embodied m → ∀ p : Phase, ∃ k, l.origin k = .kamma ∧ l.mom k = m ∧ l.phase k = p
+  ∀ m, l.embodied m → (¬ ∃ d n, l.death d ∧ n ≤ 16 ∧ Steps l.s.prox n m d) → ∀ p : Phase, ∃ k, l.origin k = .kamma ∧ l.mom k = m ∧ l.phase k = p
 
 /-- A118, the COMMON CORE (Protocol 1 correction 1): in the course of existence no mind-born matter arises at a citta's
     dissolution-moment. ⛔ The literal scope (no matter at all, Ānanda) and the formless-only scope (the *apare*) are VARIANTS and
@@ -118,7 +120,7 @@ theorem a120_forbids_mindBornStanding : ¬ a120_mind_born_at_arising Z mindBornS
 /-- An embodied citta whose standing sub-moment has no kamma-born matter (only an arising one). -/
 abbrev kammaOnlyAtArising : Link Z := one .kamma .arise True True True
 theorem a120_forbids_kammaOnlyAtArising : ¬ a120_kamma_born_at_all_three Z kammaOnlyAtArising := by
-  intro h; obtain ⟨k, _, _, hp⟩ := h () trivial Phase.stand; cases hp
+  intro h; obtain ⟨k, _, _, hp⟩ := h () trivial (by rintro ⟨d, n, hd, _⟩; exact hd) Phase.stand; cases hp
 
 /-- Mind-born matter arising at a citta's dissolution-moment. -/
 abbrev mindBornDissolving : Link Z := one .citta .dissolve False True True
@@ -190,9 +192,9 @@ theorem k_forbids_kammaLater : ¬ k_kamma_born_stops Z kammaLater := by
 def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
   | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
 
-/-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading and has not ceased before m's arising. -/
+/-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading and ceases at a strictly later one (a thing is not present at the reading it ceases). -/
 def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
-  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ ¬ S.lt (l.ceasePhase k |>.at S l.s (l.ceaseMom k)) (l.s.arise m)
+  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ S.lt (l.s.arise m) (l.ceasePhase k |>.at S l.s (l.ceaseMom k))
 
 /-- A116 (L1/L2, Vibhaṅga §762 `abh02m.mul.xml:9125`; Sammohavinodanī `abh02a.att.xml:7361`): a sense-consciousness arises in a pre-born, unceased
     base — the base has arisen before it and has not ceased when it arises. Presence at the ARISING only, never "throughout". -/
@@ -300,5 +302,25 @@ abbrev diesInCessation : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 1) w
 theorem a111_forbids_diesInCessation : ¬ a111_no_death_within Z diesInCessation := by
   intro h
   exact (h 0 1 rfl rfl).2 rfl
+
+/-- A56 (L4, ch. 5 §90–91, `abh07t.nrf.xml:1937–1941`; refuter 2, finding 2): a death citta is followed at once by the next existence's rebirth-linking citta — except an arahant's last, which is
+    followed by nothing. -/
+def a56_death_followed_unless_final (S : Scale) (l : Link S) : Prop := ∀ d, l.death d → ¬ l.parinibbana d → ∃ n, l.s.prox d n
+def a56_final_ends (S : Scale) (l : Link S) : Prop := ∀ d, l.parinibbana d → l.death d ∧ ∀ n, ¬ l.s.prox d n
+
+/-- A worldling's death citta with nothing after it. -/
+abbrev deathEndsAWorldling : Link Z :=
+  { (endsAtOnce) with death := fun m => m = true }
+theorem a56_forbids_deathEndsAWorldling : ¬ a56_death_followed_unless_final Z deathEndsAWorldling := by
+  intro h
+  obtain ⟨n, hn⟩ := h true rfl (by simp [deathEndsAWorldling, endsAtOnce])
+  exact absurd hn.1 (by decide)
+
+/-- An arahant's last death citta with a moment after it (moment true follows false and is marked final). -/
+abbrev finalWithSuccessor : Link Z :=
+  { (endsAtOnce) with death := fun m => m = false, parinibbana := fun m => m = false }
+theorem a56_forbids_finalWithSuccessor : ¬ a56_final_ends Z finalWithSuccessor := by
+  intro h
+  exact (h false rfl).2 true ⟨rfl, rfl⟩
 
 end FormalAbhidhamma.Model

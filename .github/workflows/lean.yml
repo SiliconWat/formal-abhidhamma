@@ -55,6 +55,10 @@ jobs:
       - name: The blind copies and the row table are current
         run: python3 model/blind.py --check && python3 model/table.py --check
 
+      # World.lean is GENERATED from the row definitions, so no definition can be left out of `Satisfies`
+      - name: The one World is current
+        run: python3 model/world.py --check
+
       # matika/RELATA is generated from scripts/relata.py's clause table (no CST needed to build it). --check also refuses a
       # reading that cites the held-out answer it is tested against (the first version did; its refuter caught it, 2026-10-13)
       - name: The relata are current and answer-free

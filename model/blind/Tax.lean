@@ -282,7 +282,8 @@ def a65_counts (t : Tax) : Prop :=
   num t.rupas (t.origin · .kamma) = 18 ∧ num t.rupas (t.origin · .citta) = 15 ∧ num t.rupas (t.origin · .utu) = 13 ∧
   num t.rupas (t.origin · .ahara) = 12
 
-def a107_fifth_jhana (t : Tax) : Prop := ∀ c ∈ t.kinds, t.abhinna c = true → c.bhumi = .rupa ∧ c.jhana = 5
+def a107_fifth_jhana (t : Tax) : Prop :=
+  ∀ c ∈ t.kinds, t.abhinna c = true → c.bhumi = .rupa ∧ c.jhana = 5 ∧ (c.jati = .kusala ∨ c.jati = .kiriya)
 
 def a71_sizes (t : Tax) : Prop := ∀ g ∈ PapaCat.all, (t.papa g).length = g.size
 
@@ -301,7 +302,8 @@ def a73_fourteen (t : Tax) : Prop := ((BodhiCat.all.map t.bodhi).flatten).eraseD
 
 def a74_sizes (t : Tax) : Prop := ∀ g ∈ SabbaCat.all, (t.sabba g).length = g.size
 
-def a74_nibbana_outside (t : Tax) : Prop := ∀ m ∈ t.sabba .khandha, Dhamma.nibbana ∉ m
+def a74_nibbana_outside (t : Tax) : Prop :=
+  ∀ g ∈ [SabbaCat.khandha, SabbaCat.upadanakkhandha], ∀ m ∈ t.sabba g, Dhamma.nibbana ∉ m
 
 def a74_sixtynine (t : Tax) : Prop :=
   t.dhammayatana.Nodup ∧ t.dhammayatana.length = 69 ∧ (∀ d ∈ t.dhammayatana, t.inDhammaBase d = true) ∧

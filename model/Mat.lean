@@ -80,7 +80,7 @@ structure Mat where
 def sixBases : List Rupa := pasada ++ [Rupa.hadaya]
 
 /-- A39, the sense sphere (L4, ch. 3 §64–74, `abh07t.nrf.xml:1113–1161`): a being of the sense sphere has all six bases. -/
-def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → b.bases = sixBases
+def a39_sense (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .kama → ∀ r ∈ b.bases, r ∈ sixBases
 
 /-- A39, the fine-material sphere: nose, tongue and body are absent, so a being there has at most eye, ear and heart-base. -/
 def a39_fine (m : Mat) : Prop :=
@@ -92,7 +92,7 @@ def a39_immaterial (m : Mat) : Prop := ∀ b ∈ m.beings, b.plane = .arupa → 
 /-- A4 (L2, `abh02a.att.xml:413`; L4 ch. 4 §9, `abh07t.nrf.xml:1233`): concretely produced matter lasts seventeen mind-moments,
     fifty-one sub-moments. -/
 def a4_life (m : Mat) : Prop :=
-  ∀ k ∈ m.kalapas, (∀ r ∈ k.members, r ∉ anipphanna) → k.life = 51
+  ∀ k ∈ m.kalapas, (∀ r ∈ k.members, r ≠ .kayavinnatti ∧ r ≠ .vacivinnatti) → k.life = 51
 
 /-- A15, the inseparable eight (L4, ch. 6 §27, `abh07t.nrf.xml:2169`): every kalāpa carries earth, water, fire, air,
     colour, odour, taste and nutritive essence. -/
@@ -118,9 +118,9 @@ abbrev eight : List Rupa := [.pathavi, .apo, .tejo, .vayo, .vanna, .gandha, .ras
 abbrev okKalapa : Kalapa := { members := eight, origin := .utu, life := 51, owner := none, bound := false }
 abbrev okMat : Mat := { beings := [], kalapas := [], reached := [.nose, .tongue, .body] }
 
-/-- A being of the sense sphere with no nose-base. -/
-abbrev senseNoNose : Mat := { okMat with beings := [{ id := 0, plane := .kama, bases := [.cakkhu, .sota, .jivha, .kaya, .hadaya] }] }
-theorem a39_forbids_senseNoNose : ¬ a39_sense senseNoNose := by unfold a39_sense; decide
+/-- A being of the sense sphere with a base that is none of the six (visible form). -/
+abbrev senseWithSeventhBase : Mat := { okMat with beings := [{ id := 0, plane := .kama, bases := [.cakkhu, .sota, .ghana, .jivha, .kaya, .hadaya, .vanna] }] }
+theorem a39_forbids_senseWithSeventhBase : ¬ a39_sense senseWithSeventhBase := by unfold a39_sense; decide
 
 /-- A being of the fine-material sphere with a nose-base. -/
 abbrev fineWithNose : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [.cakkhu, .ghana, .hadaya] }] }
