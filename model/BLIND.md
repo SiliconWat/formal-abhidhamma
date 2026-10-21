@@ -161,9 +161,9 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a109_fruition | Every path process has 2 or 3 fruit steps after the path step (same as a44_fruition). |
 | a115_conditions_meet | For every meeting at a non-mind door where the door is intact, in range and attended, at least one following step has a kicca belonging to that door's sense functions. |
 | a46_javana_by_person | For every javana in every process: an arahant's javanas are not kusala (or are lokuttara); an arahant's javanas are not akusala; a non-arahant's javanas are not kiriya; a lokuttara javana implies the person is not a worldling. |
-| organAbsent | Helper: for a sense element d, true when the plane is arupa, or rupa with d at least 2; false for any other element. |
 | a46_plane_organs | No step of any process uses a sense element that is absent on that process's plane (organAbsent is false). |
 | a42_great | Every five-door process with past 2 or 3 holds at least one javana and no registration. Other processes are unconstrained. |
+| organAbsent | Helper: a sense element d is absent on the immaterial plane, and on the fine-material plane when d is 3 or more (doors numbered 1–5); false for any other element. |
 
 ## Mat.lean
 
@@ -214,6 +214,10 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | present_at_arising | Occurrence k's arising reading is strictly earlier than moment m's arising, and k's ceasing reading is not strictly earlier than it (a cessation at the same reading still counts as present). |
 | a116_prenascent_unceased_base | Every sense moment has a base, and that base is present at the moment's arising (arisen strictly before, not ceased before). |
 | a87_organ_and_object_already_arisen | Every sense moment has both a base and an object, each present at the moment's arising. |
+| a64_phases | Citta-born matter arises only at the arising phase; temperature- and nutriment-born matter only at the standing phase; kamma-born is unconstrained. |
+| k_ceases_with_death | For any death d and any moment b sixteen steps before it: kamma-born matter that arose no later than b's standing and has not ceased before it, ceases at the death moment d. |
+| k_mind_nutriment_stop | For any death d: no mind-born or nutriment-born matter arises after d has arisen. |
+| a111_life_persists | Every cessation moment is embodied and is not an arahant's last moment. |
 
 ## Cond.lean
 
@@ -223,16 +227,9 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 |---|---|
 | a78_relata | Every fact of any condition must have two real ends, and the kinds of those ends must be admitted for the group that `sangaha` assigns to the condition. Facts pointing at nonexistent positions make it false. |
 | a83_co_nascent | For every sahajata fact, the two ends have the same rise time. It says nothing about fall times. |
-| a84_mutual | For every annamanna fact, the ends have the same rise time. Also, the reversed fact (annamanna, j, i) must be in the list. |
-| a88_post_born | The mirror of a87. For every pacchajata fact, the second end rises strictly before the first rises; the second has not fallen strictly before the first rises. |
 | a97_dissociated | For every vippayutta fact, the two ends have different kinds. |
 | a98_present | For every atthi fact, the two ends' lifetimes overlap or touch: neither fell strictly before the other rose. |
-| a99_absent | For every natthi fact, the first rises strictly before the second, and the second does not rise strictly before the first falls: the first has ended by the time the second starts, or ends exactly then. |
-| a100_gone | Identical in content to a99, for vigata facts. |
 | sameCittaTogether | Two occurrences have the same `cit` number and the same rise time. |
-| a79_root_scope | For every hetu fact, the ends have the same `cit` and rise time. |
-| a81_predominance | For every adhipati fact, either the ends share `cit` and rise time, or the second end is nama. |
-| a90_kamma | For every kamma fact: either the ends share `cit` and rise time; or the first rises strictly before the second and the second either has a vipaka citta or has `born` = kamma. |
 | a89_repetition | For every asevana fact, both ends are nama, the first rises strictly before the second, both have the same `jati`, that `jati` is not vipaka, and the first has a citta. |
 | a93_faculty | For every indriya fact one of: (1) the first end's rupa is in `pasada` and the second end is nama; (2) the first end's rupa is `jivita` and the second was born of kamma; (3) the first end is nama and the ends share `cit` and rise time. |
 | senseOfObject | vanna→1, sadda→2, gandha→3, rasa→4, pathavi/tejo/vayo→5, else nothing. |
@@ -253,6 +250,15 @@ Reader's observations: a98/a101 are the same statement under different condition
 | a91_result | For any two different occurrences i and j that are both vipakaNama and share a `cit`, the world must record the vipaka condition from i to j. Forced presence, both directions. |
 | a78_vipaka_scope | Every recorded vipaka fact between a and b needs both mental, the same rise, and both citta-types resultant (vipaka). Restricts present facts. |
 | a92_nutriment | Every recorded ahara fact between a and b is either (a's matter-kind is ahara and b is matter) or satisfies ownCittaScope. Restricts present facts. |
+| a84_mutual | All three hold: every mutuality fact has both occurrences arising at the same reading; every mutuality fact also appears reversed; and any two different mental occurrences of one citta have a mutuality fact from the first to the second. |
+| a88_post_born | Every post-nascence fact runs from a mental occurrence a to a matter occurrence b, where b arises strictly before a arises and a arises strictly before b ceases. Constrains present facts only. |
+| a99_absent | Every absence fact runs between two mental occurrences, a arising strictly before b and b not arising before a ceases. Constrains present facts only. |
+| a100_gone | Word for word as a99_absent, for disappearance facts. |
+| rootedNama | A mental occurrence of a citta that has a root: some occurrence sharing its `cit` has a citta-type whose root is not none. |
+| kammicNama | A mental occurrence of a citta that is wholesome or unwholesome: some occurrence sharing its `cit` has such a citta-type. |
+| a79_root_scope | Every root fact between a and b needs ownCittaScope a b and a rooted mental source. |
+| a81_predominance | Every predominance fact has both occurrences existing and either ownCittaScope holds or b is mental and an object fact exists for the same pair. |
+| a90_kamma | Every kamma fact needs a kammic mental source, and either ownCittaScope holds or a arises strictly before b and b is a resultant citta or kamma-born matter. |
 
 ## Cosmos.lean
 
@@ -298,9 +304,7 @@ Reader's observation: every Cosmos predicate is a bare equality of fields to sti
 | a120_kamma_born_at_all_three | For every embodied moment that is not within 16 or fewer steps before some death moment, and for each of the three phases, there is an item of origin kamma at that moment and phase. Moments within 16 steps before a death are exempt. |
 | a56_death_followed_unless_final | Every death moment that is not a parinibbana moment has some next moment under the stream's proximity relation. |
 | a56_final_ends | Every parinibbana moment is a death moment and has no next moment at all. |
-| a88_post_born | Every post-born fact: the second arises strictly before the first arises, and the first arises strictly before the second falls. |
 | a98_present | Every presence fact: the two lifetimes strictly overlap. |
-| a81_predominance | Every predominance fact has endpoints such that either they are the same-citta-together case, or the second is of kind nama and an object fact on the same pair is also recorded. Fails if endpoints cannot be found. |
 | a121_passes_away | Every occurrence not of kind pannatti arises strictly before it falls. Pannatti occurrences are exempt. |
 | a24_rate | For any two moments m and n joined by exactly 10^12 stream steps, none departing from a moment flagged cessation, the clock time of n's arising is strictly less than m's arising time plus one snap. |
 | a112_night_week_order | Zero is strictly less than snap, snap is strictly less than night, and week is NOT strictly less than night. |

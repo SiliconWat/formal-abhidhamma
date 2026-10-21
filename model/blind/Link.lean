@@ -52,6 +52,9 @@ def a67_mind_born_not_at_rebirth (S : Scale) (l : Link S) : Prop := ∀ k, l.ori
 
 def a64_mind_born_only_by_producers (S : Scale) (l : Link S) : Prop := ∀ k, l.origin k = .citta → l.produces (l.mom k)
 
+def a64_phases (S : Scale) (l : Link S) : Prop :=
+  ∀ k, (l.origin k = .citta → l.phase k = .arise) ∧ (l.origin k = .utu → l.phase k = .stand) ∧ (l.origin k = .ahara → l.phase k = .stand)
+
 def a4_life_in_the_stream (S : Scale) (l : Link S) : Prop :=
   ∀ k, l.concrete k = true →
     (l.phase k = .arise → Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∧
@@ -75,6 +78,14 @@ abbrev chainLink (o : Origin) (m : Nat) (p : Phase) (cm : Nat) (cp : Phase) (dm 
 def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
   | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
 
+def k_ceases_with_death (S : Scale) (l : Link S) : Prop :=
+  ∀ d b, l.death d → Steps l.s.prox 16 b d → ∀ k, l.origin k = .kamma →
+    ¬ S.lt (l.s.stand b) (Phase.at S l.s (l.mom k) (l.phase k)) →
+    ¬ S.lt (Phase.at S l.s (l.ceaseMom k) (l.ceasePhase k)) (l.s.stand b) → l.ceaseMom k = d
+
+def k_mind_nutriment_stop (S : Scale) (l : Link S) : Prop :=
+  ∀ d, l.death d → ∀ k, (l.origin k = .citta ∨ l.origin k = .ahara) → ¬ S.lt (l.s.arise d) (Phase.at S l.s (l.mom k) (l.phase k))
+
 def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
   S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ ¬ S.lt (l.ceasePhase k |>.at S l.s (l.ceaseMom k)) (l.s.arise m)
 
@@ -95,6 +106,8 @@ def a47_unbroken (S : Scale) (l : Link S) : Prop := ∀ m, ¬ l.death m → ∃ 
 def a111_emerges_by_fruition (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → l.fruition n
 
 def a111_no_death_within (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → ¬ l.death m ∧ ¬ l.death n
+
+def a111_life_persists (S : Scale) (l : Link S) : Prop := ∀ m, l.cessation m → l.embodied m ∧ ¬ l.parinibbana m
 
 def a56_death_followed_unless_final (S : Scale) (l : Link S) : Prop := ∀ d, l.death d → ¬ l.parinibbana d → ∃ n, l.s.prox d n
 

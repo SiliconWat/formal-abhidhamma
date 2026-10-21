@@ -284,7 +284,7 @@ def a46_javana_by_person (w : Proc) : Prop :=
     (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
 
 def organAbsent (pl : Bhumi) : Dhatu → Bool
-  | .sense d => pl == .arupa || (pl == .rupa && decide (2 ≤ d))
+  | .sense d => pl == .arupa || (pl == .rupa && decide (3 ≤ d))
   | _ => false
 
 def a46_plane_organs (w : Proc) : Prop :=

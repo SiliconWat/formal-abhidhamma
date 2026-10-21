@@ -76,7 +76,9 @@ def a83_co_nascent {S : Scale} (w : CondW S) : Prop := facts_between_occurrences
 /-- A84 (L1/L3, mutuality): each is the other's condition, and they arise together. ⚠️ "symmetric, so not a partial order" is OURS and not here. -/
 def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
-  ∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds
+  (∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds) ∧
+  (∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.annamanna, i, j) ∈ w.holds)
 
 /-- The kinds of matter that condition by pre-nascence: the five sense organs, the five sense-object kinds (visible form, sound, smell, taste, the three tangible elements) and the heart-base. -/
 def prenascent : List FormalAbhidhamma.Model.Rupa :=
@@ -90,7 +92,7 @@ def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
 
 /-- A88 (L1/L2/L5, post-nascence): the conditioned (a body) arose before the conditioning citta and has not ceased when that arises. -/
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
+  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall ∧ a.kind = .nama ∧ b.kind = .rupa
 
 /-- A96 (L1, association): the four mental aggregates condition one another — any two different mental occurrences of one citta have an association fact between them. (The marks of the facts that exist — mind, and arising and ceasing together — are A30's.) -/
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
@@ -113,9 +115,9 @@ def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
 
 /-- A99 (L1, absence) and A100 (disappearance): the condition has just ceased, and is not later than the conditioned's arising: it arose first and has ceased by then. -/
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
+  facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall ∧ a.kind = .nama ∧ b.kind = .nama
 def a100_gone {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .vigata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
+  facts_between_occurrences w .vigata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall ∧ a.kind = .nama ∧ b.kind = .nama
 
 /-! ## Forbidden worlds (whole-number scale) -/
 
@@ -139,7 +141,7 @@ theorem a83_forbids_notTogether : ¬ a83_co_nascent notTogether := by
 /-- Mutuality in one direction only. -/
 abbrev oneWay : CondW Z := cw [o .nama 0 5, o .nama 0 5] [(.annamanna, 0, 1)]
 theorem a84_forbids_oneWay : ¬ a84_mutual oneWay := by
-  intro h; exact absurd (h.2 (.annamanna, 0, 1) (by simp [oneWay, cw]) rfl) (by simp [oneWay, cw])
+  intro h; exact absurd (h.2.1 (.annamanna, 0, 1) (by simp [oneWay, cw]) rfl) (by simp [oneWay, cw])
 
 /-- Pre-nascence from an occurrence that has already ceased. -/
 abbrev preCeased : CondW Z := cw [o .rupa 0 2, o .nama 5 9] [(.purejata, 0, 1)]
@@ -199,13 +201,40 @@ abbrev notAbsent : CondW Z := cw [o .nama 0 9, o .nama 5 9] [(.natthi, 0, 1)]
 theorem a99_forbids_notAbsent : ¬ a99_absent notAbsent := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.natthi, 0, 1) (by simp [notAbsent, cw]) rfl
   simp [ends, notAbsent, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact hk.2 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact hk.2.1 (by decide)
 
 abbrev notGone : CondW Z := cw [o .nama 0 9, o .nama 5 9] [(.vigata, 0, 1)]
 theorem a100_forbids_notGone : ¬ a100_gone notGone := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.vigata, 0, 1) (by simp [notGone, cw]) rfl
   simp [ends, notGone, cw, o] at he
-  obtain ⟨rfl, rfl⟩ := he; exact hk.2 (by decide)
+  obtain ⟨rfl, rfl⟩ := he; exact hk.2.1 (by decide)
+
+/-- Post-nascence from matter to matter (the giver is not mental). -/
+abbrev postFromMatter : CondW Z := cw [o .rupa 5 9, o .rupa 0 9] [(.pacchajata, 0, 1)]
+theorem a88_forbids_postFromMatter : ¬ a88_post_born postFromMatter := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.pacchajata, 0, 1) (by simp [postFromMatter, cw]) rfl
+  simp [ends, postFromMatter, cw, o] at he
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2.2.1 (by decide)
+
+/-- Absence from matter that has ceased. -/
+abbrev absentFromMatter : CondW Z := cw [o .rupa 0 2, o .nama 5 9] [(.natthi, 0, 1)]
+theorem a99_forbids_absentFromMatter : ¬ a99_absent absentFromMatter := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.natthi, 0, 1) (by simp [absentFromMatter, cw]) rfl
+  simp [ends, absentFromMatter, cw, o] at he
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2.2.1 (by decide)
+
+/-- Disappearance from matter that has ceased. -/
+abbrev goneFromMatter : CondW Z := cw [o .rupa 0 2, o .nama 5 9] [(.vigata, 0, 1)]
+theorem a100_forbids_goneFromMatter : ¬ a100_gone goneFromMatter := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.vigata, 0, 1) (by simp [goneFromMatter, cw]) rfl
+  simp [ends, goneFromMatter, cw, o] at he
+  obtain ⟨rfl, rfl⟩ := he; exact absurd hk.2.2.1 (by decide)
+
+/-- Two mental occurrences of one citta with no mutuality fact between them. -/
+abbrev mutualMissing : CondW Z := cw [o .nama 0 5, o .nama 0 5] []
+theorem a84_forbids_mutualMissing : ¬ a84_mutual mutualMissing := by
+  intro h; have := h.2.2 0 1 (o .nama 0 5) (o .nama 0 5) (by decide) (by simp [mutualMissing, cw]) (by simp [mutualMissing, cw]) rfl rfl rfl
+  simp [mutualMissing, cw] at this
 
 /-! ## Batch 2 — the conditions whose relata are tied to one citta, a result, an origin or a sense -/
 
@@ -215,16 +244,24 @@ def sameCittaTogether {S : Scale} (a b : Occ S) : Prop := a.cit = b.cit ∧ a.ri
 def vipakaNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
   a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ (p.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
 
+/-- A mental occurrence of a citta that has a root (greed, hatred, delusion, or their opposites): some occurrence sharing its `cit` has a rooted citta-type. -/
+def rootedNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ ∃ c, p.citta = some c ∧ c.root ≠ FormalAbhidhamma.Root.none
+
+/-- A mental occurrence of a wholesome or unwholesome citta (the volition that is kamma). -/
+def kammicNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ ∃ c, p.citta = some c ∧ (c.jati = FormalAbhidhamma.Jati.kusala ∨ c.jati = FormalAbhidhamma.Jati.akusala)
+
 /-- What a jhāna, path or nutriment factor conditions, in its own citta: a mental occurrence of that citta, or matter that citta originates. -/
 def ownCittaScope {S : Scale} (a b : Occ S) : Prop := a.kind = .nama ∧ b.cit = a.cit ∧ (b.kind = .nama ∨ (b.kind = .rupa ∧ b.born = some .citta))
 
 /-- A79 (Piṭaka, `abh03m7.mul.xml:45`): a root conditions the states associated with it and the matter they originate — those of its own citta, arising with it. -/
-def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu sameCittaTogether
+def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu fun a b => ownCittaScope a b ∧ rootedNama w a
 
 /-- A81 (`:57–61`): a predominant conditions its associated states and the matter they originate (its own citta, together); whatever is esteemed as OBJECT conditions the mind that esteems it. -/
 def a81_predominance {S : Scale} (w : CondW S) : Prop :=
   ∀ f ∈ w.holds, f.1 = .adhipati → ∃ a b, ends w f.2.1 f.2.2 = some (a, b) ∧
-    (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
+    (ownCittaScope a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
 /-- A94 jhāna (`:209`) and A95 path (`:213`): the factors condition their associated states and matter — of their own citta, together. -/
 def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana ownCittaScope
@@ -245,7 +282,7 @@ def a78_vipaka_scope {S : Scale} (w : CondW S) : Prop :=
     volition conditions its associated states and their matter at the same time. No stored trace is a further occurrence. -/
 def a90_kamma {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .kamma fun a b =>
-    sameCittaTogether a b ∨ (S.lt a.rise b.rise ∧ ((b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∨ b.born = some .kamma))
+    kammicNama w a ∧ (ownCittaScope a b ∨ (S.lt a.rise b.rise ∧ ((b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∨ b.born = some .kamma)))
 
 /-- A89 (`:185`): repetition — an earlier javana of one class conditions a later one of the same class, never across wholesome, unwholesome, functional. -/
 def a89_repetition {S : Scale} (w : CondW S) : Prop :=
@@ -286,14 +323,14 @@ abbrev rootOtherCitta : CondW Z := cw [cwo .nama 0 5 1, cwo .rupa 0 5 2] [(.hetu
 theorem a79_forbids_rootOtherCitta : ¬ a79_root_scope rootOtherCitta := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.hetu, 0, 1) (by simp [rootOtherCitta, cw]) rfl
   simp [ends, rootOtherCitta, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [ownCittaScope, rootedNama] at hk
 
 /-- A predominant (desire) conditioning matter of another citta. -/
 abbrev predOtherMatter : CondW Z := cw [cwo .nama 0 5 1, cwo .rupa 0 5 2] [(.adhipati, 0, 1)]
 theorem a81_forbids_predOtherMatter : ¬ a81_predominance predOtherMatter := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.adhipati, 0, 1) (by simp [predOtherMatter, cw]) rfl
   simp [ends, predOtherMatter, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [ownCittaScope] at hk
 
 /-- A jhāna factor conditioning a state of another citta. -/
 abbrev jhanaOther : CondW Z := cw [cwo .nama 0 5 1, cwo .nama 0 5 2] [(.jhana, 0, 1)]
@@ -335,7 +372,21 @@ abbrev kammaBackward : CondW Z := cw [cwo .nama 5 9 1, cwo .nama 0 4 2] [(.kamma
 theorem a90_forbids_kammaBackward : ¬ a90_kamma kammaBackward := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.kamma, 0, 1) (by simp [kammaBackward, cw]) rfl
   simp [ends, kammaBackward, cw, cwo] at he
-  obtain ⟨rfl, rfl⟩ := he; simp [sameCittaTogether] at hk
+  obtain ⟨rfl, rfl⟩ := he; simp [kammicNama] at hk
+
+/-- A root conditioning a state from a citta that has no root (no citta-type is recorded). -/
+abbrev unrootedSource : CondW Z := cw [cwo .nama 0 5 1, cwo .nama 0 5 1] [(.hetu, 0, 1)]
+theorem a79_forbids_unrootedSource : ¬ a79_root_scope unrootedSource := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.hetu, 0, 1) (by simp [unrootedSource, cw]) rfl
+  simp [ends, unrootedSource, cw, cwo] at he
+  obtain ⟨rfl, rfl⟩ := he; simp [rootedNama, unrootedSource, cw, cwo] at hk
+
+/-- Kamma conditioning from a mental state of a citta that is neither wholesome nor unwholesome (none recorded). -/
+abbrev unkammicSource : CondW Z := cw [cwo .nama 0 5 1, cwo .nama 0 5 1] [(.kamma, 0, 1)]
+theorem a90_forbids_unkammicSource : ¬ a90_kamma unkammicSource := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.kamma, 0, 1) (by simp [unkammicSource, cw]) rfl
+  simp [ends, unkammicSource, cw, cwo] at he
+  obtain ⟨rfl, rfl⟩ := he; simp [kammicNama, unkammicSource, cw, cwo] at hk
 
 /-- Repetition from a wholesome javana to an unwholesome one. -/
 abbrev repetitionAcross : CondW Z :=

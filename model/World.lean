@@ -213,8 +213,11 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a64_kamma_from_rebirth S w.link ∧   -- Link
   a67_mind_born_not_at_rebirth S w.link ∧   -- Link
   a64_mind_born_only_by_producers S w.link ∧   -- Link
+  a64_phases S w.link ∧   -- Link
   a4_life_in_the_stream S w.link ∧   -- Link
   k_kamma_born_stops S w.link ∧   -- Link
+  k_ceases_with_death S w.link ∧   -- Link
+  k_mind_nutriment_stop S w.link ∧   -- Link
   a116_prenascent_unceased_base S w.link ∧   -- Link
   a87_organ_and_object_already_arisen S w.link ∧   -- Link
   a122_death_then_rebirth S w.link ∧   -- Link
@@ -223,6 +226,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a47_unbroken S w.link ∧   -- Link
   a111_emerges_by_fruition S w.link ∧   -- Link
   a111_no_death_within S w.link ∧   -- Link
+  a111_life_persists S w.link ∧   -- Link
   a56_death_followed_unless_final S w.link ∧   -- Link
   a56_final_ends S w.link ∧   -- Link
   a78_relata w.cond ∧   -- Cond
@@ -284,6 +288,6 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a77_structure w.status     -- Status
 
 /-- How many definitions `Satisfies` conjoins. -/
-def satisfiesCount : Nat := 208
+def satisfiesCount : Nat := 212
 
 end FormalAbhidhamma.Model

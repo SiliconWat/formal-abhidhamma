@@ -53,7 +53,9 @@ def a83_co_nascent {S : Scale} (w : CondW S) : Prop := facts_between_occurrences
 
 def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
-  ∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds
+  (∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds) ∧
+  (∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.annamanna, i, j) ∈ w.holds)
 
 def prenascent : List FormalAbhidhamma.Model.Rupa :=
   [.cakkhu, .sota, .ghana, .jivha, .kaya, .vanna, .sadda, .gandha, .rasa, .pathavi, .tejo, .vayo, .hadaya]
@@ -63,7 +65,7 @@ def a87_pre_born {S : Scale} (w : CondW S) : Prop :=
     S.lt a.rise b.rise ∧ S.lt b.rise a.fall ∧ ∃ r, a.rupa = some r ∧ r ∈ prenascent
 
 def a88_post_born {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall
+  facts_between_occurrences w .pacchajata fun a b => S.lt b.rise a.rise ∧ S.lt a.rise b.fall ∧ a.kind = .nama ∧ b.kind = .rupa
 
 def a96_associated {S : Scale} (w : CondW S) : Prop :=
   ∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
@@ -82,10 +84,10 @@ def a101_not_disappeared {S : Scale} (w : CondW S) : Prop :=
   ∀ i j, (Condition.avigata, i, j) ∈ w.holds ↔ (Condition.atthi, i, j) ∈ w.holds
 
 def a99_absent {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
+  facts_between_occurrences w .natthi fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall ∧ a.kind = .nama ∧ b.kind = .nama
 
 def a100_gone {S : Scale} (w : CondW S) : Prop :=
-  facts_between_occurrences w .vigata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall
+  facts_between_occurrences w .vigata fun a b => S.lt a.rise b.rise ∧ ¬ S.lt b.rise a.fall ∧ a.kind = .nama ∧ b.kind = .nama
 
 abbrev o (k : Kind) (r f : Int) : Occ Z := { kind := k, rise := r, fall := f }
 
@@ -96,13 +98,19 @@ def sameCittaTogether {S : Scale} (a b : Occ S) : Prop := a.cit = b.cit ∧ a.ri
 def vipakaNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
   a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ (p.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka
 
+def rootedNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ ∃ c, p.citta = some c ∧ c.root ≠ FormalAbhidhamma.Root.none
+
+def kammicNama {S : Scale} (w : CondW S) (a : Occ S) : Prop :=
+  a.kind = .nama ∧ ∃ p ∈ w.occs, p.cit = a.cit ∧ ∃ c, p.citta = some c ∧ (c.jati = FormalAbhidhamma.Jati.kusala ∨ c.jati = FormalAbhidhamma.Jati.akusala)
+
 def ownCittaScope {S : Scale} (a b : Occ S) : Prop := a.kind = .nama ∧ b.cit = a.cit ∧ (b.kind = .nama ∨ (b.kind = .rupa ∧ b.born = some .citta))
 
-def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu sameCittaTogether
+def a79_root_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .hetu fun a b => ownCittaScope a b ∧ rootedNama w a
 
 def a81_predominance {S : Scale} (w : CondW S) : Prop :=
   ∀ f ∈ w.holds, f.1 = .adhipati → ∃ a b, ends w f.2.1 f.2.2 = some (a, b) ∧
-    (sameCittaTogether a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
+    (ownCittaScope a b ∨ (b.kind = .nama ∧ (Condition.arammana, f.2.1, f.2.2) ∈ w.holds))
 
 def a94_jhana_scope {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .jhana ownCittaScope
 
@@ -119,7 +127,7 @@ def a78_vipaka_scope {S : Scale} (w : CondW S) : Prop :=
 
 def a90_kamma {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .kamma fun a b =>
-    sameCittaTogether a b ∨ (S.lt a.rise b.rise ∧ ((b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∨ b.born = some .kamma))
+    kammicNama w a ∧ (ownCittaScope a b ∨ (S.lt a.rise b.rise ∧ ((b.citta.map (·.jati)) = some FormalAbhidhamma.Jati.vipaka ∨ b.born = some .kamma)))
 
 def a89_repetition {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .asevana fun a b =>

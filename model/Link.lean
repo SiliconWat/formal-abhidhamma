@@ -85,6 +85,10 @@ def a67_mind_born_not_at_rebirth (S : Scale) (l : Link S) : Prop := ∀ k, l.ori
 /-- A64 (L4, `:2197`): only cittas that produce matter produce it (all but the immaterial resultants and the ten sense-consciousnesses). -/
 def a64_mind_born_only_by_producers (S : Scale) (l : Link S) : Prop := ∀ k, l.origin k = .citta → l.produces (l.mom k)
 
+/-- A64 (L4, `:2197`; the Sammohavinodanī): citta produces matter only at its arising (*jāyantameva*); temperature and nutriment produce it at their standing phase. -/
+def a64_phases (S : Scale) (l : Link S) : Prop :=
+  ∀ k, (l.origin k = .citta → l.phase k = .arise) ∧ (l.origin k = .utu → l.phase k = .stand) ∧ (l.origin k = .ahara → l.phase k = .stand)
+
 /-- A4 in stream terms (L2/L4, `abh02a.att.xml:413`; `abh07t.nrf.xml:1233`), the COUNT INCLUSIVE of the moment at which the matter arises
     (⚠️ a declared choice, founder 2026-10-20 *"continue per your recommendation"*, the K row's own reading): concretely produced
     matter lasts fifty-one sub-moments, so matter arising at a citta's arising sub-moment ceases at the dissolution-moment of the
@@ -142,6 +146,11 @@ abbrev mindBornByNonProducer : Link Z := one .citta .arise False False True
 theorem a64_forbids_mindBornByNonProducer : ¬ a64_mind_born_only_by_producers Z mindBornByNonProducer := by
   intro h; exact h () rfl
 
+/-- Mind-born matter arising at the standing phase. -/
+abbrev mindBornAtStanding : Link Z := one .citta .stand False True True
+theorem a64_forbids_mindBornAtStanding : ¬ a64_phases Z mindBornAtStanding := by
+  intro h; exact absurd ((h ()).1 rfl) (by decide)
+
 /-! ### A chain of moments 0, 1, 2, …: moment n arises at 3n, each the proximate successor of the one before -/
 
 abbrev chain : Stream Z := ⟨Nat, fun n => (3 * n : Int), fun n => (3 * n + 1 : Int), fun n => (3 * n + 2 : Int), fun n => (3 * n + 3 : Int), fun m n => n = m + 1⟩
@@ -191,6 +200,29 @@ theorem k_forbids_kammaLater : ¬ k_kamma_born_stops Z kammaLater := by
 /-- The clock reading of a sub-moment of a moment. -/
 def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
   | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
+
+/-- K, what arose earlier ceases with the death citta: kamma-born matter that had arisen by the standing of the seventeenth citta before the death citta, and has not ceased before it, ceases at the death citta. -/
+def k_ceases_with_death (S : Scale) (l : Link S) : Prop :=
+  ∀ d b, l.death d → Steps l.s.prox 16 b d → ∀ k, l.origin k = .kamma →
+    ¬ S.lt (l.s.stand b) (Phase.at S l.s (l.mom k) (l.phase k)) →
+    ¬ S.lt (Phase.at S l.s (l.ceaseMom k) (l.ceasePhase k)) (l.s.stand b) → l.ceaseMom k = d
+
+/-- K, then mind- and nutriment-born matter stop: none arises after the death citta has arisen. -/
+def k_mind_nutriment_stop (S : Scale) (l : Link S) : Prop :=
+  ∀ d, l.death d → ∀ k, (l.origin k = .citta ∨ l.origin k = .ahara) → ¬ S.lt (l.s.arise d) (Phase.at S l.s (l.mom k) (l.phase k))
+
+/-- Kamma-born matter that had arisen, and ceases at some other moment than the death citta. -/
+abbrev kammaOutlivesDeath : Link Z := chainLink .kamma 0 .arise 5 .dissolve 16
+theorem k_forbids_kammaOutlivesDeath : ¬ k_ceases_with_death Z kammaOutlivesDeath := by
+  intro h
+  have := h 16 (0 : Nat) rfl (chain_reach 16) () rfl (by decide) (by decide)
+  exact absurd this (by decide)
+
+/-- Mind-born matter arising after the death citta has arisen. -/
+abbrev mindBornAfterDeath : Link Z := chainLink .citta 17 .arise 18 .dissolve 16
+theorem k_forbids_mindBornAfterDeath : ¬ k_mind_nutriment_stop Z mindBornAfterDeath := by
+  intro h
+  exact h 16 rfl () (Or.inl rfl) (by decide)
 
 /-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading, and has not ceased by then (founder 2026-10-21: it may cease at the very reading m arises, "unceased" meaning not ceased BEFORE). -/
 def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
@@ -272,6 +304,9 @@ def a111_emerges_by_fruition (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessa
 /-- A111, no death within: the attainer does not die during cessation — neither the moment before it nor the one that emerges is a death citta. -/
 def a111_no_death_within (S : Scale) (l : Link S) : Prop := ∀ m n, l.cessation m → l.s.prox m n → ¬ l.death m ∧ ¬ l.death n
 
+/-- A111, life persists (MN 43: life, heat and the faculties persist): at the neither-perception moment before cessation the being is embodied, and it is not an arahant's last moment. -/
+def a111_life_persists (S : Scale) (l : Link S) : Prop := ∀ m, l.cessation m → l.embodied m ∧ ¬ l.parinibbana m
+
 /-- A stream of two moments, and nothing after the second. -/
 abbrev endsAtOnce : Link Z :=
   { s := ⟨Bool, fun b => if b then (4 : Int) else 0, fun b => if b then (5 : Int) else 1, fun b => if b then (6 : Int) else 2, fun b => if b then (7 : Int) else 3, fun m n => m = false ∧ n = true⟩,
@@ -302,6 +337,11 @@ abbrev diesInCessation : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 1) w
 theorem a111_forbids_diesInCessation : ¬ a111_no_death_within Z diesInCessation := by
   intro h
   exact (h 0 1 rfl rfl).2 rfl
+
+/-- A cessation moment of a being that is not embodied. -/
+abbrev cessationUnembodied : Link Z := { (chainLink .kamma 0 .arise 0 .dissolve 99) with cessation := fun m => m = 0, embodied := fun _ => False }
+theorem a111_forbids_cessationUnembodied : ¬ a111_life_persists Z cessationUnembodied := by
+  intro h; exact (h 0 rfl).1
 
 /-- A56 (L4, ch. 5 §90–91, `abh07t.nrf.xml:1937–1941`; refuter 2, finding 2): a death citta is followed at once by the next existence's rebirth-linking citta — except an arahant's last, which is
     followed by nothing. -/

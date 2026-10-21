@@ -22,8 +22,10 @@ inductive Bhumi | kama | rupa | arupa | lokuttara deriving DecidableEq, Repr
 
 inductive Vedana | somanassa | upekkha | domanassa | sukha | dukkha deriving DecidableEq, Repr
 
+/-- The root structure: greed, hate, delusion-with-doubt, delusion-with-restlessness, rootless, beautiful. -/
 inductive Root | lobha | dosa | mohaDoubt | mohaRestless | none | beautiful deriving DecidableEq, Repr
 
+/-- The element (dhātu): a sense-consciousness at door 1–5 (eye … body), mind element, mind-consciousness element. -/
 inductive Dhatu | sense (door : Nat) | mano | manovinnana deriving DecidableEq, Repr
 
 structure Citta where
@@ -60,6 +62,7 @@ structure Scale where
   add_zero : ∀ a, add a zero = a
   add_lt_left : ∀ a b c, lt b c → lt (add a b) (add a c)
 
+/-- The whole-number scale, used by the forbidden worlds below (one instance among many; nothing requires it). -/
 structure Stream (S : Scale) where
   M : Type
   arise : M → S.T
@@ -68,11 +71,13 @@ structure Stream (S : Scale) where
   close : M → S.T
   prox : M → M → Prop
 
+/-- The fourteen functions of citta, in the text's order (Saṅgaha ch. 3 §18, `abh07t.nrf.xml:885`). -/
 inductive Kicca
   | patisandhi | bhavanga | avajjana | dassana | savana | ghayana | sayana | phusana
   | sampaticchana | santirana | votthabbana | javana | tadarammana | cuti
   deriving DecidableEq, Repr
 
+/-- The ten stations (§19, `:889`): the five sense functions share one, the station of the five consciousnesses. -/
 inductive Thana
   | patisandhi | bhavanga | avajjana | pancavinnana | sampaticchana | santirana | votthabbana | javana | tadarammana | cuti
   deriving DecidableEq, Repr
@@ -81,6 +86,7 @@ inductive Obj
   | rupa | sadda | gandha | rasa | photthabba | kamaOther | mahaggata | lokuttara | agga | nibbana | pannatti
   deriving DecidableEq, Repr
 
+/-- The object of the sense-consciousness at door d (1 eye … 5 body), "respectively" (*yathākkamaṃ*, §54). -/
 inductive Rupa
   | pathavi | apo | tejo | vayo
   | cakkhu | sota | ghana | jivha | kaya
@@ -90,6 +96,7 @@ inductive Rupa
   | upacaya | santati | jarata | aniccata
   deriving DecidableEq, Repr
 
+/-- The four origins of matter (ch. 6 §29–36): kamma, citta, temperature, nutriment. -/
 inductive Origin | kamma | citta | utu | ahara deriving DecidableEq, Repr
 
 inductive Dhamma | citta | cetasika (x : Cetasika) | rupa (r : Rupa) | nibbana deriving DecidableEq, Repr
@@ -97,18 +104,22 @@ inductive Dhamma | citta | cetasika (x : Cetasika) | rupa (r : Rupa) | nibbana d
 inductive PapaCat | asava | ogha | yoga | gantha | upadana | nivarana | anusaya | samyojanaSutta | samyojanaAbhi | kilesa
   deriving DecidableEq, Repr
 
+/-- sizes, in the row's order (the fetters twice: the Suttanta's list and the Abhidhamma's). -/
 inductive MissakaCat | hetu | jhananga | maggangaRight | maggangaWrong | indriya | bala | adhipati | ahara
   deriving DecidableEq, Repr
 
 inductive BodhiCat | satipatthana | sammappadhana | iddhipada | indriya | bala | bojjhanga | magganga
   deriving DecidableEq, Repr
 
+/-- sizes: 4 · 4 · 4 · 5 · 5 · 7 · 8 = 37. -/
 inductive SabbaCat | khandha | upadanakkhandha | ayatana | dhatu | sacca deriving DecidableEq, Repr
 
+/-- sizes: 5 aggregates · 5 aggregates of clinging · 12 bases · 18 elements · 4 noble truths. -/
 inductive Kammatthana
   | kasina (n : Nat) | asubha (n : Nat) | anussati (n : Nat) | appamanna (n : Nat) | sanna | vavatthana | aruppa (n : Nat)
   deriving DecidableEq, Repr
 
+/-- What a world has, kind by kind. Nothing here fixes a count; the rows below do. -/
 structure Tax where
   /-- the citta-types, in the 121 reckoning (each supramundane citta by its jhāna) -/
   kinds : List Citta
@@ -151,16 +162,21 @@ structure Tax where
   /-- which jhāna a subject reaches (n = 6 the immaterial) -/
   kjhana : Kammatthana → Nat → Bool
 
+/-- The six doors (Saṅgaha ch. 3 §35, `abh07t.nrf.xml:965`). Six BY THE TYPE. -/
 inductive Door | eye | ear | nose | tongue | body | mind deriving DecidableEq, Repr
 
+/-- An object's time, relative to the citta that takes it (§51–52, `:1045–1049`): present, past, future, time-free. -/
 inductive When | present | past | future | timeless deriving DecidableEq, Repr
 
 inductive Sign | kamma | kammaNimitta | gatiNimitta deriving DecidableEq, Repr
 
+/-- An object's desirability (ch. 4 §25–27, `:1337–1345`): undesirable, desirable, very desirable. -/
 inductive Desir | anittha | ittha | atiittha deriving DecidableEq, Repr
 
+/-- The mind-object's members by kind (ch. 3 §50, `:1041`). -/
 inductive MObj | rupa (r : Rupa) | citta | cetasika (x : Cetasika) | nibbana | pannatti deriving DecidableEq, Repr
 
+/-- Whose process it is: a worldling, a noble person short of arahantship, an arahant. -/
 inductive Person | worldling | noble | arahant deriving DecidableEq, Repr
 
 inductive PKind | fiveDoor | mindDoor | absorption | path deriving DecidableEq, Repr
@@ -195,6 +211,7 @@ structure Meeting where
   attended : Bool
   follows : List Step
 
+/-- What a world has, process by process. -/
 structure Proc where
   procs : List Process
   /-- which organ, if any, each door is -/
@@ -203,8 +220,10 @@ structure Proc where
   mindObject : List MObj
   meetings : List Meeting
 
+/-- The cases in which a being does not breathe, besides the two spheres: `normal` is none of them. -/
 inductive BreathCase | normal | womb | water | swoon | dead | fourthJhana | cessation deriving DecidableEq, Repr
 
+/-- A being: the sphere it lives in and the matter-bases it has, by kind. -/
 structure Being where
   id : Nat
   plane : Bhumi
@@ -232,6 +251,7 @@ structure Kalapa where
   size : Nat := 1
   deriving DecidableEq, Repr
 
+/-- What a world has of matter. `reached`: the doors whose objects are taken by reaching. -/
 structure Mat where
   beings : List Being
   kalapas : List Kalapa
@@ -241,8 +261,10 @@ structure Mat where
   /-- the size ladder's ratios, paramāṇu to aṅgula -/
   ladder : List Nat := [36, 36, 36, 36, 7, 7, 7]
 
+/-- The three sub-moments of a mind-moment. -/
 inductive Phase | arise | stand | dissolve deriving DecidableEq, Repr
 
+/-- Matter placed in a stream. -/
 structure Link (S : Scale) where
   s : Stream S
   K : Type
@@ -269,10 +291,12 @@ structure Link (S : Scale) where
   base : s.M → Option K := fun _ => none
   object : s.M → Option K := fun _ => none
 
+/-- Steps of proximity: `Steps prox n m m'` — m' is n proximity-steps after m. -/
 inductive Steps {M : Type} (prox : M → M → Prop) : Nat → M → M → Prop
   | zero (m : M) : Steps prox 0 m m
   | succ {n : Nat} {m a b : M} : Steps prox n m a → prox a b → Steps prox (n + 1) m b
 
+/-- One occurrence: mind, matter or a concept (`kind`), with `rise` and `fall` the clock readings (on the world's scale) at which it arises and at which it ceases. -/
 structure Occ (S : Scale) where
   kind : Kind
   rise : S.T
@@ -286,6 +310,7 @@ structure Occ (S : Scale) where
   /-- the origin, for a matter occurrence -/
   born : Option Origin := none
 
+/-- A world's conditioning: its occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at index `i` of `occs` to the one at index `j` (indices into `occs`, counted from 0; they are not `cit` values). -/
 structure CondW (S : Scale) where
   occs : List (Occ S)
   holds : List (Condition × Nat × Nat)
@@ -298,15 +323,18 @@ structure Reck (S R : Scale) where
   week : R.T
   snap : R.T
 
+/-- Steps of proximity that pass through no cessation moment (rate is of ordinary mind, not of the gap of a cessation): `StepsFree blocked prox n m b`. -/
 inductive StepsFree {M : Type} (blocked : M → Prop) (prox : M → M → Prop) : Nat → M → M → Prop
   | zero (m : M) : StepsFree blocked prox 0 m m
   | succ {n : Nat} {m a b : M} : StepsFree blocked prox n m a → prox a b → ¬ blocked a → StepsFree blocked prox (n + 1) m b
 
+/-- A conditioning world with a stream; `mom i` is the moment occurrence i is, when it is a citta. -/
 structure Joined (S : Scale) where
   w : CondW S
   s : Stream S
   mom : Nat → Option s.M
 
+/-- What a world says of the cosmos. -/
 structure Cosmos where
   sunk : Nat
   risen : Nat
@@ -340,15 +368,20 @@ structure Cosmos where
   /-- the life-span of each of the twenty fine-material and immaterial planes, in SIXTHS of a kappa, in the Saṅgaha's order (the first-jhāna planes, the second, the third, Vehapphala and the non-percipient, the five Pure Abodes, the four immaterial) -/
   planeLife : List Nat
 
+/-- The sorts a thing can be: the four ultimates, and the concept (*paññatti*). -/
 inductive Sort5 | citta | cetasika | rupa | nibbana | pannatti deriving DecidableEq, Repr
 
+/-- The six designations of the Puggalapaññatti commentary, of which only the one by a thing's own nature (*tajjā*) names something real. -/
 inductive Designation | derivation | relative | collection | placing | ownNature | continuity deriving DecidableEq, Repr
 
+/-- The three spaces: delimiting space, space removed by a kasiṇa, unentangled space. -/
 inductive Space | delimiting | kasina | unentangled deriving DecidableEq, Repr
 
+/-- The twelve links of dependent origination. -/
 inductive Link12 | ignorance | formations | consciousness | mindMatter | sixBases | contact | feeling | craving | clinging | becoming | birth | decayDeath
   deriving DecidableEq, Repr
 
+/-- What a world says of status. -/
 structure Status where
   ultimates : List Sort5
   timeFree : List Sort5
@@ -367,6 +400,7 @@ structure Status where
   rounds : Nat
   roots : Nat
 
+/-- The ONE World. `s` is the stream; the matter placed in it, the day-reckoning, the conditioning facts and their map to moments are all over `s`. -/
 structure World (S R : Scale) where
   /-- the one stream of mind-moments; its clock readings are on the scale `S` -/
   s : Stream S
