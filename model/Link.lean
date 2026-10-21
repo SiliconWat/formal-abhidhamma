@@ -192,9 +192,9 @@ theorem k_forbids_kammaLater : ¬ k_kamma_born_stops Z kammaLater := by
 def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
   | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
 
-/-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading and ceases at a strictly later one (a thing is not present at the reading it ceases). -/
+/-- Occurrence k has arisen and not yet ceased when moment m arises: it arose at a strictly earlier reading, and has not ceased by then (founder 2026-10-21: it may cease at the very reading m arises, "unceased" meaning not ceased BEFORE). -/
 def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
-  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ S.lt (l.s.arise m) (l.ceasePhase k |>.at S l.s (l.ceaseMom k))
+  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ ¬ S.lt (l.ceasePhase k |>.at S l.s (l.ceaseMom k)) (l.s.arise m)
 
 /-- A116 (L1/L2, Vibhaṅga §762 `abh02m.mul.xml:9125`; Sammohavinodanī `abh02a.att.xml:7361`): a sense-consciousness arises in a pre-born, unceased
     base — the base has arisen before it and has not ceased when it arises. Presence at the ARISING only, never "throughout". -/

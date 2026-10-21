@@ -8,8 +8,9 @@ def block_hash(h):
     a = get(f"https://mempool.space/api/block-height/{h}"); b = get(f"https://blockstream.info/api/block-height/{h}")
     if a != b: sys.exit(f"the explorers disagree at {h}: {a} vs {b}")
     return a
-pool = re.search(r"`(A1 [^`]*)`", open(os.path.join(HERE, "DOUBLE-ENCODING-PREREG.md"), encoding="utf-8").read()).group(1).split()
 args = sys.argv[1:]
+PREREG = args[args.index("--prereg") + 1] if "--prereg" in args else "DOUBLE-ENCODING-PREREG.md"
+pool = max(re.findall(r"`([A-Z0-9 ]+)`", open(os.path.join(HERE, PREREG), encoding="utf-8").read()), key=lambda t: len(t.split())).split()
 H = args[args.index("--hash") + 1] if "--hash" in args else block_hash(int(args[args.index("--height") + 1]))
 ranked = sorted(pool, key=lambda r: hashlib.sha256(f"{H}:{r}".encode()).hexdigest())
 print("H =", H); print("sample (25):", " ".join(ranked[:25])); print("not drawn:", " ".join(ranked[25:]))

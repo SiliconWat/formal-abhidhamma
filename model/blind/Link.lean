@@ -76,7 +76,7 @@ def Phase.at (S : Scale) (s : Stream S) (m : s.M) : Phase → S.T
   | .arise => s.arise m | .stand => s.stand m | .dissolve => s.dissolve m
 
 def present_at_arising (S : Scale) (l : Link S) (k : l.K) (m : l.s.M) : Prop :=
-  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ S.lt (l.s.arise m) (l.ceasePhase k |>.at S l.s (l.ceaseMom k))
+  S.lt (l.phase k |>.at S l.s (l.mom k)) (l.s.arise m) ∧ ¬ S.lt (l.ceasePhase k |>.at S l.s (l.ceaseMom k)) (l.s.arise m)
 
 def a116_prenascent_unceased_base (S : Scale) (l : Link S) : Prop :=
   ∀ m, l.sense m → ∃ k, l.base m = some k ∧ present_at_arising S l k m

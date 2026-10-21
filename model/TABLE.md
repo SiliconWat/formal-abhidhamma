@@ -892,10 +892,10 @@ def o_a41_very_great (w : World S R) : Prop := ∃ p ∈ w.proc.procs, p.kind = 
 
 ```lean
 def a42_great (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → p.count .tadarammana = 0
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → 1 ≤ p.count .javana ∧ p.count .tadarammana = 0
 ```
 
-*Blind reader:* Every five-door process with past 2 or 3 has no tadarammana.
+*Blind reader:* Every five-door process with past 2 or 3 holds at least one javana and no registration. Other processes are unconstrained.
 
 **`a42_range`** (Proc.lean)
 
@@ -1832,7 +1832,7 @@ def a87_organ_and_object_already_arisen (S : Scale) (l : Link S) : Prop :=
   ∀ m, l.sense m → (∃ k, l.base m = some k ∧ present_at_arising S l k m) ∧ (∃ k, l.object m = some k ∧ present_at_arising S l k m)
 ```
 
-*Blind reader:* At every sense moment, both the base and the object exist and each is present at the moment's arising. Its base half duplicates a116.
+*Blind reader:* Every sense moment has both a base and an object, each present at the moment's arising.
 
 **`a87_pre_born`** (Cond.lean)
 
@@ -2291,7 +2291,7 @@ def a116_prenascent_unceased_base (S : Scale) (l : Link S) : Prop :=
   ∀ m, l.sense m → ∃ k, l.base m = some k ∧ present_at_arising S l k m
 ```
 
-*Blind reader:* At every sense moment, the base is some item present at that moment's arising (started earlier, not yet ceased).
+*Blind reader:* Every sense moment has a base, and that base is present at the moment's arising (arisen strictly before, not ceased before).
 
 ## A117
 

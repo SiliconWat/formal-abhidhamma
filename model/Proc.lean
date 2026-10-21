@@ -227,9 +227,9 @@ def a41_seventeen (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor →
     bars them outside the sense sphere. So registration is NOT required here; what the grade requires is the javana. -/
 def a42_very_great (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past = 1 → 1 ≤ p.count .javana
 
-/-- A42, great (L5 range: two or three past moments; L4 §12, `:1245`): no registration. -/
+/-- A42, great (L5 range: two or three past moments; L4 §12, `:1245`): the process reaches the javanas, with no registration. -/
 def a42_great (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → p.count .tadarammana = 0
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → 1 ≤ p.count .javana ∧ p.count .tadarammana = 0
 
 /-- A42, slight (L5 range: four to nine; L4 §13, `:1249`): no javana; determining two or three times
     (*dvattikkhattuṃ voṭṭhabbanameva*). -/
@@ -493,6 +493,10 @@ theorem a42_admits_veryGreatBare : a42_very_great veryGreatBare := by unfold a42
 /-- A great object (two moments past) with registration. -/
 abbrev greatRegisters : Proc := withProcs [atEye 2 (eyeSteps 7 2)]
 theorem a42_forbids_greatRegisters : ¬ a42_great greatRegisters := by unfold a42_great; decide
+
+/-- A great object (two past moments) whose process holds no javana. -/
+abbrev greatNoJavana : Proc := withProcs [atEye 2 []]
+theorem a42_forbids_greatNoJavana : ¬ a42_great greatNoJavana := by unfold a42_great; decide
 
 /-- A slight object (four moments past) with a javana. -/
 abbrev slightJavana : Proc := withProcs [atEye 4 (eyeSteps 1 0)]

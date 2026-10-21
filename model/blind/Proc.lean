@@ -133,7 +133,7 @@ def a41_seventeen (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor →
 def a42_very_great (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past = 1 → 1 ≤ p.count .javana
 
 def a42_great (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → p.count .tadarammana = 0
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → 2 ≤ p.past → p.past ≤ 3 → 1 ≤ p.count .javana ∧ p.count .tadarammana = 0
 
 def a42_slight (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .fiveDoor → 4 ≤ p.past → p.past ≤ 9 →

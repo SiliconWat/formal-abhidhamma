@@ -29,3 +29,10 @@
 5. **A112** — add the world-level condition-facts clause (needs a small structural addition to the Joined projection), or leave A112 as the clock window and move the condition half to A3?
 
 Then a fresh sample, a new pre-registration, a new future block.
+
+## Founder's rulings, 2026-10-21 ("approve all" to the five leanings)
+- **A4** — ours stands (one rule: 16 steps from the matter's own citta, then the dissolution phase); no change.
+- **A42** — `past` bounded to 1–15 (already `a42_range`); "great" now requires the javanas (`a42_great`: at least one javana and no registration), with a new forbidden world.
+- **A116** — non-strict: the base may cease at the very reading the consciousness arises; "unceased" means not ceased before (`present_at_arising`, shared with A87's Link half).
+- **A6** — ours stands (owned by no being ↔ unbound); no change.
+- **A112** — left as the clock window; the condition half is A3's (`a3_proximity_is_the_streams_prox`). The row's second sentence is not encoded under A112; it stays in A112's drawn-and-resolved status and is not in round 2's pool.

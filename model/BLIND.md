@@ -131,7 +131,6 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a41_order | Every five-door process with past 1 has, after dropping its first two steps, a kicca order satisfying veryGreatOrder for its door. |
 | a41_seventeen | Every five-door process with past 1 has past plus number of steps at most 17. |
 | a42_very_great | Every five-door process with past 1 has at least one javana. |
-| a42_great | Every five-door process with past 2 or 3 has no tadarammana. |
 | a42_slight | Every five-door process with past 4 to 9 has no javana and has 2 or 3 votthabbana steps. |
 | a42_very_slight | Every five-door process with past 10 to 15 consists only of bhavanga steps (an empty process passes). |
 | a43_clear | Every mind-door process marked clear has at least one tadarammana. |
@@ -164,6 +163,7 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a46_javana_by_person | For every javana in every process: an arahant's javanas are not kusala (or are lokuttara); an arahant's javanas are not akusala; a non-arahant's javanas are not kiriya; a lokuttara javana implies the person is not a worldling. |
 | organAbsent | Helper: for a sense element d, true when the plane is arupa, or rupa with d at least 2; false for any other element. |
 | a46_plane_organs | No step of any process uses a sense element that is absent on that process's plane (organAbsent is false). |
+| a42_great | Every five-door process with past 2 or 3 holds at least one javana and no registration. Other processes are unconstrained. |
 
 ## Mat.lean
 
@@ -205,15 +205,15 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a64_mind_born_only_by_producers | Every citta-origin item sits at a moment satisfying produces. |
 | a4_life_in_the_stream | For every concrete item: arising → reached by exactly 16 steps, cease phase dissolve; standing → 17 steps, cease phase arise; dissolving → 17 steps, cease phase stand (exact step counts). |
 | k_kamma_born_stops | For any death moment d and any b that is 16 steps before d, every kamma-origin item is not at b with a phase other than arise, and is not 1 to 16 steps after b (which includes d). |
-| present_at_arising | Item k is present at moment m's arising when the time of k's own phase at its moment is strictly before m's arise time and k's cease time is not strictly before m's arise time. |
-| a116_prenascent_unceased_base | Every sense moment has a base item present at that moment's arising. |
-| a87_organ_and_object_already_arisen | Every sense moment has both a base item and an object item present at its arising (a strict superset of a116). |
 | a122_death_then_rebirth | Whatever immediately follows (via prox) a death moment is a rebirth moment. |
 | a122_rebirth_after_death | Every rebirth moment is the immediate prox successor of some death moment. |
 | a58_begins_with_rebirth | For every moment m there is a rebirth moment that is m itself or strictly earlier. |
 | a47_unbroken | For every moment m that is not marked a death moment, some moment n is linked from m by prox: every non-death moment has at least one successor. (Re-read 2026-10-20 after the definition was corrected; the first reading — *every* moment has a successor, forcing an endless stream — showed the first version too strong. The re-reader adds: existence only, not uniqueness or lateness; death moments are exempt but may have a successor; a world with no death marks is endless; marking every moment death makes it trivial — the death marks are constrained by A122 and A58 elsewhere.) |
 | a111_emerges_by_fruition | Any moment following a cessation moment (via prox) is a fruition moment. |
 | a111_no_death_within | For a cessation moment m and a successor n, neither m nor n is a death moment. |
+| present_at_arising | Occurrence k's arising reading is strictly earlier than moment m's arising, and k's ceasing reading is not strictly earlier than it (a cessation at the same reading still counts as present). |
+| a116_prenascent_unceased_base | Every sense moment has a base, and that base is present at the moment's arising (arisen strictly before, not ceased before). |
+| a87_organ_and_object_already_arisen | Every sense moment has both a base and an object, each present at the moment's arising. |
 
 ## Cond.lean
 
@@ -296,9 +296,6 @@ Reader's observation: every Cosmos predicate is a bare equality of fields to sti
 | a39_sense | Every being on the sense plane has all its bases drawn from sixBases. |
 | a4_life | Every kalapa whose members include neither bodily-intimation nor verbal-intimation matter has life exactly 51; clusters containing either are unconstrained. |
 | a120_kamma_born_at_all_three | For every embodied moment that is not within 16 or fewer steps before some death moment, and for each of the three phases, there is an item of origin kamma at that moment and phase. Moments within 16 steps before a death are exempt. |
-| present_at_arising | An item is present at the arising of moment m when its own starting time is strictly before m's arising, and m's arising is strictly before its ceasing time. |
-| a116_prenascent_unceased_base | At every sense moment, the base is some item present at that moment's arising (started earlier, not yet ceased). |
-| a87_organ_and_object_already_arisen | At every sense moment, both the base and the object exist and each is present at the moment's arising. Its base half duplicates a116. |
 | a56_death_followed_unless_final | Every death moment that is not a parinibbana moment has some next moment under the stream's proximity relation. |
 | a56_final_ends | Every parinibbana moment is a death moment and has no next moment at all. |
 | a88_post_born | Every post-born fact: the second arises strictly before the first arises, and the first arises strictly before the second falls. |
