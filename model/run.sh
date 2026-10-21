@@ -27,6 +27,28 @@ $LEAN -o "$B/Cond.olean" Cond.lean || { echo "FAIL  Cond.lean does not build"; e
 $LEAN -o "$B/Proc.olean" Proc.lean || { echo "FAIL  Proc.lean does not build"; exit 1; }
 # World.lean imports every part, Occurs.lean imports World.lean: the rest of the oleans, in dependency order
 for m in Mat Link Clocks Join Cosmos Status World; do $LEAN -o "$B/$m.olean" $m.lean || { echo "FAIL  $m.lean does not build"; exit 1; }; done
+# R5 (amendment 1): replay every constant of the built modules through the kernel with the toolchain's own `leanchecker` — a check that does not trust the elaborator or the .olean files;
+# its control (a theorem added with the kernel check skipped must be REFUSED) runs first, so that a checker that cannot see a planted falsehood is never read as a clean result.
+if [ "${1:-}" != "--control" ]; then
+  CHK="$(dirname "$(command -v "$LEAN")")/leanchecker"
+  if [ -x "$CHK" ]; then
+    $LEAN -o "$B/Occurs.olean" Occurs.lean || { echo "FAIL  Occurs.lean does not build"; exit 1; }
+    mkdir -p "$B/ctl" && cat > "$B/ctl/Bad.lean" <<'EOT'
+import Lean
+open Lean Elab Command
+set_option debug.skipKernelTC true in
+run_cmd do
+  let ty := mkApp3 (mkConst ``Eq [Level.succ Level.zero]) (mkConst ``Nat) (mkNatLit 1) (mkNatLit 2)
+  liftCoreM (addDecl (Declaration.thmDecl { toConstantVal := { name := `bad, levelParams := [], type := ty }, value := mkConst ``True.intro, all := [`bad] }))
+EOT
+    ( cd "$B/ctl" && $LEAN -o Bad.olean Bad.lean >/dev/null 2>&1 )
+    if LEAN_PATH="$B/ctl" "$CHK" Bad >/dev/null 2>&1; then echo "BLIND  leanchecker accepted a planted false theorem"; exit 1; else echo "FAILS as required  leanchecker refuses a theorem added with the kernel check skipped"; fi
+    for m in Mind Tax Proc Mat Link Cond Clocks Join Cosmos Status World Occurs; do
+      "$CHK" "$m" >/dev/null 2>&1 || { echo "FAIL  leanchecker found a problem in $m"; "$CHK" "$m" 2>&1 | tail -3; exit 1; }
+    done
+    echo "PASS  leanchecker replayed every constant of Mind Tax Proc Mat Link Cond Clocks Join Cosmos Status World Occurs through the kernel"
+  else echo "NOTE  no leanchecker beside $LEAN: the kernel replay is skipped"; fi
+fi
 CONTROL=0; [ "${1:-}" = "--control" ] && CONTROL=1
 if [ $CONTROL = 1 ]; then
   # Planted, each of which the teeth test must report: a definition with no forbidden world (NO TEETH), one whose forbidden
