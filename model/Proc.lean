@@ -196,6 +196,14 @@ def a37_mind_object (t : Tax) (w : Proc) : Prop :=
   w.mindObject.contains .citta = true ∧ (t.cets.all fun x => w.mindObject.contains (.cetasika x)) = true ∧
   w.mindObject.contains .nibbana = true ∧ w.mindObject.contains .pannatti = true
 
+/-- Whether a thing may be in the mind-object: sensitive or subtle matter (never the gross matter that is a sense object), citta, a cetasika, nibbāna or a concept. -/
+def mindObjOk (t : Tax) : MObj → Bool
+  | .rupa r => pasada.contains r || !t.gross r
+  | _ => true
+
+/-- A37, exactly these (L4, §50, `:1041`): the mind-object is these six ways and no more — no gross matter, which is one of the five sense objects. -/
+def a37_mind_object_exactly (t : Tax) (w : Proc) : Prop := ∀ x ∈ w.mindObject, mindObjOk t x = true
+
 /-- A38, its PROC half (L4, ch. 3 §54–63, `:1057–1105`): each step's object lies in its citta-type's scope
     (`Tax.scope`, a super-knowledge counted apart), read in the 89 reckoning as `a35_station_fits` is. -/
 def a38_in_scope (t : Tax) (w : Proc) : Prop :=
@@ -625,6 +633,8 @@ theorem a109_forbids_fourFruits : ¬ a109_fruition fourFruits := by unfold a109_
 abbrev noSeeing : Proc := { bareProc with meetings := [⟨.eye, true, true, true, []⟩] }
 theorem a115_forbids_noSeeing : ¬ a115_conditions_meet noSeeing := by unfold a115_conditions_meet; decide
 
+
+
 /-- A46 (L4, ch. 4 §37–46, `abh07t.nrf.xml:1501`ff.; `kala/AXIOMS.md`): no wholesome or unwholesome javana for an arahant; no functional javana for anyone else; supramundane javana only for a noble person
     (an arahant has only the arahatta fruition among the supramundane, §43 `:1433`, §48 `:1453`). ⚠️ "Non-percipient beings have no citta" is A13's (Mat.lean), not here. -/
 def a46_javana_by_person (w : Proc) : Prop :=
@@ -691,6 +701,25 @@ def doorObject : Door → Obj
 def a37_sense_door_takes_its_object (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .fiveDoor → ∀ s ∈ p.steps, s.door ≠ none → s.obj = doorObject p.door
 
+/-- Whether a process meets §27 on an extremely desirable object: every investigation step is pleasure-accompanied, and every registration step takes the feeling of the last functional javana before it (equanimity after an equanimity one, pleasure otherwise). -/
+def atiitthaOk (p : Process) : Bool :=
+  (List.range p.steps.length).all fun i =>
+    match p.steps[i]? with
+    | none => true
+    | some s =>
+      (s.kicca != .santirana || s.citta.vedana == .somanassa) &&
+      (s.kicca != .tadarammana ||
+        s.citta.vedana == (match (p.steps.take i).reverse.find? (·.kicca == .javana) with
+          | some j => if j.citta.jati == .kiriya && j.citta.vedana == .upekkha then Vedana.upekkha else Vedana.somanassa
+          | none => Vedana.somanassa))
+
+/-- A45, the extremely desirable (L4, §27, `:1345`: *atiiṭṭhe pana somanassasahagatāneva santīraṇatadārammaṇāni; tatthāpi somanassasahagatakiriyajavanāvasāne somanassasahagatāneva tadārammaṇāni bhavanti, upekkhāsahagatakiriyajavanāvasāne ca upekkhāsahagatāneva honti*): on an extremely desirable object the investigation and registration cittas are pleasure-accompanied; the registration after a functional javana takes that javana's feeling, pleasure or equanimity. -/
+def a45_atiittha (w : Proc) : Prop := ∀ p ∈ w.procs, p.desirable = .atiittha → atiitthaOk p = true
+
+/-- A115, the meeting in a process (the finding of the encoding's first refuter, P7): what follows a meeting of eye, form and attention is the steps of a process at that door. -/
+def a115_follows_is_a_process (w : Proc) : Prop :=
+  ∀ m ∈ w.meetings, m.follows = [] ∨ ∃ p ∈ w.procs, p.door = m.door ∧ p.steps = m.follows
+
 /-- A42, the range (L5, the Vibhāvinī `abh07t.nrf.xml:4821`; refuter P6): the four grades cover one to fifteen past moments, and no five-door object enters after more. -/
 def a42_range (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past ≤ 15
 
@@ -718,6 +747,20 @@ theorem a38_forbids_unflaggedAbhinna : ¬ a38_abhinna_flag_is_an_abhinna_citta {
 
 abbrev fiveDoorAtMind : Proc := withProcs [{ atEye 1 (eyeSteps 7 2) with door := .mind }]
 theorem a36_forbids_fiveDoorAtMind : ¬ a36_steps_at_the_processs_door fiveDoorAtMind := by unfold a36_steps_at_the_processs_door; decide
+
+/-- A meeting whose following steps belong to no process of the world. -/
+abbrev orphanFollows : Proc :=
+  { bareProc with meetings := [{ door := .eye, intact := true, inRange := true, attended := true, follows := [stp eyeCons .dassana .eye .rupa] }] }
+theorem a115_forbids_orphanFollows : ¬ a115_follows_is_a_process orphanFollows := by unfold a115_follows_is_a_process; decide
+
+/-- A mind-object that holds visible form, which is one of the five sense objects. -/
+abbrev mindObjectWithForm : Proc := { bareProc with mindObject := [.rupa .vanna] }
+theorem a37_forbids_mindObjectWithForm : ¬ a37_mind_object_exactly { bare with gross := grossTable } mindObjectWithForm := by unfold a37_mind_object_exactly; decide
+
+/-- An extremely desirable object met by an investigation with equanimity. -/
+abbrev atiitthaEquanimity : Proc :=
+  withProcs [{ atEye 1 [stp { eyeCons with vedana := .upekkha, dhatu := .mano } .santirana .eye .rupa] with desirable := .atiittha }]
+theorem a45_forbids_atiitthaEquanimity : ¬ a45_atiittha atiitthaEquanimity := by unfold a45_atiittha; decide
 
 abbrev eyeTakesSoundObject : Proc :=
   withProcs [atEye 1 [bhv, bhv, stp fiveAdverting .avajjana .eye .sadda]]

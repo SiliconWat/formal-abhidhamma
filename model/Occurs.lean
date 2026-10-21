@@ -110,7 +110,10 @@ def a4_variant_sixteen (S : Scale) (l : Link S) : Prop :=
 theorem a4_forbids_sixteenAndSeventeenTogether (cm : Nat) :
     ¬ (a4_life_in_the_stream Z (chainLink .utu 0 .arise cm .dissolve 0) ∧ a4_variant_sixteen Z (chainLink .utu 0 .arise cm .dissolve 0)) := by
   intro ⟨h17, h16⟩
-  have e17 := chain_steps (((h17 () rfl).1 rfl).1)
+  have e17 : cm = 0 + 16 := by
+    rcases ((h17 () rfl).1 rfl) with ⟨hs, _⟩ | hn
+    · exact chain_steps hs
+    · exact absurd ⟨16, chain_reach 16⟩ hn
   have e16 := chain_steps ((h16 () rfl rfl).1)
   simp at e17 e16
   omega

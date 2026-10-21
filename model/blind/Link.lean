@@ -57,9 +57,9 @@ def a64_phases (S : Scale) (l : Link S) : Prop :=
 
 def a4_life_in_the_stream (S : Scale) (l : Link S) : Prop :=
   ∀ k, l.concrete k = true →
-    (l.phase k = .arise → Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∧
-    (l.phase k = .stand → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .arise) ∧
-    (l.phase k = .dissolve → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .stand)
+    (l.phase k = .arise → (Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∨ ¬ ∃ n, Steps l.s.prox 16 (l.mom k) n) ∧
+    (l.phase k = .stand → (Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .arise) ∨ ¬ ∃ n, Steps l.s.prox 17 (l.mom k) n) ∧
+    (l.phase k = .dissolve → (Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .stand) ∨ ¬ ∃ n, Steps l.s.prox 17 (l.mom k) n)
 
 def k_kamma_born_stops (S : Scale) (l : Link S) : Prop :=
   ∀ d b, l.death d → Steps l.s.prox 16 b d → ∀ k, l.origin k = .kamma →

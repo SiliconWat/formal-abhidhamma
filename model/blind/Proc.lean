@@ -117,6 +117,12 @@ def a37_mind_object (t : Tax) (w : Proc) : Prop :=
   w.mindObject.contains .citta = true ∧ (t.cets.all fun x => w.mindObject.contains (.cetasika x)) = true ∧
   w.mindObject.contains .nibbana = true ∧ w.mindObject.contains .pannatti = true
 
+def mindObjOk (t : Tax) : MObj → Bool
+  | .rupa r => pasada.contains r || !t.gross r
+  | _ => true
+
+def a37_mind_object_exactly (t : Tax) (w : Proc) : Prop := ∀ x ∈ w.mindObject, mindObjOk t x = true
+
 def a38_in_scope (t : Tax) (w : Proc) : Prop :=
   ∀ p ∈ w.procs, ∀ s ∈ p.steps, t.scope (reckon89 s.citta) s.abhinna s.obj = true
 
@@ -306,6 +312,22 @@ def doorObject : Door → Obj
 
 def a37_sense_door_takes_its_object (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .fiveDoor → ∀ s ∈ p.steps, s.door ≠ none → s.obj = doorObject p.door
+
+def atiitthaOk (p : Process) : Bool :=
+  (List.range p.steps.length).all fun i =>
+    match p.steps[i]? with
+    | none => true
+    | some s =>
+      (s.kicca != .santirana || s.citta.vedana == .somanassa) &&
+      (s.kicca != .tadarammana ||
+        s.citta.vedana == (match (p.steps.take i).reverse.find? (·.kicca == .javana) with
+          | some j => if j.citta.jati == .kiriya && j.citta.vedana == .upekkha then Vedana.upekkha else Vedana.somanassa
+          | none => Vedana.somanassa))
+
+def a45_atiittha (w : Proc) : Prop := ∀ p ∈ w.procs, p.desirable = .atiittha → atiitthaOk p = true
+
+def a115_follows_is_a_process (w : Proc) : Prop :=
+  ∀ m ∈ w.meetings, m.follows = [] ∨ ∃ p ∈ w.procs, p.door = m.door ∧ p.steps = m.follows
 
 def a42_range (w : Proc) : Prop := ∀ p ∈ w.procs, p.kind = .fiveDoor → p.past ≤ 15
 

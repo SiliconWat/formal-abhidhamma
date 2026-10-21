@@ -141,6 +141,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a36_nineteen w.tax ∧   -- Proc
   a37_sense_door_present w.proc ∧   -- Proc
   a37_mind_object w.tax w.proc ∧   -- Proc
+  a37_mind_object_exactly w.tax w.proc ∧   -- Proc
   a38_in_scope w.tax w.proc ∧   -- Proc
   a41_entry w.proc ∧   -- Proc
   a41_two_vibrations w.proc ∧   -- Proc
@@ -183,6 +184,8 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a38_abhinna_flag_is_an_abhinna_citta w.tax w.proc ∧   -- Proc
   a36_steps_at_the_processs_door w.proc ∧   -- Proc
   a37_sense_door_takes_its_object w.proc ∧   -- Proc
+  a45_atiittha w.proc ∧   -- Proc
+  a115_follows_is_a_process w.proc ∧   -- Proc
   a42_range w.proc ∧   -- Proc
   a43_kind_follows_content w.proc ∧   -- Proc
   a115_no_conditions_no_consciousness w.proc ∧   -- Proc
@@ -231,6 +234,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a56_final_ends S w.link ∧   -- Link
   a78_relata w.cond ∧   -- Cond
   a83_co_nascent w.cond ∧   -- Cond
+  a83_complete w.cond ∧   -- Cond
   a84_mutual w.cond ∧   -- Cond
   a87_pre_born w.cond ∧   -- Cond
   a88_post_born w.cond ∧   -- Cond
@@ -288,6 +292,6 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a77_structure w.status     -- Status
 
 /-- How many definitions `Satisfies` conjoins. -/
-def satisfiesCount : Nat := 212
+def satisfiesCount : Nat := 216
 
 end FormalAbhidhamma.Model

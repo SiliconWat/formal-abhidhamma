@@ -95,9 +95,9 @@ def a64_phases (S : Scale) (l : Link S) : Prop :=
     citta sixteen steps on (the "seventeenth"), standing → the arising of the seventeenth step, dissolution → its standing. -/
 def a4_life_in_the_stream (S : Scale) (l : Link S) : Prop :=
   ∀ k, l.concrete k = true →
-    (l.phase k = .arise → Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∧
-    (l.phase k = .stand → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .arise) ∧
-    (l.phase k = .dissolve → Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .stand)
+    (l.phase k = .arise → (Steps l.s.prox 16 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .dissolve) ∨ ¬ ∃ n, Steps l.s.prox 16 (l.mom k) n) ∧
+    (l.phase k = .stand → (Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .arise) ∨ ¬ ∃ n, Steps l.s.prox 17 (l.mom k) n) ∧
+    (l.phase k = .dissolve → (Steps l.s.prox 17 (l.mom k) (l.ceaseMom k) ∧ l.ceasePhase k = .stand) ∨ ¬ ∃ n, Steps l.s.prox 17 (l.mom k) n)
 
 /-- K (L4, ch. 6 §56, `abh07t.nrf.xml:2333`): from the standing phase of the seventeenth citta before the death citta (the death citta counted
     as the first, so b is sixteen steps before it), kamma-born matter no longer arises: not at b's standing or dissolution, and at none of
@@ -175,15 +175,19 @@ abbrev chainLink (o : Origin) (m : Nat) (p : Phase) (cm : Nat) (cp : Phase) (dm 
 abbrev dies16 : Link Z := chainLink .utu 0 .arise 15 .dissolve 0
 theorem a4_forbids_dies16 : ¬ a4_life_in_the_stream Z dies16 := by
   intro h
-  have := chain_steps (((h () rfl).1 rfl).1)
-  simp at this
+  rcases ((h () rfl).1 rfl) with ⟨hs, _⟩ | hn
+  · have := chain_steps hs
+    simp at this
+  · exact hn ⟨16, chain_reach 16⟩
 
 /-- Matter arising at a citta's standing that ceases at the arising of the sixteenth step on rather than the seventeenth. -/
 abbrev standsTooShort : Link Z := chainLink .utu 0 .stand 16 .arise 0
 theorem a4_forbids_standsTooShort : ¬ a4_life_in_the_stream Z standsTooShort := by
   intro h
-  have := chain_steps (((h () rfl).2.1 rfl).1)
-  simp at this
+  rcases ((h () rfl).2.1 rfl) with ⟨hs, _⟩ | hn
+  · have := chain_steps hs
+    simp at this
+  · exact hn ⟨17, chain_reach 17⟩
 
 /-- Kamma-born matter arising at the standing phase of the seventeenth citta before the death citta (moment 0; death at 16). -/
 abbrev kammaAtStanding : Link Z := chainLink .kamma 0 .stand 0 .arise 16

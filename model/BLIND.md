@@ -164,6 +164,11 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a46_plane_organs | No step of any process uses a sense element that is absent on that process's plane (organAbsent is false). |
 | a42_great | Every five-door process with past 2 or 3 holds at least one javana and no registration. Other processes are unconstrained. |
 | organAbsent | Helper: a sense element d is absent on the immaterial plane, and on the fine-material plane when d is 3 or more (doors numbered 1–5); false for any other element. |
+| mindObjOk | Helper: a matter item passes if it is sensitive matter or the taxonomy does not count it gross; any other mind-object always passes. |
+| a37_mind_object_exactly | Every item of the world's mind-object list passes mindObjOk. It limits what may be in the list (no gross matter); the 'includes' direction is a37_mind_object's. |
+| atiitthaOk | Helper: in a process, every investigation step is pleasure-accompanied, and every registration step takes the feeling of the last functional javana before it (equanimity after an equanimity one, pleasure otherwise, and pleasure with no javana before). |
+| a45_atiittha | Every process whose object is extremely desirable passes atiitthaOk; other processes are unconstrained. |
+| a115_follows_is_a_process | Every meeting either has an empty following list or there is a process at its door whose steps are exactly that list. |
 
 ## Mat.lean
 
@@ -203,7 +208,6 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a64_kamma_from_rebirth | Every kamma-origin item has some rebirth moment r that is the item's own moment or strictly earlier. |
 | a67_mind_born_not_at_rebirth | No citta-origin item sits at a rebirth moment. |
 | a64_mind_born_only_by_producers | Every citta-origin item sits at a moment satisfying produces. |
-| a4_life_in_the_stream | For every concrete item: arising → reached by exactly 16 steps, cease phase dissolve; standing → 17 steps, cease phase arise; dissolving → 17 steps, cease phase stand (exact step counts). |
 | k_kamma_born_stops | For any death moment d and any b that is 16 steps before d, every kamma-origin item is not at b with a phase other than arise, and is not 1 to 16 steps after b (which includes d). |
 | a122_death_then_rebirth | Whatever immediately follows (via prox) a death moment is a rebirth moment. |
 | a122_rebirth_after_death | Every rebirth moment is the immediate prox successor of some death moment. |
@@ -218,6 +222,7 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | k_ceases_with_death | For any death d and any moment b sixteen steps before it: kamma-born matter that arose no later than b's standing and has not ceased before it, ceases at the death moment d. |
 | k_mind_nutriment_stop | For any death d: no mind-born or nutriment-born matter arises after d has arisen. |
 | a111_life_persists | Every cessation moment is embodied and is not an arahant's last moment. |
+| a4_life_in_the_stream | For every concretely produced piece: if it arises at an arising, then either the proximity relation reaches its ceasing moment in exactly 16 steps and its ceasing phase is dissolve, or no moment is reachable from its moment in 16 steps (the stream ends first); likewise 17 steps for standing (ceasing phase arise) and dissolving (ceasing phase stand). |
 
 ## Cond.lean
 
@@ -259,6 +264,7 @@ Reader's observations: a98/a101 are the same statement under different condition
 | a79_root_scope | Every root fact between a and b needs ownCittaScope a b and a rooted mental source. |
 | a81_predominance | Every predominance fact has both occurrences existing and either ownCittaScope holds or b is mental and an object fact exists for the same pair. |
 | a90_kamma | Every kamma fact needs a kammic mental source, and either ownCittaScope holds or a arises strictly before b and b is a resultant citta or kamma-born matter. |
+| a83_complete | Two things are forced to be present: any two different mental occurrences of one citta have a co-nascence fact, and a mental occurrence has a co-nascence fact to each matter occurrence born of citta that shares its citta. Forces presence only; the second clause runs mental to matter only. |
 
 ## Cosmos.lean
 

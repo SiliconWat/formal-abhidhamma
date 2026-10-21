@@ -51,6 +51,12 @@ def a78_relata {S : Scale} (w : CondW S) : Prop :=
 
 def a83_co_nascent {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .sahajata fun a b => a.rise = b.rise
 
+def a83_complete {S : Scale} (w : CondW S) : Prop :=
+  (∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.sahajata, i, j) ∈ w.holds) ∧
+  (∀ i j a b, w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .rupa → b.born = some .citta → a.cit = b.cit →
+    (Condition.sahajata, i, j) ∈ w.holds)
+
 def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
   (∀ f ∈ w.holds, f.1 = .annamanna → (Condition.annamanna, f.2.2, f.2.1) ∈ w.holds) ∧

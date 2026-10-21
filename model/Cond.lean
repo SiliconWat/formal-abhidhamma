@@ -73,6 +73,13 @@ def a78_relata {S : Scale} (w : CondW S) : Prop :=
 /-- A83 (L1, co-nascence): the related arise together. -/
 def a83_co_nascent {S : Scale} (w : CondW S) : Prop := facts_between_occurrences w .sahajata fun a b => a.rise = b.rise
 
+/-- A83, completeness (the finding of the encoding's first refuter, 3): the four mental aggregates condition one another — any two different mental occurrences of one citta have a co-nascence fact — and citta and cetasikas condition the mind-born matter of their citta. -/
+def a83_complete {S : Scale} (w : CondW S) : Prop :=
+  (∀ i j a b, i ≠ j → w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .nama → a.cit = b.cit →
+    (Condition.sahajata, i, j) ∈ w.holds) ∧
+  (∀ i j a b, w.occs[i]? = some a → w.occs[j]? = some b → a.kind = .nama → b.kind = .rupa → b.born = some .citta → a.cit = b.cit →
+    (Condition.sahajata, i, j) ∈ w.holds)
+
 /-- A84 (L1/L3, mutuality): each is the other's condition, and they arise together. ⚠️ "symmetric, so not a partial order" is OURS and not here. -/
 def a84_mutual {S : Scale} (w : CondW S) : Prop :=
   (facts_between_occurrences w .annamanna fun a b => a.rise = b.rise) ∧
@@ -130,6 +137,12 @@ theorem a78_forbids_rootFromMatter : ¬ a78_relata rootFromMatter := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.hetu, 0, 1) (by simp [rootFromMatter, cw])
   simp [ends, rootFromMatter, cw, o] at he
   obtain ⟨rfl, rfl⟩ := he; simp [admits, sangaha] at hk
+
+/-- Two mental occurrences of one citta with no co-nascence fact between them. -/
+abbrev coMissing : CondW Z := cw [o .nama 0 5, o .nama 0 5] []
+theorem a83_forbids_coMissing : ¬ a83_complete coMissing := by
+  intro h; have := h.1 0 1 (o .nama 0 5) (o .nama 0 5) (by decide) (by simp [coMissing, cw]) (by simp [coMissing, cw]) rfl rfl rfl
+  simp [coMissing, cw] at this
 
 /-- Co-nascence between occurrences that arise at different readings. -/
 abbrev notTogether : CondW Z := cw [o .nama 0 5, o .nama 1 5] [(.sahajata, 0, 1)]
