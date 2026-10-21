@@ -81,8 +81,10 @@ def itemAtoms : String → List Atom
   | "arupabhava" | "nevasannabhava" | "catuvokarabhava" => [.vedana, .sanna, .sankhara, .manoV]
   | "asannabhava" | "ekavokarabhava" => [.rupaO, .subtle]
   | "jati" | "jara" | "marana" => [.subtle, .sankhara]
-  | "soka" | "parideva" | "upayasa" | "satipatthana" | "sammappadhana" | "appamanna" | "indriya5" | "bala5" | "bojjhanga7" | "magga8" | "cetana" | "adhimokkha" | "manasikara" => [.sankhara]
-  | "dukkha_f" | "domanassa_f" => [.vedana]
+  | "upayasa" | "satipatthana" | "sammappadhana" | "appamanna" | "indriya5" | "bala5" | "bojjhanga7" | "magga8" | "cetana" | "adhimokkha" | "manasikara" => [.sankhara]
+  -- the Dhātukathā-aṭṭhakathā (`abh03a.att.xml:141`): grief, pain and displeasure are the feeling aggregate; LAMENTATION is the form aggregate (it is speech, a sound); distress is a formation
+  | "soka" | "dukkha_f" | "domanassa_f" => [.vedana]
+  | "parideva" => [.saddaO]
   | "sanna_f" => [.sanna]
   | "iddhipada" => [.sankhara, .manoV]
   | "jhana" => [.vedana, .sankhara]
@@ -109,7 +111,11 @@ theorem the_numbers : (List.range 5).all (fun j => Atom.all.any (fun a => khandh
     (List.range 18).all (fun j => Atom.all.any (fun a => dhatu a == j)) = true := by decide
 
 /-- The items whose atom sets were CHOSEN after the stated counts were read (the kinds of existence, the iddhipāda, the jhāna, birth-decay-death): the doctrine fixes them in outline (sound is not
-    kamma-born; the immaterial have no matter), but the exact sets were tuned to the text, so reproducing their rows tests the arithmetic and nothing else. Reported APART. -/
+    kamma-born; the immaterial have no matter), but the exact sets were tuned to the text, so reproducing their rows tests the arithmetic and nothing else. Reported APART.
+    ✅ The Dhātukathā-aṭṭhakathā was read afterwards (2026-10-20) and ENUMERATES the same sets: the existences of the sense sphere are the *upādinnaka* dhammas, so sound (*anupādinna*) is left out (`abh03a.att.xml:133`); the
+    form-sphere existence is the eye, ear, mind, form and dhamma bases and the eight elements (`:137`); the non-percipient existences are form and dhamma only, because the other Brahmas on the same level have eyes and the
+    non-percipient body is their object (`:137`); birth, decay and death are 'rūpajāti by the form aggregate, arūpajāti by the formations' (`:141`); the iddhipāda is formations and consciousness, mind and dhamma bases, mind-consciousness and
+    dhamma elements, and the jhāna the feeling and formation aggregates (`:145`). So the 15 are TUNED-THEN-CONFIRMED, not independent. -/
 def fitted : List String :=
   ["upapattibhava", "kamabhava", "sannabhava", "pancavokarabhava", "rupabhava", "arupabhava", "nevasannabhava", "catuvokarabhava", "asannabhava", "ekavokarabhava", "iddhipada", "jhana", "jati", "jara", "marana"]
 
