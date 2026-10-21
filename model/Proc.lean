@@ -61,6 +61,9 @@ inductive Desir | anittha | ittha | atiittha deriving DecidableEq, Repr
 /-- The mind-object's members by kind (ch. 3 §50, `:1041`). -/
 inductive MObj | rupa (r : Rupa) | citta | cetasika (x : Cetasika) | nibbana | pannatti deriving DecidableEq, Repr
 
+/-- Whose process it is (A46): a worldling, a noble person short of arahantship, an arahant. -/
+inductive Person | worldling | noble | arahant deriving DecidableEq, Repr
+
 /-- The kinds of process the rows name. ⚠️ The split is OURS (five-door · mind-door with limited javana · absorption ·
     the path process). -/
 inductive PKind | fiveDoor | mindDoor | absorption | path deriving DecidableEq, Repr
@@ -90,6 +93,7 @@ structure Process where
   nearDeath : Bool := false
   first : Bool := false
   plane : Bhumi := .kama
+  person : Person := .worldling
   desirable : Desir := .ittha
   steps : List Step
 
@@ -614,5 +618,32 @@ theorem a109_forbids_fourFruits : ¬ a109_fruition fourFruits := by unfold a109_
 /-- The eye intact, a form in range, attention — and no eye-consciousness. -/
 abbrev noSeeing : Proc := { bareProc with meetings := [⟨.eye, true, true, true, []⟩] }
 theorem a115_forbids_noSeeing : ¬ a115_conditions_meet noSeeing := by unfold a115_conditions_meet; decide
+
+/-- A46 (L4, ch. 4 §37–46, `abh07t.nrf.xml:1501`ff.; `kala/AXIOMS.md`): no wholesome or unwholesome javana for an arahant; no functional javana for anyone else; supramundane javana only for a noble person
+    (the path and fruition javanas of an arahant included). ⚠️ "Non-percipient beings have no citta" is A13's (Mat.lean), not here. -/
+def a46_javana_by_person (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ s ∈ p.javanas,
+    (p.person = .arahant → s.citta.jati ≠ .kusala ∨ s.citta.bhumi = .lokuttara) ∧
+    (p.person = .arahant → s.citta.jati ≠ .akusala) ∧
+    (p.person ≠ .arahant → s.citta.jati ≠ .kiriya) ∧
+    (s.citta.bhumi = .lokuttara → p.person ≠ .worldling)
+
+/-- An arahant with an unwholesome javana. -/
+abbrev arahantUnwholesome : Proc :=
+  withProcs [{ kind := .mindDoor, door := .mind, person := .arahant, steps := [{ citta := { kamaJavana with jati := .akusala }, kicca := .javana }] }]
+theorem a46_forbids_arahantUnwholesome : ¬ a46_javana_by_person arahantUnwholesome := by
+  unfold a46_javana_by_person; decide
+
+/-- A worldling with a functional javana. -/
+abbrev worldlingFunctional : Proc :=
+  withProcs [{ kind := .mindDoor, door := .mind, person := .worldling, steps := [{ citta := { kamaJavana with jati := .kiriya }, kicca := .javana }] }]
+theorem a46_forbids_worldlingFunctional : ¬ a46_javana_by_person worldlingFunctional := by
+  unfold a46_javana_by_person; decide
+
+/-- A worldling with a path javana. -/
+abbrev worldlingPath : Proc :=
+  withProcs [{ kind := .path, door := .mind, person := .worldling, steps := [{ citta := { kamaJavana with bhumi := .lokuttara }, kicca := .javana }] }]
+theorem a46_forbids_worldlingPath : ¬ a46_javana_by_person worldlingPath := by
+  unfold a46_javana_by_person; decide
 
 end FormalAbhidhamma.Model

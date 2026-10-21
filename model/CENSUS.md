@@ -193,6 +193,7 @@ repeated. The first hand count said 103 · 16 · 8 and was wrong, so a count is 
 | COSMO (batch 1, 2026-10-20) | `Cosmos.lean` | A14 · A16 · A17 · A19 · A20 · A22 · A23 · A48 · A11 · A49 · A10 (phases, limits) | 12 | 12 |
 | COSMO A50 + STATUS (2026-10-20) | `Cosmos.lean` · `Status.lean` | A50 (twenty planes' life-spans) · A26 · A8 · A9 · A70 · A104 · A126 · A76 · A77 (the structure: 2·8·2, 20 · 3 · 4 · 3 · 2; the beginningless clause is Mind's) (A7 · A103 by the type, in Mind/Clocks/Link) | 9 | 10 |
 | MIND link batch (2026-10-20) | `Link.lean` | A58 · A47 (unbroken; the cessation exception is on the clock only) · A111 (emergence by a fruition citta; no death within) | 4 | 4 |
+| PROC A46 (2026-10-20) | `Proc.lean` | A46 (javana by person: no wholesome or unwholesome for an arahant, no functional for others, supramundane only for the noble) | 1 | 3 |
 
 `run.sh` passed on 2026-10-18 with 95 forbidden worlds and no problems, after its own control. A row with several
 clauses has one definition per clause. TAX rows the census listed under TAX+PROC or TAX+MAT (A35, A38, A65) have their
