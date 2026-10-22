@@ -106,6 +106,9 @@ def fineKinds : List Rupa := Rupa.all.filter (fun r => ![Rupa.ghana, .jivha, .ka
 def nonPercipientKinds : List Rupa :=
   eight ++ [.jivita, .akasa, .lahuta, .muduta, .kammannata, .upacaya, .santati, .jarata, .aniccata]
 
+def a46_non_percipient (m : Mat) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ id, p.being = some id → ∀ b ∈ m.beings, b.id = id → b.hasMind = true
+
 def a68_fine (m : Mat) : Prop :=
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.kinds, r ∈ fineKinds) ∧
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ k ∈ m.kalapas, k.owner = some b.id → k.origin ≠ .ahara)

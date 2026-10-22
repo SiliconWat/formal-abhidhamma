@@ -15,6 +15,7 @@ APPLY = [
     (r"^\(S R : Scale\) \(z : Reck S R\)$", "S R w.reck"),
     (r"^\{S : Scale\} \(w : CondW S\)$", "w.cond"),
     (r"^\(S : Scale\) \(j : Joined S\)$", "S w.joined"),
+    (r"^\(m : Mat\) \(w : Proc\)$", "w.mat w.proc"),
     (r"^\(m : Mat\)$", "w.mat"),
     (r"^\(t : Tax\) \(w : Proc\)$", "w.tax w.proc"),
     (r"^\(w : Proc\)$", "w.proc"),

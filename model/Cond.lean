@@ -36,6 +36,8 @@ structure Occ (S : Scale) where
   rupa : Option FormalAbhidhamma.Model.Rupa := none
   /-- the origin, for a matter occurrence -/
   born : Option FormalAbhidhamma.Model.Origin := none
+  /-- the function a mental occurrence performs in its process (javana, registration …), when it is recorded -/
+  kicca : Option FormalAbhidhamma.Model.Kicca := none
 
 /-- A world's conditioning: its occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at index `i` of `occs` to the one at index `j` (indices into `occs`, counted from 0; they are not `cit` values). -/
 structure CondW (S : Scale) where
@@ -301,7 +303,8 @@ def a90_kamma {S : Scale} (w : CondW S) : Prop :=
 def a89_repetition {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .asevana fun a b =>
     a.kind = .nama ∧ b.kind = .nama ∧ S.lt a.rise b.rise ∧
-    (a.citta.map (·.jati)) = (b.citta.map (·.jati)) ∧ (a.citta.map (·.jati)) ≠ some FormalAbhidhamma.Jati.vipaka ∧ a.citta.isSome = true
+    (a.citta.map (·.jati)) = (b.citta.map (·.jati)) ∧ (a.citta.map (·.jati)) ≠ some FormalAbhidhamma.Jati.vipaka ∧ a.citta.isSome = true ∧
+    a.kicca = some .javana ∧ b.kicca = some .javana
 
 /-- A93 (`:201–205`): each sense faculty conditions its consciousness; the life faculty conditions kamma-born matter; a mental faculty conditions its associated states and matter. -/
 def a93_faculty {S : Scale} (w : CondW S) : Prop :=
@@ -408,6 +411,14 @@ theorem a89_forbids_repetitionAcross : ¬ a89_repetition repetitionAcross := by
   intro h; obtain ⟨a, b, he, hk⟩ := h (.asevana, 0, 1) (by simp [repetitionAcross, cw]) rfl
   simp [ends, repetitionAcross, cw, kus, aku] at he
   obtain ⟨rfl, rfl⟩ := he; simp [kus, aku] at hk
+
+/-- Repetition from a mental state that is not a javana (a life-continuum moment) to a javana of the same class. -/
+abbrev repetitionNotJavana : CondW Z :=
+  cw [{ kind := .nama, rise := 0, fall := 2, citta := kus, kicca := some .bhavanga }, { kind := .nama, rise := 3, fall := 5, citta := kus, kicca := some .javana }] [(.asevana, 0, 1)]
+theorem a89_forbids_repetitionNotJavana : ¬ a89_repetition repetitionNotJavana := by
+  intro h; obtain ⟨a, b, he, hk⟩ := h (.asevana, 0, 1) (by simp [repetitionNotJavana, cw]) rfl
+  simp [ends, repetitionNotJavana, cw, kus] at he
+  obtain ⟨rfl, rfl⟩ := he; simp at hk
 
 /-- A faculty (the life faculty) conditioning mind-born matter. -/
 abbrev lifeOnMindBorn : CondW Z :=

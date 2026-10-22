@@ -43,6 +43,8 @@ structure Process where
   plane : Bhumi := .kama
   person : Person := .worldling
   desirable : Desir := .ittha
+  
+  being : Option Nat := none
   steps : List Step
 
 structure Meeting where
@@ -146,7 +148,7 @@ def a42_slight (w : Proc) : Prop :=
     p.count .javana = 0 ∧ (p.count .votthabbana = 2 ∨ p.count .votthabbana = 3)
 
 def a42_very_slight (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → (p.kiccas.all (· == .bhavanga)) = true
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → 1 ≤ p.count .bhavanga ∧ (p.kiccas.all (· == .bhavanga)) = true
 
 def a43_clear (w : Proc) : Prop :=
   ∀ p ∈ w.procs, p.kind = .mindDoor → p.clear = true → p.plane = .kama →

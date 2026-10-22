@@ -20,6 +20,8 @@ structure Occ (S : Scale) where
   rupa : Option FormalAbhidhamma.Model.Rupa := none
   
   born : Option FormalAbhidhamma.Model.Origin := none
+  
+  kicca : Option FormalAbhidhamma.Model.Kicca := none
 
 structure CondW (S : Scale) where
   occs : List (Occ S)
@@ -138,7 +140,8 @@ def a90_kamma {S : Scale} (w : CondW S) : Prop :=
 def a89_repetition {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .asevana fun a b =>
     a.kind = .nama ∧ b.kind = .nama ∧ S.lt a.rise b.rise ∧
-    (a.citta.map (·.jati)) = (b.citta.map (·.jati)) ∧ (a.citta.map (·.jati)) ≠ some FormalAbhidhamma.Jati.vipaka ∧ a.citta.isSome = true
+    (a.citta.map (·.jati)) = (b.citta.map (·.jati)) ∧ (a.citta.map (·.jati)) ≠ some FormalAbhidhamma.Jati.vipaka ∧ a.citta.isSome = true ∧
+    a.kicca = some .javana ∧ b.kicca = some .javana
 
 def a93_faculty {S : Scale} (w : CondW S) : Prop :=
   facts_between_occurrences w .indriya fun a b =>

@@ -95,6 +95,8 @@ structure Process where
   plane : Bhumi := .kama
   person : Person := .worldling
   desirable : Desir := .ittha
+  /-- the being (its `id` in the world's `Mat.beings`) whose process this is, when it is recorded -/
+  being : Option Nat := none
   steps : List Step
 
 /-- A sense meeting (A115): an organ at a door, intact or not; an object in range or not; attention or not; and the
@@ -248,7 +250,7 @@ def a42_slight (w : Proc) : Prop :=
 /-- A42, very slight (L5 range: ten to fifteen; L4 §14, `:1253`): only the bhavaṅga vibrates; no process citta
     (*bhavaṅgacalanameva hoti, natthi vīthicittuppādo*). -/
 def a42_very_slight (w : Proc) : Prop :=
-  ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → (p.kiccas.all (· == .bhavanga)) = true
+  ∀ p ∈ w.procs, p.kind = .fiveDoor → 10 ≤ p.past → p.past ≤ 15 → 1 ≤ p.count .bhavanga ∧ (p.kiccas.all (· == .bhavanga)) = true
 
 /-- A43, the clear mind-door object (L4, §17, `:1277`): registration follows the javanas. -/
 def a43_clear (w : Proc) : Prop :=
@@ -513,6 +515,10 @@ theorem a42_forbids_slightJavana : ¬ a42_slight slightJavana := by unfold a42_s
 /-- A very slight object (ten moments past) with process cittas. -/
 abbrev verySlightProcess : Proc := withProcs [atEye 10 (eyeSteps 0 0)]
 theorem a42_forbids_verySlightProcess : ¬ a42_very_slight verySlightProcess := by unfold a42_very_slight; decide
+
+/-- A very slight object (ten past moments) with an empty process: the vibration of the life-continuum is required, not only allowed. -/
+abbrev verySlightEmpty : Proc := withProcs [atEye 10 []]
+theorem a42_forbids_verySlightEmpty : ¬ a42_very_slight verySlightEmpty := by unfold a42_very_slight; decide
 
 /-- A clear mind-door object with no registration. -/
 abbrev clearBare : Proc := withProcs [atMind (mindSteps 7 0)]

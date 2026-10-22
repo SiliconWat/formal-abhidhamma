@@ -259,6 +259,10 @@ def nonPercipientKinds : List Rupa :=
 
 theorem plane_counts : Rupa.all.length = 28 ∧ fineKinds.length = 23 ∧ nonPercipientKinds.length = 17 := by decide
 
+/-- A46, the non-percipient (L4, ch. 4; the row: *the non-percipient beings have no citta at all*): no process belongs to a being that has no mind. -/
+def a46_non_percipient (m : Mat) (w : Proc) : Prop :=
+  ∀ p ∈ w.procs, ∀ id, p.being = some id → ∀ b ∈ m.beings, b.id = id → b.hasMind = true
+
 /-- A68, the fine-material sphere (L4): twenty-three kinds, and no nutriment-born group in the body (§58–61). -/
 def a68_fine (m : Mat) : Prop :=
   (∀ b ∈ m.beings, b.plane = .rupa → ∀ r ∈ b.kinds, r ∈ fineKinds) ∧
@@ -277,6 +281,12 @@ def a114_absent (m : Mat) : Prop :=
   ∀ b ∈ m.beings, (b.breathCase ≠ .normal ∨ b.plane = .rupa ∨ b.plane = .arupa ∨ b.hasMind = false) → b.breathes = false
 
 /-! ### Forbidden worlds, batch 3 -/
+
+/-- A process of a being that has no mind. -/
+abbrev processOfMindless : Proc := withProcs [{ atEye 1 [] with being := some 0 }]
+abbrev mindlessBeing : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], hasMind := false }] }
+theorem a46_forbids_processOfMindless : ¬ a46_non_percipient mindlessBeing processOfMindless := by
+  unfold a46_non_percipient; decide
 
 abbrev fineWithNoseKind : Mat := { okMat with beings := [{ id := 0, plane := .rupa, bases := [], kinds := [.ghana] }] }
 theorem a68_forbids_fineWithNoseKind : ¬ a68_fine fineWithNoseKind := by unfold a68_fine; decide

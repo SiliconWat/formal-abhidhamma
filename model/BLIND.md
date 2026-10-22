@@ -132,7 +132,6 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a41_seventeen | Every five-door process with past 1 has past plus number of steps at most 17. |
 | a42_very_great | Every five-door process with past 1 has at least one javana. |
 | a42_slight | Every five-door process with past 4 to 9 has no javana and has 2 or 3 votthabbana steps. |
-| a42_very_slight | Every five-door process with past 10 to 15 consists only of bhavanga steps (an empty process passes). |
 | a43_clear | Every mind-door process marked clear has at least one tadarammana. |
 | a43_obscure | Every mind-door process marked not clear has no tadarammana. |
 | a43_order | Every mind-door process has a kicca sequence satisfying mindDoorOrder. |
@@ -169,6 +168,7 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | atiitthaOk | Helper: in a process, every investigation step is pleasure-accompanied, and every registration step takes the feeling of the last functional javana before it (equanimity after an equanimity one, pleasure otherwise, and pleasure with no javana before). |
 | a45_atiittha | Every process whose object is extremely desirable passes atiitthaOk; other processes are unconstrained. |
 | a115_follows_is_a_process | Every meeting either has an empty following list or there is a process at its door whose steps are exactly that list. |
+| a42_very_slight | Every five-door process with ten to fifteen past moments has at least one life-continuum step and only life-continuum steps. |
 
 ## Mat.lean
 
@@ -197,6 +197,7 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a114_absent | Any being whose breathCase is not normal, or which is on the rupa or arupa plane, or has no mind, must have breathes = false. Nothing forces anyone to breathe. |
 | a39_other | Every being on the lokuttara plane has all its bases among the six. |
 | a68_non_percipient | Every rupa-plane being with no mind has all its kinds among the non-percipient kinds. Other beings are unconstrained. |
+| a46_non_percipient | Any being attached to a process of the world must have a mind; processes with no being, or beings matching no id, are unconstrained. |
 
 ## Link.lean
 
@@ -235,7 +236,6 @@ Reader: each a-def in Status.lean pins fields of a record to fixed values, so th
 | a97_dissociated | For every vippayutta fact, the two ends have different kinds. |
 | a98_present | For every atthi fact, the two ends' lifetimes overlap or touch: neither fell strictly before the other rose. |
 | sameCittaTogether | Two occurrences have the same `cit` number and the same rise time. |
-| a89_repetition | For every asevana fact, both ends are nama, the first rises strictly before the second, both have the same `jati`, that `jati` is not vipaka, and the first has a citta. |
 | a93_faculty | For every indriya fact one of: (1) the first end's rupa is in `pasada` and the second end is nama; (2) the first end's rupa is `jivita` and the second was born of kamma; (3) the first end is nama and the ends share `cit` and rise time. |
 | senseOfObject | vanna→1, sadda→2, gandha→3, rasa→4, pathavi/tejo/vayo→5, else nothing. |
 | a80_object_sense | For every arammana fact, take the first end's rupa r with a sense number n; if the second end's citta has dhatu `sense d`, then d = n. Vacuous when the first end has no rupa, the rupa has no number, or the second end's dhatu is not a sense one. |
@@ -265,6 +265,7 @@ Reader's observations: a98/a101 are the same statement under different condition
 | a81_predominance | Every predominance fact has both occurrences existing and either ownCittaScope holds or b is mental and an object fact exists for the same pair. |
 | a90_kamma | Every kamma fact needs a kammic mental source, and either ownCittaScope holds or a arises strictly before b and b is a resultant citta or kamma-born matter. |
 | a83_complete | Two things are forced to be present: any two different mental occurrences of one citta have a co-nascence fact, and a mental occurrence has a co-nascence fact to each matter occurrence born of citta that shares its citta. Forces presence only; the second clause runs mental to matter only. |
+| a89_repetition | Every repetition fact between a and b needs: both mental, a arises strictly before b, they share one citta class that is not resultant, a has a citta-type, and both are recorded as performing the javana function. |
 
 ## Cosmos.lean
 

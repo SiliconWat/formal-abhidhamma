@@ -206,6 +206,7 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a13_mindless w.mat ∧   -- Mat
   a129_ladder w.mat ∧   -- Mat
   a129_size w.mat ∧   -- Mat
+  a46_non_percipient w.mat w.proc ∧   -- Mat
   a68_fine w.mat ∧   -- Mat
   a68_non_percipient w.mat ∧   -- Mat
   a68_immaterial w.mat ∧   -- Mat
@@ -292,6 +293,6 @@ def Satisfies {S R : Scale} (w : World S R) : Prop :=
   a77_structure w.status     -- Status
 
 /-- How many definitions `Satisfies` conjoins. -/
-def satisfiesCount : Nat := 216
+def satisfiesCount : Nat := 217
 
 end FormalAbhidhamma.Model

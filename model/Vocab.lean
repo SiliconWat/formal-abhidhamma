@@ -202,6 +202,8 @@ structure Process where
   plane : Bhumi := .kama
   person : Person := .worldling
   desirable : Desir := .ittha
+  /-- the being (its `id` in the world's `Mat.beings`) whose process this is, when it is recorded -/
+  being : Option Nat := none
   steps : List Step
 
 structure Meeting where
@@ -309,6 +311,8 @@ structure Occ (S : Scale) where
   rupa : Option Rupa := none
   /-- the origin, for a matter occurrence -/
   born : Option Origin := none
+  /-- the function a mental occurrence performs in its process (javana, registration …), when it is recorded -/
+  kicca : Option Kicca := none
 
 /-- A world's conditioning: its occurrences, and the facts `(c, i, j)`: condition `c` holds from the occurrence at index `i` of `occs` to the one at index `j` (indices into `occs`, counted from 0; they are not `cit` values). -/
 structure CondW (S : Scale) where

@@ -33,7 +33,7 @@ def a3_proximity_is_the_streams_prox (S : Scale) (j : Joined S) : Prop :=
 /-- The chain of moments (arise 4n, close 4n + 3) and a world with an occurrence for each of the first three. -/
 abbrev jstream : Stream Z :=
   ⟨Nat, fun n => (4 * n : Int), fun n => (4 * n + 1 : Int), fun n => (4 * n + 2 : Int), fun n => (4 * n + 3 : Int), fun m n => n = m + 1⟩
-abbrev joccs : List (Occ Z) := [⟨.nama, 0, 3, 0, none, none, none⟩, ⟨.nama, 4, 7, 1, none, none, none⟩, ⟨.nama, 8, 11, 2, none, none, none⟩]
+abbrev joccs : List (Occ Z) := [⟨.nama, 0, 3, 0, none, none, none, none⟩, ⟨.nama, 4, 7, 1, none, none, none, none⟩, ⟨.nama, 8, 11, 2, none, none, none, none⟩]
 abbrev jw (h : List (Condition × Nat × Nat)) : Joined Z := { w := ⟨joccs, h⟩, s := jstream, mom := fun i => some i }
 
 /-- A proximity fact between a moment and the moment after the next (0 to 2). -/
@@ -53,7 +53,7 @@ theorem a3_forbids_missingFact : ¬ a3_proximity_is_the_streams_prox Z missingFa
 
 /-- An occurrence that is the stream's moment 0 but arises at the wrong reading (1, not 0). -/
 abbrev wrongReading : Joined Z :=
-  { w := ⟨[⟨.nama, 1, 3, 0, none, none, none⟩], []⟩, s := jstream, mom := fun _ => some 0 }
+  { w := ⟨[⟨.nama, 1, 3, 0, none, none, none, none⟩], []⟩, s := jstream, mom := fun _ => some 0 }
 theorem j_forbids_wrongReading : ¬ j_readings_are_the_moments Z wrongReading := by
   intro h
   have := (h 0 0 _ rfl rfl).2.1
@@ -68,7 +68,7 @@ def a3_every_moment_has_an_occurrence (S : Scale) (j : Joined S) : Prop := ∀ m
 
 /-- Two different moments given the same label. -/
 abbrev sameLabel : Joined Z :=
-  { w := ⟨[⟨.nama, 0, 3, 7, none, none, none⟩, ⟨.nama, 4, 7, 7, none, none, none⟩], []⟩, s := jstream, mom := fun i => some i }
+  { w := ⟨[⟨.nama, 0, 3, 7, none, none, none, none⟩, ⟨.nama, 4, 7, 7, none, none, none, none⟩], []⟩, s := jstream, mom := fun i => some i }
 theorem a3_forbids_sameLabel : ¬ a3_cit_labels_are_moments Z sameLabel := by
   intro h
   have := (h 0 1 _ _ 0 1 rfl rfl rfl rfl).mp rfl
