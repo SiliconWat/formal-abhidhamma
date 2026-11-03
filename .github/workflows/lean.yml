@@ -15,7 +15,7 @@ jobs:
   lean:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0   # runs-index.py reads the commit that ADDED each PREREG; a shallow clone cannot see it
 
@@ -90,7 +90,7 @@ jobs:
     # it has its own job. Mathlib's prebuilt files come from Mathlib's own cache (`lake exe cache get`), never built here.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install elan
         run: |
