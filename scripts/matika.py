@@ -7,7 +7,12 @@ Paṭṭhāna's 24 conditions as GENERATED data, never typed.
 
 Reads the LOCAL Chaṭṭha Saṅgāyana files (UTF-16; never in CI — the CST text is non-commercial, legal L21, so only
 romanized canonical TERMS are written out, never running text: the rule of PREREGISTRATION-2026-09-27b.md §5). Each term's
-CST line is kept. The edition's variant readings (a word followed by a siglum such as "(syā.)") are dropped.
+CST line is kept. The edition's variant readings (the <note>…</note> elements, e.g. "nevācayagāmino nāpacayagāmino (syā.)")
+are dropped WHOLE. Corrected 2026-11-18 (founder: "do both per your recommendation"): until then the note's tags were stripped
+and only the ONE word before its siglum was deleted, so a two-word variant leaked its first word into the term: L145
+"nevācayagāmināpacayagāmino nevācayagāmino dhammā" and L1417 "paṭisanthāro ca paṭisandhāro". Found by an independent reading of
+the same lines (MA's /capture, a reader shown the text with every note removed): after the fix the two agree EXACTLY on 350/350
+members; before it, 348. (A substring comparison had shown 349: it let the longer, wrong L1417 term contain the right one.)
 
 What the Lean then checks against the TEXTS' OWN COUNTS (kala/ANSWERS.md rows "Dhs-a mātikā" and "Paṭṭh-a 24"):
 22 triads of three, 100 Abhidhamma dyads of two, 42 Suttanta dyads (Atthasālinī `abh01a.att.xml:305`), and 24 conditions
@@ -26,7 +31,8 @@ def lines(name):
     return open(os.path.join(CST, name), "rb").read().decode("utf-16").splitlines()
 
 def plain(l):
-    return re.sub(r"<[^>]+>", "", l).strip()
+    # Drop each variant reading whole, then the remaining tags. (SIGLUM below stays as a guard for a siglum outside a note.)
+    return re.sub(r"<[^>]+>", "", re.sub(r"<note>.*?</note>", "", l)).strip()
 
 def clean(term):
     term = SIGLUM.sub("", term).strip().rstrip(".").strip()

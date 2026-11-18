@@ -26,3 +26,9 @@ log it here.
 
 **Proofs start PENDING** (calendar attestations) and become Bitcoin-anchored after a few hours;
 `./ots-upgrade.sh` (or MA's `/ots`) bakes the Bitcoin attestation in.
+
+## Rotation log
+
+| Date | File | Old proof kept as | Why |
+|---|---|---|---|
+| 2026-11-18 | `matika/MATIKA.md` | `matika/MATIKA.md.r1.ots` | `scripts/matika.py` left part of two variant readings in two terms (L145, L1417); the regenerated file carries the corrected terms. The old proof still verifies the old text. ⚠️ The table above lists `matika/` as not stamped, but the weekly job in `.github/workflows/ots-upgrade.yml` stamps every `.md` outside its exclusions, `matika/` included; the two disagree and are left for a ruling. |

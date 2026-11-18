@@ -19,7 +19,7 @@ TERMS only (no running text: PREREGISTRATION-2026-09-27b.md §5); the edition's 
 | 7 | Tikamātikā | pītisahagatā dhammā (`abh01m.mul.xml:101`) · sukhasahagatā dhammā (`abh01m.mul.xml:105`) · upekkhāsahagatā dhammā (`abh01m.mul.xml:109`) |
 | 8 | Tikamātikā | dassanena pahātabbā dhammā (`abh01m.mul.xml:113`) · bhāvanāya pahātabbā dhammā (`abh01m.mul.xml:117`) · neva dassanena na bhāvanāya pahātabbā dhammā (`abh01m.mul.xml:121`) |
 | 9 | Tikamātikā | dassanena pahātabbahetukā dhammā (`abh01m.mul.xml:125`) · bhāvanāya pahātabbahetukā dhammā (`abh01m.mul.xml:129`) · neva dassanena na bhāvanāya pahātabbahetukā dhammā (`abh01m.mul.xml:133`) |
-| 10 | Tikamātikā | ācayagāmino dhammā (`abh01m.mul.xml:137`) · apacayagāmino dhammā (`abh01m.mul.xml:141`) · nevācayagāmināpacayagāmino nevācayagāmino dhammā (`abh01m.mul.xml:145`) |
+| 10 | Tikamātikā | ācayagāmino dhammā (`abh01m.mul.xml:137`) · apacayagāmino dhammā (`abh01m.mul.xml:141`) · nevācayagāmināpacayagāmino dhammā (`abh01m.mul.xml:145`) |
 | 11 | Tikamātikā | sekkhā dhammā (`abh01m.mul.xml:149`) · asekkhā dhammā (`abh01m.mul.xml:153`) · nevasekkhanāsekkhā dhammā (`abh01m.mul.xml:157`) |
 | 12 | Tikamātikā | parittā dhammā (`abh01m.mul.xml:161`) · mahaggatā dhammā (`abh01m.mul.xml:165`) · appamāṇā dhammā (`abh01m.mul.xml:169`) |
 | 13 | Tikamātikā | parittārammaṇā dhammā (`abh01m.mul.xml:173`) · mahaggatārammaṇā dhammā (`abh01m.mul.xml:177`) · appamāṇārammaṇā dhammā (`abh01m.mul.xml:181`) |
@@ -157,7 +157,7 @@ TERMS only (no running text: PREREGISTRATION-2026-09-27b.md §5); the edition's 
 | 123 | Suttantikadukamātikā | ṭhānakusalatā ca (`abh01m.mul.xml:1389`) · aṭṭhānakusalatā ca (`abh01m.mul.xml:1393`) |
 | 124 | Suttantikadukamātikā | ajjavo ca (`abh01m.mul.xml:1397`) · maddavo ca (`abh01m.mul.xml:1401`) |
 | 125 | Suttantikadukamātikā | khanti ca (`abh01m.mul.xml:1405`) · soraccañca (`abh01m.mul.xml:1409`) |
-| 126 | Suttantikadukamātikā | sākhalyañca (`abh01m.mul.xml:1413`) · paṭisanthāro ca paṭisandhāro (`abh01m.mul.xml:1417`) |
+| 126 | Suttantikadukamātikā | sākhalyañca (`abh01m.mul.xml:1413`) · paṭisanthāro ca (`abh01m.mul.xml:1417`) |
 | 127 | Suttantikadukamātikā | indriyesu aguttadvāratā ca (`abh01m.mul.xml:1421`) · bhojane amattaññutā ca (`abh01m.mul.xml:1425`) |
 | 128 | Suttantikadukamātikā | indriyesu guttadvāratā ca (`abh01m.mul.xml:1429`) · bhojane mattaññutā ca (`abh01m.mul.xml:1433`) |
 | 129 | Suttantikadukamātikā | muṭṭhasaccañca (`abh01m.mul.xml:1437`) · asampajaññañca (`abh01m.mul.xml:1441`) |
