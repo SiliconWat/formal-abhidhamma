@@ -4,15 +4,15 @@
 only (PREREGISTRATION-2026-09-27b.md §5); variant readings dropped whole; the text's abridgment notes kept as flags. The counts
 are a TEST BANK, never premises (`kala/ANSWERS.md`). The data is `PATTHANA.json`; this file summarizes it.*
 
-**5,166 count lines · 30,385 condition counts · 8,178 headings** across the five files.
+**6,258 count lines · 31,589 condition counts · 8,178 headings** across the five files.
 
 | File | Count lines | Counts | Shared by a run | With an elision | Abridged | Lines with unclassified words |
 |---|---|---|---|---|---|---|
-| `abh03m7.mul.xml` | 1,100 | 12,103 | 2 | 475 | 130 | 10 |
-| `abh03m8.mul.xml` | 190 | 2,791 | 700 | 53 | 15 | 4 |
-| `abh03m9.mul.xml` | 413 | 4,289 | 8 | 186 | 24 | 5 |
-| `abh03m10.mul.xml` | 1,684 | 8,774 | 161 | 818 | 1,487 | 10 |
-| `abh03m11.mul.xml` | 1,779 | 2,428 | 52 | 1,256 | 189 | 1,401 |
+| `abh03m7.mul.xml` | 1,118 | 12,121 | 2 | 493 | 130 | 28 |
+| `abh03m8.mul.xml` | 222 | 2,823 | 700 | 85 | 15 | 36 |
+| `abh03m9.mul.xml` | 454 | 4,330 | 8 | 226 | 25 | 46 |
+| `abh03m10.mul.xml` | 2,100 | 9,191 | 161 | 1,234 | 1,577 | 426 |
+| `abh03m11.mul.xml` | 2,364 | 3,124 | 52 | 1,643 | 262 | 1,985 |
 
 ## How a line reads
 
@@ -21,7 +21,7 @@ condition(s) the line is stated under ("Hetupaccayā …"), empty for the pure c
 `shared` (one number closes a run of conditions), `across-elision` (the run crosses …pe…); a segment with `"alt": 1` lists roots
 separated by …pe… (each ALONE takes the counts, the text abbreviating the repeats); `"alt": 2` = alternatives INFERRED because the
 counts include a root's own condition (a combined root never counts its members); `"note": 1` = stated in a parenthetical
-note. Line flags: `pe` (the line elides),
+note; `"stmt": 1` = a count stated WITH its conditioning statement ("…uppajjati hetupaccayā… tīṇi": hetu, 3). Line flags: `pe` (the line elides),
 `abridged` (the text says *saṃkhittaṃ*), `sabbattha` (a note says "everywhere N": the elided counts are N), `everywhere` (a run closed by *sabbattha N*), `dangling`
 (conditions with no number after them), `unknown` (how many words were not classified; they are not written out).
 
@@ -29,15 +29,15 @@ note. Line flags: `pe` (the line elides),
 
 | Value | Times |
 |---|---|
-| 1 | 5,987 |
-| 2 | 2,232 |
-| 3 | 7,007 |
-| 4 | 1,307 |
-| 5 | 2,290 |
-| 6 | 796 |
-| 7 | 2,148 |
+| 1 | 6,149 |
+| 2 | 2,268 |
+| 3 | 7,827 |
+| 4 | 1,313 |
+| 5 | 2,362 |
+| 6 | 832 |
+| 7 | 2,198 |
 | 8 | 167 |
-| 9 | 5,972 |
+| 9 | 5,994 |
 | 10 | 228 |
 | 11 | 443 |
 | 12 | 44 |

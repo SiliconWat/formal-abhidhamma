@@ -92,7 +92,7 @@ def compound_roots(w):
     return out
 
 
-FILLERS = {"sabbe", "sabbattha", "ca", "pañhā", "kātabbā", "kātabbāni", "kātabbaṃ"}  # words a count may carry without changing it:
+FILLERS = {"sabbe", "sabbattha", "ca", "pañhā", "kātabbā", "kātabbāni", "kātabbaṃ", "gaṇitakena"}  # words a count may carry without changing it:
 # "jhāne sabbe dasa" · "tettiṃsa pañhā" · "Idha magge cattāri kātabbāni" (a count in a note, abh03m10.mul.xml:3665, "four are to be made")
 
 
@@ -122,6 +122,8 @@ def classify(text):
         else:
             out.append(("unknown", lw))
         hard.append(bool(re.search(r"[,;:–—]", sep)))
+        if re.search(r"[–—]", sep):
+            out.append(("dash", None)); hard.append(True)  # a dash opens a statement's EXAMPLE ("…vipākapaccayā – ekaṃ mahābhūtaṃ …")
         if re.search(r"[.?!]", sep):
             out.append(("stop", None))  # a root holds only within its sentence ("…uppajjati hetupaccayā. Hetuyā cha…")
             hard[-1] = True; hard.append(True)
@@ -160,18 +162,40 @@ def parse(toks):
     condition and its number breaks the run (so prose cannot pass for a count), and a word between a root and its counts drops
     the root (so a statement's "…uppajjati hetupaccayā" cannot become the root of a count)."""
     segs, cur, pending, pe_in_run, elided, dangling, broken, unknown, last = [], None, [], False, False, 0, 0, [], None
+    stmt, stopped, tentative = None, False, None  # a statement's condition awaiting its count; a full stop just passed; a statement count on trial
     for kind, val in toks:
         if kind == "filler":
             continue
+        if tentative is not None:
+            # a statement's count is followed by a stop, an elision or nothing; a NOUN after the number means the number counts the noun
+            # ("…vippayuttapaccayā ekaṃ mahābhūtaṃ …", one great element): withdrawn
+            if kind == "unknown":
+                segs.remove(tentative)
+            tentative = None
+        if kind == "dash":
+            stmt = None
+            continue
+        if stopped and kind != "num":
+            # a full stop ends the sentence: what waited for a number gets none ("Hetuyā. Nava" is the one exception, just below)
+            dangling += len(pending); pending = []; stmt = None
         if kind == "stop":
-            dangling += len(pending); pending = []; cur = None; last = kind
+            stopped = True; cur = None; last = kind
             continue
         if kind == "cond" and val[2] == "root" and last == "unknown":
             # a root form right after prose is the STATEMENT's condition ("…dhammo uppajjati hetupaccayā… hetuyā nava"), not the
             # root of the count that follows: real count roots open their sentence or follow a root or an elision. Without this,
             # 902 counts in part 5 were read under their own condition (the validate invariant below), 2026-11-19.
-            cur = None
+            # Part 5 also states a count WITH its statement: "…uppajjati hetupaccayā… tīṇi" is "Hetuyā tīṇi" for that pair, so the
+            # statement's condition waits for the next number (the first only: in "…tīṇi… nava" the nine is an elided condition's).
+            cur = None; stmt = val; last = kind; stopped = False
             continue
+        if kind == "num" and not pending and stmt is not None:
+            tentative = {"root": [], "counts": [[stmt[0], stmt[1], val, "statement"]], "stmt": 1}; segs.append(tentative); stmt = None
+            last = kind; stopped = False
+            continue
+        if kind in ("cond", "unknown"):
+            stmt = None
+        stopped = False
         if kind == "cond" and val[2] == "root":
             if cur is None or cur["counts"] or pending:
                 if pending:
@@ -191,6 +215,8 @@ def parse(toks):
             pending.append(val)
         elif kind == "num":
             if pending:
+                if cur is None:  # "Hetuyā. Nava": the number came after a full stop, which closed the segment
+                    cur = {"root": [], "counts": []}; segs.append(cur)
                 for c in pending:
                     flags = (["shared"] if len(pending) > 1 else []) + (["across-elision"] if pe_in_run else [])
                     cur["counts"].append([c[0], c[1], val] + ([",".join(flags)] if flags else []))
@@ -284,7 +310,7 @@ def render(sources, heads, lines):
            "`shared` (one number closes a run of conditions), `across-elision` (the run crosses …pe…); a segment with `\"alt\": 1` lists roots",
            "separated by …pe… (each ALONE takes the counts, the text abbreviating the repeats); `\"alt\": 2` = alternatives INFERRED because the",
            "counts include a root's own condition (a combined root never counts its members); `\"note\": 1` = stated in a parenthetical",
-           "note. Line flags: `pe` (the line elides),",
+           "note; `\"stmt\": 1` = a count stated WITH its conditioning statement (\"…uppajjati hetupaccayā… tīṇi\": hetu, 3). Line flags: `pe` (the line elides),",
            "`abridged` (the text says *saṃkhittaṃ*), `sabbattha` (a note says \"everywhere N\": the elided counts are N), `everywhere` (a run closed by *sabbattha N*), `dangling`",
            "(conditions with no number after them), `unknown` (how many words were not classified; they are not written out).", "",
            "## Values stated", "", "| Value | Times |", "|---|---|"]
@@ -312,6 +338,12 @@ CASES = [
     ("Idha magge cattāri kātabbāni.", [("", ["magga+4"])]),
     ("Nacittasaṃsaṭṭhaṃ dhammaṃ paṭicca nacittasaṃsaṭṭho dhammo uppajjati hetupaccayā… hetuyā nava.", [("", ["hetu+9"])]),
     ("Napacchājātapaccayā naāsevanapaccayā nahetuyā dve, napacchājāte nava.", [("ALT pacchājāta- āsevana-", ["hetu-2", "pacchājāta-9"])]),
+    ("Kusalaṃ noupādā dhammaṃ paṭicca nakusalo dhammo uppajjati hetupaccayā… tīṇi… nava.", [("", ["s:hetu+3"])]),
+    ("Nalokiyaṃ nahetuṃ dhammaṃ paṭicca lokuttaro hetu dhammo uppajjati hetupaccayā. Ekaṃ.", [("", ["s:hetu+1"])]),
+    ("Narūpiṃ dhammaṃ paṭicca arūpī dhammo uppajjati hetupaccayā… gaṇitakena tīṇi.", [("", ["s:hetu+3"])]),
+    ("Hetuyā. Nava (sabbattha nava.)", [("", ["hetu+9"])]),
+    ("Vipākaṃ dhammaṃ paṭicca vipāko dhammo uppajjati vipākapaccayā – ekaṃ mahābhūtaṃ paṭicca tayo mahābhūtā.", []),
+    ("Vatthuṃ paṭicca khandhe vippayuttapaccayā ekaṃ mahābhūtaṃ paṭicca tayo mahābhūtā.", []),
 ]
 
 
@@ -319,7 +351,7 @@ def summarize(segs):
     out = []
     for seg in segs:
         root = ("ALT " if seg.get("alt") else "") + " ".join(f"{c}{p}" for c, p in seg["root"])
-        counts = [("n:" if seg.get("note") else "") + f"{c[0]}{c[1]}{c[2]}" + ("*" if len(c) > 3 and "shared" in c[3] else "") for c in seg["counts"]]
+        counts = [("n:" if seg.get("note") else "") + ("s:" if seg.get("stmt") else "") + f"{c[0]}{c[1]}{c[2]}" + ("*" if len(c) > 3 and "shared" in c[3] else "") for c in seg["counts"]]
         out.append((root, counts))
     return out
 
