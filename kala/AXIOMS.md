@@ -39,7 +39,7 @@ There is one row per law or per enumerated list. IDs are never renumbered; new r
 
 **Not in this pass (the declared aperture).** The Kathāvatthu's debates other than the five cited here (1.6, 2.5, 6.6, 8.2,
 22.10, of about 219; their INDEX — 226 numbered debates under 218 headings, 5,918 questions with their replies — is captured as data,
-`kathavatthu/`, 2026-11-20, positions only); the Yamaka; the Dhātukathā; the Puggalapaññatti; the Dhammasaṅgaṇī's matrix of 22 triads and 100 dyads; the
+`kathavatthu/`, 2026-11-20, positions only); the Yamaka (its QUESTION INDEX — 9,161 questions in ten books, each with its answer kind — is captured as data, `yamaka/`, 2026-11-20, positions only); the Dhātukathā; the Puggalapaññatti; the Dhammasaṅgaṇī's matrix of 22 triads and 100 dyads; the
 Paṭṭhāna's permutations of the 24 conditions across that matrix (the conditions themselves are in; its STATED COUNTS are captured as data,
 `patthana/`, 2026-11-19 — a test bank, not derived); the Vibhaṅga beyond what
 is cited; and the commentaries' further numbers. These are the next layer, not finished work.

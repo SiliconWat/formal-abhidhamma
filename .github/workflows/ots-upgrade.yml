@@ -65,6 +65,7 @@ jobs:
             # the Paṭṭhāna's counts are generated data (TIMESTAMPS.md, 2026-11-19): the JSON is stamped beside its summary
             [ -d ./patthana ] && find ./patthana -name '*.json' -print
             [ -d ./kathavatthu ] && find ./kathavatthu -name '*.json' -print
+            [ -d ./yamaka ] && find ./yamaka -name '*.json' -print
             # the dissertation is LIVING until a chapter is declared final and moved to dissertation/final/ (2026-10-15);
             # rung 4's results are frozen once written
             [ -d ./dissertation/final ] && find ./dissertation/final -name '*.md' -print
