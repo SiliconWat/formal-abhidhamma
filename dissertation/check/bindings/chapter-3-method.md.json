@@ -1,0 +1,270 @@
+[
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "conf1",
+"form": "digit"
+},
+{
+"key": "fa1b_min",
+"form": "digit"
+},
+{
+"key": "conf1b",
+"form": "digit"
+},
+{
+"key": "conf2",
+"form": "digit"
+},
+{
+"key": "conf3",
+"form": "digit"
+},
+{
+"key": "fa4_thr",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "conf4",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "conf2a",
+"form": "digit"
+},
+{
+"key": "dhs_unmapped",
+"form": "word"
+},
+{
+"key": "conf2b",
+"form": "digit"
+},
+{
+"key": "conf5",
+"form": "digit"
+},
+{
+"key": "fa1b_natural",
+"form": "digit"
+},
+{
+"key": "generator_clauses",
+"form": "word"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "lok89_counts.0",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "ctl_rows",
+"form": "word"
+},
+{
+"key": "ctl_a",
+"form": "digit"
+},
+{
+"key": "ctl_b",
+"form": "digit"
+},
+{
+"key": "ctl_b",
+"form": "digit"
+},
+{
+"key": "ctl_c",
+"form": "digit"
+},
+{
+"key": "ctl_rules",
+"form": "word"
+},
+{
+"key": "ctl_rows",
+"form": "word"
+},
+{
+"key": "ctl_rows",
+"form": "digit"
+},
+{
+"key": "kama_counts.0",
+"form": "digit"
+},
+{
+"key": "kama_counts.1",
+"form": "digit"
+},
+{
+"key": "kama_counts.2",
+"form": "digit"
+},
+{
+"key": "kama_counts.3",
+"form": "digit"
+},
+{
+"key": "kama_counts.4",
+"form": "digit"
+},
+{
+"key": "kama_counts.5",
+"form": "digit"
+},
+{
+"key": "kama_counts.6",
+"form": "digit"
+},
+{
+"key": "kama_counts.7",
+"form": "digit"
+},
+{
+"key": "ctl_rules",
+"form": "digit"
+},
+{
+"key": "ctl_rows",
+"form": "digit"
+},
+{
+"key": "ctl_ratio",
+"form": "digit"
+},
+{
+"key": "br_rules",
+"form": "digit"
+},
+{
+"key": "br_key",
+"form": "digit"
+},
+{
+"key": "br_gen",
+"form": "digit"
+},
+{
+"key": "br_canon",
+"form": "digit"
+},
+{
+"key": "breaks",
+"form": "digit"
+},
+{
+"key": "breaks_r2",
+"form": "digit"
+},
+{
+"key": "breaks_r2b",
+"form": "digit"
+},
+{
+"key": "breaks",
+"form": "digit"
+},
+{
+"key": "mutants",
+"form": "digit"
+},
+{
+"key": "ts_dates",
+"form": "word"
+},
+{
+"key": "ts_auth",
+"form": "word"
+},
+{
+"key": "ots_planning",
+"form": "digit"
+},
+{
+"key": "numbers_keys",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "generator_clauses",
+"form": "digit"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "clauses",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "added_by_saṅgaha",
+"form": "digit"
+}
+]

@@ -1,0 +1,458 @@
+[
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "conf2",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "conf2a",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "conf2b",
+"form": "digit"
+},
+{
+"key": "dhs_unmapped",
+"form": "word"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "dhs_terms",
+"form": "digit"
+},
+{
+"key": "dhs_unique_terms",
+"form": "digit"
+},
+{
+"key": "dhs_citta_terms",
+"form": "digit"
+},
+{
+"key": "dhs_distinct",
+"form": "digit"
+},
+{
+"key": "dhs_unmapped",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "dhs_nine",
+"form": "digit"
+},
+{
+"key": "dhs_first_unmapped",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "thms_canon",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "added_by_saṅgaha",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "added_by_saṅgaha",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "class_universals",
+"form": "digit"
+},
+{
+"key": "canon_in_universals",
+"form": "digit"
+},
+{
+"key": "yv_in_universals",
+"form": "digit"
+},
+{
+"key": "class_occasionals",
+"form": "digit"
+},
+{
+"key": "canon_in_occasionals",
+"form": "digit"
+},
+{
+"key": "yv_in_occasionals",
+"form": "digit"
+},
+{
+"key": "class_beautiful_univ",
+"form": "digit"
+},
+{
+"key": "canon_in_beautiful_univ",
+"form": "digit"
+},
+{
+"key": "yv_in_beautiful_univ",
+"form": "digit"
+},
+{
+"key": "class_abstinences",
+"form": "digit"
+},
+{
+"key": "zero",
+"form": "digit"
+},
+{
+"key": "yv_in_abstinences",
+"form": "digit"
+},
+{
+"key": "class_illimitables",
+"form": "digit"
+},
+{
+"key": "zero",
+"form": "digit"
+},
+{
+"key": "yv_in_illimitables",
+"form": "digit"
+},
+{
+"key": "one",
+"form": "digit"
+},
+{
+"key": "one",
+"form": "digit"
+},
+{
+"key": "zero",
+"form": "digit"
+},
+{
+"key": "first_common",
+"form": "digit"
+},
+{
+"key": "first_beautiful",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "att_56",
+"form": "digit"
+},
+{
+"key": "att_nine",
+"form": "digit"
+},
+{
+"key": "att_65",
+"form": "digit"
+},
+{
+"key": "att_30",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "dhs_terms",
+"form": "digit"
+},
+{
+"key": "dhs_distinct",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "added_by_saṅgaha",
+"form": "digit"
+},
+{
+"key": "dhs_terms",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "att_56",
+"form": "digit"
+},
+{
+"key": "att_30",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "yv_manual",
+"form": "digit"
+},
+{
+"key": "yv_vibh",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "att_fixed",
+"form": "digit"
+},
+{
+"key": "att_var",
+"form": "digit"
+},
+{
+"key": "att_61",
+"form": "digit"
+},
+{
+"key": "att_56",
+"form": "digit"
+},
+{
+"key": "att_fixed",
+"form": "digit"
+},
+{
+"key": "one",
+"form": "digit"
+},
+{
+"key": "att_60",
+"form": "digit"
+},
+{
+"key": "att_56",
+"form": "digit"
+},
+{
+"key": "att_fixed",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "att_var",
+"form": "digit"
+},
+{
+"key": "one",
+"form": "digit"
+},
+{
+"key": "copresent",
+"form": "digit"
+},
+{
+"key": "copresent",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "class_abstinences",
+"form": "digit"
+},
+{
+"key": "dhs_chandadhi",
+"form": "digit"
+},
+{
+"key": "dhs_manasi",
+"form": "digit"
+},
+{
+"key": "dhs_amanasi",
+"form": "digit"
+},
+{
+"key": "dhs_adhimokkh",
+"form": "digit"
+},
+{
+"key": "conf2",
+"form": "digit"
+},
+{
+"key": "conf2a",
+"form": "digit"
+},
+{
+"key": "conf2b",
+"form": "digit"
+},
+{
+"key": "rows_unrun",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+}
+]

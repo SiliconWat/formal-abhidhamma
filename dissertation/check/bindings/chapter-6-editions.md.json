@@ -1,0 +1,174 @@
+[
+{
+"key": "k_terms",
+"form": "digit"
+},
+{
+"key": "conf3",
+"form": "digit"
+},
+{
+"key": "saṅgaha_chapters",
+"form": "word"
+},
+{
+"key": "para0",
+"form": "digit"
+},
+{
+"key": "para1",
+"form": "digit"
+},
+{
+"key": "para2",
+"form": "digit"
+},
+{
+"key": "para3",
+"form": "digit"
+},
+{
+"key": "para4",
+"form": "digit"
+},
+{
+"key": "para5",
+"form": "digit"
+},
+{
+"key": "para6",
+"form": "digit"
+},
+{
+"key": "para7",
+"form": "digit"
+},
+{
+"key": "para8",
+"form": "digit"
+},
+{
+"key": "conf5",
+"form": "digit"
+},
+{
+"key": "cmp_edit",
+"form": "digit"
+},
+{
+"key": "cmp_ratio",
+"form": "digit"
+},
+{
+"key": "ctl_words",
+"form": "digit"
+},
+{
+"key": "ctl_words",
+"form": "digit"
+},
+{
+"key": "rt_terms",
+"form": "digit"
+},
+{
+"key": "rt_identical",
+"form": "digit"
+},
+{
+"key": "c_terms",
+"form": "digit"
+},
+{
+"key": "k_terms",
+"form": "digit"
+},
+{
+"key": "k_identical",
+"form": "digit"
+},
+{
+"key": "k_differ",
+"form": "digit"
+},
+{
+"key": "zero",
+"form": "digit"
+},
+{
+"key": "k_differ",
+"form": "digit"
+},
+{
+"key": "pos_37",
+"form": "digit"
+},
+{
+"key": "pos_39",
+"form": "digit"
+},
+{
+"key": "pos_40",
+"form": "digit"
+},
+{
+"key": "pos_10",
+"form": "digit"
+},
+{
+"key": "pos_17",
+"form": "digit"
+},
+{
+"key": "pos_47",
+"form": "digit"
+},
+{
+"key": "pos_12",
+"form": "digit"
+},
+{
+"key": "pos_25",
+"form": "digit"
+},
+{
+"key": "k_terms",
+"form": "digit"
+},
+{
+"key": "c_terms",
+"form": "digit"
+},
+{
+"key": "zero",
+"form": "digit"
+},
+{
+"key": "kam_s0101",
+"form": "digit"
+},
+{
+"key": "kam_dhs",
+"form": "digit"
+},
+{
+"key": "k_terms",
+"form": "digit"
+},
+{
+"key": "k_identical",
+"form": "digit"
+},
+{
+"key": "k_differ",
+"form": "digit"
+},
+{
+"key": "pos_12",
+"form": "digit"
+},
+{
+"key": "pos_25",
+"form": "digit"
+}
+]

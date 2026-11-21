@@ -1,0 +1,1138 @@
+[
+{
+"key": "generator_clauses",
+"form": "word"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "abs_vitakka121",
+"form": "digit"
+},
+{
+"key": "abs_vicara121",
+"form": "digit"
+},
+{
+"key": "abs_adhimokkha89",
+"form": "digit"
+},
+{
+"key": "abs_viriya89",
+"form": "digit"
+},
+{
+"key": "abs_piti121",
+"form": "digit"
+},
+{
+"key": "abs_chanda89",
+"form": "digit"
+},
+{
+"key": "r2_121",
+"form": "digit"
+},
+{
+"key": "r3_121",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "r5_89",
+"form": "digit"
+},
+{
+"key": "r6_121",
+"form": "digit"
+},
+{
+"key": "r7_89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "kama_counts.0",
+"form": "digit"
+},
+{
+"key": "kama_counts.2",
+"form": "digit"
+},
+{
+"key": "kama_counts.4",
+"form": "digit"
+},
+{
+"key": "kama_counts.6",
+"form": "digit"
+},
+{
+"key": "r2_121",
+"form": "digit"
+},
+{
+"key": "r3_121",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "r5_89",
+"form": "digit"
+},
+{
+"key": "r6_121",
+"form": "digit"
+},
+{
+"key": "r7_89",
+"form": "digit"
+},
+{
+"key": "feel_sukha",
+"form": "digit"
+},
+{
+"key": "feel_dukkha",
+"form": "digit"
+},
+{
+"key": "feel_domanassa",
+"form": "digit"
+},
+{
+"key": "feel_somanassa",
+"form": "digit"
+},
+{
+"key": "feel_upekkha",
+"form": "digit"
+},
+{
+"key": "root0",
+"form": "digit"
+},
+{
+"key": "root1",
+"form": "digit"
+},
+{
+"key": "root2",
+"form": "digit"
+},
+{
+"key": "root3",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "r5_89",
+"form": "digit"
+},
+{
+"key": "r7_89",
+"form": "digit"
+},
+{
+"key": "r4_121",
+"form": "digit"
+},
+{
+"key": "r5_121",
+"form": "digit"
+},
+{
+"key": "r7_121",
+"form": "digit"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "generator_clauses",
+"form": "digit"
+},
+{
+"key": "g1",
+"form": "digit"
+},
+{
+"key": "g2",
+"form": "digit"
+},
+{
+"key": "g3",
+"form": "digit"
+},
+{
+"key": "g4_bad",
+"form": "digit"
+},
+{
+"key": "g4_good",
+"form": "digit"
+},
+{
+"key": "g5",
+"form": "digit"
+},
+{
+"key": "g6",
+"form": "digit"
+},
+{
+"key": "g7",
+"form": "digit"
+},
+{
+"key": "g8",
+"form": "digit"
+},
+{
+"key": "g9_89",
+"form": "digit"
+},
+{
+"key": "g9_121",
+"form": "digit"
+},
+{
+"key": "mundane",
+"form": "digit"
+},
+{
+"key": "g9_89",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "g9_121",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "rule_clauses",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "class_universals",
+"form": "digit"
+},
+{
+"key": "r1_89",
+"form": "digit"
+},
+{
+"key": "r1_121",
+"form": "digit"
+},
+{
+"key": "r2_89",
+"form": "digit"
+},
+{
+"key": "r2_121",
+"form": "digit"
+},
+{
+"key": "r3_89",
+"form": "digit"
+},
+{
+"key": "r3_121",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "r4_121",
+"form": "digit"
+},
+{
+"key": "r5_89",
+"form": "digit"
+},
+{
+"key": "r5_121",
+"form": "digit"
+},
+{
+"key": "r6_89",
+"form": "digit"
+},
+{
+"key": "r6_121",
+"form": "digit"
+},
+{
+"key": "r7_89",
+"form": "digit"
+},
+{
+"key": "r7_121",
+"form": "digit"
+},
+{
+"key": "r8_89",
+"form": "digit"
+},
+{
+"key": "r8_121",
+"form": "digit"
+},
+{
+"key": "r9_89",
+"form": "digit"
+},
+{
+"key": "r9_121",
+"form": "digit"
+},
+{
+"key": "r10_89",
+"form": "digit"
+},
+{
+"key": "r10_121",
+"form": "digit"
+},
+{
+"key": "r11_89",
+"form": "digit"
+},
+{
+"key": "r11_121",
+"form": "digit"
+},
+{
+"key": "r12_89",
+"form": "digit"
+},
+{
+"key": "r12_121",
+"form": "digit"
+},
+{
+"key": "r13_89",
+"form": "digit"
+},
+{
+"key": "r13_121",
+"form": "digit"
+},
+{
+"key": "r14_89",
+"form": "digit"
+},
+{
+"key": "r14_121",
+"form": "digit"
+},
+{
+"key": "class_beautiful_univ",
+"form": "digit"
+},
+{
+"key": "r15_89",
+"form": "digit"
+},
+{
+"key": "r15_121",
+"form": "digit"
+},
+{
+"key": "class_abstinences",
+"form": "digit"
+},
+{
+"key": "r16_89",
+"form": "digit"
+},
+{
+"key": "r16_121",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "r17_121",
+"form": "digit"
+},
+{
+"key": "r18_89",
+"form": "digit"
+},
+{
+"key": "r18_121",
+"form": "digit"
+},
+{
+"key": "r16_89",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "r12_89",
+"form": "digit"
+},
+{
+"key": "r14_89",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "class_universals",
+"form": "digit"
+},
+{
+"key": "class_occasionals",
+"form": "digit"
+},
+{
+"key": "class_unwholesome",
+"form": "digit"
+},
+{
+"key": "class_beautiful",
+"form": "digit"
+},
+{
+"key": "thms_check",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "thms_canon",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "canon_named_first_kusala",
+"form": "digit"
+},
+{
+"key": "yevāpanaka",
+"form": "word"
+},
+{
+"key": "saṅgaha_first_kusala",
+"form": "digit"
+},
+{
+"key": "breaks",
+"form": "digit"
+},
+{
+"key": "breaks",
+"form": "digit"
+},
+{
+"key": "thms_check",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "r1_89",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "r5_89",
+"form": "digit"
+},
+{
+"key": "r7_89",
+"form": "digit"
+},
+{
+"key": "abs_adhimokkha89",
+"form": "digit"
+},
+{
+"key": "abs_viriya89",
+"form": "digit"
+},
+{
+"key": "abs_chanda89",
+"form": "digit"
+},
+{
+"key": "r8_89",
+"form": "digit"
+},
+{
+"key": "r9_89",
+"form": "digit"
+},
+{
+"key": "r10_89",
+"form": "digit"
+},
+{
+"key": "r11_89",
+"form": "digit"
+},
+{
+"key": "r12_89",
+"form": "digit"
+},
+{
+"key": "r13_89",
+"form": "digit"
+},
+{
+"key": "r14_89",
+"form": "digit"
+},
+{
+"key": "r15_89",
+"form": "digit"
+},
+{
+"key": "r16_89",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "r18_89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "r2_121",
+"form": "digit"
+},
+{
+"key": "r3_121",
+"form": "digit"
+},
+{
+"key": "r6_121",
+"form": "digit"
+},
+{
+"key": "abs_vitakka121",
+"form": "digit"
+},
+{
+"key": "abs_vicara121",
+"form": "digit"
+},
+{
+"key": "abs_piti121",
+"form": "digit"
+},
+{
+"key": "feel_sukha",
+"form": "digit"
+},
+{
+"key": "feel_dukkha",
+"form": "digit"
+},
+{
+"key": "feel_domanassa",
+"form": "digit"
+},
+{
+"key": "feel_somanassa",
+"form": "digit"
+},
+{
+"key": "feel_upekkha",
+"form": "digit"
+},
+{
+"key": "root0",
+"form": "digit"
+},
+{
+"key": "root1",
+"form": "digit"
+},
+{
+"key": "root2",
+"form": "digit"
+},
+{
+"key": "root3",
+"form": "digit"
+},
+{
+"key": "keci",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "g1",
+"form": "digit"
+},
+{
+"key": "lobha_counts.0",
+"form": "digit"
+},
+{
+"key": "lobha_counts.1",
+"form": "digit"
+},
+{
+"key": "lobha_counts.2",
+"form": "digit"
+},
+{
+"key": "lobha_counts.3",
+"form": "digit"
+},
+{
+"key": "lobha_counts.4",
+"form": "digit"
+},
+{
+"key": "lobha_counts.5",
+"form": "digit"
+},
+{
+"key": "lobha_counts.6",
+"form": "digit"
+},
+{
+"key": "lobha_counts.7",
+"form": "digit"
+},
+{
+"key": "g2",
+"form": "digit"
+},
+{
+"key": "dosa_counts.0",
+"form": "digit"
+},
+{
+"key": "dosa_counts.1",
+"form": "digit"
+},
+{
+"key": "g3",
+"form": "digit"
+},
+{
+"key": "moha_counts.0",
+"form": "digit"
+},
+{
+"key": "moha_counts.1",
+"form": "digit"
+},
+{
+"key": "g4_bad",
+"form": "digit"
+},
+{
+"key": "ahetuka_bad_counts.0",
+"form": "digit"
+},
+{
+"key": "ahetuka_bad_counts.5",
+"form": "digit"
+},
+{
+"key": "ahetuka_bad_counts.6",
+"form": "digit"
+},
+{
+"key": "g4_good",
+"form": "digit"
+},
+{
+"key": "ahetuka_good_counts.0",
+"form": "digit"
+},
+{
+"key": "ahetuka_good_counts.5",
+"form": "digit"
+},
+{
+"key": "ahetuka_good_counts.6",
+"form": "digit"
+},
+{
+"key": "ahetuka_good_counts.7",
+"form": "digit"
+},
+{
+"key": "g5",
+"form": "digit"
+},
+{
+"key": "ahetuka_kiriya_counts.0",
+"form": "digit"
+},
+{
+"key": "ahetuka_kiriya_counts.1",
+"form": "digit"
+},
+{
+"key": "ahetuka_kiriya_counts.2",
+"form": "digit"
+},
+{
+"key": "ctl_rows",
+"form": "digit"
+},
+{
+"key": "kama_counts.0",
+"form": "digit"
+},
+{
+"key": "kama_counts.2",
+"form": "digit"
+},
+{
+"key": "kama_counts.4",
+"form": "digit"
+},
+{
+"key": "kama_counts.6",
+"form": "digit"
+},
+{
+"key": "ctl_rows",
+"form": "digit"
+},
+{
+"key": "kama_counts.8",
+"form": "digit"
+},
+{
+"key": "kama_counts.10",
+"form": "digit"
+},
+{
+"key": "kama_counts.12",
+"form": "digit"
+},
+{
+"key": "kama_counts.14",
+"form": "digit"
+},
+{
+"key": "ctl_rows",
+"form": "digit"
+},
+{
+"key": "kama_counts.16",
+"form": "digit"
+},
+{
+"key": "kama_counts.18",
+"form": "digit"
+},
+{
+"key": "kama_counts.20",
+"form": "digit"
+},
+{
+"key": "kama_counts.22",
+"form": "digit"
+},
+{
+"key": "g7",
+"form": "digit"
+},
+{
+"key": "rupa_counts.0",
+"form": "digit"
+},
+{
+"key": "rupa_counts.1",
+"form": "digit"
+},
+{
+"key": "rupa_counts.2",
+"form": "digit"
+},
+{
+"key": "rupa_counts.3",
+"form": "digit"
+},
+{
+"key": "rupa_counts.4",
+"form": "digit"
+},
+{
+"key": "g8",
+"form": "digit"
+},
+{
+"key": "arupa_counts.0",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "g9_89",
+"form": "digit"
+},
+{
+"key": "lok89_counts.0",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "g9_121",
+"form": "digit"
+},
+{
+"key": "lok121_counts.0",
+"form": "digit"
+},
+{
+"key": "lok121_counts.1",
+"form": "digit"
+},
+{
+"key": "lok121_counts.2",
+"form": "digit"
+},
+{
+"key": "lok121_counts.3",
+"form": "digit"
+},
+{
+"key": "lok121_counts.4",
+"form": "digit"
+},
+{
+"key": "ways_sup",
+"form": "digit"
+},
+{
+"key": "ways_sub",
+"form": "digit"
+},
+{
+"key": "ways_kama",
+"form": "digit"
+},
+{
+"key": "ways_akusala",
+"form": "digit"
+},
+{
+"key": "ways_ahetuka",
+"form": "digit"
+},
+{
+"key": "ways_total",
+"form": "digit"
+},
+{
+"key": "ahetuka_kiriya_counts.2",
+"form": "digit"
+},
+{
+"key": "break_smile",
+"form": "digit"
+},
+{
+"key": "r4_89",
+"form": "digit"
+},
+{
+"key": "break_adhi",
+"form": "digit"
+},
+{
+"key": "breaks",
+"form": "word"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "keci",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "keci_types",
+"form": "digit"
+},
+{
+"key": "keci_wh",
+"form": "digit"
+},
+{
+"key": "keci_wh",
+"form": "digit"
+},
+{
+"key": "keci_moved",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "keci",
+"form": "digit"
+},
+{
+"key": "w_eq_k",
+"form": "digit"
+},
+{
+"key": "keci_w_eq_k",
+"form": "digit"
+},
+{
+"key": "w_eq_d",
+"form": "digit"
+},
+{
+"key": "keci_w_eq_d",
+"form": "digit"
+},
+{
+"key": "f_eq_k",
+"form": "digit"
+},
+{
+"key": "keci_f_eq_k",
+"form": "digit"
+},
+{
+"key": "f_eq_d",
+"form": "digit"
+},
+{
+"key": "keci_f_eq_d",
+"form": "digit"
+},
+{
+"key": "keci",
+"form": "digit"
+},
+{
+"key": "r17_89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cetasikas",
+"form": "digit"
+},
+{
+"key": "mutants",
+"form": "digit"
+},
+{
+"key": "clauses",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "compression_121",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "compression_89",
+"form": "digit"
+},
+{
+"key": "clauses_singly",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "cr_singly",
+"form": "digit"
+},
+{
+"key": "fa4_thr",
+"form": "digit"
+},
+{
+"key": "compression_121",
+"form": "digit"
+},
+{
+"key": "rung4_p7",
+"form": "digit"
+},
+{
+"key": "conf1",
+"form": "digit"
+},
+{
+"key": "cittas89",
+"form": "digit"
+},
+{
+"key": "cittas121",
+"form": "digit"
+},
+{
+"key": "conf1b",
+"form": "digit"
+},
+{
+"key": "conf4",
+"form": "digit"
+},
+{
+"key": "compression_121",
+"form": "digit"
+}
+]
