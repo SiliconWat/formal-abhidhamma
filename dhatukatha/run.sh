@@ -8,6 +8,11 @@ B=$(mktemp -d); trap 'rm -rf "$B"' EXIT
 if [ -d ../../tipitaka-mcp ]; then python3 dhatukatha.py --check || { echo "FAIL  the generated files are stale"; exit 1; }; else echo "NOTE  CST not available here: the generated data is not re-read"; fi
 $LEAN -o "$B/Dhatukatha.olean" Dhatukatha.lean || { echo "FAIL  Dhatukatha.lean"; exit 1; }
 if LEAN_PATH="$B" $LEAN Check.lean; then echo "PASS  the manual's classification (22 kinds of dhamma into 5 aggregates, 12 bases, 18 elements) reproduces all 175 stated counts of sections 1–6 (160 of them without any item tuned to the counts), included and not"; else echo "FAIL  Check.lean"; exit 1; fi
+# the sixth method (association), pre-registered 2026-11-22: the registered rule's tally, held as a theorem (a FINDING, 17 of 55)
+if [ -d ../../tipitaka-mcp ]; then python3 sampayoga.py --check || { echo "FAIL  Sampayoga data stale"; exit 1; }; fi
+$LEAN -o "$B/Sampayoga.olean" Sampayoga.lean || { echo "FAIL  Sampayoga.lean"; exit 1; }
+LEAN_PATH="$B" $LEAN -o "$B/Check.olean" Check.lean >/dev/null 2>&1 || { echo "FAIL  Check.lean (as a module)"; exit 1; }
+if LEAN_PATH="$B" $LEAN CheckSampayoga.lean >/dev/null; then echo "PASS  the sixth method: the registered association rule's tally holds (17 of 55 unseen rows — a finding, runs/2026-11-22-dhatukatha-association)"; else echo "FAIL  CheckSampayoga.lean"; exit 1; fi
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
