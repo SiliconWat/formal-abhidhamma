@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**224 theorems in 36 files** · 217 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**227 theorems in 36 files** · 220 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -51,6 +51,9 @@ texts, and never that nature agrees.
 | `every_listed_factor_is_the_manuals` | [`sangaha/CheckCanonAll.lean:21`](../sangaha/CheckCanonAll.lean#L21) | P1 (runs/2026-11-22-cittuppada-against-the-manual/RUN.md): in all 23 fully written lists, every factor the Dhammasaṅgaṇī lists, the Saṅgaha's rules give. | **A32** | — | constructive | — |
 | `the_manual_adds_only_where_the_list_is_open` | [`sangaha/CheckCanonAll.lean:23`](../sangaha/CheckCanonAll.lean#L23) | P2: the Saṅgaha exceeds a written list only where the list itself is open (ye vā pana … aññepi atthi). | **A32** | — | constructive | — |
 | `the_control` | [`sangaha/CheckCanonAll.lean:25`](../sangaha/CheckCanonAll.lean#L25) | CONTROL (Canon.lean's known answer): the first wholesome class — 29 listed, 38 in the Saṅgaha. | **A32** | — | constructive | — |
+| `no_term_unmapped` | [`sangaha/CheckCanonAll.lean:29`](../sangaha/CheckCanonAll.lean#L29) | No listed term went unmapped (the run's "none unmapped" rested on the generator's printout). | — | — | constructive | — |
+| `every_record_is_a_citta` | [`sangaha/CheckCanonAll.lean:31`](../sangaha/CheckCanonAll.lean#L31) | Every record the declared rules built is one of the 121 citta types (a wrong rule — eye-consciousness with pleasure, say — would otherwise pass silently). | — | — | constructive | — |
+| `the_control_is_the_nine` | [`sangaha/CheckCanonAll.lean:33`](../sangaha/CheckCanonAll.lean#L33) | The control as REGISTERED: the first class's extras are EXACTLY the nine yevāpanaka, as sets (the_control compared lengths only). | **A32** | — | constructive | — |
 | `tick_succ` | [`kala/Axioms.lean:13`](../kala/Axioms.lean#L13) | — | **A7** | — | constructive | — |
 | `one_at_a_time` | [`kala/Axioms.lean:14`](../kala/Axioms.lean#L14) | — | **A7** | — | constructive | — |
 | `continues` | [`kala/Axioms.lean:15`](../kala/Axioms.lean#L15) | — | **A7** | — | constructive | — |
