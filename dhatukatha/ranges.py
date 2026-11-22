@@ -26,9 +26,11 @@ def element_sets():
             last = named[-1]
             if last == "eye" and result:
                 eye_list[result] = c["padas"]
-            groups = [(last, c["padas"])] + [(e, eye_list.get(result, [])) for e in named[:-1] if e != "eye"]
-            if "eye" in named[:-1] and result:
-                groups.append(("eye", eye_list.get(result, [])))
+            # an earlier-named consciousness refers back (…pe…) to the eye list of the same result — or, where that eye is itself named before a …pe…
+            # (the akusala-result sentence, abh01m.mul.xml:4441, names eye FIRST), to the parallel eye list of the other result (the refuter, run 2,
+            # finding 5: the first version silently gave those an empty list; no count changed, the kusala sentences supplying the same elements)
+            back = eye_list.get(result) or next(iter(eye_list.values()), [])
+            groups = [(last, c["padas"])] + [(e, back) for e in named[:-1]]
         elif "manodhātu" in words:
             groups = [("manoD", c["padas"])]
         else:

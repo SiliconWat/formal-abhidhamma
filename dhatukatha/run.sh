@@ -24,6 +24,18 @@ brk2 "every formation given all seven elements (the first run's uniform range)" 
 brk2 "a formation's own aggregate not partly associated" 's/(if k == .formation then 1 else 0, 1, 1)/(0, 1, 1)/' CheckSampayoga2.lean
 brk2 "consciousness not dissociated from the other consciousnesses" 's/(1, 10, 10 + 7 - e)/(1, 10, 10)/' CheckSampayoga2.lean
 brk2 "the Dhammasaṅgaṇī's range for concentration widened to the mind-element" 's/("samādhindriyaṃ", \[6\])/("samādhindriyaṃ", [5, 6])/' Ranges.lean
+# run 3 (pre-registered 2026-11-22, 02ac634), BLIND: the Dhammasaṅgaṇī's class definitions and lists predict all 8 unseen matrix rows; each break must fail
+if [ -d ../../tipitaka-mcp ]; then python3 classes.py --check && python3 sampayoga_matrix.py --check >/dev/null || { echo "FAIL  Classes / SampayogaMatrix stale"; exit 1; }; fi
+LEAN_PATH="$B" $LEAN -o "$B/SampayogaMatrix.olean" SampayogaMatrix.lean || { echo "FAIL  SampayogaMatrix.lean"; exit 1; }
+$LEAN -o "$B/Classes.olean" Classes.lean || { echo "FAIL  Classes.lean"; exit 1; }
+if LEAN_PATH="$B" $LEAN CheckSampayoga3.lean >/dev/null; then echo "PASS  the sixth method's matrix, BLIND: all 8 unseen rows predicted from the Dhammasaṅgaṇī (run dhatukatha-association-3)"; else echo "FAIL  CheckSampayoga3.lean"; exit 1; fi
+brk3() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix.lean Classes.lean CheckSampayoga3.lean "$T/"; sed -i.orig "$2" "$T/$3"
+  if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
+  ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN -o SampayogaMatrix.olean SampayogaMatrix.lean >/dev/null 2>&1 && $LEAN -o Classes.olean Classes.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckSampayoga3.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
+brk3 "the resultants given one element, not seven" 's/("vipaka", "allFour", \[0, 1, 2, 3, 4, 5, 6\])/("vipaka", "allFour", [6])/' Classes.lean
+brk3 "rapture set aside read as a feeling set aside" 's/("piti_sahagata", "formationAside"/("piti_sahagata", "feelingAside"/' Classes.lean
+brk3 "a feeling set aside not partly associated (dhamma base and element)" 's/| ("feelingAside", E)   => ((1, 0, 0), (0, 1, 1)/| ("feelingAside", E)   => ((1, 0, 0), (0, 0, 0)/' CheckSampayoga3.lean
+brk3 "equanimity given body-consciousness too" 's/("upekkha_sahagata", "feelingAside", \[0, 1, 2, 3, 5, 6\])/("upekkha_sahagata", "feelingAside", [0, 1, 2, 3, 4, 5, 6])/' Classes.lean
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
