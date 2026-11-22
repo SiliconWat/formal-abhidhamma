@@ -42,7 +42,7 @@ There is one row per law or per enumerated list. IDs are never renumbered; new r
 `kathavatthu/`, 2026-11-20, positions only); the Yamaka (its QUESTION INDEX — 9,161 questions in ten books, each with its answer kind — is captured as data, `yamaka/`, 2026-11-20, positions only); the Dhātukathā; the Puggalapaññatti (its person-type INDEX — 147 list entries in ten groups, 266 definitions — is captured as data, `puggala/`, 2026-11-20); the Dhammasaṅgaṇī's matrix of 22 triads and 100 dyads; the
 Paṭṭhāna's permutations of the 24 conditions across that matrix (the conditions themselves are in; its STATED COUNTS are captured as data,
 `patthana/`, 2026-11-19 — a test bank, not derived); the Vibhaṅga beyond what
-is cited; and the commentaries' further numbers. These are the next layer, not finished work.
+is cited; and the commentaries' further numbers (and, by the founder's ruling of 2026-11-21 — *"read sub-commentaries (ṭīkā)"* — the five ṭīkā on the seven books: the Dhammasaṅgaṇī-, Vibhaṅga- and Pañcapakaraṇa-mūlaṭīkā and -anuṭīkā; the manuals' ṭīkā are not in it). These are the next layer, not finished work.
 
 ### Where a derivation can grip
 
