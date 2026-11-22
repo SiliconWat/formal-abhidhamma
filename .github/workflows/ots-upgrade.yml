@@ -67,6 +67,7 @@ jobs:
             [ -d ./kathavatthu ] && find ./kathavatthu -name '*.json' -print
             [ -d ./yamaka ] && find ./yamaka -name '*.json' -print
             [ -d ./puggala ] && find ./puggala -name '*.json' -print
+            [ -d ./cittuppada ] && find ./cittuppada -name '*.json' -print
             # the dissertation is LIVING until a chapter is declared final and moved to dissertation/final/ (2026-10-15);
             # rung 4's results are frozen once written
             [ -d ./dissertation/final ] && find ./dissertation/final -name '*.md' -print
