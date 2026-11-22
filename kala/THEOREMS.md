@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**221 theorems in 34 files** · 214 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**224 theorems in 36 files** · 217 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -48,6 +48,9 @@ texts, and never that nature agrees.
 | `feelings121` | [`sangaha/Check.lean:17`](../sangaha/Check.lean#L17) | Chapter 3's feeling counts, from the generator's own feeling axis. | — | — | constructive | — |
 | `roots89` | [`sangaha/Check.lean:19`](../sangaha/Check.lean#L19) | Chapter 3's root counts, from the generator's root and knowledge axes. | **A34** | — | constructive | — |
 | `keci_reading` | [`sangaha/Check.lean:23`](../sangaha/Check.lean#L23) | §30: the main reading gives the text's 28; the reading of "some" (keci) gives 20. | — | — | constructive | — |
+| `every_listed_factor_is_the_manuals` | [`sangaha/CheckCanonAll.lean:21`](../sangaha/CheckCanonAll.lean#L21) | P1 (runs/2026-11-22-cittuppada-against-the-manual/RUN.md): in all 23 fully written lists, every factor the Dhammasaṅgaṇī lists, the Saṅgaha's rules give. | **A32** | — | constructive | — |
+| `the_manual_adds_only_where_the_list_is_open` | [`sangaha/CheckCanonAll.lean:23`](../sangaha/CheckCanonAll.lean#L23) | P2: the Saṅgaha exceeds a written list only where the list itself is open (ye vā pana … aññepi atthi). | **A32** | — | constructive | — |
+| `the_control` | [`sangaha/CheckCanonAll.lean:25`](../sangaha/CheckCanonAll.lean#L25) | CONTROL (Canon.lean's known answer): the first wholesome class — 29 listed, 38 in the Saṅgaha. | **A32** | — | constructive | — |
 | `tick_succ` | [`kala/Axioms.lean:13`](../kala/Axioms.lean#L13) | — | **A7** | — | constructive | — |
 | `one_at_a_time` | [`kala/Axioms.lean:14`](../kala/Axioms.lean#L14) | — | **A7** | — | constructive | — |
 | `continues` | [`kala/Axioms.lean:15`](../kala/Axioms.lean#L15) | — | **A7** | — | constructive | — |
