@@ -277,7 +277,40 @@ def build():
             if broken: rec["broken"] = broken
             if unknown: rec["unknown"] = len(unknown); unknown_words.update(unknown)
             lines.append(rec)
+    list_sum(lines)
     return sources, heads, lines, unknown_words
+
+
+def list_sum(lines):
+    """The STATEMENT counts tested against the text's own list (founder ruling 2026-11-21, approving the check): a run of lines whose counts
+    are all statement counts ("…kusalo … uppajjati hetupaccayā… tīṇi", "…akusalo … tīṇi") is followed by the section's list ("Hetuyā nava").
+    Each statement segment is marked `sum`: "agrees" when its run's counts for that condition SUM to the list's count for it, "differs" when
+    they do not, "none" when no list follows or the list does not name the condition. AGREES CONFIRMS; DIFFERS NEVER REFUTES — the text writes
+    out some statements and elides the rest ("…pe…"), so a run may hold fewer than the list totals."""
+    run, f = [], None
+    def close(next_list):
+        if not run:
+            return
+        total = Counter()
+        for seg in run:
+            for c in seg["counts"]:
+                total[c[0]] += c[2]
+        for seg in run:
+            c = seg["counts"][0]
+            seg["sum"] = "none" if not next_list or c[0] not in next_list else ("agrees" if next_list[c[0]] == total[c[0]] else "differs")
+    for r in lines:
+        st = [g for g in r["seg"] if g.get("stmt")]
+        ls = {c[0]: c[2] for g in r["seg"] if not g.get("stmt") and not g.get("note") for c in g["counts"]}
+        if st and not ls and (f is None or r["f"] == f):
+            run += st; f = r["f"]; continue
+        close(ls if (ls and r["f"] == f) else None); run, f = [], None
+        if st and not ls:
+            run, f = st, r["f"]
+    close(None)
+    for r in lines:  # a statement on a line that ALSO lists counts is in no run: unconfirmed
+        for g in r["seg"]:
+            if g.get("stmt") and "sum" not in g:
+                g["sum"] = "none"
 
 
 def render(sources, heads, lines):
@@ -298,6 +331,9 @@ def render(sources, heads, lines):
           "only (PREREGISTRATION-2026-09-27b.md §5); variant readings dropped whole; the text's abridgment notes kept as flags. The counts",
           "are a TEST BANK, never premises (`kala/ANSWERS.md`). The data is `PATTHANA.json`; this file summarizes it.*", "",
           f"**{len(lines):,} count lines · {pairs(lines):,} condition counts · {len(heads):,} headings** across the five files.", "",
+          f"**Statement counts** (`\"stmt\": 1`): {sum(1 for r in lines for g in r['seg'] if g.get('stmt')):,}; their run SUMS to the section's own list for "
+          f"{sum(1 for r in lines for g in r['seg'] if g.get('sum') == 'agrees'):,} (`\"sum\": \"agrees\"` — a confirmation; `differs` never refutes, the text eliding "
+          "statements). Which are admitted to the test bank, and by which check, is `STATEMENT-ADMITTED.json` (founder ruling 2026-11-21).", "",
           "| File | Count lines | Counts | Shared by a run | With an elision | Abridged | Lines with unclassified words |",
           "|---|---|---|---|---|---|---|"]
     for f in FILES:
@@ -358,6 +394,13 @@ def summarize(segs):
 
 def selftest():
     bad = 0
+    # the list-sum check on a run of its own: 3 + 3 + 3 = Hetuyā nava agrees; 3 + 3 against nava differs; no list after → none
+    mk = lambda l, v, stmt=True: {"f": "x", "l": l, "seg": [{"root": [], "counts": [["hetu", "+", v, "statement"]], "stmt": 1}] if stmt else [{"root": [], "counts": [["hetu", "+", v]]}]}
+    a = [mk(1, 3), mk(2, 3), mk(3, 3), mk(4, 9, False)]; b = [mk(1, 3), mk(2, 3), mk(4, 9, False)]; c = [mk(1, 3)]
+    list_sum(a); list_sum(b); list_sum(c)
+    ok = [g["sum"] for r in a[:3] for g in r["seg"]] == ["agrees"] * 3 and [g["sum"] for r in b[:2] for g in r["seg"]] == ["differs"] * 2 and c[0]["seg"][0]["sum"] == "none"
+    print("✓" if ok else "✗", "list-sum: a run summing to its list agrees, one short of it differs, one with no list after it is none")
+    bad += not ok
     for text, want in CASES:
         got = summarize(line_segments(text)[0])
         ok = got == want
@@ -366,7 +409,7 @@ def selftest():
     wrong = summarize(line_segments(CASES[0][0])[0]) == [("", ["hetu+9", "ārammaṇa+3", "adhipati+8"])]
     print(("✓" if not wrong else "✗"), "the harness FAILS a wrong expectation (adhipatiyā nava read as 8)")
     bad += wrong
-    print(f"patthana selftest: {len(CASES) + 1 - bad}/{len(CASES) + 1}")
+    print(f"patthana selftest: {len(CASES) + 2 - bad}/{len(CASES) + 2}")
     return 1 if bad else 0
 
 
@@ -377,6 +420,9 @@ def validate(path=OUT_JSON):
     if d.get("conditions") != names:
         errs.append("the condition list is not the uddesa's 24")
     last = {}
+    bad_sum = sum(1 for r in d.get("count_lines", []) for g in r["seg"] if g.get("stmt") and g.get("sum") not in ("agrees", "differs", "none"))
+    if bad_sum:
+        errs.append(f"{bad_sum} statement count(s) without a list-sum mark (agrees · differs · none)")
     for r in d.get("count_lines", []):
         if r["l"] <= last.get(r["f"], 0):
             errs.append(f"{r['f']}:{r['l']} out of order")

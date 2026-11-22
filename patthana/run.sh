@@ -11,6 +11,7 @@ brk() { T=$(mktemp -d); cp scripts/patthana.py "$T/"; sed -i.orig "$2" "$T/patth
   if $PY "$T/patthana.py" --selftest >/dev/null 2>&1; then echo "BLIND  $1"; exit 1; else echo "FAILS as required  $1"; fi; rm -rf "$T"; }
 brk "the negative written with a space is not joined (na anantare)" 's/in FORMS else m.group(0), text)/in () else m.group(0), text)/'
 brk "no sentence stop (a statement's root reaches the next sentence's count)" 's/out.append(("stop", None))/pass/'
+brk "the list-sum check calls every run agreeing" 's/("agrees" if next_list\[c\[0\]\] == total\[c\[0\]\]/("agrees" if True/'
 brk "the prose-sandwich rule removed (arūpe vipāke ekaṃ khandhaṃ)" 's/out\[j + 1\] = ("unknown", "(number in prose)")/pass/'
 brk "a statement's condition kept as the count's root" 's/and val\[2\] == "root" and last == "unknown":/and False:/'
 brk "a run's number given to its last condition only" 's/for c in pending:/for c in pending[-1:]:/'
@@ -25,8 +26,10 @@ json.dump(a, open(sys.argv[1] + "/zero.json", "w"), ensure_ascii=False)
 b = json.loads(json.dumps(d)); r = next(r for r in b["count_lines"] if r["seg"][0]["counts"]); s = r["seg"][0]
 s["root"] = [[s["counts"][0][0], s["counts"][0][1]]]; s.pop("alt", None)
 json.dump(b, open(sys.argv[1] + "/self.json", "w"), ensure_ascii=False)
+c = json.loads(json.dumps(d)); g = next(g for r in c["count_lines"] for g in r["seg"] if g.get("stmt")); g.pop("sum", None)
+json.dump(c, open(sys.argv[1] + "/nosum.json", "w"), ensure_ascii=False)
 EOF
-for f in zero self; do
+for f in zero self nosum; do
   if $PY scripts/patthana.py --validate "$T/$f.json" >/dev/null 2>&1; then echo "BLIND  validate accepted the corrupt file ($f)"; exit 1
   else echo "FAILS as required  validate refuses a corrupt file ($f)"; fi
 done

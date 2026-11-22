@@ -6,6 +6,8 @@ are a TEST BANK, never premises (`kala/ANSWERS.md`). The data is `PATTHANA.json`
 
 **6,258 count lines · 31,589 condition counts · 8,178 headings** across the five files.
 
+**Statement counts** (`"stmt": 1`): 1,203; their run SUMS to the section's own list for 448 (`"sum": "agrees"` — a confirmation; `differs` never refutes, the text eliding statements). Which are admitted to the test bank, and by which check, is `STATEMENT-ADMITTED.json` (founder ruling 2026-11-21).
+
 | File | Count lines | Counts | Shared by a run | With an elision | Abridged | Lines with unclassified words |
 |---|---|---|---|---|---|---|
 | `abh03m7.mul.xml` | 1,118 | 12,121 | 2 | 493 | 130 | 28 |
