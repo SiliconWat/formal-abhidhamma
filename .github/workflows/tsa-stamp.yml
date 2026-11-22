@@ -38,7 +38,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["kala/**", "matika/**", "patthana/**", "kathavatthu/**", "yamaka/**", "puggala/**", "cittuppada/**", "runs/**", "PREREGISTRATION*.md", "rung4/results/**"]
+    paths: ["kala/**", "matika/**", "patthana/**", "kathavatthu/**", "yamaka/**", "puggala/**", "cittuppada/**", "dhatukatha/**", "runs/**", "PREREGISTRATION*.md", "rung4/results/**"]
 
 concurrency:
   group: tsa-stamp
