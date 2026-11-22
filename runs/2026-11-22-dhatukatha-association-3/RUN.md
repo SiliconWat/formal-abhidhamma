@@ -5,7 +5,7 @@ consciousness elements (its Cittuppāda), and the sixth method's matrix rows for
 **Window:** both. **Axioms:** A1 A30 A33 A74 A130 A131. **Instrument:** `dhatukatha/CheckSampayoga3.lean` (the registered rule word for word; held as theorems in
 `dhatukatha/run.sh`, with four breaks that fail). **Refuter:** not yet run on this run — offered; run 2's refuter bears on it (below).
 
-## VERDICT: **PASS** — BLIND, 8 of 8 unseen rows; its reading rule for several-consciousness sentences was written knowing run 2's targets (see its limits).
+## VERDICT: **PASS** — 8 of 8 unseen rows (the commentary that states them was not displayed before registration — checked), but NARROWED by its refuter: most rows reuse shapes and numbers seen earlier; the genuinely new predictions are the resultants row and the rapture tuple (`REFUTER-2026-11-22.md`).
 
 ## Result
 
