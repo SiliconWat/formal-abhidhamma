@@ -8,6 +8,8 @@
 ⚠️ **A CONSISTENCY test, not a blind one:** every row of the sixth method's inner list had been read (run 1 and its refuter) and A130/A131 were written knowing them.
 The independent content is the element ranges, which come from another book.
 
+## VERDICT: **PASS** (confounded: every row had been seen; narrowed by its refuter, `REFUTER-2026-11-22.md` — only 6 of 17 stated tuples test the independent ranges).
+
 ## Result
 
 **All 38 in-scope rows reproduced** (`every_in_scope_row_is_reproduced`, `by decide`). 30 rows are out of scope — each needs an identification of the item with

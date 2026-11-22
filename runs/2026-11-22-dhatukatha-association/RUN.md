@@ -7,6 +7,8 @@
 **Scope note:** the pre-registration says "sections 1–6", the FIRST method's numbering of the inner list; the sixth method numbers the same items §1–4 (Khandho, Āyatanaṃ,
 Dhātu, Saccādi). From its §5 (Tikaṃ) it turns to the matrix, whose items have no dhamma sets in `Check.lean`, and those are outside this run. Nothing else was narrowed.
 
+## VERDICT: **FAIL** — the registered rule reproduces 17 of 55 unseen rows; a finding (its diagnosis refuted in part, `REFUTER-2026-11-22.md`).
+
 ## Result
 
 | Rows | Reproduced by the registered rule |

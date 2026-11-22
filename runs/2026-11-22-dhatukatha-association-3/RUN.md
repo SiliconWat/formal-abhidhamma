@@ -5,6 +5,8 @@ consciousness elements (its Cittuppāda), and the sixth method's matrix rows for
 **Window:** both. **Axioms:** A1 A30 A33 A74 A130 A131. **Instrument:** `dhatukatha/CheckSampayoga3.lean` (the registered rule word for word; held as theorems in
 `dhatukatha/run.sh`, with four breaks that fail). **Refuter:** not yet run on this run — offered; run 2's refuter bears on it (below).
 
+## VERDICT: **PASS** — BLIND, 8 of 8 unseen rows; its reading rule for several-consciousness sentences was written knowing run 2's targets (see its limits).
+
 ## Result
 
 **BLIND: all EIGHT unseen rows predicted** (`every_blind_row_is_predicted`, `by decide`) — the neutral-feeling class, the rapture-, pleasure- and equanimity-accompanied
