@@ -13,6 +13,17 @@ if [ -d ../../tipitaka-mcp ]; then python3 sampayoga.py --check || { echo "FAIL 
 $LEAN -o "$B/Sampayoga.olean" Sampayoga.lean || { echo "FAIL  Sampayoga.lean"; exit 1; }
 LEAN_PATH="$B" $LEAN -o "$B/Check.olean" Check.lean >/dev/null 2>&1 || { echo "FAIL  Check.lean (as a module)"; exit 1; }
 if LEAN_PATH="$B" $LEAN CheckSampayoga.lean >/dev/null; then echo "PASS  the sixth method: the registered association rule's tally holds (17 of 55 unseen rows — a finding, runs/2026-11-22-dhatukatha-association)"; else echo "FAIL  CheckSampayoga.lean"; exit 1; fi
+# run 2 (pre-registered 2026-11-22, 49ea7a4): A130/A131 with the Dhammasaṅgaṇī's element ranges reproduce all 38 in-scope rows; each break must fail
+if [ -d ../../tipitaka-mcp ]; then python3 ranges.py --check || { echo "FAIL  Ranges.lean stale"; exit 1; }; fi
+$LEAN -o "$B/Ranges.olean" Ranges.lean || { echo "FAIL  Ranges.lean"; exit 1; }
+if LEAN_PATH="$B" $LEAN CheckSampayoga2.lean >/dev/null; then echo "PASS  the sixth method: A130/A131 with the Dhammasaṅgaṇī's ranges reproduce all 38 in-scope rows (run dhatukatha-association-2)"; else echo "FAIL  CheckSampayoga2.lean"; exit 1; fi
+brk2() { T=$(mktemp -d); cp Sampayoga.lean Ranges.lean CheckSampayoga2.lean "$T/"; sed -i.orig "$2" "$T/$3"
+  if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
+  ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && $LEAN -o Ranges.olean Ranges.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckSampayoga2.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
+brk2 "every formation given all seven elements (the first run's uniform range)" 's/| (k, E) =>/| (k, _E) => let E := all7;/' CheckSampayoga2.lean
+brk2 "a formation's own aggregate not partly associated" 's/(if k == .formation then 1 else 0, 1, 1)/(0, 1, 1)/' CheckSampayoga2.lean
+brk2 "consciousness not dissociated from the other consciousnesses" 's/(1, 10, 10 + 7 - e)/(1, 10, 10)/' CheckSampayoga2.lean
+brk2 "the Dhammasaṅgaṇī's range for concentration widened to the mind-element" 's/("samādhindriyaṃ", \[6\])/("samādhindriyaṃ", [5, 6])/' Ranges.lean
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
