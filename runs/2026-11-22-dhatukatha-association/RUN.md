@@ -35,7 +35,7 @@ Dhātu, Saccādi). From its §5 (Tikaṃ) it turns to the matrix, whose items ha
 
 ## What it bears on, and the next run
 
-Both causes can be DERIVED, not fitted: (1) which consciousness elements a mental factor can arise with follows from the Saṅgaha's association rules (A32, formalised in
+Both causes can be DERIVED, not fitted: (1) which consciousness elements a mental factor can arise with follows from the Saṅgaha's association rules (A32, formalized in
 `kala/`, which reproduce all 89 and 121 cittas) mapped onto the seven consciousness elements; (2) consciousness-with-consciousness dissociation follows from A1. A
 revised rule is a NEW pre-registered run, with these derivations fixed before the counts are computed. Text-internal: no measurement bears on it (*philosophy* in the
 mode's terms — a test of the manual's classification against the Piṭaka's own counts).
