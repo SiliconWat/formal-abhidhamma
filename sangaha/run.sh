@@ -17,11 +17,15 @@ if [ -d ../../tipitaka-mcp ]; then python3 ../canon/allcanon.py --check || { ech
 $LEAN -o CanonAll.olean CanonAll.lean || { echo "FAIL  CanonAll.lean"; exit 1; }
 if $LEAN CheckCanonAll.lean >/dev/null; then echo "PASS  3 theorems: all 23 written lists inside the Saṅgaha's set · the Saṅgaha adds only where the list is open · the first-citta control"
 else echo "FAIL  CheckCanonAll.lean"; exit 1; fi
-B4=$(mktemp -d)
-brk4() { cp Citta.lean Rules.lean CanonAll.lean CheckCanonAll.lean "$B4/"; sed -i.orig "$2" "$B4/$3"
+B4=$(mktemp -d); CTRL4=$(cd ../control && pwd)
+# the harness's own CONTROL (2026-11-22: the first version exported a RELATIVE ../control, which from inside the temp dir pointed nowhere — the unbroken
+# copy could not compile, so every break "failed" vacuously): the UNBROKEN copy must compile and check under the very chain the breaks use
+cp Citta.lean Rules.lean CanonAll.lean CheckCanonAll.lean "$B4/"; cp ../lean-toolchain "$B4/" 2>/dev/null  # elan picks the toolchain by directory
+if ( cd "$B4" && LEAN_PATH="$CTRL4:$B4" && export LEAN_PATH && $LEAN -o Citta.olean Citta.lean >/dev/null 2>&1 && $LEAN -o Rules.olean Rules.lean >/dev/null 2>&1 && $LEAN -o CanonAll.olean CanonAll.lean >/dev/null 2>&1 && $LEAN CheckCanonAll.lean >/dev/null 2>&1 ); then echo "PASS  the break harness's control: the unbroken copy checks under its chain"
+else echo "HARNESS BLIND  the unbroken copy does not check under the break chain"; exit 1; fi
+brk4() { cp Citta.lean Rules.lean CanonAll.lean CheckCanonAll.lean ../lean-toolchain "$B4/"; sed -i.orig "$2" "$B4/$3"
   if cmp -s "$B4/$3" "$B4/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
-  ( cd "$B4" && $LEAN -o Citta.olean Citta.lean >/dev/null 2>&1 && $LEAN -o Rules.olean Rules.lean >/dev/null 2>&1 && $LEAN -o CanonAll.olean CanonAll.lean >/dev/null 2>&1 && $LEAN CheckCanonAll.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; }
-export LEAN_PATH="../control:$B4"
+  ( cd "$B4" && LEAN_PATH="$CTRL4:$B4" && export LEAN_PATH && $LEAN -o Citta.olean Citta.lean >/dev/null 2>&1 && $LEAN -o Rules.olean Rules.lean >/dev/null 2>&1 && $LEAN -o CanonAll.olean CanonAll.lean >/dev/null 2>&1 && $LEAN CheckCanonAll.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; }
 brk4 "conceit added to the first wholesome list (a factor the manual denies there)" 's/⟨1569, \(.*\), \[/⟨1569, \1, [mana, /' CanonAll.lean
 brk4 "the first wholesome list's open clause removed" 's/\(⟨1569, .*\), true, 0⟩/\1, false, 0⟩/' CanonAll.lean
 brk4 "the doubt citta built with greed as its root" 's/\(⟨3721, { jati := .akusala, bhumi := .kama, vedana := .upekkha, root := \).mohaDoubt/\1.lobha/' CanonAll.lean
@@ -29,7 +33,7 @@ export LEAN_PATH="../control:."; rm -rf "$B4"
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
 breaks=0
 try() { # $1 label, $2 file, $3 sed expression
-  cp Citta.lean Rules.lean AnswerKey.lean Check.lean Canon.lean "$T/"
+  cp Citta.lean Rules.lean AnswerKey.lean Check.lean Canon.lean ../lean-toolchain "$T/"  # elan picks the toolchain by directory (2026-11-22)
   sed -i.orig "$3" "$T/$2"
   if cmp -s "$T/$2" "$T/$2.orig"; then echo "BREAK NOT APPLIED  $1 — the sed matched nothing"; exit 1; fi
   if ( cd "$T" && LEAN_PATH="$OLDPWD/../control:." && export LEAN_PATH && for f in Citta Rules AnswerKey; do $LEAN -o $f.olean $f.lean >/dev/null 2>&1 || exit 0; done; $LEAN Check.lean >/dev/null 2>&1 && $LEAN Canon.lean >/dev/null 2>&1 ); then

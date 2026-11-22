@@ -17,7 +17,10 @@ if LEAN_PATH="$B" $LEAN CheckSampayoga.lean >/dev/null; then echo "PASS  the six
 if [ -d ../../tipitaka-mcp ]; then python3 ranges.py --check || { echo "FAIL  Ranges.lean stale"; exit 1; }; fi
 $LEAN -o "$B/Ranges.olean" Ranges.lean || { echo "FAIL  Ranges.lean"; exit 1; }
 if LEAN_PATH="$B" $LEAN CheckSampayoga2.lean >/dev/null; then echo "PASS  the sixth method: A130/A131 with the Dhammasaṅgaṇī's ranges reproduce all 38 in-scope rows (run dhatukatha-association-2)"; else echo "FAIL  CheckSampayoga2.lean"; exit 1; fi
-brk2() { T=$(mktemp -d); cp Sampayoga.lean Ranges.lean CheckSampayoga2.lean "$T/"; sed -i.orig "$2" "$T/$3"
+ctl() { T=$(mktemp -d); cp $2 ../lean-toolchain "$T/"; ( cd "$T" && eval "$3" ) && echo "PASS  harness control ($1): the unbroken copy checks under its chain" || { echo "HARNESS BLIND  $1"; exit 1; }; rm -rf "$T"; }
+ctl "run 2" "Sampayoga.lean Ranges.lean CheckSampayoga2.lean" '$LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && $LEAN -o Ranges.olean Ranges.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN CheckSampayoga2.lean >/dev/null 2>&1'
+ctl "run 3" "Sampayoga.lean SampayogaMatrix.lean Classes.lean CheckSampayoga3.lean" '$LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN -o SampayogaMatrix.olean SampayogaMatrix.lean >/dev/null 2>&1 && $LEAN -o Classes.olean Classes.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN CheckSampayoga3.lean >/dev/null 2>&1'
+brk2() { T=$(mktemp -d); cp Sampayoga.lean Ranges.lean CheckSampayoga2.lean ../lean-toolchain "$T/"; sed -i.orig "$2" "$T/$3"
   if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && $LEAN -o Ranges.olean Ranges.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckSampayoga2.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
 brk2 "every formation given all seven elements (the first run's uniform range)" 's/| (k, E) =>/| (k, _E) => let E := all7;/' CheckSampayoga2.lean
@@ -29,7 +32,7 @@ if [ -d ../../tipitaka-mcp ]; then python3 classes.py --check && python3 sampayo
 LEAN_PATH="$B" $LEAN -o "$B/SampayogaMatrix.olean" SampayogaMatrix.lean || { echo "FAIL  SampayogaMatrix.lean"; exit 1; }
 $LEAN -o "$B/Classes.olean" Classes.lean || { echo "FAIL  Classes.lean"; exit 1; }
 if LEAN_PATH="$B" $LEAN CheckSampayoga3.lean >/dev/null; then echo "PASS  the sixth method's matrix, BLIND: all 8 unseen rows predicted from the Dhammasaṅgaṇī (run dhatukatha-association-3)"; else echo "FAIL  CheckSampayoga3.lean"; exit 1; fi
-brk3() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix.lean Classes.lean CheckSampayoga3.lean "$T/"; sed -i.orig "$2" "$T/$3"
+brk3() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix.lean Classes.lean CheckSampayoga3.lean ../lean-toolchain "$T/"; sed -i.orig "$2" "$T/$3"
   if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN -o SampayogaMatrix.olean SampayogaMatrix.lean >/dev/null 2>&1 && $LEAN -o Classes.olean Classes.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckSampayoga3.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
 brk3 "the resultants given one element, not seven" 's/("vipaka", "allFour", \[0, 1, 2, 3, 4, 5, 6\])/("vipaka", "allFour", [6])/' Classes.lean
