@@ -24,4 +24,14 @@ theorem the_manual_adds_only_where_the_list_is_open : canonRows.all p2 = true :=
 /-- CONTROL (Canon.lean's known answer): the first wholesome class — 29 listed, 38 in the Saṅgaha. -/
 theorem the_control : (canonRows.find? (·.line == 1569)).map (fun r => (r.listed.length, (sangahaSet r.citta).length)) = some (29, 38) := by decide
 
+-- Added after run 4's refuter (runs/2026-11-22-cittuppada-against-the-manual/REFUTER-2026-11-22.md): what the run claimed and no theorem proved.
+/-- No listed term went unmapped (the run's "none unmapped" rested on the generator's printout). -/
+theorem no_term_unmapped : canonRows.all (·.unmapped == 0) = true := by decide
+/-- Every record the declared rules built is one of the 121 citta types (a wrong rule — eye-consciousness with pleasure, say — would otherwise pass silently). -/
+theorem every_record_is_a_citta : canonRows.all (fun r => cittas121.contains r.citta) = true := by decide
+/-- The control as REGISTERED: the first class's extras are EXACTLY the nine yevāpanaka, as sets (the_control compared lengths only). -/
+theorem the_control_is_the_nine :
+    (canonRows.find? (·.line == 1569)).map (fun r => let e := extras r; e.length == 9 &&
+      [chanda, adhimokkha, manasikara, tatramajjhattata, karuna, mudita, sammavaca, sammakammanta, sammaajiva].all e.contains) = some true := by decide
+
 end FormalAbhidhamma

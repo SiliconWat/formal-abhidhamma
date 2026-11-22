@@ -15,7 +15,7 @@ else echo "FAIL  the canon checks"; exit 1; fi
 # run cittuppada-against-the-manual (pre-registered 2026-11-22, ea0376d): the 23 fully written lists against the Saṅgaha
 if [ -d ../../tipitaka-mcp ]; then python3 ../canon/allcanon.py --check || { echo "FAIL  CanonAll.lean stale"; exit 1; }; fi
 $LEAN -o CanonAll.olean CanonAll.lean || { echo "FAIL  CanonAll.lean"; exit 1; }
-if $LEAN CheckCanonAll.lean >/dev/null; then echo "PASS  3 theorems: all 23 written lists inside the Saṅgaha's set · the Saṅgaha adds only where the list is open · the first-citta control"
+if $LEAN CheckCanonAll.lean >/dev/null; then echo "PASS  6 theorems: all 23 written lists inside the Saṅgaha's set · the Saṅgaha adds only where the list is open · the first-citta control (counts, and exactly the nine) · no term unmapped · every record a real citta"
 else echo "FAIL  CheckCanonAll.lean"; exit 1; fi
 B4=$(mktemp -d); CTRL4=$(cd ../control && pwd)
 # the harness's own CONTROL (2026-11-22: the first version exported a RELATIVE ../control, which from inside the temp dir pointed nowhere — the unbroken
@@ -29,6 +29,7 @@ brk4() { cp Citta.lean Rules.lean CanonAll.lean CheckCanonAll.lean ../lean-toolc
 brk4 "conceit added to the first wholesome list (a factor the manual denies there)" 's/⟨1569, \(.*\), \[/⟨1569, \1, [mana, /' CanonAll.lean
 brk4 "the first wholesome list's open clause removed" 's/\(⟨1569, .*\), true, 0⟩/\1, false, 0⟩/' CanonAll.lean
 brk4 "the doubt citta built with greed as its root" 's/\(⟨3721, { jati := .akusala, bhumi := .kama, vedana := .upekkha, root := \).mohaDoubt/\1.lobha/' CanonAll.lean
+brk4 "eye-consciousness built with pleasure (no such citta; P1 cannot see it — only every_record_is_a_citta can)" 's/\(⟨3777, { jati := .vipaka, bhumi := .kama, vedana := \).upekkha/\1.sukha/' CanonAll.lean
 export LEAN_PATH="../control:."; rm -rf "$B4"
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
 breaks=0
