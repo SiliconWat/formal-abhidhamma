@@ -52,6 +52,7 @@ brk4 "savitakkasavicārā given mind-consciousness only (vitakka's mind-element 
 brk4 "savitakkasavicārā read as all four (its set-aside ignored)" 's/("savitakkasavicara", "formationAside"/("savitakkasavicara", "allFour"/' Classes4.lean
 brk4 "hīnā given every consciousness element" 's/("hina", "allFour", \[6\])/("hina", "allFour", [0, 1, 2, 3, 4, 5, 6])/' Classes4.lean
 brk4 "A132(d) dropped: an all-four class partly associated, as a single dhamma is" 's/| ("allFour", E)        => ((0, 0, 0), (0, 0, 0)/| ("allFour", E)        => ((0, 0, 0), (0, 1, 1)/' CheckSampayoga4.lean
+brk4 "a class tied to the wrong §5 line (hīnā on L1381) — after the refuter, finding 4" 's/("hina", 1393)/("hina", 1381)/' Classes4.lean
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }

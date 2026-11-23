@@ -7,7 +7,7 @@ the SCOPE from the Dhammasaṅgaṇī's own definitions (its Nikkhepa, `abh01m.m
 **Instrument:** `dhatukatha/CheckSampayoga4.lean` (run 3's `rule3`, copied word for word as `rule4`), held as three theorems in `dhatukatha/run.sh`, with a harness control
 and four breaks that fail. **Refuter:** see `REFUTER-2026-11-22.md`.
 
-## VERDICT: **PASS** — 5 of 5 blind class-rows reproduced; the 11 seen class-rows too, reported apart.
+## VERDICT: **PASS** — 5 of 5 registered-blind class-rows and the 11 seen reproduced — but NARROWED by its refuter to a consistency check over a stated scope, not a blind test: L1361's tuple is seen rows combined (its 15 stated at `abh03a.att.xml:429`, not displayed here), and the other four are classes whose definitions repeat L1333's (`REFUTER-2026-11-22.md`).
 
 ## What the scope is, and why
 

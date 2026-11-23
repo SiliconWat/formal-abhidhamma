@@ -40,4 +40,11 @@ set_option maxRecDepth 200000 in
 /-- Every class the criterion admits has its row (16 = 16): none was dropped between the scope and the data. -/
 theorem every_admitted_class_has_its_row : (mrows4.length, classes4.length) = (16, 16) := by decide
 
+set_option maxRecDepth 200000 in
+/-- Added after the run's refuter (REFUTER-2026-11-22.md, finding 4: the length check above does not tie a row to its class, and `classLine4` was unused): every
+    row stands on the §5 line its class was admitted from, and every admitted class has exactly one row. -/
+theorem every_row_is_on_its_classs_line :
+    mrows4.all (fun r => match r.items with | [i] => classLine4.lookup i == some r.line | _ => false) = true ∧
+    classes4.all (fun c => (mrows4.filter (·.items == [c.1])).length == 1) = true := by decide
+
 end FormalAbhidhamma.Dhatukatha
