@@ -7,7 +7,7 @@ refused).
 **Window:** A0′. **Axioms:** A30 A32 A33. **Instrument:** `sangaha/CheckYevapanaka.lean`, held as four theorems in `sangaha/run.sh`, with a harness control and four
 breaks that fail. **Refuter:** see `REFUTER-2026-11-22.md`.
 
-## VERDICT: **PASS** — P1 and P2 hold in all 23 classes, and P3 as stated.
+## VERDICT: **PASS** — P1 and P2 hold in all 23 classes, and P3 as stated — NARROWED by its refuter: the sets are stated outright in 9 classes and rest on a cross-reference (some generic) in the rest; P3 follows from P2 by construction; the variable default and one citation are corrected in `REFUTER-2026-11-22.md`.
 
 ## Result
 

@@ -46,6 +46,7 @@ brk5 "attention dropped from eye-consciousness's yevāpanaka (:7349)" 's/⟨3777
 brk5 "conceit allowed with view too (R11 widened)" 's/else if x == mana then c.root == .lobha \&\& !c.view/else if x == mana then c.root == .lobha/' Rules.lean
 brk5 "the hate class's envy, avarice and remorse read as fixed (:7265 ignored)" 's/\(⟨3681, .*\), \[issa, macchariya, kukkucca\], 0⟩/\1, [], 0⟩/' Yevapanaka.lean
 brk5 "the Mūlaṭīkā's reading dropped: conceit fixed in the third unwholesome class" 's/\(⟨3617, .*\), \[mana\], 0⟩/\1, [], 0⟩/' Yevapanaka.lean
+brk5 "the commentary's side made the larger: energy added to eye-consciousness's yevāpanaka (after the refuter: the breaks were one-sided)" 's/⟨3777, "named", 7349, \[manasikara\]/⟨3777, "named", 7349, [manasikara, viriya]/' Yevapanaka.lean
 rm -rf "$B5"
 export LEAN_PATH="../control:."; rm -rf "$B4"
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT

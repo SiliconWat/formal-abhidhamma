@@ -108,6 +108,9 @@ def lean(rows):
 
 if __name__ == "__main__":
     have_cst = os.path.isdir(os.path.join(REPO, "..", "tipitaka-mcp"))
+    # the data's header says every quote was checked: so it may be WRITTEN only where they can be (the run's refuter, 2026-11-22); --check runs anywhere
+    if not have_cst and sys.argv[1:] != ["--check"]:
+        sys.exit("✗ the CST is not here: Yevapanaka.lean is written only where every quote can be checked at its line (run --check to compare without it)")
     n = verify() if have_cst else 0
     rows = resolve(); text = lean(rows); p = os.path.join(REPO, "sangaha", "Yevapanaka.lean")
     if sys.argv[1:] == ["--check"]:
