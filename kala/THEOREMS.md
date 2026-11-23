@@ -6,7 +6,7 @@ file does not compile, or if any proof uses `sorry`.*
 Three files, three roles: [`AXIOMS.md`](AXIOMS.md) is what the texts ASSERT · **this file is what we DERIVE** ·
 [`ANSWERS.md`](ANSWERS.md) is what the texts themselves DERIVE — the test bank a derivation is checked against.
 
-**227 theorems in 36 files** · 220 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
+**231 theorems in 38 files** · 224 constructive · 7 classical · 0 sorry · 1 with an UNUSED hypothesis · 8 BY CONSTRUCTION · 11 models. Grandfathered (a premise its run REGISTERED before that row was held out): `t1_mulatika_line_refutes` → A119.
 
 How to read a row. Every cell is READ from Lean by `tools/Uses.lean`, never written by the proof's author:
 - **Uses** — the axiom IDs whose Lean encoding (the `Lean` column of `AXIOMS.md`: a definition or a structure field)
@@ -54,6 +54,10 @@ texts, and never that nature agrees.
 | `no_term_unmapped` | [`sangaha/CheckCanonAll.lean:29`](../sangaha/CheckCanonAll.lean#L29) | No listed term went unmapped (the run's "none unmapped" rested on the generator's printout). | — | — | constructive | — |
 | `every_record_is_a_citta` | [`sangaha/CheckCanonAll.lean:31`](../sangaha/CheckCanonAll.lean#L31) | Every record the declared rules built is one of the 121 citta types (a wrong rule — eye-consciousness with pleasure, say — would otherwise pass silently). | — | — | constructive | — |
 | `the_control_is_the_nine` | [`sangaha/CheckCanonAll.lean:33`](../sangaha/CheckCanonAll.lean#L33) | The control as REGISTERED: the first class's extras are EXACTLY the nine yevāpanaka, as sets (the_control compared lengths only). | **A32** | — | constructive | — |
+| `the_added_are_the_yevapanaka` | [`sangaha/CheckYevapanaka.lean:32`](../sangaha/CheckYevapanaka.lean#L32) | P1 (runs/2026-11-22-yevapanaka-against-the-manual/RUN.md): in all 23 written lists, what the Saṅgaha adds is EXACTLY the Atthasālinī's yevāpanaka, as sets. | **A32** | — | constructive | — |
+| `by_kind` | [`sangaha/CheckYevapanaka.lean:34`](../sangaha/CheckYevapanaka.lean#L34) | …tallied by how the commentary gives them: named 8 · by subtraction 1 · by reference 13 · implicit 1. | **A32** | — | constructive | — |
+| `the_variable_are_the_occasional` | [`sangaha/CheckYevapanaka.lean:37`](../sangaha/CheckYevapanaka.lean#L37) | P2: as the Mūlaṭīkā reads :7217, the commentary's VARIABLE yevāpanaka are exactly the added factors the Saṅgaha (§33) calls occasional, in all 23. | **A32** | — | constructive | — |
+| `the_surface_differs_on_conceit_only` | [`sangaha/CheckYevapanaka.lean:39`](../sangaha/CheckYevapanaka.lean#L39) | P3: on its surface, :7217 differs from §33 in exactly the two greed-without-view classes, and only on conceit. | **A32** | — | constructive | — |
 | `tick_succ` | [`kala/Axioms.lean:13`](../kala/Axioms.lean#L13) | — | **A7** | — | constructive | — |
 | `one_at_a_time` | [`kala/Axioms.lean:14`](../kala/Axioms.lean#L14) | — | **A7** | — | constructive | — |
 | `continues` | [`kala/Axioms.lean:15`](../kala/Axioms.lean#L15) | — | **A7** | — | constructive | — |

@@ -30,6 +30,23 @@ brk4 "conceit added to the first wholesome list (a factor the manual denies ther
 brk4 "the first wholesome list's open clause removed" 's/\(⟨1569, .*\), true, 0⟩/\1, false, 0⟩/' CanonAll.lean
 brk4 "the doubt citta built with greed as its root" 's/\(⟨3721, { jati := .akusala, bhumi := .kama, vedana := .upekkha, root := \).mohaDoubt/\1.lobha/' CanonAll.lean
 brk4 "eye-consciousness built with pleasure (no such citta; P1 cannot see it — only every_record_is_a_citta can)" 's/\(⟨3777, { jati := .vipaka, bhumi := .kama, vedana := \).upekkha/\1.sukha/' CanonAll.lean
+# run yevapanaka-against-the-manual (pre-registered 2026-11-22, 28c5eb3; a CHECK): what the Saṅgaha adds = the Atthasālinī's yevāpanaka, fixed and variable
+if [ -d ../../tipitaka-mcp ]; then python3 ../canon/yevapanaka.py --check || { echo "FAIL  Yevapanaka.lean stale (or a quote no longer on its line)"; exit 1; }; fi
+$LEAN -o Yevapanaka.olean Yevapanaka.lean || { echo "FAIL  Yevapanaka.lean"; exit 1; }
+if $LEAN CheckYevapanaka.lean >/dev/null; then echo "PASS  4 theorems: in all 23 written lists the Saṅgaha adds exactly the Atthasālinī's yevāpanaka (8 named · 1 by subtraction · 13 by reference · 1 implicit) · its variable ones are the Saṅgaha's occasional (as the Mūlaṭīkā reads :7217) · on its surface :7217 differs only on conceit, in 2 classes"
+else echo "FAIL  CheckYevapanaka.lean"; exit 1; fi
+B5=$(mktemp -d)
+cp Citta.lean Rules.lean CanonAll.lean Yevapanaka.lean CheckYevapanaka.lean ../lean-toolchain "$B5/"
+y5() { ( cd "$B5" && LEAN_PATH="$CTRL4:$B5" && export LEAN_PATH && $LEAN -o Citta.olean Citta.lean >/dev/null 2>&1 && $LEAN -o Rules.olean Rules.lean >/dev/null 2>&1 && $LEAN -o CanonAll.olean CanonAll.lean >/dev/null 2>&1 && $LEAN -o Yevapanaka.olean Yevapanaka.lean >/dev/null 2>&1 && $LEAN CheckYevapanaka.lean >/dev/null 2>&1 ); }
+if y5; then echo "PASS  the yevāpanaka break harness's control: the unbroken copy checks under its chain"; else echo "HARNESS BLIND  the unbroken yevāpanaka copy does not check"; exit 1; fi
+brk5() { cp Citta.lean Rules.lean CanonAll.lean Yevapanaka.lean CheckYevapanaka.lean ../lean-toolchain "$B5/"; sed -i.orig "$2" "$B5/$3"
+  if cmp -s "$B5/$3" "$B5/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
+  y5 && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; }
+brk5 "attention dropped from eye-consciousness's yevāpanaka (:7349)" 's/⟨3777, "named", 7349, \[manasikara\]/⟨3777, "named", 7349, []/' Yevapanaka.lean
+brk5 "conceit allowed with view too (R11 widened)" 's/else if x == mana then c.root == .lobha \&\& !c.view/else if x == mana then c.root == .lobha/' Rules.lean
+brk5 "the hate class's envy, avarice and remorse read as fixed (:7265 ignored)" 's/\(⟨3681, .*\), \[issa, macchariya, kukkucca\], 0⟩/\1, [], 0⟩/' Yevapanaka.lean
+brk5 "the Mūlaṭīkā's reading dropped: conceit fixed in the third unwholesome class" 's/\(⟨3617, .*\), \[mana\], 0⟩/\1, [], 0⟩/' Yevapanaka.lean
+rm -rf "$B5"
 export LEAN_PATH="../control:."; rm -rf "$B4"
 T=$(mktemp -d); trap 'rm -rf "$T"' EXIT
 breaks=0
