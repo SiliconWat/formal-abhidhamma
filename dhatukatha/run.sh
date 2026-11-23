@@ -53,6 +53,15 @@ brk4 "savitakkasavicārā read as all four (its set-aside ignored)" 's/("savitak
 brk4 "hīnā given every consciousness element" 's/("hina", "allFour", \[6\])/("hina", "allFour", [0, 1, 2, 3, 4, 5, 6])/' Classes4.lean
 brk4 "A132(d) dropped: an all-four class partly associated, as a single dhamma is" 's/| ("allFour", E)        => ((0, 0, 0), (0, 0, 0)/| ("allFour", E)        => ((0, 0, 0), (0, 1, 1)/' CheckSampayoga4.lean
 brk4 "a class tied to the wrong §5 line (hīnā on L1381) — after the refuter, finding 4" 's/("hina", 1393)/("hina", 1381)/' Classes4.lean
+# the known-answer control for A132(d) BY KIND (pre-registered 2026-11-22, dba8e4c): by kind reproduces L1381 for the two -hetukā classes, by occurrence misses it
+$LEAN -o "$B/Hetuka.olean" Hetuka.lean || { echo "FAIL  Hetuka.lean"; exit 1; }
+if LEAN_PATH="$B" $LEAN CheckHetuka.lean >/dev/null; then echo "PASS  A132(d) by kind reproduces L1381 for both -hetukā classes; by occurrence misses both, on association only (control dhatukatha-hetuka-by-kind-control — a check of a FIT)"; else echo "FAIL  CheckHetuka.lean"; exit 1; fi
+ctl "hetuka control" "Sampayoga.lean SampayogaMatrix4.lean Hetuka.lean CheckHetuka.lean" '$LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN -o SampayogaMatrix4.olean SampayogaMatrix4.lean >/dev/null 2>&1 && $LEAN -o Hetuka.olean Hetuka.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN CheckHetuka.lean >/dev/null 2>&1'
+brkH() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix4.lean Hetuka.lean CheckHetuka.lean ../lean-toolchain "$T/"; sed -i.orig "$2" "$T/$3"
+  if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
+  ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN -o SampayogaMatrix4.olean SampayogaMatrix4.lean >/dev/null 2>&1 && $LEAN -o Hetuka.olean Hetuka.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckHetuka.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
+brkH "by kind read as an occurrence set aside (dassanena)" 's/("dassanena_pahatabbahetuka", "allFour", \[6\])/("dassanena_pahatabbahetuka", "formationAside", [6])/' Hetuka.lean
+brkH "the control stops discriminating: by occurrence read as all four (bhāvanāya)" 's/("bhavanaya_pahatabbahetuka", "formationAside", \[6\])/("bhavanaya_pahatabbahetuka", "allFour", [6])/' Hetuka.lean
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
