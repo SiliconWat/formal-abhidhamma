@@ -44,3 +44,4 @@ log it here.
 | 2026-11-22 | `runs/2026-11-22-dhatukatha-association-2/RUN.md` | `runs/2026-11-22-dhatukatha-association-2/RUN.md.r1.ots` | the VERDICT line runs/INDEX.md reads, added the day the run was written |
 | 2026-11-22 | `runs/2026-11-22-dhatukatha-association-3/RUN.md` | `runs/2026-11-22-dhatukatha-association-3/RUN.md.r1.ots` | the VERDICT line runs/INDEX.md reads, added the day the run was written |
 | 2026-11-22 | `runs/2026-11-22-dhatukatha-association-3/RUN.md` | `runs/2026-11-22-dhatukatha-association-3/RUN.md.r2.ots` | the VERDICT line narrowed by the refuter's findings, the same day |
+| 2026-11-22 | `runs/2026-11-22-yevapanaka-against-the-manual/RUN.md` | `runs/2026-11-22-yevapanaka-against-the-manual/RUN.md.r1.ots` | the VERDICT line narrowed by the refuter's findings, the same day (the proof, made outside the writing session at 18:43, attested the text before the narrowing) |
