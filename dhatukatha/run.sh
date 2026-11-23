@@ -43,7 +43,7 @@ brk3 "equanimity given body-consciousness too" 's/("upekkha_sahagata", "feelingA
 if [ -d ../../tipitaka-mcp ]; then python3 classes4.py --check && python3 sampayoga_matrix4.py --check >/dev/null || { echo "FAIL  Classes4 / SampayogaMatrix4 stale"; exit 1; }; fi
 LEAN_PATH="$B" $LEAN -o "$B/SampayogaMatrix4.olean" SampayogaMatrix4.lean || { echo "FAIL  SampayogaMatrix4.lean"; exit 1; }
 $LEAN -o "$B/Classes4.olean" Classes4.lean || { echo "FAIL  Classes4.lean"; exit 1; }
-if LEAN_PATH="$B" $LEAN CheckSampayoga4.lean >/dev/null; then echo "PASS  the sixth method's matrix, by a stated scope: all 5 blind class-rows and the 11 seen reproduced (run dhatukatha-association-4)"; else echo "FAIL  CheckSampayoga4.lean"; exit 1; fi
+if LEAN_PATH="$B" $LEAN CheckSampayoga4.lean >/dev/null; then echo "PASS  the sixth method's matrix, by a stated scope: all 5 registered-blind class-rows and the 11 seen reproduced — a consistency check, not a blind test (run dhatukatha-association-4, REFUTER)"; else echo "FAIL  CheckSampayoga4.lean"; exit 1; fi
 ctl "run 4" "Sampayoga.lean SampayogaMatrix4.lean Classes4.lean CheckSampayoga4.lean" '$LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN -o SampayogaMatrix4.olean SampayogaMatrix4.lean >/dev/null 2>&1 && $LEAN -o Classes4.olean Classes4.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN CheckSampayoga4.lean >/dev/null 2>&1'
 brk4() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix4.lean Classes4.lean CheckSampayoga4.lean ../lean-toolchain "$T/"; sed -i.orig "$2" "$T/$3"
   if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
