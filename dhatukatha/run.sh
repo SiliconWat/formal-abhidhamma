@@ -39,6 +39,19 @@ brk3 "the resultants given one element, not seven" 's/("vipaka", "allFour", \[0,
 brk3 "rapture set aside read as a feeling set aside" 's/("piti_sahagata", "formationAside"/("piti_sahagata", "feelingAside"/' Classes.lean
 brk3 "a feeling set aside not partly associated (dhamma base and element)" 's/| ("feelingAside", E)   => ((1, 0, 0), (0, 1, 1)/| ("feelingAside", E)   => ((1, 0, 0), (0, 0, 0)/' CheckSampayoga3.lean
 brk3 "equanimity given body-consciousness too" 's/("upekkha_sahagata", "feelingAside", \[0, 1, 2, 3, 5, 6\])/("upekkha_sahagata", "feelingAside", [0, 1, 2, 3, 4, 5, 6])/' Classes.lean
+# run 4 (pre-registered 2026-11-22, 5e11514): run 3's rule over every §5 class a stated criterion admits (classes4.py) — 5 blind class-rows, 11 seen; each break must fail
+if [ -d ../../tipitaka-mcp ]; then python3 classes4.py --check && python3 sampayoga_matrix4.py --check >/dev/null || { echo "FAIL  Classes4 / SampayogaMatrix4 stale"; exit 1; }; fi
+LEAN_PATH="$B" $LEAN -o "$B/SampayogaMatrix4.olean" SampayogaMatrix4.lean || { echo "FAIL  SampayogaMatrix4.lean"; exit 1; }
+$LEAN -o "$B/Classes4.olean" Classes4.lean || { echo "FAIL  Classes4.lean"; exit 1; }
+if LEAN_PATH="$B" $LEAN CheckSampayoga4.lean >/dev/null; then echo "PASS  the sixth method's matrix, by a stated scope: all 5 blind class-rows and the 11 seen reproduced (run dhatukatha-association-4)"; else echo "FAIL  CheckSampayoga4.lean"; exit 1; fi
+ctl "run 4" "Sampayoga.lean SampayogaMatrix4.lean Classes4.lean CheckSampayoga4.lean" '$LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN -o SampayogaMatrix4.olean SampayogaMatrix4.lean >/dev/null 2>&1 && $LEAN -o Classes4.olean Classes4.lean >/dev/null 2>&1 && LEAN_PATH="$PWD" $LEAN CheckSampayoga4.lean >/dev/null 2>&1'
+brk4() { T=$(mktemp -d); cp Sampayoga.lean SampayogaMatrix4.lean Classes4.lean CheckSampayoga4.lean ../lean-toolchain "$T/"; sed -i.orig "$2" "$T/$3"
+  if cmp -s "$T/$3" "$T/$3.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
+  ( cd "$T" && $LEAN -o Sampayoga.olean Sampayoga.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN -o SampayogaMatrix4.olean SampayogaMatrix4.lean >/dev/null 2>&1 && $LEAN -o Classes4.olean Classes4.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN CheckSampayoga4.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
+brk4 "savitakkasavicārā given mind-consciousness only (vitakka's mind-element dropped)" 's/("savitakkasavicara", "formationAside", \[5, 6\])/("savitakkasavicara", "formationAside", [6])/' Classes4.lean
+brk4 "savitakkasavicārā read as all four (its set-aside ignored)" 's/("savitakkasavicara", "formationAside"/("savitakkasavicara", "allFour"/' Classes4.lean
+brk4 "hīnā given every consciousness element" 's/("hina", "allFour", \[6\])/("hina", "allFour", [0, 1, 2, 3, 4, 5, 6])/' Classes4.lean
+brk4 "A132(d) dropped: an all-four class partly associated, as a single dhamma is" 's/| ("allFour", E)        => ((0, 0, 0), (0, 0, 0)/| ("allFour", E)        => ((0, 0, 0), (0, 1, 1)/' CheckSampayoga4.lean
 try() { F="${3:-Check.lean}"; T=$(mktemp -d); cp Dhatukatha.lean Check.lean "$T/"; sed -i.orig "$2" "$T/$F"
   if cmp -s "$T/$F" "$T/$F.orig"; then echo "BREAK NOT APPLIED  $1"; exit 1; fi
   ( cd "$T" && $LEAN -o Dhatukatha.olean Dhatukatha.lean >/dev/null 2>&1 && LEAN_PATH="$T" $LEAN Check.lean >/dev/null 2>&1 ) && { echo "BLIND  $1 — still checks"; exit 1; } || echo "FAILS as required  $1"; rm -rf "$T"; }
