@@ -9,8 +9,8 @@ authors:
     affiliation: "Independent Researcher - Founder, HeartBank(R) - Kampot, Cambodia"
   - name: "Miss Aquarius"
     affiliation: "HeartBank(R) - AI co-author (disclosed)"
-version: "0.1.0"
-date-released: "2026-09-30"
+version: "0.2.0"
+date-released: "2026-11-23"
 doi: "10.5281/zenodo.23067241"
 identifiers:
   - type: doi
