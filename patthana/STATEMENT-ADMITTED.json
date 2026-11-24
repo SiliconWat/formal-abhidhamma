@@ -1,5 +1,5 @@
 {
- "generated_by": ".claude/skills/capture/admit_statements.py (private: it reads the model reader's records)",
+ "generated_by": "admit_statements.py, a private capture tool (it reads the model reader's records)",
  "ruling": "founder 2026-11-21: \"yes\" — to: admit the statement counts an independent reader confirms (same value, same condition), and settle the rest by the free list check; as applied, a count is admitted when either check confirms it, and stays out otherwise",
  "rule": "positions, conditions and values only; a TEST BANK, never premises; a count not listed here is unconfirmed, not refuted",
  "source": {

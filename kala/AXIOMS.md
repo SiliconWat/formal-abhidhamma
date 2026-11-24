@@ -244,7 +244,13 @@ Most rows classify. A physical derivation needs a row that carries one of the fo
 
 ## How to check a citation
 
+A citation `file:line` is a line of that file in the Vipassana Research Institute's Chaṭṭha Saṅgāyana XML
+([VipassanaTech/tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml), folder `romn/`), counted after decoding the file from UTF-16.
+To read one:
+
 ```
-python3 .claude/skills/abhidhamma/cst.py --control              # must PASS before trusting any zero
-python3 .claude/skills/abhidhamma/cst.py "kālo nāma" --files "abh01*"
+python3 -c "import sys; print(open(sys.argv[1], encoding='utf-16').read().splitlines()[int(sys.argv[2]) - 1])" abh01m.mul.xml 4109
 ```
+
+Our own search tool over the same files (`cst.py`, kept privately beside our local copy) runs a known-answer control before every search,
+and a zero is trusted only after the control passes.
