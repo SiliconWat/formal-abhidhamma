@@ -38,10 +38,11 @@ It is not a proof that the Abhidhamma is true, and not a claim that it predicts 
 
 - **The Pāli text** is the Chaṭṭha Saṅgāyana Tipiṭaka of the **Vipassana Research Institute (VRI)**, read from
   [VipassanaTech/tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml). VRI makes these files freely available for non-commercial
-  use and asks: *"Please attribute Vipassana Research Institute when incorporating these files into your projects."* The text itself is
-  not in this repository. The eight generated data tables (the JSON files in `cittuppada/`, `dhatukatha/`, `kathavatthu/`,
-  `patthana/`, `puggala/`, `vibhanga/` and `yamaka/`) hold terms, numbers and line positions read from it, name each source file
-  by its SHA-256, and carry this credit in a `credit` field. The notes quote short phrases with their `file:line`.
+  use and asks: *"Please attribute Vipassana Research Institute when incorporating these files into your projects."* This repository
+  does not redistribute that text. The eight generated data tables (the JSON files in `cittuppada/`, `dhatukatha/`, `kathavatthu/`,
+  `patthana/`, `puggala/`, `vibhanga/` and `yamaka/`) hold terms, names and phrases as the text writes them (the longest 14 words),
+  numbers and line positions; they name each source file by its SHA-256 and carry this credit in a `credit` field. The notes and tests
+  quote passages with their `file:line`.
 - **The Khmer edition** is the Buddhist Institute's (Phnom Penh), as transcribed by Thon Ly's father. No Khmer-edition text is committed
   here (`PREREGISTRATION-2026-09-27b.md` §5). The scans' lineage: Kang Huychan and family · Lok Kru Aggapaṇḍita But Savong · Srong Chanda ·
   5000-years.org.
