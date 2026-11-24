@@ -1,5 +1,6 @@
 {"generated_by": "scripts/patthana.py", "rule": "terms, numbers and positions only; a TEST BANK, never premises",
  "sources": {"abh03m7.mul.xml": "e33513b200f58682ad9d71b109c717a054b1f2f215f0addcfde1a8da7247cf76", "abh03m8.mul.xml": "bd4e45cfaabe890d0441ab32d944336af84b8dbb779592001c6681707b38405f", "abh03m9.mul.xml": "3f989154208dcfe909bad0dc817787e888dfb054d2aaf7a864a239576b5d11b0", "abh03m10.mul.xml": "a267c3c171136291c563b95311e5008982e0521371b4b97315945bbbe99677f6", "abh03m11.mul.xml": "9529761f93592729650d8db59b762dcbcc94b5de4bfd36cfce655eac8bbd37cc"},
+ "credit": "Read from the Chaṭṭha Saṅgāyana Tipiṭaka of the Vipassana Research Institute (VRI), https://github.com/VipassanaTech/tipitaka-xml, which VRI makes freely available for non-commercial use, asking: \"Please attribute Vipassana Research Institute when incorporating these files into your projects.\" The text itself is not in this file.",
  "conditions": ["hetu", "ārammaṇa", "adhipati", "anantara", "samanantara", "sahajāta", "aññamañña", "nissaya", "upanissaya", "purejāta", "pacchājāta", "āsevana", "kamma", "vipāka", "āhāra", "indriya", "jhāna", "magga", "sampayutta", "vippayutta", "atthi", "natthi", "vigata", "avigata"],
  "headings": [
   ["abh03m7.mul.xml", 13, "nikaya", "Abhidhammapiṭake"],

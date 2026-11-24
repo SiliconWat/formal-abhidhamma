@@ -131,8 +131,9 @@ def control(rows):
 
 
 def render(digest, rows, ctl):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/dhatukatha_all.py", "rule": "terms, numbers and positions only; a TEST BANK, never premises",',
-          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "control": ' + json.dumps(ctl) + ",", ' "rows": [']
+          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "control": ' + json.dumps(ctl) + ",", ' "rows": [']
     js += ["  " + json.dumps(r, ensure_ascii=False) + ("," if k < len(rows) - 1 else "") for k, r in enumerate(rows)]
     js += [" ]}"]
     n = sum(len(r["answers"]) for r in rows)

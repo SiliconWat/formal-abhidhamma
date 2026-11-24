@@ -188,8 +188,9 @@ def partition(sec):
 
 
 def render(digest, secs):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/vibhanga_pp.py", "rule": "terms, numbers and positions only; which items a collective subject means is not given",',
-          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "sections": [']
+          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "sections": [']
     js += ["  " + json.dumps(s, ensure_ascii=False) + ("," if k < len(secs) - 1 else "") for k, s in enumerate(secs)]
     js += [" ]}"]
     S = [x for s in secs for p in s["parts"] for x in p["sentences"]]

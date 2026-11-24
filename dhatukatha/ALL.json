@@ -1,5 +1,6 @@
 {"generated_by": "scripts/dhatukatha_all.py", "rule": "terms, numbers and positions only; a TEST BANK, never premises",
  "source": {"abh03m1.mul.xml": "ea4d1d33bd1ab0f4f727c5ecf698033061b16f41c7113d33cd6ea2a391d0623d"},
+ "credit": "Read from the Chaṭṭha Saṅgāyana Tipiṭaka of the Vipassana Research Institute (VRI), https://github.com/VipassanaTech/tipitaka-xml, which VRI makes freely available for non-commercial use, asking: \"Please attribute Vipassana Research Institute when incorporating these files into your projects.\" The text itself is not in this file.",
  "control": {"rows": 175, "agree": 175, "differ": []},
  "rows": [
   {"line": 77, "method": null, "section": "1. Khandho", "para": 6, "answers": [["saṅgahit", [1, 11, 11], false], ["asaṅgahit", [4, 1, 7], false]], "sums": [5, 12, 18]},

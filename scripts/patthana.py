@@ -314,8 +314,9 @@ def list_sum(lines):
 
 
 def render(sources, heads, lines):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/patthana.py", "rule": "terms, numbers and positions only; a TEST BANK, never premises",',
-          ' "sources": ' + json.dumps(sources, ensure_ascii=False) + ",",
+          ' "sources": ' + json.dumps(sources, ensure_ascii=False) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",",
           ' "conditions": ' + json.dumps([c for c, _ in CONDITIONS], ensure_ascii=False) + ",",
           ' "headings": [']
     js += ["  " + json.dumps(h, ensure_ascii=False) + ("," if k < len(heads) - 1 else "") for k, h in enumerate(heads)]

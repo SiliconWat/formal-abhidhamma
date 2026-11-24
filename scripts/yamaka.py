@@ -156,8 +156,9 @@ def build():
 
 
 def render(sources, books):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/yamaka.py", "rule": "terms, numbers and positions only; the questions\' words are not here",',
-          ' "sources": ' + json.dumps(sources) + ",", ' "kinds": ' + json.dumps(KINDS) + ",", ' "books": [']
+          ' "sources": ' + json.dumps(sources) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "kinds": ' + json.dumps(KINDS) + ",", ' "books": [']
     js += ["  " + json.dumps(b, ensure_ascii=False) + ("," if k < len(books) - 1 else "") for k, b in enumerate(books)]
     js += [" ]}"]
     tot = Counter()

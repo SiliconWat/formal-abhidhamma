@@ -34,6 +34,18 @@ This program tests that statement. If the combination rules are written as **gen
 
 It is not a proof that the Abhidhamma is true, and not a claim that it predicts physics. A proof assistant verifies that conclusions follow from the stated definitions. Nothing more. Tier labels distinguish canon, the *Saṅgaha*, the commentaries, and our own reconstruction.
 
+## Sources and credit
+
+- **The Pāli text** is the Chaṭṭha Saṅgāyana Tipiṭaka of the **Vipassana Research Institute (VRI)**, read from
+  [VipassanaTech/tipitaka-xml](https://github.com/VipassanaTech/tipitaka-xml). VRI makes these files freely available for non-commercial
+  use and asks: *"Please attribute Vipassana Research Institute when incorporating these files into your projects."* The text itself is
+  not in this repository. The eight generated data tables (the JSON files in `cittuppada/`, `dhatukatha/`, `kathavatthu/`,
+  `patthana/`, `puggala/`, `vibhanga/` and `yamaka/`) hold terms, numbers and line positions read from it, name each source file
+  by its SHA-256, and carry this credit in a `credit` field. The notes quote short phrases with their `file:line`.
+- **The Khmer edition** is the Buddhist Institute's (Phnom Penh), as transcribed by Thon Ly's father. No Khmer-edition text is committed
+  here (`PREREGISTRATION-2026-09-27b.md` §5). The scans' lineage: Kang Huychan and family · Lok Kru Aggapaṇḍita But Savong · Srong Chanda ·
+  5000-years.org.
+
 ## Neighbours (cited, not competed with)
 
 - [takuya50/buddhist-comparative-logic](https://github.com/takuya50/buddhist-comparative-logic): Lean 4 + Isabelle formalization of the Heart Sutra, Madhyamaka, pramāṇa and Yogācāra (2026-09-20).

@@ -149,8 +149,9 @@ def build():
 
 
 def render(digest, cittas, sums):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/cittuppada.py", "rule": "terms, numbers and positions only; a class is given by its feature words",',
-          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "classes": [']
+          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "classes": [']
     js += ["  " + json.dumps(c, ensure_ascii=False) + ("," if k < len(cittas) - 1 else "") for k, c in enumerate(cittas)]
     js += [" ],", ' "summaries": [']
     js += ["  " + json.dumps(s, ensure_ascii=False) + ("," if k < len(sums) - 1 else "") for k, s in enumerate(sums)]

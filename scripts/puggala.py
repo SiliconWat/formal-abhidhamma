@@ -111,8 +111,9 @@ def build():
 
 
 def render(digest, groups, defs):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/puggala.py", "rule": "terms, numbers and positions only; a definition\'s wording is not here",',
-          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "groups": [']
+          ' "source": ' + json.dumps({FILE: digest}) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "groups": [']
     js += ["  " + json.dumps(g, ensure_ascii=False) + ("," if k < len(groups) - 1 else "") for k, g in enumerate(groups)]
     js += [" ],", ' "definitions": [']
     js += ["  " + json.dumps(d, ensure_ascii=False) + ("," if k < len(defs) - 1 else "") for k, d in enumerate(defs)]

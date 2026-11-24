@@ -224,8 +224,9 @@ def build():
 
 
 def render(digest, debates):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from credit import CST as CREDIT
     js = ['{"generated_by": "scripts/kathavatthu.py", "rule": "terms, numbers and positions only; who held each view is a separate capture",',
-          ' "source": ' + json.dumps(digest, ensure_ascii=False) + ",", ' "debates": [']
+          ' "source": ' + json.dumps(digest, ensure_ascii=False) + ",", ' "credit": ' + json.dumps(CREDIT, ensure_ascii=False) + ",", ' "debates": [']
     js += ["  " + json.dumps(d, ensure_ascii=False) + ("," if k < len(debates) - 1 else "") for k, d in enumerate(debates)]
     js += [" ]}"]
     q = sum(d["tally"]["questions"] for d in debates)
