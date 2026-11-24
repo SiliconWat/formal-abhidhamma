@@ -57,7 +57,8 @@ def padas(listing):
     """The 'X hoti' items of a list, in order; ELIDED when the list carries …pe…"""
     # items are split at each "hoti", never at commas: the CST drops a comma once ("samādhindriyaṃ hoti manindriyaṃ hoti", L4581), and a
     # comma-bound parser lost manindriyaṃ there — the summary's own count (pañcindriyāni) caught it
-    body = listing.split(";")[0].split(" – ")[0]
+    # a list ends at its closing formula "ime dhammā …", even when another sentence follows on the same line (see RESULT below)
+    body = re.split(r"(?<![\wāīūṃ])ime dhammā(?![\wāīūṃ])", listing.split(";")[0].split(" – ")[0])[0]
     parts = re.split(r"\s*(?<![\wāīūṃ])hoti(?![\wāīūṃ])\s*,?\s*", body)
     items = [p.replace(PE, " ").strip(" ,.") for p in parts[:-1]]
     return [x for x in items if x], PE in body
@@ -116,9 +117,16 @@ def build():
             continue
         m = re.search(r"Yasmiṃ samaye (.+?)tasmiṃ samaye(.*)", t)
         if m:
+            # RESULT (2026-11-23): on 39 lines the question asks for the RESULTANT ("Katame dhammā abyākatā?"), and the answer first restates
+            # the wholesome class that is its condition ("… ime dhammā kusalā.") and then gives the result in a second sentence ("Tasseva …
+            # vipākaṃ …, tasmiṃ samaye … ime dhammā abyākatā."). The class recorded is the one the question asks for: the second sentence.
+            # Until this date the first sentence's list ran on into the second, so one "term" held the next sentence's words (39 classes).
+            r = re.search(r"ime dhammā \w+\.?\s*([Tt]asseva .+?)tasmiṃ samaye(.*)", t)
+            if r:
+                m = r
             ps, elided = padas(m.group(2))
             asks = re.search(r"Katame dhammā (\w+)\?", t)
-            closes = re.search(r"ime dhammā (\w+)", t)
+            closes = re.search(r"ime dhammā (\w+)", m.group(2)) or re.search(r"ime dhammā (\w+)", t)
             para = re.match(r"(\d+)\.", t)
             cittas.append({"line": i, "para": int(para.group(1)) if para else None, "heading": heading,
                            **({"asks": asks.group(1)} if asks else {}), **({"closes": closes.group(1)} if closes else {}),
@@ -173,6 +181,9 @@ FIRST = ("tasmiṃ samaye phasso hoti, vedanā hoti, vitakko hoti, vicāro hoti,
 CASES = [
     ("padas", FIRST, (17, False)),
     ("padas", "tasmiṃ samaye phasso hoti…pe… avikkhepo hoti…pe… ime dhammā kusalā.", (2, True)),
+    # the shape of abh01m.mul.xml:4109: a second sentence follows the closing formula on the same line, and the list ends at "ime dhammā"
+    ("padas", "tasmiṃ samaye phasso hoti…pe… avikkhepo hoti…pe… ime dhammā kusalā. Tasseva … vipākaṃ …, tasmiṃ samaye phasso hoti…pe… "
+              "avikkhepo hoti…pe… ime dhammā abyākatā.", (2, True)),
     ("padas", "tasmiṃ samaye vīriyindriyaṃ hoti, samādhindriyaṃ hoti manindriyaṃ hoti, upekkhindriyaṃ hoti; ye vā pana", (4, False)),
     ("derive", FIRST, {"indriya": 2, "bala": 1, "hetu": 3, "magga": 2, "jhāna": 5}),
     ("summary", "Tasmiṃ kho pana samaye ekaṃ manindriyaṃ hoti, aṭṭhindriyāni honti", [["manindriyaṃ", "ekaṃ", 1, None], ["aṭṭhindriyāni", "aṭṭhindriyāni", 8, "indriya"]]),
@@ -219,6 +230,13 @@ def validate(path=OUT_JSON):
     for c in C:
         if not c["elided"] and not c["padas"]:
             errs.append(f"class L{c['line']}: a full list with no terms")
+        # the rule, as a property of the file: single canonical terms only (PREREGISTRATION-2026-09-27b.md §5; the CST is non-commercial, L21)
+        for p in c["padas"]:
+            if len(p.split()) != 1:
+                errs.append(f"class L{c['line']}: a list item is not a single term ({len(p.split())} words)")
+        # the class recorded is the one its question asks for: its closing formula answers the question (39 records failed this until 2026-11-23)
+        if c.get("asks") and c.get("closes") and c["asks"] != c["closes"]:
+            errs.append(f"class L{c['line']}: asks for {c['asks']} but the recorded list closes {c['closes']}")
     for e in errs[:10]:
         print("✗", e)
     print(f"cittuppada validate: {'PASS' if not errs else 'FAIL'} — {len(C)} classes, {len(S)} summaries" + (f", {len(errs)} error(s)" if errs else ""))

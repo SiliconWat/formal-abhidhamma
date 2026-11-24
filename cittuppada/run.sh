@@ -27,8 +27,12 @@ b = json.loads(json.dumps(d)); b["summaries"][0]["of"] = b["summaries"][0]["line
 json.dump(b, open(sys.argv[1] + "/order.json", "w"), ensure_ascii=False)
 c = json.loads(json.dumps(d)); t = next(s for s in c["summaries"] if isinstance(s.get("test"), list) and s["test"]); t["test"][0][3] = not t["test"][0][3]
 json.dump(c, open(sys.argv[1] + "/verdict.json", "w"), ensure_ascii=False)
+e = json.loads(json.dumps(d)); e["classes"][0]["padas"][0] = "phasso hoti vedanā"
+json.dump(e, open(sys.argv[1] + "/term.json", "w"), ensure_ascii=False)
+g = json.loads(json.dumps(d)); x = next(k for k in g["classes"] if k.get("asks") == "abyākatā" and k.get("closes") == "abyākatā"); x["closes"] = "kusalā"
+json.dump(g, open(sys.argv[1] + "/answer.json", "w"), ensure_ascii=False)
 ZZPY
-for f in known order verdict; do
+for f in known order verdict term answer; do
   if $PY scripts/cittuppada.py --validate "$T/$f.json" >/dev/null 2>&1; then echo "BLIND  validate accepted the corrupt file ($f)"; exit 1
   else echo "FAILS as required  validate refuses a corrupt file ($f)"; fi
 done

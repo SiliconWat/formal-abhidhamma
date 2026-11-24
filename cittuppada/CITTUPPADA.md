@@ -173,61 +173,61 @@
 | 3957 | 469 | Kusalavipākamanoviññāṇadhātusomanassasahagatā | kāmāvacarassa kusalassa vipākā manoviññāṇadhātu somanassasahagatā | 13 |  |
 | 4029 | 484 | Kusalavipākamanoviññāṇadhātuupekkhāsahagatā | kāmāvacarassa kusalassa vipākā manoviññāṇadhātu upekkhāsahagatā | 12 |  |
 | 4097 | 498 | Aṭṭhamahāvipākā | kāmāvacarassa kusalassa vipākā manoviññāṇadhātu somanassasahagatā ñāṇasampayuttā…pe… somanassasahagatā ñāṇasampayuttā | 2 | yes |
-| 4109 | 499 | Rūpāvacaravipākā | maggaṃ paṭhamaṃ jhānaṃ pathavīkasiṇaṃ | 4 | yes |
-| 4113 | 500 | Rūpāvacaravipākā | maggaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ jhānaṃ…pe… paṭhamaṃ | 4 | yes |
-| 4125 | 501 | Arūpāvacaravipākā | maggaṃ ākāsānañcāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 4 | yes |
-| 4129 | 502 | Arūpāvacaravipākā | maggaṃ viññāṇañcāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 4 | yes |
-| 4133 | 503 | Arūpāvacaravipākā | maggaṃ viññāṇañcāyatanaṃ ākiñcaññāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 4 | yes |
-| 4137 | 504 | Arūpāvacaravipākā | maggaṃ nevasaññānāsaññāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 4 | yes |
-| 4153 | 505 | Suddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 5 | yes |
-| 4157 | 506 | Suddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 5 | yes |
-| 4161 | 507 | Suddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 5 | yes |
+| 4109 | 499 | Rūpāvacaravipākā | rūpāvacarassa kusalassa vipākaṃ paṭhamaṃ jhānaṃ pathavīkasiṇaṃ | 2 | yes |
+| 4113 | 500 | Rūpāvacaravipākā | rūpāvacarassa kusalassa vipākaṃ pañcamaṃ jhānaṃ pathavīkasiṇaṃ | 2 | yes |
+| 4125 | 501 | Arūpāvacaravipākā | arūpāvacarassa kusalassa vipākaṃ ākāsānañcāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 2 | yes |
+| 4129 | 502 | Arūpāvacaravipākā | arūpāvacarassa kusalassa vipākaṃ viññāṇañcāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 2 | yes |
+| 4133 | 503 | Arūpāvacaravipākā | arūpāvacarassa kusalassa vipākaṃ viññāṇañcāyatanaṃ ākiñcaññāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 2 | yes |
+| 4137 | 504 | Arūpāvacaravipākā | arūpāvacarassa kusalassa vipākaṃ nevasaññānāsaññāyatanasaññāsahagataṃ catutthaṃ jhānaṃ | 2 | yes |
+| 4153 | 505 | Suddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 3 | yes |
+| 4157 | 506 | Suddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 3 | yes |
+| 4161 | 507 | Suddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 3 | yes |
 | 4165 | 508 | Suddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4169 | 509 | Suddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4181 | 510 | Suddhikasuññataṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4185 | 511 | Suddhikasuññataṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4189 | 512 | Suddhikasuññataṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4181 | 510 | Suddhikasuññataṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4185 | 511 | Suddhikasuññataṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4189 | 512 | Suddhikasuññataṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4193 | 513 | Suddhikasuññataṃ | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
-| 4205 | 514 | Suññatapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4209 | 515 | Suññatapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4213 | 516 | Suññatapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4205 | 514 | Suññatapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4209 | 515 | Suññatapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4213 | 516 | Suññatapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4217 | 517 | Suññatapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4221 | 518 | Suññatapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4233 | 519 | Suddhikaappaṇihitaṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4237 | 520 | Suddhikaappaṇihitaṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4241 | 521 | Suddhikaappaṇihitaṃ | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4233 | 519 | Suddhikaappaṇihitaṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4237 | 520 | Suddhikaappaṇihitaṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4241 | 521 | Suddhikaappaṇihitaṃ | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4245 | 522 | Suddhikaappaṇihitaṃ | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
-| 4257 | 523 | Appaṇihitapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4261 | 524 | Appaṇihitapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4265 | 525 | Appaṇihitapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4257 | 523 | Appaṇihitapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4261 | 524 | Appaṇihitapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4265 | 525 | Appaṇihitapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4269 | 526 | Appaṇihitapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4273 | 527 | Appaṇihitapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4285 | 528 | Vīsati mahānayā | lokuttaraṃ maggaṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ | 4 | yes |
-| 4297 | 529 | Chandādhipateyyasuddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4301 | 530 | Chandādhipateyyasuddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4305 | 531 | Chandādhipateyyasuddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4285 | 528 | Vīsati mahānayā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4297 | 529 | Chandādhipateyyasuddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4301 | 530 | Chandādhipateyyasuddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4305 | 531 | Chandādhipateyyasuddhikapaṭipadā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4309 | 532 | Chandādhipateyyasuddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4313 | 533 | Chandādhipateyyasuddhikapaṭipadā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4325 | 534 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4329 | 535 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4333 | 536 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4325 | 534 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4329 | 535 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4333 | 536 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4337 | 537 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
-| 4345 | 538 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4349 | 539 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4353 | 540 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4345 | 538 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4349 | 539 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4353 | 540 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4357 | 541 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4361 | 542 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4365 | 543 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4369 | 544 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4373 | 545 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4365 | 543 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4369 | 544 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4373 | 545 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4377 | 546 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
-| 4381 | 547 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4385 | 548 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
-| 4389 | 549 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ | 4 | yes |
+| 4381 | 547 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4385 | 548 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4389 | 549 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
 | 4393 | 550 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya dutiyaṃ jhānaṃ…pe… tatiyaṃ jhānaṃ…pe… catutthaṃ | 2 | yes |
 | 4397 | 551 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ jhānaṃ paṭhamāya paṭhamaṃ jhānaṃ dutiyaṃ jhānaṃ…pe… tatiyaṃ | 2 | yes |
-| 4401 | 552 | Chandādhipateyyasuddhikasuññatā | lokuttaraṃ maggaṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ lokuttaraṃ | 4 | yes |
-| 4413 | 553 | Dutiyādimaggavipāko | lokuttaraṃ jhānaṃ dutiyāya tatiyāya catutthāya paṭhamaṃ jhānaṃ | 6 | yes |
+| 4401 | 552 | Chandādhipateyyasuddhikasuññatā | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 2 | yes |
+| 4413 | 553 | Dutiyādimaggavipāko | lokuttarassa kusalassa jhānassa vipākaṃ paṭhamaṃ jhānaṃ | 3 | yes |
 | 4441 | 556 | Akusalavipākapañcaviññāṇāni | akusalassa vipākaṃ cakkhuviññāṇaṃ upekkhāsahagataṃ sotaviññāṇaṃ upekkhāsahagataṃ ghānaviññāṇaṃ upekkhāsahagataṃ | 10 |  |
 | 4477 | 562 | Akusalavipākamanodhātu | akusalassa vipākā manodhātu upekkhāsahagatā | 12 |  |
 | 4497 | 564 | Akusalavipākamanoviññāṇadhātu | akusalassa vipākā manoviññāṇadhātu upekkhāsahagatā | 12 |  |
