@@ -119,7 +119,8 @@ def build():
         if m:
             # RESULT (2026-11-23): on 39 lines the question asks for the RESULTANT ("Katame dhammā abyākatā?"), and the answer first restates
             # the wholesome class that is its condition ("… ime dhammā kusalā.") and then gives the result in a second sentence ("Tasseva …
-            # vipākaṃ …, tasmiṃ samaye … ime dhammā abyākatā."). The class recorded is the one the question asks for: the second sentence.
+            # vipākaṃ …, tasmiṃ samaye … ime dhammā abyākatā."). The class recorded is the one the question asks for: the second sentence
+            # (founder 2026-11-24: "approve").
             # Until this date the first sentence's list ran on into the second, so one "term" held the next sentence's words (39 classes).
             r = re.search(r"ime dhammā \w+\.?\s*([Tt]asseva .+?)tasmiṃ samaye(.*)", t)
             if r:
