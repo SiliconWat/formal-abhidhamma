@@ -41,7 +41,8 @@ It is not a proof that the Abhidhamma is true, and not a claim that it predicts 
   use and asks: *"Please attribute Vipassana Research Institute when incorporating these files into your projects."* This repository
   does not redistribute that text. The eight generated data tables (the JSON files in `cittuppada/`, `dhatukatha/`, `kathavatthu/`,
   `patthana/`, `puggala/`, `vibhanga/` and `yamaka/`) hold terms, names and phrases as the text writes them (the longest 14 words),
-  numbers and line positions; they name each source file by its SHA-256 and carry this credit in a `credit` field. The notes and tests
+  numbers and line positions; they name each source file by its SHA-256 and carry this credit in a `credit` field. They are also on Hugging Face as
+  [siliconwat/formal-abhidhamma](https://huggingface.co/datasets/siliconwat/formal-abhidhamma) (the v0.2.0 tables, never edited there). The notes and tests
   quote passages with their `file:line`.
 - **The Khmer edition** is the Buddhist Institute's (Phnom Penh), as transcribed by Thon Ly's father. No Khmer-edition text is committed
   here (`PREREGISTRATION-2026-09-27b.md` §5). The scans' lineage: Kang Huychan and family · Lok Kru Aggapaṇḍita But Savong · Srong Chanda ·
